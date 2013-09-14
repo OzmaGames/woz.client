@@ -1,0 +1,788 @@
+﻿@font-face {
+    font-family: 'CopseRegular';
+    src: url('../fonts/Copse-Regular-webfont.eot');
+    src: url('../fonts/Copse-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/Copse-Regular-webfont.woff') format('woff'), url('../fonts/Copse-Regular-webfont.ttf') format('truetype'), url('../fonts/Copse-Regular-webfont.svg#CopseRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GreatVibesRegular';
+    src: url('../fonts/GreatVibes-Regular-webfont.eot');
+    src: url('../fonts/GreatVibes-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/GreatVibes-Regular-webfont.woff') format('woff'), url('../fonts/GreatVibes-Regular-webfont.ttf') format('truetype'), url('../fonts/GreatVibes-Regular-webfont.svg#GreatVibesRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    -mozilla-tap-highlight-color: rgba(0, 0, 0, 0);
+    -ms-tap-highlight-color: rgba(0, 0, 0, 0);
+    -o-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: #9e7959 url('../images/app/background-texture.jpg') repeat;
+}
+
+#app {
+    position: absolute;
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background-image: url('../images/app/background.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+#splash {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    text-align: center;
+    padding-top: 100px;
+    color: #713b00;
+}
+
+#title {
+    background-image: url('../images/app/title/background.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.loader {
+    color: #713b00;
+    margin: 6px 8px 4px 8px;
+    visibility: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+    .loader.active {
+        visibility: visible;
+    }
+
+.loadingIndicator {
+    position: absolute;
+    top: 0.1em;
+    left: 0.1em;
+    font: 0.8em Arial;
+    background-color: #229;
+    color: White;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    display: none;
+}
+
+
+.logo-wrapper {
+    position: relative;
+    padding-bottom: 27.3%;
+    width: 100%;
+    top: 15%;
+}
+
+    .logo-wrapper .logo {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url('../images/app/title/logo.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        -moz-background-size: 90% 90%;
+        -o-background-size: 90% 90%;
+        -webkit-background-size: 90% 90%;
+        background-size: 90% 90%;
+    }
+
+
+#game-main {
+    position: relative;
+    background-image: url('../images/app/background.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+    #game-main canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #game-main .logo-absolute {
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    #game-main .logo-fixed-size {
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        #game-main .logo-fixed-size .logo-wrapper {
+            top: 20px;
+        }
+
+    #game-main hr {
+        border: 0;
+        height: 5px;
+        position: relative;
+        margin: 5px 0; /* Keep other elements away from pseudo elements*/
+    }
+
+        #game-main hr:before {
+            top: -0.5em;
+            height: 1em;
+        }
+
+        #game-main hr:after {
+            content: '';
+            height: 0.5em;
+            top: 1px;
+        }
+
+        #game-main hr:before, hr:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+        }
+
+        #game-main hr, #game-main hr:before {
+            background: -moz-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%, rgba(152, 107, 49,0) 75%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 75%, color-stop(0%,rgba(152, 107, 49,0.3)), color-stop(75%,rgba(152, 107, 49,0)));
+            background: -webkit-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
+            background: -o-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
+            background: -ms-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
+            background: radial-gradient(ellipse at center, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
+        }
+
+
+#main-palette, #turn-palette {
+    top: 100px;
+}
+
+.palette {
+    position: fixed;
+    z-index: 4;
+}
+
+#turn-palette {
+    left: 20px;
+}
+
+#main-palette {
+    right: 20px;
+}
+
+
+#players {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.player {
+    float: left;
+    margin-left: 20px;
+    color: #996b2d;
+}
+
+    .player .decoration {
+        position: relative;
+        height: 48px;
+        background-image: url('../images/game/score-background.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        -moz-background-size: auto 100%;
+        -o-background-size: auto 100%;
+        -webkit-background-size: auto 100%;
+        background-size: auto 100%;
+        min-width: 80px;
+    }
+
+        .player .decoration .score {
+            position: absolute;
+            right: 0;
+            bottom: 5px;
+            left: 0;
+            text-align: center;
+        }
+
+    .player .name {
+        text-align: center;
+    }
+
+#tiles-max {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    #tiles-max > #tiles-aspect {
+        position: relative;
+        padding-bottom: 75%;
+        width: 100%;
+    }
+
+#tiles {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+    #tiles .tile {
+        position: absolute !important;
+        border-radius: 50%;
+        width: 160px;
+        height: 160px;
+        cursor: pointer!important;
+        -moz-transition: left 3s, 2s ease-in-out;
+        -o-transition: left 3s, 2s ease-in-out;
+        -webkit-transition: left 3s, 2s ease-in-out;
+        transition: left 3s, 2s ease-in-out;
+        z-index: 3;
+    }
+
+        #tiles .tile.drag {
+            -moz-transition: none!important;
+            -o-transition: none!important;
+            -webkit-transition: none!important;
+            transition: none!important;
+        }
+
+    #tiles .mask {
+        position: absolute;
+        -moz-backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 50%;
+        -moz-box-shadow: 5px 5px 10px 0 #333;
+        -ms-box-shadow: 5px 5px 10px 0 #333;
+        -o-box-shadow: 5px 5px 10px 0 #333;
+        -webkit-box-shadow: 5px 5px 10px 0 #333;
+        box-shadow: 5px 5px 10px 0 #333;
+        border: 10px solid #fff;
+        width: 140px;
+        height: 140px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+
+    #tiles .tile .instruction {
+        position: absolute;
+        top: -30px;
+        left: -20px;
+        width: 80px;
+        height: 50px;
+        -moz-transform: rotate(-15deg);
+        -webkit-transform: rotate(-15deg);
+        -ms-transform: rotate(-15deg);
+        -o-transform: rotate(-15deg);
+        transform: rotate(-15deg);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px 0 20px;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
+        box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
+        text-align: center;
+        line-height: 100%;
+        font-family: "GreatVibesRegular";
+        font-size: x-large;
+        color: #296e8b;
+    }
+
+#workspace {
+    position: relative;
+    width: auto;
+    height: 500px;
+    /*padding: 10px;*/
+}
+
+
+
+.magnet {
+    position: absolute !important;
+    z-index: 3;
+    padding: 3px 5px;
+    border: 1px solid #e8e0d3;
+    background-color: #fff;
+    -moz-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
+    -ms-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
+    -o-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
+    -webkit-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
+    box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
+    color: #38270b;
+    font-size: 22px;
+    font-family: CopseRegular;
+    cursor: move;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transition-duration: .2s,.2s,0,0,0;
+    -o-transition-duration: .2s,.2s,0,0,0;
+    -webkit-transition-duration: .2s,.2s,0,0,0;
+    -moz-transition-property: all, box-shadow, opacity, width, height;
+    -o-transition-property: all, box-shadow, opacity, width, height;
+    -webkit-transition-property: all, box-shadow, opacity, width, height;
+    -moz-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    transition-duration: .2s,.2s,0,0,0;
+    transition-property: all, box-shadow, opacity, width, height;
+    transform-origin: 50% 50%;
+}
+
+    .magnet .related {
+        color: red;
+    }
+
+    .magnet .points {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        font-size: 12px;
+        width: 20px;
+        background-color: white;
+        border-radius: 50%;
+        border: 1px solid #e8e0d3;
+        text-align: center;
+        padding-right: 3px;
+        z-index: 2;
+    }
+
+    .magnet.drag:active {
+        -moz-transition: all 0;
+        -o-transition: all 0;
+        -webkit-transition: all 0;
+        transition: all 0;
+    }
+
+    .magnet.drag {
+        -webkit-box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
+        box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
+        -moz-transform: scale(1.1)!important;
+        -ms-transform: scale(1.1)!important;
+        -o-transform: scale(1.1)!important;
+        -webkit-transform: scale(1.1)!important;
+        transform: scale(1.1)!important;
+    }
+
+    .magnet:hover:not(.drag):not(:active):not(.placed) {
+        -moz-transform: scale(1.05)!important;
+        -ms-transform: scale(1.05)!important;
+        -o-transform: scale(1.05)!important;
+        -webkit-transform: scale(1.05)!important;
+        transform: scale(1.05)!important;
+        border-color: #b8b0a3;
+        border-radius: 4px;
+    }
+    .magnet.placed{
+        cursor: default!important;
+    }
+
+#swap-words, #add-tile, #swap-tile, #end-turn, #end-game {
+    border: 1px solid transparent;
+}
+
+    #swap-words:hover, #add-tile:hover, #swap-tile:hover, #end-turn:hover, #end-game:hover {
+        border: 1px solid #b8b0a3;
+        border-radius: 3px;
+    }
+
+    #swap-words:active {
+        background-image: url('../images/game/swap-words-icon-active.png');
+    }
+
+    #add-tile:active {
+        background-image: url('../images/game/add-tile-icon-active.png');
+    }
+
+    #swap-tile:active {
+        background-image: url('../images/game/swap-tile-icon-active.png');
+    }
+
+    #end-turn:active {
+        background-image: url('../images/game/end-turn-icon-avtive.png');
+    }
+
+    #end-game:active {
+        background-image: url('../images/game/end-game-icon-active.png');
+    }
+
+.button-small {
+    font-weight: bold;
+    font-size: small;
+    padding: 5px;
+    border: 2px solid #fff;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin: 20px 10px 20px 20px;
+    text-align: center;
+    background-image: url('../images/button-background-up.jpg');
+}
+
+    .button-small:active, .button-small.active {
+        background-image: url('../images/button-background-down.jpg');
+    }
+
+    .button-small:disabled, .button-small.disabled {
+        background-image: url('../images/button-background-disabled.jpg');
+    }
+
+    .button-small:hover {
+        transform: scale(1.1);
+        transition: all .2s ease-in-out;
+    }
+
+
+
+.ui-overlay {
+    background: #666 url('../images/overlay.png') 50% 50% repeat;
+    opacity: .3;
+    filter: alpha(opacity=30);
+}
+
+    .ui-overlay.fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+.popup-dialog-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    text-align: center;
+    height: 100px;
+}
+
+    .popup-dialog-container .popup-dialog {
+        background: #fff;
+        border: 2px solid #d7bea2;
+        -moz-box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.5);
+        -ms-box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.5);
+        -o-box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.5);
+        -webkit-box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.5);
+        box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.5);
+        border-radius: 8px;
+        text-align: center;
+        padding: 20px 20px 0 20px;
+        color: rgba(152, 107, 49, 1);
+    }
+
+        .popup-dialog-container .popup-dialog h1, h2, h3 {
+            font-weight: normal;
+            white-space: nowrap;
+            padding-bottom: 20px;
+        }
+
+        .popup-dialog-container .popup-dialog h1 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .popup-dialog-container .popup-dialog.login {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+input[type="text"], input[type="password"] {
+    background: #fff;
+    border: 1px solid rgba(152, 107, 49, 1);
+    padding: 8px 16px 8px 16px;
+    margin-bottom: 16px;
+    font-weight: bold;
+    color: rgba(152, 107, 49, 1);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 60%;
+    -moz-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
+    -ms-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
+    -o-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
+    -webkit-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
+    box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
+}
+
+h1.link, h2.link, h3.link, h4.link, h5.link {
+    font-weight: bold;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+h2.link {
+    font-size: 16px;
+}
+
+h3.link {
+    font-size: 14px;
+}
+
+h4.linkP {
+    font-size: 12px;
+}
+
+button.blue {
+    border: 2px solid #b7dbe7;
+    border-radius: 5px;
+    background-image: url('../images/app/blue-button.jpg');
+    padding: 10px;
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+button.width40 {
+    width: 40%;
+}
+
+button.sign-up {
+    width: 40%;
+    font-size: 18px;
+}
+
+.error {
+    color: red;
+}
+
+input[type="text"], input[type="password"] {
+    cursor: text;
+}
+
+#option-swap-words {
+    background-image: url('../images/app/dialogs/actions/option-swap-words.png');
+}
+
+#option-place-tile {
+    background-image: url('../images/app/dialogs/actions/option-place-tile.png');
+}
+
+#option-swap-tile {
+    background-image: url('../images/app/dialogs/actions/option-swap-tile.png');
+}
+
+#option-sneak-peek {
+    background-image: url('../images/app/dialogs/actions/option-sneak-peek.png');
+}
+
+#option-no-action {
+    background-image: url('../images/app/dialogs/actions/option-no-action.png');
+}
+
+.icons {
+    background: #faf5ef;
+    padding: 5px 5px 0 5px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.action-icons {
+    border: 2px solid #cab193;
+    margin-bottom: 5px;
+}
+
+.normal-icons {
+    margin: 2px;
+    padding-bottom: 5px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    background-position: center center;
+    background-repeat: none;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.action-icon {
+}
+
+#swap-words {
+    background-image: url('../images/game/swap-words-icon.png');
+}
+
+#add-tile {
+    background-image: url('../images/game/add-tile-icon.png');
+}
+
+#swap-tile {
+    background-image: url('../images/game/swap-tile-icon.png');
+}
+
+#end-turn {
+    background-image: url('../images/game/end-turn-icon.png');
+}
+
+.normal-icon {
+    margin-bottom: 0;
+}
+
+#end-game {
+    background-image: url('../images/game/end-game-icon.png');
+}
+
+.dialog {
+    position: fixed;
+    display: none;
+}
+
+    .dialog.bottom-center {
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .dialog.modal .ui-overlay {
+        /*background: #666 url('../images/overlay.png') 50% 50% repeat;*/
+        background: #666;
+        z-index: 9;
+        opacity: .3;
+        filter: alpha(opacity=30);
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        position: fixed;
+    }
+
+    .dialog .confirm {
+        display: none;
+        position: relative;
+        z-index: 10;
+        margin: 0 auto;
+        width: 200px;
+        height: 70px;
+        background-image: url('../images/app/confirm/confirm-background.png');
+        background-position: center bottom;
+        -moz-background-size: 204px 70px;
+        -o-background-size: 204px 70px;
+        -webkit-background-size: 204px 70px;
+        background-size: 204px 70px;
+        text-align: center;
+        color: #976b2c;
+        line-height: 120%;
+    }
+
+        .dialog .confirm button {
+            font-weight: bold;
+            font-size: small;
+            border: 2px solid #fff;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            margin: 20px 5px 0px 5px;
+            text-align: center;
+            background-image: url('../images/button-background-up.jpg');
+            color: #976b2c;
+            padding: 7px 10px;
+        }
+
+#player-buttons {
+    position: absolute;
+    top: 52%;
+    right: 5%;
+    left: 5%;
+    color: #976b2c;
+}
+
+.player-button {
+    float: left;
+    width: 50%;
+}
+
+#one-player-button .inner {
+    font-weight: bold;
+    font-size: large;
+    padding: 20px;
+    border: 4px solid #fff;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 0 20px 0 0;
+    text-align: center;
+    background-image: url('../images/big-button-background-up.jpg');
+}
+
+#two-player-button .inner {
+    font-weight: bold;
+    font-size: large;
+    padding: 20px;
+    border: 4px solid #fff;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 0 0 0 20px;
+    text-align: center;
+    background-image: url('../images/big-button-background-up.jpg');
+}

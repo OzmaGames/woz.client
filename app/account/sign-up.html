@@ -1,0 +1,23 @@
+﻿<div>
+    <div class="popup-dialog-container">
+        <div class="ui-overlay fullscreen"></div>
+        <div class="popup-dialog login">                  
+            <h1>Join The Game!</h1>
+
+            <input type="text" placeholder="Username" data-bind="value: username" /><br />
+            <input type="text" placeholder="E-mail" data-bind="value: email"><br>
+            <input type="password" placeholder="Password" data-bind="value: password"><br>
+            
+            <p class="error" data-bind="text: errorMessage"></p>
+
+            <button class="blue width40" data-bind="click: signUp, disable: loading()">
+                <span>SIGN UP</span>
+                <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+            </button>
+            
+            <p id="agreement">By clicking <i>sign up</i> you confirm that you have read and agree to the terms of service.</p>
+
+            <h2 class="link" data-bind="click: login">Back to Login</h2>
+        </div>
+    </div>
+</div>

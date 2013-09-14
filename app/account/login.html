@@ -1,0 +1,21 @@
+﻿<div>
+    <div class="popup-dialog-container">
+        <div class="ui-overlay fullscreen"></div>
+        <div class="popup-dialog login">
+            <h1>Join The Game!</h1>
+
+            <input type="text" placeholder="Username" data-bind="value: username"><br />
+            <input type="password" placeholder="Password" data-bind="value: password"><br />
+
+            <p class="error" data-bind="text: errorMessage"></p>
+
+            <button class="blue width40" data-bind="click: login, disable: loading()">
+                <span>LOG IN</span>
+                <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+            </button>
+            
+            <h2 class="link" data-bind="click: signUp">SIGN UP</h2>
+            <h4 class="link">recover password</h4>
+        </div>
+    </div>
+</div>

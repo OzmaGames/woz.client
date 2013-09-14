@@ -1,0 +1,15 @@
+{
+    "name": "test",
+    "version": "1.0.0",
+	"ignore": [
+		"**/*.txt",
+		"**/*.htm*"
+	],
+    "dependencies":
+    {
+        "durandal": null,
+        "font-awesome": null,
+		"paper": null,		
+		"socket.io": null
+    }
+}

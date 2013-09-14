@@ -1,0 +1,38 @@
+﻿<div>
+    <img id="star" src="images/core/stardust/star.png" style="display: none;" />
+
+    <div id="game-main">
+        <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
+        <!--ko compose: 'game/tiles'--><!--/ko-->
+        <hr />
+        <!--ko compose: 'game/words'--><!--/ko-->
+        <div class="logo-absolute">
+            <div class="logo-fixed-size">
+                <div class="logo-wrapper">
+                    <div class="logo"></div>
+                </div>
+            </div>
+        </div>
+        <!--ko compose: 'dialog/confirm'--><!--/ko-->  
+    </div>
+    <div id="game-players" data-bind="compose: 'game/players'"></div>
+
+    <div id="menu">
+        <div class="palette" id="turn-palette">
+            <div class="icons action-icons">
+                <div class="icon actions-icon" id="swap-words"></div>
+                <div class="icon actions-icon" id="add-tile"></div>
+                <div class="icon actions-icon" id="swap-tile"></div>
+            </div>
+            <div class="icons normal-icons">
+                <div class="icon normal-icon" id="end-turn"></div>
+            </div>
+        </div>
+
+        <div class="palette" id="main-palette">
+            <div class="icons normal-icons">
+                <div class="icon normal-icon" id="end-game"></div>
+            </div>
+        </div>
+    </div>
+</div>

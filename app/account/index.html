@@ -1,0 +1,11 @@
+﻿<div>
+    <ul class="nav nav-list">        
+        <!--ko foreach: navBar-->
+        <li data-bind="css: { active: isActive }">
+            <a data-bind="attr: { href: hash }, text: title" class="button-small"></a>
+        </li>
+        <!--/ko-->
+    </ul>
+
+    <div data-bind="router: { transition: 'entrance', cacheViews: true }"></div>
+</div>

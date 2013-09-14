@@ -1,0 +1,14 @@
+﻿<div id="title" class="screen">
+    <div class="logo-wrapper">
+        <div class="logo"></div>    
+    </div>
+    <div id="player-buttons">
+        <div class="player-button" id="one-player-button" data-bind="click: playSolo">
+            <div class="inner">ONE PLAYER</div>
+        </div>
+        <div class="player-button" id="two-player-button" data-bind="click: playMulti">
+            <div class="inner">TWO PLAYERS</div>
+        </div>
+    </div>
+</div>
+<div data-bind="compose: { transition: 'slidedown', el: '.popup-dialog', cacheViews: true, model: model }"></div>
