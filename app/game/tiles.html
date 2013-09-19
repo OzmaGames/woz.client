@@ -2,7 +2,7 @@
     <div id="tiles-aspect">
         <div id="tiles" data-bind="foreach: { data: tiles, afterRender: afterRender }">
             <div class="tile" style="left: 50%; top: 50%; margin-left:-80px; margin-top:-80px;">
-                <div class="instruction" data-bind="text: description"></div>
+                <div class="instruction" data-bind="text: instruction"></div>
                 <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }"></div>
             </div>
         </div>

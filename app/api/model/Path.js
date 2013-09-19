@@ -9,19 +9,19 @@
     base.startTile = utils.find(model.tiles(), { id: startTile });
     base.endTile = utils.find(model.tiles(), { id: endTile });
     base.cw = (cw === undefined ? true : cw);
-
     //base.cw = (base.startTile.y - base.endTile.y) < 0.1;
     base.cw = (Math.abs(base.startTile.y - base.endTile.y) < 0.2) || base.startTile.x > base.endTile.x;
 
     var words = (phrase && phrase.words) ? phrase.words : [];
     base.phrase = {
+      _complete: ko.observable(false),
       playerId: 0,
       score: 0,
       words: ko.observableArray(words)
     };
 
     base.phrase.complete = ko.computed(function () {
-      return this.nWords != 0 && this.phrase.words().length == this.nWords;
+      return this.phrase._complete() === true || (this.nWords != 0 && this.phrase.words().length == this.nWords);
     }, base);
 
     base.phrase.complete.subscribe(function (complete) {
@@ -31,7 +31,8 @@
         var sub = app.on("confirm:dialog-result");
         sub.then(function (result) {
           if (result == "cancel") {
-            base.removeAll();
+            base.phrase._complete(false);
+            base.removeAll();            
           }
           else {
             model.player.active(false);
@@ -51,6 +52,11 @@
       });
     });
 
+    base.hasWordAt = function (index) {
+      var entity = base.getEntityAt(index);
+      return entity != null ? true : false;
+    }
+
     base.getWordAt = function (index) {
       var entity = base.getEntityAt(index);
       return entity != null ? entity.word : null;
@@ -63,6 +69,14 @@
     }
 
     base.addWord = function (word, index) {
+      if (index === undefined) {
+        for (var i = 0; i < 10; i++) {
+          if (null == ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === i; })) {
+            index = i;
+            break;
+          }
+        }
+      }
       if (null != ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === index; })) return;
 
       word.isPlayed = 1;
@@ -81,17 +95,24 @@
       model.words.valueHasMutated();
     }
 
-    base.removeWord = function (entity) {
+    base.removeWord = function (entity, silence) {
       entity.word.isPlayed = 0;
       base.phrase.words.remove(entity);
 
       model.words.valueHasMutated();
     }
-
+  
     base.removeWordAt = function (index) {
-      var word = base.getEntityAt(index);
-      base.removeWord(word);
-    }
+      var entity = base.getEntityAt(index);
+      base.removeWord(entity);
+      if (base.nWords == 0) {
+        for (var i = entity.index + 1; i < 10; i++) {
+          if ((entity = base.getEntityAt(i)) == null) break;
+          entity.index--;
+        }
+        base.phrase.words.valueHasMutated();
+      }      
+    }    
   }
 
 

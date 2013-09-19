@@ -171,12 +171,12 @@ body {
 
         #game-main hr:before {
             top: -0.5em;
-            height: 1em;
+            /*height: 1em;*/
         }
 
         #game-main hr:after {
             content: '';
-            height: 0.5em;
+            /*height: 0.5em;*/
             top: 1px;
         }
 
@@ -302,7 +302,7 @@ body {
         -o-box-shadow: 5px 5px 10px 0 #333;
         -webkit-box-shadow: 5px 5px 10px 0 #333;
         box-shadow: 5px 5px 10px 0 #333;
-        border: 10px solid #fff;
+        border: 5px solid #fff;
         width: 140px;
         height: 140px;
         background-position: center center;
@@ -314,6 +314,7 @@ body {
     }
 
     #tiles .tile .instruction {
+        z-index:4;
         position: absolute;
         top: -30px;
         left: -20px;
@@ -348,7 +349,7 @@ body {
 .magnet {
     position: absolute !important;
     z-index: 3;
-    padding: 3px 5px;
+    padding: 2px 4px;
     border: 1px solid #e8e0d3;
     background-color: #fff;
     -moz-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
@@ -379,8 +380,12 @@ body {
     transform-origin: 50% 50%;
 }
 
-    .magnet .related {
-        color: red;
+    .magnet.related {
+        border-width:2px;
+        -moz-box-shadow: 0 0 10px #976b2c;
+        -webkit-box-shadow: 0 0 10px #976b2c;
+        box-shadow: 0 0 10px #976b2c;
+        
     }
 
     .magnet .points {
@@ -405,8 +410,8 @@ body {
     }
 
     .magnet.drag {
-        -webkit-box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
-        box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
+        /*-webkit-box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
+        box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;*/
         -moz-transform: scale(1.1)!important;
         -ms-transform: scale(1.1)!important;
         -o-transform: scale(1.1)!important;
@@ -425,7 +430,7 @@ body {
     }
     .magnet.placed{
         cursor: default!important;
-    }
+    }    
 
 #swap-words, #add-tile, #swap-tile, #end-turn, #end-game {
     border: 1px solid transparent;

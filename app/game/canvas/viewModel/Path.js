@@ -7,7 +7,7 @@
 
   var activeBox = null;
   activeWord.subscribe(function (word) {
-    if (word == null) {
+    if (word == null && activeBox != null) {
       activeBox.drop();
     }
   });
@@ -82,7 +82,8 @@
     } else {
       pm.guiBoxes = [];
       for (var i = 0; i < nWords; i++) {
-        pm.guiBoxes.push(new Box(i));
+        var box = new Box(i);
+        pm.guiBoxes.push(box);
         this._displayItems.push(box);
       }
     }
@@ -96,9 +97,8 @@
     }
 
     var desiredLength = Path.getDesiredLength(nWords, pm.guiBoxes);
-    path = Path.shortestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw !== false);
+    path = Path.shortestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw);
     path.strokeColor = 'grey';
-
     this._displayItems.push(path);
 
     var delta = path.length - desiredLength,
@@ -159,6 +159,7 @@
 
   Path.prototype.clear = function () {
     this.clear.remove(this._displayItems);
+    this.clear.remove(this._hoverItems);
     this.clear.remove(this.pathModel.guiBoxes);
 
     this.pathModel.guiBoxes = [];
@@ -168,6 +169,7 @@
   }
 
   Path.prototype.clear.remove = function (arr) {
+    if (arr == null) return;
     for (var i = 0; i < arr.length; i++) {
       try{
         arr[i].remove();
@@ -198,11 +200,13 @@
       Path.displayItems.push(circle);
     }
 
-    var S = 0, E = line.length, bestDelta = 10000, M = line.length, bestArc;
+    var S = 0, E = line.length, bestDelta = 10000, M = line.length/2, bestArc;
     accuracy = accuracy || 10;
     for (var i = 0; i < accuracy; i++, M /= 2.0) {
       var through = line.getPointAt((S + E) / 2);
       var arc = new scope.Path.Arc(from, through, to);
+
+      //if (desiredLength == 490) console.log(i, M, (S + E) / 2);
 
       if (Math.abs(arc.length - desiredLength) < bestDelta) {
         if (bestArc) bestArc.remove();
@@ -235,13 +239,13 @@
       return n * (Box.options.rect.size.x + Path.options.rectMargin) * 2 + (Path.options.tileMargin + Path.options.tileRadius) * 2;
     }
     var len = (Path.options.tileMargin + Path.options.tileRadius) * 2;
-    for (var i = 0; i < arr.length; i++) {
+    for (var i = 0; i < n; i++) {
       len += arr[i].width() + Path.options.rectMargin * 2;
     }
     return len;
   }
 
-  Path.options = {
+  Path.options = {    
     tileRadius: 80,
     tileMargin: 5,
     hoverMargin: 120,

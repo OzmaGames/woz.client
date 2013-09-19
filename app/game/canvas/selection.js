@@ -23,7 +23,6 @@
     tool.minDistance = 32;
 
     tool.onMouseDown = function (event) {
-      console.log(1);
       path = new scope.Path();
       path.add(event.point);
       //path.strokeColor = 'red';
@@ -38,6 +37,7 @@
     };
 
     tool.onMouseUp = function (event) {
+      if (path.length == 0) return;
       path.closePath();
 
       var selection = Selection(path, unplayedWords());

@@ -28,6 +28,9 @@
             { id: 23, imageName: "tomb" },
             { id: 24, imageName: "white_flower" }
         ],
+        getURL: function (imageName) {
+          return 'images/core/tiles/' + imageName + '.jpg';
+        },
         salt: "!XXX.666.ozma,is,awesome.666.XXX!"
     };
 

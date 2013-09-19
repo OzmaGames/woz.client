@@ -17,11 +17,11 @@
                 var margin = top - elTop + topPadding, angle;
 
                 //angle = (margin <= 80) ? -(Math.asin(margin / 80) * (180 / Math.PI)) : -(Math.asin((160 - margin) / 80) * (180 / Math.PI));
-                if (margin > 200) margin = 200;
+                //if (margin > 200) margin = 200;
 
                 $el.stop().animate({
                     marginTop: margin,
-                    marginLeft: (margin <= 80 + topPadding) ? -margin * 1.2 : 1.2 * (margin - (160 + 2 * topPadding)),
+                    //marginLeft: (margin <= 80 + topPadding) ? -margin * 1.2 : 1.2 * (margin - (160 + 2 * topPadding)),
                 });
 
                 //console.log(margin);

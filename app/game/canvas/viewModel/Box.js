@@ -82,7 +82,7 @@
       "-ms-transform": "rotate(" + this.angle + "deg)",
       "-o-transform": "rotate(" + this.angle + "deg)",
       "transform": "rotate(" + this.angle + "deg)"
-    }).cla;
+    });
   }
 
   Box.prototype.createElem = function () {
@@ -95,6 +95,7 @@
     div.appendTo('#tiles');
 
     div.one("click", this, function (e) {
+      if (e.data.pathModel.phrase.complete()) return;
       e.data.pathModel.removeWordAt(e.data.index);
     });
 
