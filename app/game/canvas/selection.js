@@ -20,23 +20,32 @@
 
     var tool = new scope.Tool(), stars = [], path;
 
-    tool.minDistance = 32;
+    //tool.minDistance = 32;
+    tool.fixedDistance = 50;
+
+    var text = new paper.PointText({
+      point: new paper.Point(100, 300),
+      content: ''
+    });
+    text.fillColor = 'black';
 
     tool.onMouseDown = function (event) {
       path = new scope.Path();
       path.add(event.point);
-      //path.strokeColor = 'red';
-      path.contains
+      path.strokeColor = 'red';
       stars = [];
-      addStarAt(event.point);
+      //addStarAt(event.point);
+      text.content = "mouseDown";
     };
 
     tool.onMouseDrag = function (event) {
+      text.content = "drag " + path.length;
       path.add(event.point);
-      addStarAt(event.point);
+      //addStarAt(event.point);
     };
 
     tool.onMouseUp = function (event) {
+      text.content = "mouseup " + path.length;
       if (path.length == 0) return;
       path.closePath();
 
@@ -61,8 +70,8 @@
       star = new scope.Raster("star");
 
       star.position = point;
-      star.rotate(Math.floor(20 + Math.random() * 360));
-      star.scale(Math.random());
+      star.rotate(Math.floor(Math.random() * 360));
+      star.scale(.4 + Math.random() * .6);
       star.removeOnUp();
     };
   }

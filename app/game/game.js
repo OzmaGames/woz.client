@@ -19,6 +19,15 @@
 
     compositionComplete: function (view) {
       $('#menu').appendTo('body');
+      var h = $(window).innerHeight();
+
+      $('#palette-right, #palette-left').each(function (i, el) {
+        var $el = $(el);
+        $el.css('top', (h - $el.outerHeight()) / 2);
+      });
+
+      if ($.support.touch)
+        $('#workspace').touchPunch();
     },
 
     detached: function () {

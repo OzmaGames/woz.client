@@ -7,7 +7,7 @@
             return router.map([
                 { route: ['', 'home'],      moduleId: 'home/index',       title: 'Start',                nav: true },
                 { route: 'not-found',       moduleId: 'error/not-found',  title: 'Error 404: Not Found', nav: true },
-                { route: 'game',            moduleId: 'game/game',        title: 'Words Of Oz - Play',   nav: true, hash: '#game' },
+                { route: 'game',            moduleId: 'game/game',        title: 'Play',   nav: true, hash: '#game' },
                 { route: 'account',         moduleId: 'account/index',    title: 'Account Settings',     nav: true, hash: '#account' }
             ]).buildNavigationModel()
               .mapUnknownRoutes('home/index', 'not-found')

@@ -5,6 +5,9 @@
 
     var $el = $(this), zIndex = $el.css('z-index'), hasMoved = false;
 
+    if($.support.touch)
+      $el.touchPunch();
+
     var events = {
       mousedown: function (e) {
         e.preventDefault(); // disable selection
@@ -43,10 +46,14 @@
         $el.removeClass('drag');
 
         var isWithin = events.isWithinBoundaries(e);
-
         var top = isWithin ? (e.data.t + e.pageY) : ($el.position().top),
             left = isWithin ? (e.data.l + e.pageX) : ($el.position().left);
 
+        if ($el.position().top < opt.within.t) {
+          top = opt.within.t;
+          $el.css({ top: top });
+        }        
+        
         if (hasMoved) {
           top = 100.0 * top / (opt.within.b - opt.within.t);
           left = 100.0 * left / (opt.within.r - opt.within.l);
@@ -65,7 +72,7 @@
         var newTop = e.pageY + e.data.t,
             newLeft = e.pageX + e.data.l;
 
-        if (newTop < opt.within.t) newTop = opt.within.t;
+        //if (newTop < opt.within.t) newTop = opt.within.t;
         if (newLeft < opt.within.l) newLeft = opt.within.l;
         if (newTop + e.data.h > opt.within.b) newTop = opt.within.b - e.data.h;
         if (newLeft + e.data.w > opt.within.r) newLeft = opt.within.r - e.data.w;

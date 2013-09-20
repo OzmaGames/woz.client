@@ -54,13 +54,18 @@
 
         dragStart: function () {
           ctx.activeWord(word);
+
+          $el.css({ "-webkit-transform": "", "-moz-transform": "", "-ms-transform": "", "-o-transform": "", "transform": "" });
         },
 
         dropped: function (e, data) {
           ctx.activeWord(null);
 
+          
           word.x = data.hasMoved ? data.left / 100 : word.x;
           word.y = data.hasMoved ? data.top / 100 : word.y;
+
+
         }
       }).hide();
 

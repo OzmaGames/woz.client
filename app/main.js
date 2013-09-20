@@ -10,7 +10,7 @@ requirejs.config({
 
         'transitions/slidedown': 'api/transitions/slidedown'
     },
-    urlArgs: 'v0.34'
+    urlArgs: 'v0.36'
 });
  
 define('jquery', function () { return jQuery; });
@@ -21,7 +21,7 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server']
     //system.debug(true);
     //>>excludeEnd("build");    
 
-    app.title = 'Durandal Samples';
+    app.title = 'Words Of Oz';
 
     app.configurePlugins({
         router:true,

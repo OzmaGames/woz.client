@@ -1,4 +1,4 @@
-﻿define(['api/datacontext', 'game/canvas/viewModel/Box', 'paper'], function (ctx, Box) {
+﻿define(['durandal/app','api/datacontext', 'game/canvas/viewModel/Box', 'paper'], function (app,ctx, Box) {
 
   var scope = paper;
   var activeWord = ctx.activeWord;
@@ -46,7 +46,13 @@
   Path.prototype.put = function () {
     if (activeWords() != null) {
       var words = activeWords(), pm = this.pathModel;
-      if (words.length != pm.nWords) return;
+      if (words.length != pm.nWords) {
+        if (words.length > pm.nWords)
+          app.trigger("alert:show", "too many words");
+        else
+          app.trigger("alert:show", "need more words");
+        return;
+      }
 
       for (var i = 0; i < pm.guiBoxes.length; i++) {
         pm.addWord(words[i], i);

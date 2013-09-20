@@ -38,8 +38,8 @@
             model.player.active(false);
             var data = {
               gameID: model.gameID,
-              playerID: model.player.id,
               pathID: base.id,
+              username: model.player.username,
               words: ko.utils.arrayMap(base.phrase.words(), function (word) { return word.word.id; })
             };
             app.trigger("server:game:place-phrase", data, function () { console.log('server got it') });

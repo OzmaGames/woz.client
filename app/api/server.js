@@ -6,31 +6,7 @@
   //var socket = io.connect("http://localhost:8080");
 
   socket.on('connect', function () {
-    console.log("connected");
-
-    //var playerID = 'test';
-    //socket.emit("account:login", { playerID: playerID, password: '12345' }, function (data) {
-    //    console.log("%c login", 'background: #222; color: #bada55', data);
-
-    //    socket.on("game:updates", function (data) {
-    //        console.log('%c game:updates', 'background: #222; color: #bada55', data);
-    //        app.trigger("game:updates", $.parseJSON(data));
-    //    });
-
-    //    /// res = game object, the big bad ass object
-    //    socket.on("game:start", function (data) {
-    //        console.log('%c game:start', 'background: #222; color: #bada55', data);
-    //        console.log(JSON.stringify(data));
-    //        app.trigger("game:start", $.parseJSON(data));
-    //    });
-
-    //    socket.emit("game:queue", { playerID: playerID, playerCount: 1 }, function (data) {
-    //        console.log("%c queue", 'background: #222; color: #bada55', data)
-    //    });
-    //});
-    //socket.emit("game:place-phrase", { playerID: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' }, function (b) { console.log(b); });
-    //console.log("connected");
-
+    console.log("connected");    
   });
 
   var applicationEvents = {
@@ -67,6 +43,7 @@
     /// data = {gameId: #, username: '', phrase: { words: [#, #, #, ..] }, path: #}
     /// res = {success: true|false, errorMessage: ''}
     "server:game:place-phrase": function (data, callback) {
+      data.username = 
       console.log('%c game:place-phrase', 'background: #222; color: #bada55', data);
       socket.emit("game:place-phrase", data, callback);
     },
@@ -104,9 +81,9 @@
 
       function runOnce(data, callback) {
         /// res = {players: [{id: #, score: #},..], phrases: [{id: #, words:[]},..]}
-        socket.on("game:updates", function (data) {
-          console.log('%c game:updates', 'background: #222; color: #bada55', data);
-          app.trigger("game:updates", data);
+        socket.on("game:update", function (data) {
+          console.log('%c game:update', 'background: #222; color: #bada55', data);
+          app.trigger("game:update", data);
         });
 
         /// res = game object, the big bad ass object
@@ -120,8 +97,6 @@
           console.log("%c queue", 'background: #222; color: #bada55', data);
           callback(data);
         });
-
-        console.log('Q request Sent...');
       }
     }
   };

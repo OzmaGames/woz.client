@@ -196,8 +196,12 @@ body {
         }
 
 
-#main-palette, #turn-palette {
+#palette-right, #palette-left {
     top: 100px;
+    -moz-transition: .3s top ease-in-out;
+    -o-transition: .3s top ease-in-out;
+    -webkit-transition: .3s top ease-in-out;
+    transition: .3s top ease-in-out;
 }
 
 .palette {
@@ -205,11 +209,11 @@ body {
     z-index: 4;
 }
 
-#turn-palette {
+#palette-left {
     left: 20px;
 }
 
-#main-palette {
+#palette-right {
     right: 20px;
 }
 
@@ -272,16 +276,16 @@ body {
 }
 
     #tiles .tile {
-        position: absolute !important;
-        border-radius: 50%;
+        position: absolute;
         width: 160px;
         height: 160px;
         cursor: pointer!important;
-        -moz-transition: left 3s, 2s ease-in-out;
-        -o-transition: left 3s, 2s ease-in-out;
-        -webkit-transition: left 3s, 2s ease-in-out;
-        transition: left 3s, 2s ease-in-out;
+        transition: left .5s ease-in-out, top .5s ease-in-out;
         z-index: 3;
+        left: 50%;
+        top: 50%;
+        margin-left: -80px;
+        margin-top: -80px;
     }
 
         #tiles .tile.drag {
@@ -291,51 +295,52 @@ body {
             transition: none!important;
         }
 
-    #tiles .mask {
-        position: absolute;
-        -moz-backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        border-radius: 50%;
-        -moz-box-shadow: 5px 5px 10px 0 #333;
-        -ms-box-shadow: 5px 5px 10px 0 #333;
-        -o-box-shadow: 5px 5px 10px 0 #333;
-        -webkit-box-shadow: 5px 5px 10px 0 #333;
-        box-shadow: 5px 5px 10px 0 #333;
-        border: 5px solid #fff;
-        width: 140px;
-        height: 140px;
-        background-position: center center;
-        background-repeat: no-repeat;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        -webkit-background-size: cover;
-        background-size: cover;
-    }
+        #tiles .tile .mask {
+            z-index: 4;
+            position: relative;
+            -moz-backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 50%;
+            -moz-box-shadow: 5px 5px 10px 0 #333;
+            -ms-box-shadow: 5px 5px 10px 0 #333;
+            -o-box-shadow: 5px 5px 10px 0 #333;
+            -webkit-box-shadow: 5px 5px 10px 0 #333;
+            box-shadow: 5px 5px 10px 0 #333;
+            border: 5px solid #fff;
+            width: 140px;
+            height: 140px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
 
-    #tiles .tile .instruction {
-        z-index:4;
-        position: absolute;
-        top: -30px;
-        left: -20px;
-        width: 80px;
-        height: 50px;
-        -moz-transform: rotate(-15deg);
-        -webkit-transform: rotate(-15deg);
-        -ms-transform: rotate(-15deg);
-        -o-transform: rotate(-15deg);
-        transform: rotate(-15deg);
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 10px 20px 0 20px;
-        border-radius: 50%;
-        -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
-        box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
-        text-align: center;
-        line-height: 100%;
-        font-family: "GreatVibesRegular";
-        font-size: x-large;
-        color: #296e8b;
-    }
+        #tiles .tile .instruction, body .instruction {
+            z-index: 5;
+            position: absolute;
+            top: -30px;
+            left: -20px;
+            width: 80px;
+            height: 50px;
+            -moz-transform: rotate(-15deg);
+            -webkit-transform: rotate(-15deg);
+            -ms-transform: rotate(-15deg);
+            -o-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px 0 20px;
+            border-radius: 50%;
+            -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
+            box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
+            text-align: center;
+            line-height: 100%;
+            font-family: CopseRegular;
+            font-size: medium;
+            color: #296e8b;
+        }
 
 #workspace {
     position: relative;
@@ -381,11 +386,10 @@ body {
 }
 
     .magnet.related {
-        border-width:2px;
-        -moz-box-shadow: 0 0 10px #976b2c;
-        -webkit-box-shadow: 0 0 10px #976b2c;
-        box-shadow: 0 0 10px #976b2c;
-        
+        border-width: 2px;
+        -moz-box-shadow: 0 0 10px #f5cf76;
+        -webkit-box-shadow: 0 0 10px #f5cf76;
+        box-shadow: 0 0 10px #f5cf76;
     }
 
     .magnet .points {
@@ -402,21 +406,18 @@ body {
         z-index: 2;
     }
 
-    .magnet.drag:active {
-        -moz-transition: all 0;
-        -o-transition: all 0;
-        -webkit-transition: all 0;
-        transition: all 0;
-    }
-
     .magnet.drag {
-        /*-webkit-box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
-        box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;*/
         -moz-transform: scale(1.1)!important;
         -ms-transform: scale(1.1)!important;
         -o-transform: scale(1.1)!important;
         -webkit-transform: scale(1.1)!important;
         transform: scale(1.1)!important;
+        -moz-transition: all 0;
+        -o-transition: all 0;
+        -webkit-transition: all 0;
+        transition: all 0;
+        /*-webkit-box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
+        box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;*/
     }
 
     .magnet:hover:not(.drag):not(:active):not(.placed) {
@@ -428,9 +429,10 @@ body {
         border-color: #b8b0a3;
         border-radius: 4px;
     }
-    .magnet.placed{
+
+    .magnet.placed {
         cursor: default!important;
-    }    
+    }
 
 #swap-words, #add-tile, #swap-tile, #end-turn, #end-game {
     border: 1px solid transparent;
@@ -692,11 +694,16 @@ input[type="text"], input[type="password"] {
 
 .dialog {
     position: fixed;
-    display: none;
+    
 }
 
     .dialog.bottom-center {
         bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .dialog.top-center {
+        top: 0;
         width: 100%;
         text-align: center;
     }
@@ -713,6 +720,23 @@ input[type="text"], input[type="password"] {
         right: 0;
         height: 100%;
         position: fixed;
+    }
+
+    .dialog .alert {
+        z-index: 10;
+        display:none;
+        margin: 0 90px;
+        position: relative;
+        font-size: xx-large;
+        color: #b49363;
+        padding: 20px;
+        border-radius: 50% 50% 50% 50%;
+        background-color: rgba(255, 255, 255, 0.9);
+        -moz-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        -ms-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        -o-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
     }
 
     .dialog .confirm {
