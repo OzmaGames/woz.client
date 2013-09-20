@@ -74,16 +74,16 @@
     afterRender: function (el, tile) {
       var $el = $(el).filter('.tile:first');
 
-      $el.draggable({
-        withinEl: $el.parent(),
-        dragStart: function (e) { },
-        move: function (e) {
-          tile.x = $el.position().left / $el.parent().innerWidth();
-          tile.y = $el.position().top / $el.parent().innerHeight();
+      //$el.draggable({
+      //  withinEl: $el.parent(),
+      //  dragStart: function (e) { },
+      //  move: function (e) {
+      //    tile.x = $el.position().left / $el.parent().innerWidth();
+      //    tile.y = $el.position().top / $el.parent().innerHeight();
 
-          $(window).resize();
-        }
-      });
+      //    $(window).resize();
+      //  }
+      //});
 
       if (animationQueue.length == 0) setTimeout(showTiles, 100);
       animationQueue.push({ $el: $el, tile: tile });

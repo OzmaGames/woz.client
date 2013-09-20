@@ -23,7 +23,8 @@
     loadingStatus: ko.observable(''),
 
     activeWord: ko.observable(null),
-    activeWords: ko.observable(null)
+    activeWords: ko.observable(null),
+    playerCount: 1
   };
 
   model.load = function (playerCount) {
@@ -45,9 +46,16 @@
 
       model.words(json.words);
 
-      for (var i = 0; i < json.tiles.length; i++) { 
+      for (var i = 0; i < json.tiles.length; i++) {
         json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
-        
+        if (json.tiles[i].bonus) {
+          json.tiles[i].instruction += '\n+' + json.tiles[i].bonus;
+        }
+        if (json.tiles[i].mult) {
+          json.tiles[i].instruction += '\nX' + json.tiles[i].mult;
+        }
+
+        //json.tiles[i].instruction += '\n+' + json.tiles[i].bonus;        
       }
       model.tiles(json.tiles);
 
@@ -57,7 +65,7 @@
       model.paths(json.paths);
 
       model.gameOver(json.gameOver);
-      
+
       model.loadingStatus("Ready");
 
       setTimeout(function () { model.loading(false); }, 10);
@@ -66,16 +74,16 @@
     app.on("game:update", function (json) {
       app.loading(false);
       if (json.success) {
-        find(model.players(), { username: json.active }).active(true);        
+        find(model.players(), { username: json.active }).active(true);
         for (var i = 0; i < json.playerInfo.length; i++) {
+          //debugger;
           var player = json.playerInfo[i];
           if (player.username == model.player.username) {
-            var score = player.score - model.players.score;
+            var score = player.score - model.player.score();
             app.trigger("alert:show", "You scored " + score + "!");
           }
           find(model.players(), { username: player.username }).score(player.score);
         }
-        model.player.score(model.player.score() + json.score);
         model.players.valueHasMutated();
       }
     });

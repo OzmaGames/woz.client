@@ -10,7 +10,7 @@
     base.endTile = utils.find(model.tiles(), { id: endTile });
     base.cw = (cw === undefined ? true : cw);
     //base.cw = (base.startTile.y - base.endTile.y) < 0.1;
-    base.cw = (Math.abs(base.startTile.y - base.endTile.y) < 0.2) || base.startTile.x > base.endTile.x;
+    //base.cw = (Math.abs(base.startTile.y - base.endTile.y) < 0.2) || base.startTile.x > base.endTile.x;
 
     var words = (phrase && phrase.words) ? phrase.words : [];
     base.phrase = {

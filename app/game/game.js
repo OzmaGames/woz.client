@@ -13,7 +13,7 @@
     activate: function () {
       app.loading(true);
 
-      ctx.load(1);
+      ctx.load(ctx.playerCount);
     },
 
     binding: function () {
