@@ -80,6 +80,13 @@
           var player = json.playerInfo[i];
           if (player.username == model.player.username) {
             var score = player.score - model.player.score();
+
+            if (json.words) {
+              for (var j = 0; j < json.words.length; j++) {
+                model.words.push(json.words[j]);
+              }
+            }
+            
             app.trigger("alert:show", "You scored " + score + "!");
           }
           find(model.players(), { username: player.username }).score(player.score);

@@ -261,7 +261,7 @@
     tileMargin: 5,
     hoverMargin: 60,
     rectMargin: 10,
-    minArc: 80,
+    minArc: 50,
     debug: 0,
     container: null
   };
