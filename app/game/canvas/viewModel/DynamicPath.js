@@ -12,7 +12,8 @@
     }
   });
 
-  function DynamicPath(pathModel) {
+  function DynamicPath(paperScope, pathModel) {
+    scope = paperScope;
     //this.options = $.extend(true, {}, Path.options, opt);
     this.pathModel = pathModel;
 
@@ -61,13 +62,13 @@
       }
     } else {
       pm.guiBoxes = [];
-      pm.guiBoxes.group = new paper.Group();
+      pm.guiBoxes.group = new scope.Group();
     }
 
     for (var i = 0; i < nWords; i++) {
       if (pm.hasWordAt(i) && (pm.guiBoxes[i] == undefined || pm.guiBoxes[i] instanceof Circle)) {
         var circle = pm.guiBoxes[i];
-        pm.guiBoxes[i] = new Box(i, pm, [-100, -100], 0);
+        pm.guiBoxes[i] = new Box(scope, i, pm, [-100, -100], 0);
         if (circle) {
           circle.remove();
           pm.guiBoxes.group.removeChildren(circle.circle);
@@ -130,7 +131,7 @@
     this._hoverItems.push(hover);
 
     this._hasSetuped = true;
-    paper.view.draw();
+    scope.view.draw();
   };
 
   DynamicPath.prototype.showDone = function (path, boxes) {
@@ -142,7 +143,7 @@
 
     var cPoint = box.cPoint.add(path.getNormalAt(path.length / 2).normalize(-60)).add([50, 0]);
     var rect = this.createDoneContainer();
-    var group = this.createDoneButton2(new paper.Point(0, 0));
+    var group = this.createDoneButton2(new scope.Point(0, 0));
     rect.position = cPoint;
     group.position = cPoint.add([0, 15]);
 
@@ -163,7 +164,7 @@
   }
 
   DynamicPath.prototype.createDoneContainer = function () {
-    var size = new paper.Point(60, 40);
+    var size = new scope.Point(60, 40);
     var rect = new scope.Path.Rectangle(size.negate(), size);
 
     this._hoverItems.push(rect);
@@ -173,7 +174,7 @@
       strokeColor: "#e8e0d3",
       shadowColor: '#b8b0a3',
       shadowBlur: 5,
-      shadowOffset: new paper.Point(1, 1)
+      shadowOffset: new scope.Point(1, 1)
     }
     rect.bringToFront();
 
@@ -190,8 +191,8 @@
   }
 
   DynamicPath.prototype.createDoneButton2 = function (cPoint) {
-    var group = new paper.Group();
-    var size = new paper.Point(30, 15);
+    var group = new scope.Group();
+    var size = new scope.Point(30, 15);
     var base = this;
 
     var button = new scope.Path.Rectangle(cPoint.subtract(size), cPoint.add(size));
@@ -214,14 +215,14 @@
     group.addChild(button);
     group.addChild(text);
 
-    button.fillColor = new paper.Color(0, 0);
+    button.fillColor = new scope.Color(0, 0);
     button.bringToFront();
     button.on({
       mouseenter: function () {
         this.style = {
           shadowColor: '#b8b0a3',
           shadowBlur: 3,
-          shadowOffset: new paper.Point(0, 0)
+          shadowOffset: new scope.Point(0, 0)
         }
       },
       mouseleave: function () {
@@ -243,8 +244,8 @@
   }
 
   DynamicPath.prototype.createDoneButton = function (cPoint) {
-    var group = new paper.Group();
-    var size = new paper.Point(30, 15);
+    var group = new scope.Group();
+    var size = new scope.Point(30, 15);
     var base = this;
 
     var button = new scope.Path.Rectangle(cPoint.subtract(size), cPoint.add(size));
@@ -265,14 +266,14 @@
     group.addChild(button);
 
     button = button.clone();
-    button.fillColor = new paper.Color(0, 0);
+    button.fillColor = new scope.Color(0, 0);
     button.bringToFront();
     button.on({
       mouseenter: function () {
         this.style = {
           shadowColor: '#b8b0a3',
           shadowBlur: 3,
-          shadowOffset: new paper.Point(0, 0)
+          shadowOffset: new scope.Point(0, 0)
         }
       },
       mouseleave: function () {
@@ -338,7 +339,7 @@
         strokeColor: '#CBB28F',
         shadowBlur: 20,
         shadowColor: '#CBB28F',
-        shadowOffset: new paper.Point(0, 0)
+        shadowOffset: new scope.Point(0, 0)
       }
     },
     hoverMargin: 120

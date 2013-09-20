@@ -12,7 +12,9 @@
     }
   });
 
-  function Path(pathModel) {
+  function Path(paperScope, pathModel) {
+    scope = paperScope;
+    
     this._displayItems = [];
     this._hoverItems = [];
     this._hasSetuped = false;
@@ -77,6 +79,7 @@
   }
 
   Path.prototype.show = function () {
+
     console.log('%cPath', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
 
     var pm = this.pathModel, nWords = pm.nWords;
@@ -88,7 +91,7 @@
     } else {
       pm.guiBoxes = [];
       for (var i = 0; i < nWords; i++) {
-        var box = new Box(i);
+        var box = new Box(scope, i);
         pm.guiBoxes.push(box);
         this._displayItems.push(box);
       }
@@ -97,7 +100,7 @@
     for (var i = 0; i < nWords; i++) {
       var box = pm.guiBoxes[i];
 
-      box.cPoint = new paper.Point(-100, -100);
+      box.cPoint = new scope.Point(-100, -100);
       box.angle = 0;
       box.setPath(pm);
     }
@@ -137,7 +140,7 @@
     if (!Path.options.debug) path.remove();
 
     this._hasSetuped = true;
-    paper.view.draw();
+    scope.view.draw();
   }
 
   Path.prototype.createHoverArea = function (path, offset, width) {
@@ -189,8 +192,10 @@
     this.show();
   }
 
+  Path.scope = paper;
   Path.displayItems = [];
   Path.shortestArc = function (from, to, desiredLength, clockwise, accuracy) {
+    var scope = Path.scope;
     var line = new scope.Path.Line(from, to),
         cPoint = line.getPointAt(line.length / 2),
         vector = line.getNormalAt(line.length / 2).normalize(-500 * (clockwise ? 1 : -1));
@@ -254,7 +259,7 @@
   Path.options = {    
     tileRadius: 80,
     tileMargin: 5,
-    hoverMargin: 120,
+    hoverMargin: 60,
     rectMargin: 10,
     minArc: 20,
     debug: 0,

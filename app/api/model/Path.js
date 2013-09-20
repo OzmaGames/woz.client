@@ -28,13 +28,14 @@
       if (complete) {
         app.trigger("confirm:show", { modal: true });
 
-        var sub = app.on("confirm:dialog-result");
-        sub.then(function (result) {
+        var sub = app.on("confirm:dialog-result").then(function (result) {
+          model.activeWords(null);
           if (result == "cancel") {
             base.phrase._complete(false);
             base.removeAll();            
           }
           else {
+            app.loading(true);
             model.player.active(false);
             var data = {
               gameID: model.gameID,

@@ -7,6 +7,9 @@
   });
 
   return {
+    loadingStatus: ctx.loadingStatus,
+    loading: ctx.loading,
+
     activate: function () {
       app.loading(true);
 

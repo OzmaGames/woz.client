@@ -1,7 +1,7 @@
-﻿<div>
+﻿<div>   
     <img id="star" src="images/core/stardust/star.png" style="display: none;" />
 
-    <div id="game-main" style="padding-top:50px">
+    <div id="game-main" style="padding-top:0px">
         <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
         <!--ko compose: 'game/tiles'--><!--/ko-->
         <hr />
@@ -13,6 +13,7 @@
                 </div>
             </div>
         </div>
+        <!--ko compose: 'dialog/loading'--><!--/ko-->  
         <!--ko compose: 'dialog/confirm'--><!--/ko-->  
         <!--ko compose: 'dialog/alert'--><!--/ko-->  
     </div>

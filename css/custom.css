@@ -694,7 +694,7 @@ input[type="text"], input[type="password"] {
 
 .dialog {
     position: fixed;
-    
+    display:none;
 }
 
     .dialog.bottom-center {
@@ -702,6 +702,7 @@ input[type="text"], input[type="password"] {
         width: 100%;
         text-align: center;
     }
+
     .dialog.top-center {
         top: 0;
         width: 100%;
@@ -722,13 +723,22 @@ input[type="text"], input[type="password"] {
         position: fixed;
     }
 
-    .dialog .alert {
-        z-index: 10;
-        display:none;
-        margin: 0 90px;
+    .dialog .loading {
         position: relative;
-        font-size: xx-large;
-        color: #b49363;
+        z-index: 10;
+        margin: 0 auto;
+        width: 300px;
+        height: 70px;
+        text-align: center;
+        top: 250px;
+        color: #713b00;
+    }
+
+    .dialog .alert {
+        position: relative;
+        z-index: 10;
+        display: none;
+        margin: 0 90px;
         padding: 20px;
         border-radius: 50% 50% 50% 50%;
         background-color: rgba(255, 255, 255, 0.9);
@@ -737,6 +747,8 @@ input[type="text"], input[type="password"] {
         -o-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
         -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.9);
         box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        color: #b49363;
+        font-size: xx-large;
     }
 
     .dialog .confirm {

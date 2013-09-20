@@ -1,51 +1,55 @@
-﻿define(['api/datacontext', 'paper', 'jquery'], function (ctx, Paper, $) {
+﻿define(['durandal/app', 'api/datacontext', 'paper', 'jquery'], function (app, ctx, Paper, $) {
 
   var scope = paper;
   var unplayedWords = ctx.unplayedWords;
 
-  return { draw: draw, setup: setup, redraw: redraw };
+  return {
+    draw: draw, setup: setup, redraw: redraw,
+    setScope: function (paperScope) { scope = paperScope; }
+  };
 
   function setup(canvas) {
-    scope = new paper.PaperScope();
-    scope.setup(canvas);
+    //scope = new paper.PaperScope();
+    //scope.setup(canvas);    
 
     draw();
   }
 
   function redraw() {
+
     draw();
   }
 
   function draw() {
-
+    //return;
     var tool = new scope.Tool(), stars = [], path;
 
     //tool.minDistance = 32;
-    tool.fixedDistance = 50;
+    tool.fixedDistance = 32;
 
-    var text = new paper.PointText({
-      point: new paper.Point(100, 300),
-      content: ''
-    });
-    text.fillColor = 'black';
+    //var text = new paper.PointText({
+    //  point: new paper.Point(100, 300),
+    //  content: ''
+    //});
+    //text.fillColor = 'black';
 
     tool.onMouseDown = function (event) {
+      //text.content = "mouseDown";
       path = new scope.Path();
       path.add(event.point);
       path.strokeColor = 'red';
       stars = [];
       //addStarAt(event.point);
-      text.content = "mouseDown";
     };
 
     tool.onMouseDrag = function (event) {
-      text.content = "drag " + path.length;
+      //text.content = "drag " + path.length;
       path.add(event.point);
       //addStarAt(event.point);
     };
 
     tool.onMouseUp = function (event) {
-      text.content = "mouseup " + path.length;
+      //text.content = "mouseup " + path.length;
       if (path.length == 0) return;
       path.closePath();
 
@@ -55,7 +59,7 @@
         console.log("Too few words!");
       } else if (selection.length > 9) {
         console.log("Too many words!");
-        // Oz.alerts.show( new Oz.Alert( "Too many words!" ) );
+        app.trigger("alert:show", "Too many words!");
       } else {
         selection = Sort(selection);
         ctx.activeWords(selection);

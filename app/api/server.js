@@ -95,7 +95,7 @@
         //TODO: level: 1,2,3
         socket.emit("game:queue", data, function (data) {
           console.log("%c queue", 'background: #222; color: #bada55', data);
-          callback(data);
+          if(callback) callback(data);
         });
       }
     }

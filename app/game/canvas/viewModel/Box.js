@@ -3,7 +3,9 @@
   var scope = paper;
   var transparent = new scope.Color(0, 0);
 
-  function Box(index, pathModel, cPoint, angle) {
+  function Box(paperScope, index, pathModel, cPoint, angle) {
+    scope = paperScope;
+
     var base = this;
 
     base.index = index;
@@ -44,19 +46,11 @@
     if (this.hasData) {
       this.active = false;
       this.prevAngle = 0;
-      if (this._guiRect != null){
-        //animation
-        this._guiRect.remove();
-        this._guiRect = null;
-      }
-      if (this._guiText != null) { this._guiText.remove(); this._guiText = null;}
+      if (this._guiRect != null) { this._guiRect.remove(); this._guiRect = null; }
+      if (this._guiText != null) { this._guiText.remove(); this._guiText = null; }
       if (this._guiElem == null) this.createElem(); else this.updateElem();
     } else {
-      if (this._guiElem != null) {
-        //animation
-        this._guiElem.remove();
-        this._guiElem = null;
-      }
+      if (this._guiElem != null) { this._guiElem.remove(); this._guiElem = null; }
       if (this._guiRect == null) this.createRect(); else this.updateRect();
     }
   };
@@ -73,8 +67,8 @@
       this._guiElem.addClass("placed");
       this._guiElem.off('click');
     }
-    
-    this._guiElem.css({      
+
+    this._guiElem.css({
       left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
       top: this.cPoint.y - Box.pathOptions.container.top - 18,
       "-webkit-transform": "rotate(" + this.angle + "deg)",
@@ -183,6 +177,8 @@
     text.rotate(this.angle, this.cPoint);
     text.characterStyle.fontStyle = 'bold';
 
+    text.sendToBack();
+
     this._guiText = text;
 
     return text;
@@ -207,15 +203,16 @@
       style: {
         strokeColor: '#CBB28F',
         strokeWidth: 1,
+        fillColor: transparent,
         shadowColor: transparent
       },
       activeStyle: {
         strokeWidth: 2,
         shadowColor: '#CBB28F',
         shadowBlur: 5,
-        shadowOffset: new paper.Point(0, 0)
+        shadowOffset: new scope.Point(0, 0)
       },
-      size: new paper.Point(30, 15)
+      size: new scope.Point(30, 15)
     },
     textStyle: {
       fillColor: 'grey',
