@@ -38,6 +38,12 @@
     afterRender: function (el, word) {
       var $el = $(el);
 
+      if (word.originalX === undefined) word.originalX = word.x;
+      if (word.originalY === undefined) word.originalY = word.y;
+
+      word.x = word.originalX;
+      word.y = word.originalY;
+
       $el.css({
         left: 100 * word.x + '%',
         top: 100 * word.y + '%',
@@ -61,11 +67,8 @@
         dropped: function (e, data) {
           ctx.activeWord(null);
 
-          
           word.x = data.hasMoved ? data.left / 100 : word.x;
           word.y = data.hasMoved ? data.top / 100 : word.y;
-
-
         }
       }).hide();
 

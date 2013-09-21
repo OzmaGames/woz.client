@@ -2,43 +2,33 @@
 
   var scope = paper;
   var transparent = new scope.Color(0, 0);
+  var default_cPoint = new scope.Point(-100, -100);
 
-  function Box(paperScope, index, pathModel, cPoint, angle) {
-    scope = paperScope;
-
+  function Box(index, pathModel, cPoint, angle) {    
     var base = this;
 
     base.index = index;
     base.active = false;
-    base.cPoint = cPoint;
-    base.angle = angle;
+    base.cPoint = cPoint || default_cPoint;
+    base.angle = angle || 0;
+    base.prevAngle = 0;
 
     base._guiRect = null;
     base._guiText = null;
     base._guiElem = null;
 
-    base.prevAngle = 0;
-
-    this.setPath(pathModel);
+    base.pathModel = base.wordModel = base.hasData = null;
+    
+    this.updateModel(pathModel);
   }
 
-  Box.prototype.setPath = function (pathModel) {
+  Box.prototype.updateModel = function (pathModel) {
     if (pathModel === undefined || pathModel == null) return;
+
     this.pathModel = pathModel;
     this.wordModel = pathModel.getWordAt(this.index);
     this.hasData = this.wordModel != null;
-    this.show();
-  }
 
-  Box.prototype.setWord = function (word) {
-    this.hasData = true;
-    this.wordModel = word;
-    this.show();
-  };
-
-  Box.prototype.removeWord = function () {
-    this.hasData = false;
-    this.wordModel = null;
     this.show();
   }
 
@@ -47,12 +37,12 @@
       this.active = false;
       this.prevAngle = 0;
       if (this._guiRect != null) { this._guiRect.remove(); this._guiRect = null; }
-      if (this._guiText != null) { this._guiText.remove(); this._guiText = null; }
       if (this._guiElem == null) this.createElem(); else this.updateElem();
     } else {
       if (this._guiElem != null) { this._guiElem.remove(); this._guiElem = null; }
       if (this._guiRect == null) this.createRect(); else this.updateRect();
     }
+    this.createText('');
   };
 
   Box.prototype.width = function () {
@@ -70,7 +60,7 @@
 
     this._guiElem.css({
       left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
-      top: this.cPoint.y - Box.pathOptions.container.top - 18,
+      top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2,
       "-webkit-transform": "rotate(" + this.angle + "deg)",
       "-moz-transform": "rotate(" + this.angle + "deg)",
       "-ms-transform": "rotate(" + this.angle + "deg)",
@@ -82,9 +72,10 @@
   Box.prototype.createElem = function () {
     var div = $('<div/>', { 'class': 'magnet', text: this.wordModel.lemma });
 
+    if (this.wordModel.isRelated) div.addClass("related");
     div.css({
-      left: Box.pathOptions.container.width / 2,
-      top: Box.pathOptions.container.top + Box.pathOptions.container.height / 2
+      left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
+      top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top
     });
     div.appendTo('#tiles');
 
@@ -124,12 +115,14 @@
       this.active = true;
 
       this.wordModel = word;
-
-      this._guiRect.style = Box.options.rect.activeStyle;
-
-      if (this._guiText) this._guiText.remove();
-      this._guiText = this.createText(this.wordModel.lemma);
-
+      
+      clearInterval(this._hoverHandler);
+      this._hoverHandler = setTimeout(function (base) {
+        base._guiRect.style = Box.options.rect.activeStyle;
+        base._guiText.content = word.lemma;
+        base._guiText.visible = true;
+      }, 1, this);
+      
       return this;
     }
     return null;
@@ -139,10 +132,11 @@
     if (!this.hasData && this.active) {
       this.active = false;
 
-      this._guiRect.style = Box.options.rect.style;
-
-      if (this._guiText) this._guiText.remove();
-      this._guiText = null;
+      clearInterval(this._hoverHandler);
+      this._hoverHandler = setTimeout(function (base) {
+        base._guiRect.style = Box.options.rect.style;
+        base._guiText.visible = false;
+      }, 1, this);
     }
   };
 
@@ -166,25 +160,24 @@
   };
 
   Box.prototype.createText = function (content) {
-    if (this._guiText) this._guiText.remove();
-
     var text = new scope.PointText({
       point: this.cPoint,
-      content: content
+      content: '-',
+      style: Box.options.textStyle,
+      visible: false
     });
-    text.style = Box.options.textStyle;
     text.position.y += 5;
     text.rotate(this.angle, this.cPoint);
     text.characterStyle.fontStyle = 'bold';
 
     text.sendToBack();
 
-    this._guiText = text;
+    if (this._guiText) this._guiText.remove();
 
-    return text;
+    return this._guiText = text;    
   };
 
-  Box.prototype.clear = function () {
+  Box.prototype._clear = function () {
     if (this._guiRect) this._guiRect.remove();
     if (this._guiElem) this._guiElem.remove();
     if (this._guiText) this._guiText.remove();
@@ -195,7 +188,7 @@
   };
 
   Box.prototype.remove = function () {
-    this.clear();
+    this._clear();
   };
 
   Box.options = {

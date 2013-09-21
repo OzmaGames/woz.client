@@ -259,7 +259,13 @@ body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 50px; /*in portrait mode the tiles wont get stuck on the edges*/
 }
+/*@media screen and (min-height: 768px) {
+    #tiles-max {
+        max-width: 1200px!important;
+    }
+}*/
 
     #tiles-max > #tiles-aspect {
         position: relative;
@@ -280,6 +286,9 @@ body {
         width: 160px;
         height: 160px;
         cursor: pointer!important;
+        -moz-transition: left .5s ease-in-out, top .5s ease-in-out;
+        -o-transition: left .5s ease-in-out, top .5s ease-in-out;
+        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out;
         transition: left .5s ease-in-out, top .5s ease-in-out;
         z-index: 3;
         left: 50%;
@@ -341,6 +350,12 @@ body {
             font-size: medium;
             color: #296e8b;
         }
+        #tiles .tile .instruction .info, body .instruction .info{
+            margin-top:5px;
+            font-family:GreatVibesRegular;
+            font-weight:bold;
+            font-size:large;
+        }
 
 #workspace {
     position: relative;
@@ -387,9 +402,9 @@ body {
 
     .magnet.related {
         border-width: 2px;
-        -moz-box-shadow: 0 0 10px #f5cf76;
-        -webkit-box-shadow: 0 0 10px #f5cf76;
-        box-shadow: 0 0 10px #f5cf76;
+        -moz-box-shadow: 0 0 10px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #ccc;
+        -webkit-box-shadow: 0 0 10px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #ccc;
+        box-shadow: 0 0 10px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #ccc;
     }
 
     .magnet .points {
@@ -694,7 +709,7 @@ input[type="text"], input[type="password"] {
 
 .dialog {
     position: fixed;
-    display:none;
+    display: none;
 }
 
     .dialog.bottom-center {
@@ -760,10 +775,10 @@ input[type="text"], input[type="password"] {
         height: 70px;
         background-image: url('../images/app/confirm/confirm-background.png');
         background-position: center bottom;
-        -moz-background-size: 204px 70px;
-        -o-background-size: 204px 70px;
-        -webkit-background-size: 204px 70px;
-        background-size: 204px 70px;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
         text-align: center;
         color: #976b2c;
         line-height: 120%;
@@ -784,6 +799,17 @@ input[type="text"], input[type="password"] {
             color: #976b2c;
             padding: 7px 10px;
         }
+
+@media (min-resolution: 100dpi) {
+    .dialog .confirm {
+        width: 400px!important;
+        height: 140px;
+    }
+
+        .dialog .confirm button {
+            padding: 14px 20px;
+        }
+}
 
 #player-buttons {
     position: absolute;

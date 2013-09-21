@@ -1,4 +1,4 @@
-﻿define(['durandal/app','api/datacontext', 'game/canvas/viewModel/Box', 'paper'], function (app,ctx, Box) {
+﻿define(['durandal/app', 'api/datacontext', 'game/canvas/viewModel/Box', 'paper'], function (app, ctx, Box) {
 
   var scope = paper;
   var activeWord = ctx.activeWord;
@@ -10,17 +10,14 @@
     if (word == null && activeBox != null) {
       activeBox.drop();
     }
-  });
+  });  
 
   function Path(paperScope, pathModel) {
     scope = paperScope;
-    
-    this._displayItems = [];
-    this._hoverItems = [];
-    this._hasSetuped = false;
-    this.pathModel = pathModel;
 
-    this.draw = this.show;
+    this._displayItems = [];
+    this._trash = [];
+    this.pathModel = pathModel;
   }
 
   Path.prototype.enter = function () {
@@ -78,37 +75,36 @@
     }
   }
 
-  Path.prototype.show = function () {
-
-    console.log('%cPath', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
+  Path.prototype.setup = function () {
+    console.log('%cPath Setup', 'background: orange; color: white', this.pathModel.id);
 
     var pm = this.pathModel, nWords = pm.nWords;
 
-    if (this._hasSetuped) {
-      for (var i = 0; i < this._hoverItems.length; i++) {
-        this._hoverItems[i].remove();
+    if (pm.guiBoxes && pm.guiBoxes.length == nWords) {
+      for (var i = 0; i < nWords; i++) {
+        var box = pm.guiBoxes[i]
+        box.updateModel(pm);
       }
     } else {
       pm.guiBoxes = [];
       for (var i = 0; i < nWords; i++) {
-        var box = new Box(scope, i);
+        var box = new Box(i, pm);
         pm.guiBoxes.push(box);
         this._displayItems.push(box);
       }
     }
+  }
 
-    for (var i = 0; i < nWords; i++) {
-      var box = pm.guiBoxes[i];
+  Path.prototype.show = function () {
+    console.log('%cPath', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
 
-      box.cPoint = new scope.Point(-100, -100);
-      box.angle = 0;
-      box.setPath(pm);
-    }
+    var pm = this.pathModel, nWords = pm.nWords;
 
-    var desiredLength = Path.getDesiredLength(nWords, pm.guiBoxes);
-    path = Path.shortestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw);
-    path.strokeColor = 'grey';
-    this._displayItems.push(path);
+    this._cleanCycle();
+
+    var desiredLength = Path.getDesiredLength(pm.guiBoxes);
+    path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw);
+    this.cPoint = Path.cPoint;
 
     var delta = path.length - desiredLength,
         visibleLength = path.length - 2 * (Path.options.tileMargin + Path.options.tileRadius),
@@ -116,30 +112,31 @@
         offset = startPoint;
 
     for (var i = 0; i < nWords; i++) {
-      var box = pm.guiBoxes[i];
-      offset += box.width() / 2 + Path.options.rectMargin + delta / (2 * nWords);
+      var box = pm.guiBoxes[i], 
+        half = box.width() / 2 + Path.options.rectMargin + delta / (2 * nWords);
 
+      offset += half;
       var point = path.getPointAt(offset),
-        tangent = path.getTangentAt(offset);
+        tangent = path.getTangentAt(offset),
+        hoverArea = this.createHoverArea(path, offset, box.width() + 2 * Path.options.rectMargin + delta / nWords);
+      hoverArea.data = box;
+      offset += half;
 
       box.cPoint = point;
       box.angle = tangent.angle;
-      box.setPath(pm);
-
-      var hover = this.createHoverArea(path, offset, box.width() + 2 * Path.options.rectMargin + delta / nWords);
-      hover.data = box;
+      box.show();
 
       if (Path.options.debug) {
-        hover.strokeColor = 'lightgreen';
+        hoverArea.strokeColor = 'lightgreen';
       }
-      if (!Path.options.debug) path.remove();
-
-      offset += box.width() / 2 + Path.options.rectMargin + delta / (2 * nWords);
     }
 
-    if (!Path.options.debug) path.remove();
+    if (!Path.options.debug) {
+      path.remove();
+    } else {
+      this._trash.push(path);
+    }
 
-    this._hasSetuped = true;
     scope.view.draw();
   }
 
@@ -160,64 +157,48 @@
     hover.fillColor = transparent;
     hover.on(this.events.boxHoverEvents);
 
-    this._displayItems.push(hover);
-    this._hoverItems.push(hover);
+    this._trash.push(hover);
 
     return hover;
   }
 
-  Path.prototype.clear = function () {
-    this.clear.remove(this._displayItems);
-    this.clear.remove(this._hoverItems);
-    this.clear.remove(this.pathModel.guiBoxes);
+  Path.prototype._cleanCycle = function () {
+    this._removeAll(this._trash);
+    this._trash = [];
 
-    this.pathModel.guiBoxes = [];
-    this._displayItems = [];
-    this._hoverItems = [];
-    this._hasSetuped = false;    
+    if (Path.options.debug) Path._clear();
   }
 
-  Path.prototype.clear.remove = function (arr) {
+  Path.prototype._removeAll = function (arr) {
     if (arr == null) return;
     for (var i = 0; i < arr.length; i++) {
-      try{
-        arr[i].remove();
-      }
-      catch(ex){}
+      try { arr[i].remove(); } catch (ex) { }
     }
   }
 
-  Path.prototype.redraw = function () {
-    this.clear();
-    this.show();
+  Path.prototype.remove = function () {
+    this._removeAll(this._trash);
+    this._removeAll(this._displayItems);
   }
-
+  
   Path.scope = paper;
-  Path.displayItems = [];
-  Path.shortestArc = function (from, to, desiredLength, clockwise, accuracy) {
+  Path._trash = [];
+  Path.getBestArc = function (from, to, desiredLength, clockwise, accuracy) {
     var scope = Path.scope;
     var line = new scope.Path.Line(from, to),
         cPoint = line.getPointAt(line.length / 2),
         vector = line.getNormalAt(line.length / 2).normalize(-500 * (clockwise ? 1 : -1));
     line.remove();
 
+    Path.cPoint = cPoint;
+
     line = new scope.Path.Line(cPoint.add(vector.normalize(-Path.options.minArc)), cPoint.subtract(vector));
-    if (Path.options.debug) {
-      line.strokeColor = 'orange';
-      line.dashArray = [10, 12];
-      var circle = new scope.Path.Circle(cPoint, 5);
-      circle.fillColor = 'orange';
 
-      Path.displayItems.push(circle);
-    }
-
-    var S = 0, E = line.length, bestDelta = 10000, M = line.length/2, bestArc;
+    var S = 0, E = line.length, bestDelta = 10000, M = line.length / 2, bestArc;
     accuracy = accuracy || 10;
     for (var i = 0; i < accuracy; i++, M /= 2.0) {
       var through = line.getPointAt((S + E) / 2);
       var arc = new scope.Path.Arc(from, through, to);
-
-      //if (desiredLength == 490) console.log(i, M, (S + E) / 2);
 
       if (Math.abs(arc.length - desiredLength) < bestDelta) {
         if (bestArc) bestArc.remove();
@@ -230,33 +211,40 @@
       if (arc.length > desiredLength) E -= M; else S += M;
     }
 
-    if (!Path.options.debug) line.remove();
-    else
-      Path.displayItems.push(line);
+    if (Path.options.debug) {
+      var circle = new scope.Path.Circle(cPoint, 5);
+      circle.fillColor = 'orange';
+      line.strokeColor = 'orange';
+      line.dashArray = [10, 12];
+      bestArc.strokeColor = 'grey';
+
+      Path._trash.push(line);
+      Path._trash.push(circle);
+    }
+    else {
+      line.remove();
+    }
 
     return bestArc;
   }
 
-  Path.clear = function () {
-    for (var i = 0; i < Path.displayItems.length; i++) {
-      var item = Path.displayItems[i];
-      item.remove();
-    }
-    Path.displayItems = [];
-  }
-
-  Path.getDesiredLength = function (n, arr) {
-    if (arr === undefined || arr.length === 0) {
-      return n * (Box.options.rect.size.x + Path.options.rectMargin) * 2 + (Path.options.tileMargin + Path.options.tileRadius) * 2;
-    }
+  Path.getDesiredLength = function (arr) {
     var len = (Path.options.tileMargin + Path.options.tileRadius) * 2;
-    for (var i = 0; i < n; i++) {
+    for (var i = 0; i < arr.length; i++) {
       len += arr[i].width() + Path.options.rectMargin * 2;
     }
     return len;
   }
 
-  Path.options = {    
+  Path._clear = function () {
+    for (var i = 0; i < Path._trash.length; i++) {
+      var item = Path._trash[i];
+      item.remove();
+    }
+    Path._trash = [];
+  }
+  
+  Path.options = {
     tileRadius: 80,
     tileMargin: 5,
     hoverMargin: 60,
@@ -270,5 +258,4 @@
   Path.Box.pathOptions = Path.options;
 
   return Path;
-
 });

@@ -36,6 +36,7 @@
           }
           else {
             app.loading(true);
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             model.player.active(false);
             var data = {
               gameID: model.gameID,

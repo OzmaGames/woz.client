@@ -5,8 +5,7 @@
 
     var $el = $(this), zIndex = $el.css('z-index'), hasMoved = false;
 
-    if($.support.touch)
-      $el.touchPunch();
+    if($.support.touch) $el.touchPunch();
 
     var events = {
       mousedown: function (e) {
@@ -34,8 +33,9 @@
 
         opt.dragStart.call(e);
         opt.parent.bind("mousemove", startPoint, events.mousemove);
-        $(document).one("mouseup", startPoint, events.mouseup);
-        //$e.one("mouseup", startPoint, events.mouseup);
+        opt.parent.one("mouseup", startPoint, events.mouseup);
+
+        return startPoint;
       },
 
       mouseup: function (e) {
@@ -92,19 +92,56 @@
           return false;
 
         return true;
-      }
+      },
+
+      //touch: function(event) {
+      //  if (event.originalEvent.touches.length > 1) {
+      //    // Ignore multi-touch events
+      //    return false;
+      //  }
+      //  event.preventDefault();
+
+      //  var touch = event.originalEvent.changedTouches[0];
+
+      //  event.pageX = touch.pageX;
+      //  event.pageY = touch.pageY;
+
+      //  return touch;
+      //}
     };
 
     $el.bind({
-      mousedown: events.mousedown
+      mousedown: events.mousedown,
+      //touchstart: function (e) {
+      //  var startPoint;
+      //  if (events.touch(e)) startPoint = events.mousedown(e); else return;
+
+      //  var $target = $(e.target);
+      //  $target.bind({
+      //    touchmove: function (e) {
+      //      e.data = startPoint;
+      //      if (events.touch(e)) events.mousemove(e);
+      //    },
+      //    touchend: function (e) {
+      //      e.data = startPoint;
+      //      if (events.touch(e)) events.mouseup(e);
+      //      $target.unbind("");
+      //    },
+      //    touchcancel: function (e) {
+      //      alert('c');
+      //      e.data = startPoint;
+      //      if (events.touch(e)) events.mouseup(e);
+      //      $target.unbind();
+      //    }
+      //  });
+      //}
     });
 
     //Clean up garbage        
     $el.data('draggable', this);
 
     this.dispose = function () {
-      $el.unbind("mousedown", events.mousedown);
-      $el.unbind("mouseup", events.mouseup);
+      $el.unbind();
       events.mouseup();
     };
 
