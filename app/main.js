@@ -19,7 +19,7 @@ define('knockout', ko);
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext'],
   function (system, app, viewLocator, server, ctx) {
     //>>excludeStart("build", true);
-    system.debug(true);
+    //system.debug(true);
     //>>excludeEnd("build");    
 
     app.title = 'Words Of Oz';

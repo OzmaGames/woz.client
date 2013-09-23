@@ -118,5 +118,5 @@
   }
 
 
-  return Path;
+  return window.myPath = Path;
 });

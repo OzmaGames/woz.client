@@ -33,6 +33,18 @@
         $('#workspace').touchPunch();
     },
 
+    swap:function(){
+      if (ctx.player.active()) {
+        var data = {
+          username: ctx.player.username,
+          gameID: ctx.gameID,
+          words: ko.utils.arrayMap(ctx.words().slice(1, 5), function (w) { return w.id })
+        };
+        
+        app.trigger("server:game:swap-words", data);
+      }
+    },
+
     detached: function () {
 
     }

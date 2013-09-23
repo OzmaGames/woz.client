@@ -43,7 +43,6 @@
     /// data = {gameId: #, username: '', phrase: { words: [#, #, #, ..] }, path: #}
     /// res = {success: true|false, errorMessage: ''}
     "server:game:place-phrase": function (data, callback) {
-      data.username = 
       console.log('%c game:place-phrase', 'background: #222; color: #bada55', data);
       socket.emit("game:place-phrase", data, callback);
     },
@@ -57,7 +56,11 @@
     /// data = {gameId: #, username: '', words: [#, #, #, ..]}
     /// res = {success: true|false, errorMessage: '', newWords: [#, #, #, ..]}
     "server:game:swap-words": function (data, callback) {
-      socket.emit("game:swap-words", data, callback);
+      console.log('%c server:game:swap-words', 'background: #222; color: #bada55', data);
+      socket.emit("game:swap-words", data, function (res) {
+        console.log('%c game:swap-words', 'background: #222; color: #bada55', res);
+        callback(res);
+      });
     },
 
     /// data = {gameId: #, username: ''}
