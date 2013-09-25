@@ -36,7 +36,7 @@
           }
           else {
             app.loading(true);
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            $("body").animate({ scrollTop: 0 }, "slow");
             model.player.active(false);
             var data = {
               gameID: model.gameID,
@@ -71,7 +71,9 @@
     }
 
     base.addWord = function (word, index) {
-      if (!model.player.active()) return;
+      if (!model.player.active()) {
+        return false;
+      }
 
       if (index === undefined) {
         for (var i = 0; i < 10; i++) {
@@ -87,6 +89,8 @@
       base.phrase.words.push({ word: word, index: index });
 
       model.words.valueHasMutated();
+
+      return true;
     }
 
     base.removeAll = function () {

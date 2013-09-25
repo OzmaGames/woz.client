@@ -63,7 +63,7 @@
       } else {
         selection = Sort(selection);
         ctx.activeWords(selection);
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $("body").animate({ scrollTop: 0 }, "slow");
 
         for (var i = 0; i < selection.length; i++) console.log(selection[i].lemma);
       }

@@ -41,7 +41,7 @@ body {
 }
 
 #app {
-    position: absolute;
+    position:absolute;
     -moz-transform: translateZ(0);
     -ms-transform: translateZ(0);
     -o-transform: translateZ(0);
@@ -143,7 +143,7 @@ body {
         height: 100%;
         margin: 0px;
         top: 0px;
-        z-index: 2;
+        z-index:1;
     }
 
     #game-main .logo-absolute {
@@ -391,7 +391,7 @@ body {
 
 .magnet {
     position: absolute !important;
-    z-index: 3;
+    z-index: 4;
     padding: 2px 4px;
     border: 1px solid #e8e0d3;
     background-color: #fff;

@@ -10,13 +10,14 @@ requirejs.config({
 
     'transitions/slidedown': 'api/transitions/slidedown'
   },
-  urlArgs: 'v0.37'
+  urlArgs: 'v0.38'
 });
 
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext'],
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext',
+  '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3'],
   function (system, app, viewLocator, server, ctx) {
     //>>excludeStart("build", true);
     //system.debug(true);

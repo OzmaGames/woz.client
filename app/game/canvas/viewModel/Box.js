@@ -1,4 +1,4 @@
-﻿define(['api/datacontext', 'paper'], function (ctx) {
+﻿define(['durandal/app', 'api/datacontext', 'paper'], function (app, ctx) {
 
   var scope = paper;
   var transparent = new scope.Color(0, 0);
@@ -12,6 +12,8 @@
     base.cPoint = cPoint || default_cPoint;
     base.angle = angle || 0;
     base.prevAngle = 0;
+    base.scale = 1;
+    base.prevScale = 1;
 
     base._guiRect = null;
     base._guiText = null;
@@ -60,13 +62,8 @@
 
     this._guiElem.css({
       left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
-      top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2,
-      "-webkit-transform": "rotate(" + this.angle + "deg)",
-      "-moz-transform": "rotate(" + this.angle + "deg)",
-      "-ms-transform": "rotate(" + this.angle + "deg)",
-      "-o-transform": "rotate(" + this.angle + "deg)",
-      "transform": "rotate(" + this.angle + "deg)"
-    });
+      top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2
+    }).transition({ rotate: this.angle + 'deg', scale: this.scale });
   }
 
   Box.prototype.createElem = function () {
@@ -93,10 +90,12 @@
 
   Box.prototype.updateRect = function () {
     this._guiRect.rotate(this.angle - this.prevAngle);
+    this._guiRect.scale(this.scale - this.prevScale + 1);
     this._guiRect.position = this.cPoint;
     this._guiRect.style = Box.options.rect.style;
 
     this.prevAngle = this.angle;
+    this.prevScale = this.scale;
   };
 
   Box.prototype.createRect = function () {
@@ -143,7 +142,9 @@
 
   Box.prototype.drop = function () {
     if (this.active && !this.hasData && this.wordModel != null) {
-      this.pathModel.addWord(this.wordModel, this.index);
+      if (!this.pathModel.addWord(this.wordModel, this.index)) {
+        app.trigger('alert:show', "It's not your turn!");
+      }
     }
   };
 

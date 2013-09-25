@@ -47,13 +47,8 @@
 
       $el.css({
         left: 100 * word.x + '%',
-        top: 100 * word.y + '%',
-        "-webkit-transform": "rotate(" + word.angle + "deg)",
-        "-moz-transform": "rotate(" + word.angle + "deg)",
-        "-ms-transform": "rotate(" + word.angle + "deg)",
-        "-o-transform": "rotate(" + word.angle + "deg)",
-        "transform": "rotateY(" + word.angle + "deg)"
-      });
+        top: 100 * word.y + '%'
+      }).transition({ rotate: word.angle + 'deg' });
       
       $el.data("immovable", ctx.words.immovable);
 
@@ -66,7 +61,7 @@
             word.isSelected(word.isSelected() ^ 1);
           } else {
             ctx.activeWord(word);
-            $el.css({ "-webkit-transform": "", "-moz-transform": "", "-ms-transform": "", "-o-transform": "", "transform": "" });
+            $el.css({ rotate: '0deg' });
           }          
         },
 

@@ -121,8 +121,8 @@
     });
 
     model.loadingStatus("Waiting for server...");
-    app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount });
 
+    app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount });
     //app.trigger("game:start", entity);
   }
 

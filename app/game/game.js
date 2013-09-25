@@ -73,6 +73,7 @@
             created = true;
             app.trigger("confirm:show");
             confirmSub = app.on("confirm:dialog-result").then(function (res) {
+              $('#swap-words').removeClass('cancel');
               if (res == "cancel") {
                 cancel();
               } else {
