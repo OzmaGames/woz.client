@@ -71,6 +71,8 @@
     }
 
     base.addWord = function (word, index) {
+      if (!model.player.active()) return;
+
       if (index === undefined) {
         for (var i = 0; i < 10; i++) {
           if (null == ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === i; })) {
@@ -118,5 +120,5 @@
   }
 
 
-  return window.myPath = Path;
+  return Path;
 });

@@ -10,6 +10,8 @@
   var model =
   {
     gameID: 0,
+
+    player: { active: ko.observable() },
     players: ko.observableArray([]),
 
     gameOver: ko.observable(false),
@@ -27,6 +29,9 @@
     playerCount: 1
   };
 
+  model.mode = ko.observable(''); //swap;
+  model.words.immovable = ko.computed(function () { return model.mode() == 'swap'; });
+
   model.load = function (playerCount) {
 
     model.loading(true);
@@ -38,17 +43,28 @@
       model.gameID = json.id;
 
       ko.utils.arrayForEach(json.players, function (player) {
-        player.active = ko.observable(player.active);
+        if (player.username == username) {
+          model.player.active(player.active);
+          player.active = model.player.active;
+          player.tickets = {
+            swap: 1
+          };
+        } else {
+          player.active = ko.observable(player.active);
+        }
         player.score = ko.observable(player.score);
       })
       model.player = find(json.players, { username: username });
       model.players(json.players);
 
+      ko.utils.arrayForEach(json.words, function (word) {
+        word.isSelected = ko.observable(false);
+      });
       model.words(json.words);
 
       for (var i = 0; i < json.tiles.length; i++) {
         json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
-        json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);        
+        json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
       }
       model.tiles(json.tiles);
 
@@ -68,23 +84,39 @@
       app.loading(false);
       if (json.success) {
         find(model.players(), { username: json.active }).active(true);
+        if (model.player.username == json.active) {
+          model.player.tickets.swap = 1;
+        }
         for (var i = 0; i < json.playerInfo.length; i++) {
-          //debugger;
           var player = json.playerInfo[i];
           if (player.username == model.player.username) {
             var score = player.score - model.player.score();
 
             if (json.words) {
               for (var j = 0; j < json.words.length; j++) {
+                json.words[j].isSelected = ko.observable(false);
                 model.words.push(json.words[j]);
               }
             }
-            
-            app.trigger("alert:show", "You scored " + score + "!");
+
+            app.trigger("alert:show", { content: "You scored <b>" + score + "</b> points!" });
           }
           find(model.players(), { username: player.username }).score(player.score);
         }
         model.players.valueHasMutated();
+      }
+    });
+
+    app.on("game:swap-words", function (json) {
+      if (json.success && json.words) {
+        for (var j = 0; j < json.oldWords.length; j++) {
+          var word = ko.utils.arrayFirst(model.words(), function (w) { return w.id == json.oldWords[j]; });
+          model.words.remove(word);
+        }
+        for (var j = 0; j < json.words.length; j++) {
+          json.words[j].isSelected = ko.observable(false);
+          model.words.push(json.words[j]);
+        }
       }
     });
 
@@ -102,7 +134,11 @@
     return ko.utils.arrayFilter(model.words(), function (word) { return !(word.isPlayed || false); });
   });
 
-  return model;
+  model.selectedWords = ko.computed(function () {
+    return ko.utils.arrayFilter(model.words(), function (word) { return word.isSelected(); });
+  });
+
+  return window.ctx = model;
 
   function find(arr, data) {
     for (var i = 0; i < arr.length; i++)

@@ -10,7 +10,7 @@ requirejs.config({
 
     'transitions/slidedown': 'api/transitions/slidedown'
   },
-  urlArgs: 'v0.36'
+  urlArgs: 'v0.37'
 });
 
 define('jquery', function () { return jQuery; });

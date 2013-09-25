@@ -59,7 +59,9 @@
       console.log('%c server:game:swap-words', 'background: #222; color: #bada55', data);
       socket.emit("game:swap-words", data, function (res) {
         console.log('%c game:swap-words', 'background: #222; color: #bada55', res);
-        callback(res);
+        res.oldWords = data.words;
+        app.trigger("game:swap-words", res);
+        if(callback) callback(res);
       });
     },
 

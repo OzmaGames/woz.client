@@ -25,16 +25,18 @@
           h: $el.outerHeight(),
           w: $el.outerWidth(),
           t: $el.position().top - e.pageY,
-          l: $el.position().left - e.pageX
+          l: $el.position().left - e.pageX,
+          windowTop: $(window).scrollTop()
         };
 
         $el.css('z-index', 1000);
         $el.addClass('drag');
 
         opt.dragStart.call(e);
-        opt.parent.bind("mousemove", startPoint, events.mousemove);
+        if (!$el.data("immovable") || $el.data("immovable")() !== true) { //false or null
+          opt.parent.bind("mousemove", startPoint, events.mousemove);          
+        }
         opt.parent.one("mouseup", startPoint, events.mouseup);
-
         return startPoint;
       },
 
@@ -82,6 +84,16 @@
         opt.move(e, { top: newTop, left: newLeft });
 
         hasMoved = true;
+
+        if (e.data.windowTop != 0 && e.pageY - e.data.windowTop < 100) {
+          //var diff = e.pageY - e.data.windowTop;
+          e.data.windowTop = e.data.windowTop - 50;
+          if (e.data.windowTop < 0) e.data.windowTop = 0;
+          $("body").animate({ scrollTop: e.data.windowTop }, "fast");
+        }
+        //console.log(e.pageY, e.clientY, e.screenY);
+
+        //console.log(e.data.windowTop);
       },
 
       isWithinBoundaries: function (e) {
@@ -155,6 +167,7 @@
     dropped: function () { },
     move: function () { },
     parent: $(document),
+    dragable: true,
     cursor: "move"
   };
 

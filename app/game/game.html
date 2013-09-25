@@ -21,8 +21,8 @@
 
     <div id="menu">
         <div class="palette" id="palette-left">
-            <div class="icons action-icons" data-bind="click:swap">
-                <div class="icon actions-icon" id="swap-words"></div>
+            <div class="icons action-icons">
+                <div class="icon actions-icon" id="swap-words" data-bind="click: swap, css: { disabled: !player.active() }"></div>
             </div>
         </div>
 

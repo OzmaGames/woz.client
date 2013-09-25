@@ -1,14 +1,17 @@
-﻿<div id="tiles-max">
-    <div id="tiles-aspect">
-        <div id="tiles" data-bind="foreach: { data: tiles, afterRender: afterRender }">
-            <div class="tile">
-                <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }">
-                    <div class="instruction">
-                        <span data-bind="text: instruction"></span>
-                        <div class="info" data-bind="text: info"></div>
+﻿<div id="gameboard">
+    <div id="tiles-max">
+        <div id="tiles-aspect">
+            <div id="tiles" data-bind="foreach: { data: tiles, afterRender: afterRender }">
+                <div class="tile">
+                    <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }">
+                        <div class="instruction">
+                            <span data-bind="text: instruction"></span>
+                            <div class="info" data-bind="text: info"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="ui-overlay" data-bind="fadeVisible: disabled"></div>
 </div>

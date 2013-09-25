@@ -21,17 +21,26 @@
   var duration = 500;
 
   var subscription = app.on("alert:show", function (data) {
-    me.text(data);
+    var delay = 2000;
+
+    if (typeof data == "string") {
+      me.text(data);
+    }
+    else {
+      me.html(data.content);
+      delay = data.delay || delay;
+    }
+
     me.css({
       top: ($(window).innerHeight() - me.outerHeight()) / 2,
     });
-
+    
     me.css(startValues);
     me.animate(midValues, duration, 'swing', function () {
       me.animate(endValues, duration / 2, 'swing', function () {
         setTimeout(function () {
           me.fadeOut();
-        }, 2000);
+        }, delay);
       });
     });
   });

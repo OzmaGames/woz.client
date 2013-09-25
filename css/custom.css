@@ -255,13 +255,35 @@ body {
         text-align: center;
     }
 
+#gameboard {
+    position: relative;
+    width: 100%;
+}
+
+    #gameboard .ui-overlay {
+        background: #666;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 100;
+        -moz-box-shadow: 5px 5px 10px 0 #976b2c;
+        -webkit-box-shadow: 5px 5px 10px 0 #976b2c;
+        box-shadow: 5px 5px 10px 0 #976b2c;
+        display: none;
+    }
+
 #tiles-max {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 50px; /*in portrait mode the tiles wont get stuck on the edges*/
 }
-/*@media screen and (min-height: 768px) {
+
+
+    /*
+        @media screen and (min-height: 768px) {
     #tiles-max {
         max-width: 1200px!important;
     }
@@ -350,12 +372,13 @@ body {
             font-size: medium;
             color: #296e8b;
         }
-        #tiles .tile .instruction .info, body .instruction .info{
-            margin-top:5px;
-            font-family:GreatVibesRegular;
-            font-weight:bold;
-            font-size:large;
-        }
+
+            #tiles .tile .instruction .info, body .instruction .info {
+                margin-top: 5px;
+                font-family: GreatVibesRegular;
+                font-weight: bold;
+                font-size: large;
+            }
 
 #workspace {
     position: relative;
@@ -402,9 +425,19 @@ body {
 
     .magnet.related {
         border-width: 2px;
-        -moz-box-shadow: 0 0 10px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #ccc;
-        -webkit-box-shadow: 0 0 10px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #ccc;
-        box-shadow: 0 0 10px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #ccc;
+        -moz-box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
+        -webkit-box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
+        box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
+        border: 1px solid #f5cf76;
+    }
+
+    .magnet.selected {
+        border-width: 2px;
+        -moz-box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
+        -webkit-box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
+        box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
+        border: 1px solid #986B31;
+        border-radius: 3px;
     }
 
     .magnet .points {
@@ -449,34 +482,7 @@ body {
         cursor: default!important;
     }
 
-#swap-words, #add-tile, #swap-tile, #end-turn, #end-game {
-    border: 1px solid transparent;
-}
 
-    #swap-words:hover, #add-tile:hover, #swap-tile:hover, #end-turn:hover, #end-game:hover {
-        border: 1px solid #b8b0a3;
-        border-radius: 3px;
-    }
-
-    #swap-words:active {
-        background-image: url('../images/game/swap-words-icon-active.png');
-    }
-
-    #add-tile:active {
-        background-image: url('../images/game/add-tile-icon-active.png');
-    }
-
-    #swap-tile:active {
-        background-image: url('../images/game/swap-tile-icon-active.png');
-    }
-
-    #end-turn:active {
-        background-image: url('../images/game/end-turn-icon-avtive.png');
-    }
-
-    #end-game:active {
-        background-image: url('../images/game/end-game-icon-active.png');
-    }
 
 .button-small {
     font-weight: bold;
@@ -678,25 +684,73 @@ input[type="text"], input[type="password"] {
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
+    border: 1px solid transparent;
 }
+
+    .icon:hover:not(.disabled) {
+        border: 1px solid #b8b0a3;
+        border-radius: 3px;
+    }
 
 .action-icon {
 }
 
 #swap-words {
     background-image: url('../images/game/swap-words-icon.png');
+    background-repeat: no-repeat;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
 }
+
+    #swap-words:active:not(.disabled):not(.cancel) {
+        background-image: url('../images/game/swap-words-icon-active.png');
+    }
+
+    #swap-words.disabled {
+        background-image: url('../images/game/swap-words-icon-disabled.png');
+    }
+
+    #swap-words.cancel {
+        -moz-transition: all .5s ease-in-out;
+        -o-transition: all .5s ease-in-out;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+        -moz-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+        background-image: url('../images/game/swap-words-icon-cancel.png');
+    }
 
 #add-tile {
     background-image: url('../images/game/add-tile-icon.png');
 }
 
+    #add-tile:active:not(.disabled) {
+        background-image: url('../images/game/add-tile-icon-active.png');
+    }
+
 #swap-tile {
     background-image: url('../images/game/swap-tile-icon.png');
 }
 
+    #swap-tile:active:not(.disabled) {
+        background-image: url('../images/game/swap-tile-icon-active.png');
+    }
+
 #end-turn {
     background-image: url('../images/game/end-turn-icon.png');
+}
+
+    #end-turn:active:not(.disabled) {
+        background-image: url('../images/game/end-turn-icon-avtive.png');
+    }
+
+#end-game:active:not(.disabled) {
+    background-image: url('../images/game/end-game-icon-active.png');
 }
 
 .normal-icon {
@@ -753,8 +807,8 @@ input[type="text"], input[type="password"] {
         position: relative;
         z-index: 10;
         display: none;
-        margin: 0 90px;
-        padding: 20px;
+        /*margin: 0 90px;*/
+        padding: 20px 30px;
         border-radius: 50% 50% 50% 50%;
         background-color: rgba(255, 255, 255, 0.9);
         -moz-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
@@ -764,6 +818,8 @@ input[type="text"], input[type="password"] {
         box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
         color: #b49363;
         font-size: xx-large;
+        max-width: 400px;
+        margin: 0 auto;
     }
 
     .dialog .confirm {

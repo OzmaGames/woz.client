@@ -61,6 +61,10 @@
   return {
     tiles: ctx.tiles,
 
+    disabled: ko.computed(function () {
+      return ctx.mode() == 'swap';
+    }),
+
     activate: function () { },
 
     binding: function () {
