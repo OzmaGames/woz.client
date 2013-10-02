@@ -1,4 +1,4 @@
-﻿define(['api/datacontext', 'game/canvas/viewModel/Path', 'game/canvas/viewModel/DynamicPath', 'paper'], function (ctx, Path, DynamicPath) {
+﻿define(['api/datacontext', 'game/canvas/vm/Path', 'game/canvas/vm/DynamicPath', 'paper'], function (ctx, Path, DynamicPath) {
 
   var scope = paper;
   var activeWord = ctx.activeWord;

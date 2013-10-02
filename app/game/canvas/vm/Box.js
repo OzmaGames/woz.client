@@ -15,6 +15,8 @@
     base.scale = 1;
     base.prevScale = 1;
 
+    base.isCircle = pathModel.nWords == 0;
+
     base._guiRect = null;
     base._guiText = null;
     base._guiElem = null;
@@ -22,6 +24,18 @@
     base.pathModel = base.wordModel = base.hasData = null;
     
     this.updateModel(pathModel);
+  }
+
+  Box.prototype.hideIfEmpty = function () {
+    if (!this.hasData) {
+      this._guiRect.visible = false;
+    }
+  }
+
+  Box.prototype.showIfEmpty = function () {
+    if (!this.hasData) {
+      this._guiRect.visible = true;
+    }
   }
 
   Box.prototype.updateModel = function (pathModel) {
@@ -51,6 +65,8 @@
     if (this.hasData) {
       return this._guiElem.outerWidth();
     }
+    if (this.isCircle) return Box.options.circle.radius;
+
     return Box.options.rect.size.x * 2;
   };
 
@@ -60,10 +76,23 @@
       this._guiElem.off('click');
     }
 
-    this._guiElem.css({
+    this._guiElem.text(this.wordModel.lemma);
+
+    var values = {
       left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
-      top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2
-    }).transition({ rotate: this.angle + 'deg', scale: this.scale });
+      top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2,
+      rotate: this.angle + 'deg'
+    };
+
+    if (Box.options.animate) {
+      values.scale = this.scale;
+      this._guiElem.stop();
+      this._guiElem.transition(values, 500, 'ease');
+    }
+    else {
+      this._guiElem.css(values);
+      this._guiElem.transition({ scale: this.scale });
+    }
   }
 
   Box.prototype.createElem = function () {
@@ -89,23 +118,32 @@
   };
 
   Box.prototype.updateRect = function () {
-    this._guiRect.rotate(this.angle - this.prevAngle);
-    this._guiRect.scale(this.scale - this.prevScale + 1);
-    this._guiRect.position = this.cPoint;
-    this._guiRect.style = Box.options.rect.style;
+    var item = this._guiRect
 
+    item.rotate(this.angle - this.prevAngle);
+    item.scale(this.scale - this.prevScale + 1);
+    item.position = this.cPoint;
+    
     this.prevAngle = this.angle;
     this.prevScale = this.scale;
   };
 
   Box.prototype.createRect = function () {
-    var rect = new scope.Path.Rectangle(
-      this.cPoint.subtract(Box.options.rect.size),
-      this.cPoint.add(Box.options.rect.size));
-    rect.data = this;
+    var item;
+
+    if (this.isCircle) {
+      item = new scope.Path.Circle(this.cPoint, Box.options.circle.radius);
+      item.style = Box.options.circle.style;      
+    } else {
+      item = new scope.Path.Rectangle(
+        this.cPoint.subtract(Box.options.rect.size),
+        this.cPoint.add(Box.options.rect.size));
+      item.style = Box.options.rect.style;
+    }
+    item.data = this;
 
     if (this._guiRect != null) this._guiRect.remove();
-    this._guiRect = rect;
+    this._guiRect = item;
 
     this.updateRect();
   };
@@ -113,16 +151,17 @@
   Box.prototype.enter = function (word) {
     if (!this.hasData && word != null) {
       this.active = true;
-
-      this.wordModel = word;
-      
-      clearInterval(this._hoverHandler);
-      this._hoverHandler = setTimeout(function (base) {
-        base._guiRect.style = Box.options.rect.activeStyle;
-        base._guiText.content = word.lemma;
-        base._guiText.visible = true;
-      }, 1, this);
-      
+      if (this.isCircle) {
+        this._guiRect.style = Box.options.circle.activeStyle;
+      } else {
+        this.wordModel = word;
+        clearInterval(this._hoverHandler);
+        this._hoverHandler = setTimeout(function (base) {
+          base._guiRect.style = Box.options.rect.activeStyle;
+          base._guiText.content = word.lemma;
+          base._guiText.visible = true;
+        }, 1, this);
+      }
       return this;
     }
     return null;
@@ -131,12 +170,15 @@
   Box.prototype.leave = function () {
     if (!this.hasData && this.active) {
       this.active = false;
-
-      clearInterval(this._hoverHandler);
-      this._hoverHandler = setTimeout(function (base) {
-        base._guiRect.style = Box.options.rect.style;
-        base._guiText.visible = false;
-      }, 1, this);
+      if (this.isCircle) {
+        this._guiRect.style = Box.options.circle.style;
+      } else {
+        clearInterval(this._hoverHandler);
+        this._hoverHandler = setTimeout(function (base) {
+          base._guiRect.style = Box.options.rect.style;
+          base._guiText.visible = false;
+        }, 1, this);
+      }
     }
   };
 
@@ -194,6 +236,7 @@
   };
 
   Box.options = {
+    animate: false,   //should be off for resizing and placing words
     rect: {
       style: {
         strokeColor: '#CBB28F',
@@ -208,6 +251,23 @@
         shadowOffset: new scope.Point(0, 0)
       },
       size: new scope.Point(30, 15)
+    },
+    circle: {
+      radius: 8,
+      margin: 16,
+      width: 23,
+      style: {
+        fillColor: '#CBB28F',
+        shadowBlur: 0,
+        strokeWidth: 0
+      },
+      activeStyle: {
+        strokeWidth: 2,
+        strokeColor: '#CBB28F',
+        shadowBlur: 20,
+        shadowColor: '#CBB28F',
+        shadowOffset: new scope.Point(0, 0)
+      }
     },
     textStyle: {
       fillColor: 'grey',

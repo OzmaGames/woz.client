@@ -168,7 +168,7 @@
     move: function () { },
     parent: $(document),
     dragable: true,
-    cursor: "move"
+    cursor: "pointer"
   };
 
 });

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/datacontext', 'game/canvas/viewModel/Box', 'paper'], function (app, ctx, Box) {
+﻿define(['durandal/app', 'api/datacontext', 'game/canvas/vm/Box', 'paper'], function (app, ctx, Box) {
 
   var scope = paper;
   var activeWord = ctx.activeWord;
@@ -77,8 +77,11 @@
 
   Path.prototype.setup = function () {
     console.log('%cPath Setup', 'background: orange; color: white', this.pathModel.id);
-
     var pm = this.pathModel, nWords = pm.nWords;
+
+    if (pm.nWords == 0) {
+      nWords = 7;
+    }
 
     if (pm.guiBoxes && pm.guiBoxes.length == nWords) {
       for (var i = 0; i < nWords; i++) {
@@ -88,7 +91,7 @@
     } else {
       pm.guiBoxes = [];
       for (var i = 0; i < nWords; i++) {
-        var box = new Box(i, pm);
+        var box = new Box(i, pm);        
         pm.guiBoxes.push(box);
         this._displayItems.push(box);
       }
@@ -198,8 +201,8 @@
     if (len > 450) {
       maxArc *= 450 / len;
     }
+    if (maxArc > 200) maxArc = 200;
 
-    console.log(len);
     line = new scope.Path.Line(
       cPoint.subtract(vector.normalize(-minArc * (clockwise ? 1 : -1))),
       cPoint.subtract(vector.normalize(-maxArc * (clockwise ? 1 : -1))));
@@ -238,9 +241,9 @@
     return bestArc;
   }
 
-  Path.getDesiredLength = function (arr) {
+  Path.getDesiredLength = function (arr, limit) {
     var len = (Path.options.tileMargin + Path.options.tileRadius) * 2;
-    for (var i = 0; i < arr.length; i++) {
+    for (var i = 0; i < (limit || arr.length); i++) {
       len += arr[i].width() + Path.options.rectMargin * 2;
     }
     return len;

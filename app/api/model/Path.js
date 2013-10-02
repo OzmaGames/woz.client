@@ -32,7 +32,7 @@
           model.activeWords(null);
           if (result == "cancel") {
             base.phrase._complete(false);
-            base.removeAll();            
+            base.removeAll();
           }
           else {
             app.loading(true);
@@ -55,16 +55,16 @@
     });
 
     base.hasWordAt = function (index) {
-      var entity = base.getEntityAt(index);
+      var entity = base._getEntityAt(index);
       return entity != null ? true : false;
     }
 
     base.getWordAt = function (index) {
-      var entity = base.getEntityAt(index);
+      var entity = base._getEntityAt(index);
       return entity != null ? entity.word : null;
     }
 
-    base.getEntityAt = function (index) {
+    base._getEntityAt = function (index) {
       return ko.utils.arrayFirst(base.phrase.words(), function (entity) {
         return entity.index == index;
       });
@@ -95,7 +95,7 @@
 
     base.removeAll = function () {
       var words = base.phrase.words();
-      for (var i = 0; i < base.nWords; i++) {
+      for (var i = 0; i < words.length; i++) {
         words[i].word.isPlayed = 0;
       }
       base.phrase.words.removeAll();
@@ -103,7 +103,7 @@
       model.words.valueHasMutated();
     }
 
-    base.removeWord = function (entity, silence) {
+    base._removeEntity = function (entity) {
       entity.word.isPlayed = 0;
       base.phrase.words.remove(entity);
 
@@ -111,11 +111,11 @@
     }
   
     base.removeWordAt = function (index) {
-      var entity = base.getEntityAt(index);
-      base.removeWord(entity);
+      var entity = base._getEntityAt(index);
+      base._removeEntity(entity);
       if (base.nWords == 0) {
         for (var i = entity.index + 1; i < 10; i++) {
-          if ((entity = base.getEntityAt(i)) == null) break;
+          if ((entity = base._getEntityAt(i)) == null) break;
           entity.index--;
         }
         base.phrase.words.valueHasMutated();

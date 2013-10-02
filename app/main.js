@@ -7,10 +7,10 @@ requirejs.config({
     'paper': '../lib/paper/paper',
     'socket': '../lib/socket.io.min',
     'crypto.sha3': '../lib/crypto.sha3',
-
+    
     'transitions/slidedown': 'api/transitions/slidedown'
   },
-  urlArgs: 'v0.38'
+  urlArgs: 't'+ (new Date).getTime()
 });
 
 define('jquery', function () { return jQuery; });
@@ -40,7 +40,13 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server',
         app._loading(value);
       },
       owner: this
-    })
+    });
+
+    app.woz = {
+      dialogs: {
+        slipper: $.Deferred()
+      }
+    };
 
     app.start().then(function () {
       viewLocator.useConvention();
