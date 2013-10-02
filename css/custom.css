@@ -317,6 +317,9 @@ body {
         top: 50%;
         margin-left: -80px;
         margin-top: -80px;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
     }
 
         #tiles .tile.drag {
@@ -356,11 +359,11 @@ body {
             left: -20px;
             width: 80px;
             height: 50px;
-            -moz-transform: rotate(-15deg);
-            -webkit-transform: rotate(-15deg);
-            -ms-transform: rotate(-15deg);
-            -o-transform: rotate(-15deg);
-            transform: rotate(-15deg);
+            -moz-transform: rotate(-15deg) translate3d(0,0,0);
+            -webkit-transform: rotate(-15deg) translate3d(0,0,0);
+            -ms-transform: rotate(-15deg) translate3d(0,0,0);
+            -o-transform: rotate(-15deg) translate3d(0,0,0);
+            transform: rotate(-15deg) translate3d(0,0,0);
             background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 20px 0 20px;
             border-radius: 50%;
@@ -371,6 +374,9 @@ body {
             font-family: CopseRegular;
             font-size: medium;
             color: #296e8b;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
             #tiles .tile .instruction .info, body .instruction .info {
@@ -420,13 +426,15 @@ body {
     transition-timing-function: ease-in-out;
     transition-duration: .2s,.2s,0,0,0;
     transition-property: all, box-shadow, opacity, width, height;
-    transform-origin: 50% 50%;
-    
+    /*transform-origin: 50% 50%;*/
     -webkit-transform: translate3d(0,0,0);
     -moz-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
     -o-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
     .magnet.related {
@@ -770,7 +778,7 @@ input[type="text"], input[type="password"] {
 .dialog {
     position: fixed;
     display: none;
-    z-index:10;
+    z-index: 10;
 }
 
     .dialog.bottom-center {
@@ -864,7 +872,7 @@ input[type="text"], input[type="password"] {
     }
 
     .dialog .slipper {
-        display:none;
+        display: none;
         position: relative;
         z-index: 11;
         margin: 0 auto;
@@ -882,7 +890,11 @@ input[type="text"], input[type="password"] {
         padding: 40px 30px 30px 30px;
         cursor: pointer;
     }
-    .dialog .slipper h1{ font-size:1.5em; margin-bottom:10px}
+
+        .dialog .slipper h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
 
 @media (min-resolution: 100dpi) {
     .dialog .confirm {
