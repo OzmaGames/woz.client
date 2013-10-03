@@ -1,12 +1,14 @@
 ﻿<div id="gameboard">
     <div id="tiles-max">
         <div id="tiles-aspect">
-            <div id="tiles" data-bind="foreach: { data: tiles, afterRender: afterRender }">
-                <div class="tile">
-                    <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }">
-                        <div class="instruction">
-                            <span data-bind="text: instruction"></span>
-                            <div class="info" data-bind="text: info"></div>
+            <div id="tiles">
+                <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }">
+                    <div class="tile" data-bind="css: { active: active() }, click: $root.toggleTile">
+                        <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }">
+                            <div class="instruction">
+                                <span data-bind="text: instruction"></span>
+                                <div class="info" data-bind="text: info"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

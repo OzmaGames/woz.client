@@ -64,9 +64,11 @@
       for (var i = 0; i < json.tiles.length; i++) {
         json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
         json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
+        json.tiles[i].active = ko.observable(false);
       }
       model.tiles(json.tiles);
 
+      json.paths[3].nWords = 0;
       json.paths = ko.utils.arrayMap(json.paths, function (p) {
         return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
       });
@@ -128,12 +130,17 @@
         }
 
         if (model.gameOver()) {
-          var winner = model.winner();
+          app.woz.dialogs.slipper.promise().then(function () {
+            app.trigger("slipper:close");
+          });
+          var winner = model.winner(), data;
           if (winner == model.player) {
-            app.trigger("notice:show", DIALOGS.GAME_OVER_YOU_WON);
+            data = DIALOGS.GAME_OVER_YOU_WON;            
           } else {
-            app.trigger("notice:show", DIALOGS.GAME_OVER_THEY_WON);
+            data = DIALOGS.GAME_OVER_THEY_WON;            
           }
+          data.content = $('<b/>', { text: data.content }).prepend('<br/>').html();
+          app.trigger("notice:show", data);
         }
 
         model.players.valueHasMutated();

@@ -75,6 +75,10 @@
 
     },
 
+    toggleTile: function () {
+      this.active(this.active() ^ 1);
+    },
+
     afterRender: function (el, tile) {
       var $el = $(el).filter('.tile:first');
 

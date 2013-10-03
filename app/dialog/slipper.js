@@ -59,6 +59,11 @@
     show(data);
   });
 
+  app.on("slipper:close", function (data) {
+    close();
+  });
+
+
   return vm;
 
 });

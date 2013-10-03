@@ -14,7 +14,7 @@
       me = $('.notice', el);
       $(el).appendTo('body');
 
-      app.woz.dialogs.slipper.resolve();
+      //app.woz.dialogs.slipper.resolve();
     },
     detached: function (el) {
       $(el).remove();

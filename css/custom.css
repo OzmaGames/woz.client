@@ -303,15 +303,21 @@ body {
     left: 0;
 }
 
+    #tiles .container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
     #tiles .tile {
         position: absolute;
         width: 160px;
         height: 160px;
         cursor: pointer!important;
-        -moz-transition: left .5s ease-in-out, top .5s ease-in-out;
-        -o-transition: left .5s ease-in-out, top .5s ease-in-out;
-        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out;
-        transition: left .5s ease-in-out, top .5s ease-in-out;
+        -moz-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+        -o-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+        transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
         z-index: 3;
         left: 50%;
         top: 50%;
@@ -321,6 +327,33 @@ body {
         -moz-backface-visibility: hidden;
         backface-visibility: hidden;
     }
+
+        #tiles .tile.active {
+            width: 100%;
+            height: 100%;
+            left: 80px !important;
+            top: 80px !important;
+            z-index: 4;
+        }
+
+            #tiles .tile.active .mask {
+                border-radius: 5%;
+                width: 100%;
+                height: 100%;
+                z-index: 5;
+            }
+
+            #tiles .tile.active .instruction {
+                left: 50%;
+                top: 10px;
+                margin-left: -40px;
+                z-index: 6;
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
 
         #tiles .tile.drag {
             -moz-transition: none!important;
@@ -350,6 +383,17 @@ body {
             -o-background-size: cover;
             -webkit-background-size: cover;
             background-size: cover;
+            -moz-transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
+            -o-transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
+            -webkit-transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
+            transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
+        }
+
+        #tiles .tile .instruction {
+            -moz-transition: left .5s ease-in-out, top .5s ease-in-out;
+            -o-transition: left .5s ease-in-out, top .5s ease-in-out;
+            -webkit-transition: left .5s ease-in-out, top .5s ease-in-out;
+            transition: left .5s ease-in-out, top .5s ease-in-out;
         }
 
         #tiles .tile .instruction, body .instruction {
@@ -918,6 +962,12 @@ input[type="text"], input[type="password"] {
         padding: 50px;
         cursor: pointer;
     }
+
+        .dialog .notice h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
 
 @media (min-resolution: 100dpi) {
     .dialog .confirm {
