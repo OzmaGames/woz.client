@@ -37,6 +37,7 @@
   var cancel = function () {
     clearSubs();
     app.trigger("confirm:show", { close: true });
+    app.trigger("slipper:close");
     ctx.mode('');
 
     var selectedWords = ctx.selectedWords();
@@ -106,6 +107,7 @@
 
                 ctx.loadingStatus("Swapping words");
                 ctx.loading(true);
+                app.trigger("slipper:close");
                 app.trigger("server:game:swap-words", data, function (res) {
                   if (!res.success) {
                     ctx.player.tickets.swap++;
