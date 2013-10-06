@@ -126,7 +126,10 @@
       base.pathModel.phrase._complete(true);
       base.pathModel.phrase.words.valueHasMutated();
       Box.options.animate = false;
-    }).transition({ rotateY: '360deg' });
+    }).transition({
+      perspective: '80px',
+      rotateY: '360deg'
+    });
 
     this.width = function () { return div.outerWidth() / 2; }
 

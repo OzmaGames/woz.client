@@ -6,7 +6,7 @@
 
     function createBaseHost() {
       var body = $('body'), host = body.children('.' + className).get(0);
-      if (host == undefined) {
+      if (host === undefined) {
         return $('<div/>', { 'class': className }).appendTo(body).get(0);
       }
       return host;
@@ -58,7 +58,7 @@
 
     function show(obj, activationData, context) {
       return system.defer(function (dfd) {
-        $.when(ensureDialogInstance(obj),getHost(obj, true)).then(function (instance, host) {          
+        $.when(ensureDialogInstance(obj), getHost(obj, true)).then(function (instance, host) {
           var dialogActivator = activator.create();
           dialogActivator.activateItem(instance, activationData).then(function (success) {
             if (success) {
@@ -80,10 +80,10 @@
                   });
 
                   function resolve(args) {
-                    if (args.length == 0) {
+                    if (args.length === 0) {
                       dfd.resolve();
-                    } else if (args.length == 1) {
-                      dfd.resolve(args[0])
+                    } else if (args.length === 1) {
+                      dfd.resolve(args[0]);
                     } else {
                       dfd.resolve.apply(dfd, args);
                     }
@@ -131,6 +131,5 @@
       close: function (type, deactivationData) {
         return close('dialogs/' + type, deactivationData);
       }
-
-    }
+    };
   });

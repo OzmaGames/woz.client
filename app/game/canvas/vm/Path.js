@@ -201,7 +201,7 @@
     if (len > 450) {
       maxArc *= 450 / len;
     }
-    if (maxArc > 200) maxArc = 200;
+    if (maxArc > 150) maxArc = 150;
 
     line = new scope.Path.Line(
       cPoint.subtract(vector.normalize(-minArc * (clockwise ? 1 : -1))),
