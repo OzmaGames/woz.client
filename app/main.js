@@ -16,7 +16,7 @@ requirejs.config({
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext', 'dialogs/_Dialog',
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext', 'dialogs/_dialog',
   '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3'],
   function (system, app, viewLocator, server, ctx, Dialog) {
     //>>excludeStart("build", true);
