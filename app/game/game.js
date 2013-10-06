@@ -55,6 +55,7 @@
     activate: function () {
       app.loading(true);
 
+      app.woz.dialog.show("loading");
       ctx.load(ctx.playerCount);
     },
 
