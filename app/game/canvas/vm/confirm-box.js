@@ -83,8 +83,10 @@
     var offset = path.length / 2;
     var normal = path.getNormalAt(offset).normalize(margin);
     var cPoint = path.getPointAt(offset).add(normal);
+    
     var group = this.createDoneButton(cPoint);
     group.rotate(path.getTangentAt(offset).angle, cPoint);
+    this._trash.push(group);
   }
 
   ctor.prototype.createDoneButton = function (cPoint) {

@@ -59,7 +59,7 @@
         console.log("Too few words!");
       } else if (selection.length > 9) {
         console.log("Too many words!");
-        app.trigger("alert:show", "Too many words!");
+        app.woz.dialog.show("alert", "Too many words!");
       } else {
         selection = Sort(selection);
         ctx.activeWords(selection);

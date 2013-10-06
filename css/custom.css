@@ -712,6 +712,7 @@ input[type="text"], input[type="password"] {
     background-image: url('../images/app/dialogs/actions/option-no-action.png');
 }
 
+
 .icons {
     background: #faf5ef;
     padding: 5px 5px 0 5px;
@@ -737,7 +738,7 @@ input[type="text"], input[type="password"] {
     height: 40px;
     margin-bottom: 5px;
     background-position: center center;
-    background-repeat: none;
+    background-repeat:no-repeat;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
@@ -751,6 +752,46 @@ input[type="text"], input[type="password"] {
     }
 
 .action-icon {
+}
+
+.confirm-box {
+    position: absolute;
+    width: 80px;
+    height: 80px;    
+}
+.confirm-box .button{
+    position:absolute;
+    text-align: center;
+    background-image: url('../images/game/Checkmark_Btn_Up.png');
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    width: 80px;
+    height: 80px;
+    top:0;left:0;
+    cursor: pointer;    
+}
+
+.confirm-box .tooltip{
+    position:relative;
+    text-align:center;
+    top:-100px;
+    left:-30px;
+    width: 80px;
+    padding: 20px 30px;
+    border-radius: 50% 50% 50% 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    -moz-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+    -ms-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+    -o-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+    -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+    color: #b49363;
+    font-family:CopseRegular; 
+}
+.confirm-box .tooltip.cw{
+    top: 100px !important;
 }
 
 #swap-words {
@@ -820,8 +861,7 @@ input[type="text"], input[type="password"] {
 }
 
 .dialog {
-    position: fixed;
-    display: none;
+    position: fixed;    
     z-index: 10;
 }
 
@@ -865,7 +905,6 @@ input[type="text"], input[type="password"] {
     .dialog .alert {
         position: relative;
         z-index: 10;
-        display: none;
         /*margin: 0 90px;*/
         padding: 20px 30px;
         border-radius: 50% 50% 50% 50%;
@@ -882,7 +921,6 @@ input[type="text"], input[type="password"] {
     }
 
     .dialog .confirm {
-        display: none;
         position: relative;
         z-index: 10;
         margin: 0 auto;
@@ -916,7 +954,6 @@ input[type="text"], input[type="password"] {
     }
 
     .dialog .slipper {
-        display: none;
         position: relative;
         z-index: 11;
         margin: 0 auto;
@@ -941,7 +978,6 @@ input[type="text"], input[type="password"] {
         }
 
     .dialog .notice {
-        display: none;
         position: relative;
         top: 200px;
         z-index: 11;

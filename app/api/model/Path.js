@@ -26,9 +26,7 @@
 
     base.phrase.complete.subscribe(function (complete) {
       if (complete) {
-        app.trigger("confirm:show", { modal: true });
-
-        var sub = app.on("confirm:dialog-result").then(function (result) {
+        app.woz.dialog.show("confirm", { modal: true }).then(function (result) {
           model.activeWords(null);
           if (result == "cancel") {
             base.phrase._complete(false);
@@ -44,9 +42,8 @@
               username: model.player.username,
               words: ko.utils.arrayMap(base.phrase.words(), function (word) { return word.word.id; })
             };
-            app.trigger("server:game:place-phrase", data, function () { console.log('server got it') });
-          }
-          sub.off();
+            app.trigger("server:game:place-phrase", data);
+          }          
         });
       }
       ko.utils.arrayForEach(base.phrase.words(), function (word) {
@@ -83,6 +80,8 @@
           }
         }
       }
+      if ((nWords == 0 && index >= 7) || (nWords != 0 && index >= nWords) ) return false;
+
       if (null != ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === index; })) return;
 
       word.isPlayed = 1;

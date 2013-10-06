@@ -47,9 +47,9 @@
       var words = activeWords(), pm = this.pathModel;
       if (words.length != pm.nWords) {
         if (words.length > pm.nWords)
-          app.trigger("alert:show", "too many words");
+          app.woz.dialog.show("alert", "too many words");
         else
-          app.trigger("alert:show", "need more words");
+          app.woz.dialog.show("alert", "need more words");
         return;
       }
 

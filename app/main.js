@@ -16,11 +16,11 @@ requirejs.config({
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext',
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext', 'dialogs/_Dialog',
   '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3'],
-  function (system, app, viewLocator, server, ctx) {
+  function (system, app, viewLocator, server, ctx, Dialog) {
     //>>excludeStart("build", true);
-    //system.debug(true);
+    system.debug(true);
     //>>excludeEnd("build");    
 
     app.title = 'Words Of Oz';
@@ -43,9 +43,7 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server',
     });
 
     app.woz = {
-      dialogs: {
-        slipper: $.Deferred()
-      }
+      dialog: Dialog
     };
 
     app.start().then(function () {

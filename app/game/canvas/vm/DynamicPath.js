@@ -13,20 +13,18 @@
   });
 
   var confirmBox;
-  //var confirmBoxActivator = activator.create(), confirmBox = new ConfirlmBox();
-  //confirmBoxActivator.activateItem(confirmBox).then(function () { confirmBox.show();});
 
   function DynamicPath(paperScope, pathModel) {
     var base = this;
 
-    confirmBox = new ConfirmBox(scope = paperScope);
-    confirmBox.events.mousedown = function () {
-      confirmBox.hide();
-      Box.options.animate = true;
-      base.pathModel.phrase._complete(true);
-      base.pathModel.phrase.words.valueHasMutated();
-      Box.options.animate = false;
-    };
+    //confirmBox = new ConfirmBox(scope = paperScope);
+    //confirmBox.events.mousedown = function () {
+    //  confirmBox.hide();
+    //  Box.options.animate = true;
+    //  base.pathModel.phrase._complete(true);
+    //  base.pathModel.phrase.words.valueHasMutated();
+    //  Box.options.animate = false;
+    //};
 
     this.pathModel = pathModel;
     this.activeWord = null;
@@ -74,7 +72,26 @@
 
     var pm = this.pathModel, nWords = 7;
 
-    //debugger;
+    var confirmBtn = pm.phrase.words().length >= 3 && !pm.phrase.complete();
+    if (confirmBtn) {
+      if (this.confirmBox == undefined) {
+        this.confirmBox = new Box(-1, null);
+        this.confirmBox.button(pm);
+        this.confirmBox.show();        
+      }
+      for (var i = 0; i < nWords; i++) {
+        var box = pm.guiBoxes[i];
+        if (!box.hasData) { break; }
+      }
+      pm.guiBoxes.splice(i, 0, this.confirmBox);
+      nWords++;
+    } else {
+      if (this.confirmBox) {
+        this.confirmBox.remove();
+        this.confirmBox = undefined;
+      }
+    }
+
     if (pm.phrase.complete() === true) {
       nWords = pm.phrase.words().length;
       this._hideCircles();
@@ -84,8 +101,8 @@
 
     this._cleanCycle();
 
-    var desiredLength = Path.getDesiredLength(pm.guiBoxes, nWords);
-    path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw, nWords * 3 / 2);
+    var desiredLength = Path.getDesiredLength(pm.guiBoxes, nWords),
+      path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw, nWords * 3 / 2);
     this.cPoint = Path.cPoint;
 
     var delta = path.length - desiredLength,
@@ -121,10 +138,18 @@
     hover.closePath();
     this._trash.push(hover);
 
-    if (pm.phrase.words().length >= 3 && !pm.phrase.complete())
-      confirmBox.show(path, pm.guiBoxes);
-    else
-      confirmBox.hide();
+    //if (confirmBtn)
+    //  confirmBox.show(path, pm.guiBoxes);
+    //else
+    //  confirmBox.hide();
+
+    if (confirmBtn) {
+      for (var i = 0; i < nWords; i++) {
+        var box = pm.guiBoxes[i];
+        if (box.isButton) { break; }
+      }
+      pm.guiBoxes.splice(i, 1);
+    }
 
     if (!Path.options.debug) {
       path.remove();

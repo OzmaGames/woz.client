@@ -1,5 +1,5 @@
 ﻿<div>   
-    <img id="star" src="images/core/stardust/star.png" style="display: none;" />
+    <img id="star" src="images/core/stardust/star.png" style="display: none;" />    
 
     <div id="game-main" style="padding-top:0px">
         <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
@@ -13,11 +13,6 @@
                 </div>
             </div>
         </div>
-        <!--ko compose: 'dialog/loading'--><!--/ko-->  
-        <!--ko compose: 'dialog/confirm'--><!--/ko-->  
-        <!--ko compose: 'dialog/alert'--><!--/ko-->  
-        <!--ko compose: 'dialog/slipper'--><!--/ko--> 
-        <!--ko compose: 'dialog/notice'--><!--/ko-->  
     </div>
     <div id="game-players" data-bind="compose: 'game/players'"></div>
 
@@ -30,7 +25,7 @@
 
         <div class="palette" id="palette-right">
             <div class="icons normal-icons">
-                <div class="icon normal-icon" id="end-game"></div>
+                <div class="icon normal-icon" id="end-game" data-bind="click: resign"></div>
             </div>
         </div>
     </div>

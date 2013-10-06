@@ -15,7 +15,8 @@
     base.scale = 1;
     base.prevScale = 1;
 
-    base.isCircle = pathModel.nWords == 0;
+    base.isCircle = false;
+    base.isButton = false;
 
     base._guiRect = null;
     base._guiText = null;
@@ -24,6 +25,13 @@
     base.pathModel = base.wordModel = base.hasData = null;
     
     this.updateModel(pathModel);
+  }
+
+  Box.prototype.button = function (pm) {
+    this.hasData = true;
+    this.isButton = true;
+    this.isCircle = false;
+    this.pathModel = pm;
   }
 
   Box.prototype.hideIfEmpty = function () {
@@ -44,16 +52,21 @@
     this.pathModel = pathModel;
     this.wordModel = pathModel.getWordAt(this.index);
     this.hasData = this.wordModel != null;
+    this.isCircle = pathModel.nWords == 0;
 
     this.show();
   }
 
   Box.prototype.show = function () {
     if (this.hasData) {
-      this.active = false;
-      this.prevAngle = 0;
+      this.active = false;     
       if (this._guiRect != null) { this._guiRect.remove(); this._guiRect = null; }
-      if (this._guiElem == null) this.createElem(); else this.updateElem();
+      if (this.isButton) {
+        if (this._guiElem == null) this.createBtn(); else this.updateBtn();
+      } else {
+        this.prevAngle = 0;
+        if (this._guiElem == null) this.createElem(); else this.updateElem();
+      }
     } else {
       if (this._guiElem != null) { this._guiElem.remove(); this._guiElem = null; }
       if (this._guiRect == null) this.createRect(); else this.updateRect();
@@ -69,6 +82,59 @@
 
     return Box.options.rect.size.x * 2;
   };
+
+  Box.prototype.updateBtn = function () {    
+    var values = {
+      left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
+      top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2
+    };
+
+    this.scale *= .6;
+
+    var btn = this._guiElem.find('.button');
+    if (Box.options.animate) {
+      btn.stop(); this._guiElem.stop();
+      this._guiElem.transition(values);
+      btn.transition({scale: this.scale}, 500, 'ease');
+    }
+    else {
+      this._guiElem.css(values);
+      btn.transition({
+        scale: this.scale,
+        rotate: this.angle + 'deg'
+      });
+    }
+  }
+
+  Box.prototype.createBtn = function () {
+    var div = $('<div/>', { 'class': 'confirm-box'}), base = this;
+    var cw = this.pathModel.cw ? ' cw' : '';
+
+    div.append(
+      $('<div/>', { 'class': 'button', title: 'Done!' }).append(
+        $('<div/>', { 'class': 'tooltip' + cw, text: 'Click me when you are done!' })));
+
+    div.css({
+      left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
+      top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
+      zIndex: 2
+    });
+    div.appendTo('#tiles');
+
+    div.find('.button').one("click", this, function (e) {
+      Box.options.animate = true;
+      base.pathModel.phrase._complete(true);
+      base.pathModel.phrase.words.valueHasMutated();
+      Box.options.animate = false;
+    }).transition({ rotateY: '360deg' });
+
+    this.width = function () { return div.outerWidth() / 2; }
+
+    if (this._guiElem != null) this._guiElem.remove();
+    this._guiElem = div;
+
+    this.updateBtn();
+  }
 
   Box.prototype.updateElem = function () {
     if (this.pathModel.phrase.complete()) {
@@ -185,7 +251,7 @@
   Box.prototype.drop = function () {
     if (this.active && !this.hasData && this.wordModel != null) {
       if (!this.pathModel.addWord(this.wordModel, this.index)) {
-        app.trigger('alert:show', "It's not your turn!");
+        app.woz.dialog.show('alert', "It's not your turn!");
       }
     }
   };
