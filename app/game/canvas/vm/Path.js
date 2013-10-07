@@ -265,7 +265,7 @@
     rectMargin: 10,
     minArc: 33,
     maxArc: 99,
-    debug: 1,
+    debug: 0,
     container: null
   };
 

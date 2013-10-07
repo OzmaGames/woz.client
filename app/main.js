@@ -5,7 +5,7 @@ requirejs.config({
     'plugins': '../lib/durandal/plugins',
     'transitions': '../lib/durandal/transitions',
     'paper': '../lib/paper/paper',
-    'socket': '../lib/socket.io.min',
+    'socket': '../lib/socket.io',
     'crypto.sha3': '../lib/crypto.sha3',
     
     'transitions/slidedown': 'api/transitions/slidedown'
