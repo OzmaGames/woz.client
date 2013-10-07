@@ -12,7 +12,7 @@ exports.config = function(weyland) {
                 '.html':'text'
             },
             rjs:{
-                name:'../lib/require/almond-custom', //to deploy with require.js, use the build's name here instead
+                name:'../lib/almond-custom', //to deploy with require.js, use the build's name here instead
                 insertRequire:['main'], //not needed for require
                 baseUrl : 'app',
                 wrap:true, //not needed for require
@@ -24,7 +24,9 @@ exports.config = function(weyland) {
                     'paper': '../lib/paper/paper',
                     'socket': '../lib/socket.io.min',
                     'crypto.sha3': '../lib/crypto.sha3',
-                    'transitions/slidedown': 'api/transitions/slidedown'
+                    'transitions/slidedown': 'api/transitions/slidedown',
+                    'knockout': 'empty:',
+                    'jquery': 'empty:'
                 },
                 inlineText: true,
                 optimize : 'none',
