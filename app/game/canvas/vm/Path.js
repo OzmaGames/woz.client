@@ -80,7 +80,7 @@
     var pm = this.pathModel, nWords = pm.nWords;
 
     if (pm.nWords == 0) {
-      nWords = 7;
+      nWords = 6;
     }
 
     if (pm.guiBoxes && pm.guiBoxes.length == nWords) {
@@ -190,7 +190,7 @@
   Path.getBestArc = function (from, to, desiredLength, clockwise, nWords, accuracy) {
     var scope = Path.scope,
       len = to.subtract(from).length,
-      minArc = Path.options.minArc * (nWords / 3),
+      minArc = Path.options.minArc * (nWords / 2),
       maxArc = Path.options.maxArc * (nWords / 3),
       line = new scope.Path.Line(from, to),
       cPoint = line.getPointAt(line.length / 2),
@@ -198,8 +198,9 @@
     line.remove();
     Path.cPoint = cPoint;
 
-    if (len > 450) {
-      maxArc *= 450 / len;
+    if (len > 550) {
+      maxArc *= 550 / len;
+      minArc = Path.options.minArc * (nWords / 4);
     }
     if (maxArc > 150) maxArc = 150;
 
@@ -228,7 +229,7 @@
       var circle = new scope.Path.Circle(cPoint, 5);
       circle.fillColor = 'orange';
       line.strokeColor = 'orange';
-      line.dashArray = [10, 12];
+      line.strokeWidth = 2;
       bestArc.strokeColor = 'grey';
 
     //  Path._trash.push(line);
@@ -264,7 +265,7 @@
     rectMargin: 10,
     minArc: 33,
     maxArc: 99,
-    debug: 0,
+    debug: 1,
     container: null
   };
 

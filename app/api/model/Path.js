@@ -80,7 +80,7 @@
           }
         }
       }
-      if ((nWords == 0 && index >= 7) || (nWords != 0 && index >= nWords) ) return false;
+      if ((nWords == 0 && index >= 6) || (nWords != 0 && index >= nWords) ) return false;
 
       if (null != ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === index; })) return;
 

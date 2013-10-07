@@ -4,8 +4,8 @@
   function Notice() {
     this.heading = '';
     this.content = '';
-    this.modal = false;
-  
+    this.modal = true;
+
     var base = this;
     this.close = function () {
       duration = duration || 500;
@@ -29,16 +29,15 @@
 
   Notice.prototype.attached = function (el) {
     this.el = $('.notice', el);
-    
+
     if (this.modal === true) {
       this.el.parent().addClass('modal');
     }
 
-    this.el.css({ y: -100, display: 'block', opacity: 0 })
-      .transition({ y: 10, opacity: 1 }, 500, 'ease')
-      .transition({ y: 0 }, 300).promise().then(function () {
-        this.css({ y: 0 });
-      });
+    this.el.css({ y: 0, opacity: 0.2, scale: 0.1, rotateY: '0deg' })
+      //.transition({ y: 10, opacity: 0.5 }, 300, 'ease')
+      //.transition({ y: 0 }, 100)
+      .transition({ rotateY: 720, scale: 1, opacity: 1 }, 2000, 'ease');
   }
 
   Notice.prototype.canDeactivate = function (a, s, d) {

@@ -27,6 +27,14 @@
 
     playerCount: 1
   };
+  model._gameOver = ko.observable(false);
+  model.gameOver = ko.computed(function () {
+    var completedPaths = ko.utils.arrayFilter(this.paths(), function (path) {
+      return path.phrase.complete() === true;
+    });
+    if (completedPaths.length != 0 && completedPaths.length == this.paths().length) return true;
+    return this._gameOver();
+  }, model);
 
   model.mode = ko.observable(''); //swap;
   model.words.immovable = ko.computed(function () { return model.mode() == 'swap'; });
@@ -48,8 +56,10 @@
           player.tickets = {
             swap: 1
           };
+          app.woz.dialog.show("slipper", DIALOGS.YOUR_TURN_FIRST_ROUND);
         } else {
           player.active = ko.observable(player.active);
+          app.woz.dialog.show("slipper", DIALOGS.THEIR_TURN_FIRST_ROUND);
         }
         player.resigned = ko.observable(player.resigned || false);
         player.score = ko.observable(player.score);
@@ -74,15 +84,9 @@
       });
       model.paths(json.paths);
 
-      model._gameOver = ko.observable(json.gameOver);
+      model._gameOver(json.gameOver);
 
-      model.gameOver = ko.computed(function () {
-        var completedPaths = ko.utils.arrayFilter(this.paths(), function (path) {
-          return path.phrase.complete() === true;
-        });
-        if (completedPaths.length != 0 && completedPaths.length == this.paths().length) return true;
-        return this._gameOver();
-      }, model);
+      
 
       model.winner = function () {
         if (model.gameOver()) {
@@ -114,6 +118,14 @@
           cplayer.score(jplayer.score);
           cplayer.active(jplayer.active);
           cplayer.resigned(jplayer.resigned || false);
+
+          if (jplayer.active) {
+            if (jplayer.username == model.player.username) {
+              app.woz.dialog.show("slipper", DIALOGS.YOUR_TURN);
+            }else{
+              app.woz.dialog.show("slipper", DIALOGS.THEIR_TURN);
+            }
+          }
 
           if (cplayer.username == model.player.username) {
             if(scored) app.woz.dialog.show("alert", { content: "You scored <b>" + scored + "</b> points!" });
@@ -161,10 +173,12 @@
       }
     });
 
-    model.loadingStatus("Waiting for server...");
+    model.loadingStatus("Waiting for the server...");
 
     setTimeout(function () {
-      app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount });
+      app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
+        model.loadingStatus("Waiting to pair up...");
+      });
     }, 2000);
     //app.trigger("game:start", entity);
   }

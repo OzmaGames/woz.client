@@ -8,20 +8,7 @@
     } else if (loading === false) {
       swapTicket(ctx.player.tickets.swap);
     }
-  });
-
-  ctx.player.active.subscribe(function (active) {
-    if (active === true) {
-      if (ctx.player.score == undefined || ctx.player.score() == 0) {
-        app.woz.dialog.show("slipper", DIALOGS.YOUR_TURN_FIRST_ROUND);
-      } else {
-        app.woz.dialog.show("slipper", DIALOGS.YOUR_TURN);
-      }
-
-    } else {
-      app.woz.dialog.show("slipper", DIALOGS.THEIR_TURN);
-    }
-  });
+  });  
 
   var subs = [];
 
@@ -51,6 +38,7 @@
     loading: ctx.loading,
     player: ctx.player,
     allowSwap: ko.computed(function () { return ctx.player.active() && swapTicket() > 0 }),
+    allowResign: ko.computed(function () { return !ctx.gameOver(); }),
 
     activate: function () {
       app.loading(true);
@@ -66,7 +54,7 @@
     compositionComplete: function (view) {
       $('#menu').appendTo('body');
       var h = $(window).innerHeight();
-      
+
       $('#palette-right, #palette-left').each(function (i, el) {
         var $el = $(el);
         $el.css('top', (h - $el.outerHeight()) / 2);
@@ -134,9 +122,19 @@
 
 
     resign: function () {
-      app.trigger("server:game:resign", {
-        username: ctx.player.username,
-        gameID: ctx.gameID,
+      if (ctx.gameOver()) {
+        return;
+      }
+      app.woz.dialog.show("confirm", {
+        content: "Are you sure you want to resign?", modal: true,
+        doneText: 'YES', cancelText: 'NO'
+      }).then(function (res) {
+        if (res != "cancel") {
+          app.trigger("server:game:resign", {
+            username: ctx.player.username,
+            gameID: ctx.gameID,
+          });
+        }
       });
     },
 

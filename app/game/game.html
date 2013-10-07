@@ -25,7 +25,7 @@
 
         <div class="palette" id="palette-right">
             <div class="icons normal-icons">
-                <div class="icon normal-icon" id="end-game" data-bind="click: resign"></div>
+                <div class="icon normal-icon" id="end-game" data-bind="click: resign, css: {disabled: !allowResign()}"></div>
             </div>
         </div>
     </div>

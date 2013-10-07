@@ -17,13 +17,14 @@ exports.config = function(weyland) {
                 baseUrl : 'app',
                 wrap:true, //not needed for require
                 paths : {
-                    'text': '../lib/require/text',
-                    'durandal':'../lib/durandal/js',
-                    'plugins' : '../lib/durandal/js/plugins',
-                    'transitions' : '../lib/durandal/js/transitions',
-                    'knockout': '../lib/knockout/knockout-2.3.0',
-                    'bootstrap': '../lib/bootstrap/js/bootstrap',
-                    'jquery': '../lib/jquery/jquery-1.9.1'
+                    'text': '../lib/requirejs-text/text',
+                    'durandal': '../lib/durandal/',
+                    'plugins': '../lib/durandal/plugins',
+                    'transitions': '../lib/durandal/transitions',
+                    'paper': '../lib/paper/paper',
+                    'socket': '../lib/socket.io.min',
+                    'crypto.sha3': '../lib/crypto.sha3',
+                    'transitions/slidedown': 'api/transitions/slidedown'
                 },
                 inlineText: true,
                 optimize : 'none',

@@ -51,4 +51,5 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server',
       app.setRoot('shell', null, 'app');
     });
 
+    window.app = app;
   });

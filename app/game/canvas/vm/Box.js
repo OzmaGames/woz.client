@@ -127,9 +127,8 @@
       base.pathModel.phrase.words.valueHasMutated();
       Box.options.animate = false;
     }).transition({
-      perspective: '80px',
       rotateY: '360deg'
-    });
+    }, 500, 'ease');
 
     this.width = function () { return div.outerWidth() / 2; }
 

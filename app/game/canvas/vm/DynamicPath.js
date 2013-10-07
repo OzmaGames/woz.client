@@ -70,7 +70,7 @@
   DynamicPath.prototype.show = function () {
     console.log('%cDynamic Path', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
 
-    var pm = this.pathModel, nWords = 7;
+    var pm = this.pathModel, nWords = 6;
 
     var confirmBtn = pm.phrase.words().length >= 3 && !pm.phrase.complete();
     if (confirmBtn) {

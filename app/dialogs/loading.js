@@ -30,7 +30,7 @@
     this.el.css({
       top: ($(window).innerHeight() - this.el.outerHeight()) / 2
     });
-    
+      
     this.el.css({ y: -100, display: 'block', opacity: 0 })
       .transition({ y: 20, opacity: .8 }, this.duration, 'ease')
       .transition({ y: 0, opacity: 1 }, this.duration / 2, 'ease');

@@ -337,7 +337,7 @@ body {
         }
 
             #tiles .tile.active .mask {
-                border-radius: 5%;
+                border-radius: 50%;
                 width: 100%;
                 height: 100%;
                 z-index: 5;
@@ -348,11 +348,7 @@ body {
                 top: 10px;
                 margin-left: -40px;
                 z-index: 6;
-                -moz-transform: rotate(0deg);
-                -webkit-transform: rotate(0deg);
-                -ms-transform: rotate(0deg);
-                -o-transform: rotate(0deg);
-                transform: rotate(0deg);
+                opacity:0;
             }
 
         #tiles .tile.drag {
@@ -390,10 +386,10 @@ body {
         }
 
         #tiles .tile .instruction {
-            -moz-transition: left .5s ease-in-out, top .5s ease-in-out;
-            -o-transition: left .5s ease-in-out, top .5s ease-in-out;
-            -webkit-transition: left .5s ease-in-out, top .5s ease-in-out;
-            transition: left .5s ease-in-out, top .5s ease-in-out;
+            -moz-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
+            -o-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
+            -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
+            transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
         }
 
         #tiles .tile .instruction, body .instruction {
@@ -895,7 +891,7 @@ input[type="text"], input[type="password"] {
         position: relative;
         z-index: 10;
         margin: 0 auto;
-        width: 300px;
+        width: 350px;
         height: 70px;
         text-align: center;
         top: 250px;
@@ -924,8 +920,7 @@ input[type="text"], input[type="password"] {
         position: relative;
         z-index: 10;
         margin: 0 auto;
-        width: 200px;
-        height: 70px;
+        width: 250px;        
         background-image: url('../images/app/confirm/confirm-background.png');
         background-position: center bottom;
         -moz-background-size: 100% 100%;
@@ -935,7 +930,11 @@ input[type="text"], input[type="password"] {
         text-align: center;
         color: #976b2c;
         line-height: 120%;
+        padding:10px;
     }
+        .dialog .confirm p {
+            padding:5px 0;
+        }
 
     .dialog button {
         font-weight: bold;
@@ -946,11 +945,11 @@ input[type="text"], input[type="password"] {
         -o-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
-        margin: 20px 5px 0px 5px;
+        margin: 10px 5px;
+        padding: 7px 10px;
         text-align: center;
         background-image: url('../images/button-background-up.jpg');
         color: #976b2c;
-        padding: 7px 10px;
     }
 
     .dialog .slipper {
