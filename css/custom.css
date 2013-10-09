@@ -348,7 +348,7 @@ body {
                 top: 10px;
                 margin-left: -40px;
                 z-index: 6;
-                opacity:0;
+                opacity: 0;
             }
 
         #tiles .tile.drag {
@@ -450,10 +450,6 @@ body {
     font-size: 22px;
     font-family: CopseRegular;
     cursor: pointer;
-    -moz-transform-origin: 50% 50%;
-    -ms-transform-origin: 50% 50%;
-    -o-transform-origin: 50% 50%;
-    -webkit-transform-origin: 50% 50%;
     -moz-transition-duration: .2s,.2s,0,0,0;
     -o-transition-duration: .2s,.2s,0,0,0;
     -webkit-transition-duration: .2s,.2s,0,0,0;
@@ -466,7 +462,6 @@ body {
     transition-timing-function: ease-in-out;
     transition-duration: .2s,.2s,0,0,0;
     transition-property: all, box-shadow, opacity, width, height;
-    /*transform-origin: 50% 50%;*/
     -webkit-transform: translate3d(0,0,0);
     -moz-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
@@ -536,6 +531,43 @@ body {
         cursor: default!important;
     }
 
+.magnet-placeholder {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    -moz-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
+    -o-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
+    -webkit-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
+    transition: all .4s ease, top .5s ease-out, left .5s ease-out;
+}
+
+    .magnet-placeholder .circle {
+        margin: 0 auto;
+        border-radius: 100%;
+        width: 20px;
+        height: 20px;
+        margin-top:5px;
+        background-color: #CBB28F;
+    }
+
+    .magnet-placeholder .box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid #CBB28F;
+        border-radius: 2px;
+        color: #38270b;
+        font-size: 16px;
+        padding-top:2px;
+        font-family: CopseRegular;
+        text-align: center;
+    }
+
+    .magnet-placeholder.hover .box, .magnet-placeholder.hover .circle {
+        box-shadow: 0 0 15px #986B31, 0 0 15px #986B31 inset;
+    }
 
 
 .button-small {
@@ -734,7 +766,7 @@ input[type="text"], input[type="password"] {
     height: 40px;
     margin-bottom: 5px;
     background-position: center center;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
@@ -753,42 +785,46 @@ input[type="text"], input[type="password"] {
 .confirm-box {
     position: absolute;
     width: 80px;
-    height: 80px;    
-}
-.confirm-box .button{
-    position:absolute;
-    text-align: center;
-    background-image: url('../images/game/Checkmark_Btn_Up.png');
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    width: 80px;
     height: 80px;
-    top:0;left:0;
-    cursor: pointer;    
+    z-index:5;        
 }
 
-.confirm-box .tooltip{
-    position:relative;
-    text-align:center;
-    top:-100px;
-    left:-30px;
-    width: 80px;
-    padding: 20px 30px;
-    border-radius: 50% 50% 50% 50%;
-    background-color: rgba(255, 255, 255, 0.9);
-    -moz-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
-    -ms-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
-    -o-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
-    -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
-    color: #b49363;
-    font-family:CopseRegular; 
-}
-.confirm-box .tooltip.cw{
-    top: 100px !important;
-}
+    .confirm-box .button {
+        position: absolute;
+        text-align: center;
+        background-image: url('../images/game/Checkmark_Btn_Test2.png');
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+        width: 80px;
+        height: 80px;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+
+    .confirm-box .tooltip {
+        position: relative;
+        text-align: center;
+        top: -120px;
+        left: -30px;
+        width: 80px;
+        padding: 20px 30px;
+        border-radius: 50% 50% 50% 50%;
+        background-color: rgba(255, 255, 255, 0.9);
+        -moz-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        -ms-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        -o-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+        color: #b49363;
+        font-family: CopseRegular;
+    }
+
+        .confirm-box .tooltip.cw {
+            top: 100px !important;
+        }
 
 #swap-words {
     background-image: url('../images/game/swap-words-icon.png');
@@ -857,7 +893,7 @@ input[type="text"], input[type="password"] {
 }
 
 .dialog {
-    position: fixed;    
+    position: fixed;
     z-index: 10;
 }
 
@@ -920,7 +956,7 @@ input[type="text"], input[type="password"] {
         position: relative;
         z-index: 10;
         margin: 0 auto;
-        width: 250px;        
+        width: 250px;
         background-image: url('../images/app/confirm/confirm-background.png');
         background-position: center bottom;
         -moz-background-size: 100% 100%;
@@ -930,10 +966,11 @@ input[type="text"], input[type="password"] {
         text-align: center;
         color: #976b2c;
         line-height: 120%;
-        padding:10px;
+        padding: 10px;
     }
+
         .dialog .confirm p {
-            padding:5px 0;
+            padding: 5px 0;
         }
 
     .dialog button {

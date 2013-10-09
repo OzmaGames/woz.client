@@ -15,16 +15,7 @@
   var confirmBox;
 
   function DynamicPath(paperScope, pathModel) {
-    var base = this;
-
-    //confirmBox = new ConfirmBox(scope = paperScope);
-    //confirmBox.events.mousedown = function () {
-    //  confirmBox.hide();
-    //  Box.options.animate = true;
-    //  base.pathModel.phrase._complete(true);
-    //  base.pathModel.phrase.words.valueHasMutated();
-    //  Box.options.animate = false;
-    //};
+    var base = this;    
 
     this.pathModel = pathModel;
     this.activeWord = null;
@@ -77,13 +68,13 @@
       if (this.confirmBox == undefined) {
         this.confirmBox = new Box(-1, null);
         this.confirmBox.button(pm);
-        this.confirmBox.show();        
+        this.confirmBox.show();
       }
-      for (var i = 0; i < nWords; i++) {
-        var box = pm.guiBoxes[i];
-        if (!box.hasData) { break; }
-      }
-      pm.guiBoxes.splice(i, 0, this.confirmBox);
+      //for (var i = 0; i < nWords; i++) {
+      //  var box = pm.guiBoxes[i];
+      //  if (!box.hasData) { break; }
+      //}
+      pm.guiBoxes.splice(nWords, 0, this.confirmBox);
       nWords++;
     } else {
       if (this.confirmBox) {
@@ -163,12 +154,14 @@
 
   DynamicPath.prototype._hideCircles = function () {
     for (var i = 0; i < this.pathModel.guiBoxes.length; i++) {
-      this.pathModel.guiBoxes[i].hideIfEmpty();
+      if(this.pathModel.guiBoxes[i].isCircle)
+        this.pathModel.guiBoxes[i].hideIfEmpty();
     }
   }
   DynamicPath.prototype._showCircles = function () {
     for (var i = 0; i < this.pathModel.guiBoxes.length; i++) {
-      this.pathModel.guiBoxes[i].showIfEmpty();
+      if (this.pathModel.guiBoxes[i].isCircle)
+        this.pathModel.guiBoxes[i].showIfEmpty();
     }
   }
 

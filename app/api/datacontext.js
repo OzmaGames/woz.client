@@ -32,12 +32,12 @@
     var completedPaths = ko.utils.arrayFilter(this.paths(), function (path) {
       return path.phrase.complete() === true;
     });
-    if (completedPaths.length != 0 && completedPaths.length == this.paths().length) return true;
+    if (completedPaths.length !== 0 && completedPaths.length === this.paths().length) return true;
     return this._gameOver();
   }, model);
 
   model.mode = ko.observable(''); //swap;
-  model.words.immovable = ko.computed(function () { return model.mode() == 'swap'; });
+  model.words.immovable = ko.computed(function () { return model.mode() === 'swap'; });
 
   model.load = function (playerCount) {
 
@@ -50,7 +50,7 @@
       model.gameID = json.id;
 
       ko.utils.arrayForEach(json.players, function (player) {
-        if (player.username == username) {
+        if (player.username === username) {
           model.player.active(player.active);
           player.active = model.player.active;
           player.tickets = {
@@ -63,7 +63,8 @@
         }
         player.resigned = ko.observable(player.resigned || false);
         player.score = ko.observable(player.score);
-      })
+      });
+
       model.player = find(json.players, { username: username });
       model.players(json.players);
 
@@ -86,7 +87,7 @@
 
       model._gameOver(json.gameOver);
 
-      
+
 
       model.winner = function () {
         if (model.gameOver()) {
@@ -101,7 +102,7 @@
         }
         return null;
       };
-      
+
       model.loadingStatus("Ready");
 
       setTimeout(function () { model.loading(false); }, 100);
@@ -120,15 +121,15 @@
           cplayer.resigned(jplayer.resigned || false);
 
           if (jplayer.active) {
-            if (jplayer.username == model.player.username) {
+            if (jplayer.username === model.player.username) {
               app.woz.dialog.show("slipper", DIALOGS.YOUR_TURN);
-            }else{
+            } else {
               app.woz.dialog.show("slipper", DIALOGS.THEIR_TURN);
             }
           }
 
-          if (cplayer.username == model.player.username) {
-            if(scored) app.woz.dialog.show("alert", { content: "You scored <b>" + scored + "</b> points!" });
+          if (cplayer.username === model.player.username) {
+            if (scored) app.woz.dialog.show("alert", { content: "You scored <b>" + scored + "</b> points!" });
 
             if (json.words) {
               for (var j = 0; j < json.words.length; j++) {
@@ -147,10 +148,10 @@
         if (model.gameOver()) {
           app.woz.dialog.close("slipper");
           var winner = model.winner(), data;
-          if (winner == model.player) {
-            data = DIALOGS.GAME_OVER_YOU_WON;            
+          if (winner === model.player) {
+            data = DIALOGS.GAME_OVER_YOU_WON;
           } else {
-            data = DIALOGS.GAME_OVER_THEY_WON;            
+            data = DIALOGS.GAME_OVER_THEY_WON;
           }
           data.content = $('<b/>', { text: data.content }).prepend('<br/>').html();
           app.woz.dialog.show("notice", data);
@@ -163,7 +164,7 @@
     app.on("game:swap-words", function (json) {
       if (json.success && json.words) {
         for (var j = 0; j < json.oldWords.length; j++) {
-          var word = ko.utils.arrayFirst(model.words(), function (w) { return w.id == json.oldWords[j]; });
+          var word = ko.utils.arrayFirst(model.words(), function (w) { return w.id === json.oldWords[j]; });
           model.words.remove(word);
         }
         for (var j = 0; j < json.words.length; j++) {
@@ -176,12 +177,12 @@
     model.loadingStatus("Waiting for the server...");
 
     setTimeout(function () {
-      app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
-        model.loadingStatus("Waiting to pair up...");
-      });
+      //app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
+      //  model.loadingStatus("Waiting to pair up...");
+      //});
     }, 2000);
-    //app.trigger("game:start", entity);
-  }
+    app.trigger("game:start", entity);
+  };
 
   model.playedWords = ko.computed(function () {
     return ko.utils.arrayFilter(model.words(), function (word) { return (word.isPlayed || false); });
@@ -203,7 +204,7 @@
 
     function match(item, data) {
       for (var key in data)
-        if (item[key] != data[key]) return false;
+        if (item[key] !== data[key]) return false;
       return true;
     }
   }

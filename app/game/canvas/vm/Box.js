@@ -4,7 +4,7 @@
   var transparent = new scope.Color(0, 0);
   var default_cPoint = new scope.Point(-100, -100);
 
-  function Box(index, pathModel, cPoint, angle) {    
+  function Box(index, pathModel, cPoint, angle) {
     var base = this;
 
     base.index = index;
@@ -19,11 +19,10 @@
     base.isButton = false;
 
     base._guiRect = null;
-    base._guiText = null;
     base._guiElem = null;
 
     base.pathModel = base.wordModel = base.hasData = null;
-    
+
     this.updateModel(pathModel);
   }
 
@@ -35,14 +34,14 @@
   }
 
   Box.prototype.hideIfEmpty = function () {
-    if (!this.hasData) {
-      this._guiRect.visible = false;
+    if (!this.hasData && this._guiRect) {
+      this._guiRect.hide();
     }
   }
 
   Box.prototype.showIfEmpty = function () {
-    if (!this.hasData) {
-      this._guiRect.visible = true;
+    if (!this.hasData && this._guiRect) {
+      this._guiRect.show();
     }
   }
 
@@ -54,12 +53,12 @@
     this.hasData = this.wordModel != null;
     this.isCircle = pathModel.nWords == 0;
 
-    this.show();
+    if (this.hasData) this.show();
   }
 
   Box.prototype.show = function () {
     if (this.hasData) {
-      this.active = false;     
+      this.active = false;
       if (this._guiRect != null) { this._guiRect.remove(); this._guiRect = null; }
       if (this.isButton) {
         if (this._guiElem == null) this.createBtn(); else this.updateBtn();
@@ -71,7 +70,6 @@
       if (this._guiElem != null) { this._guiElem.remove(); this._guiElem = null; }
       if (this._guiRect == null) this.createRect(); else this.updateRect();
     }
-    this.createText('');
   };
 
   Box.prototype.width = function () {
@@ -80,22 +78,70 @@
     }
     if (this.isCircle) return Box.options.circle.radius;
 
-    return Box.options.rect.size.x * 2;
+    return 62;
   };
 
-  Box.prototype.updateBtn = function () {    
+  Box.prototype.enter = function (word) {
+    if (!this.hasData && word != null) {
+      this.wordModel = word;
+
+      this.active = true;
+      clearInterval(this._hoverHandler);
+      this._hoverHandler = setTimeout(function (base) {
+        base._guiRect.addClass("hover");
+        if (!base.isCircle) base._guiRect.children(".box").text(word.lemma);
+      }, 1, this);
+
+      return this;
+    }
+    return null;
+  };
+
+  Box.prototype.leave = function () {
+    if (!this.hasData && this.active) {
+      this.active = false;
+      clearInterval(this._hoverHandler);
+      this._hoverHandler = setTimeout(function (base) {
+        base._guiRect.removeClass("hover");
+        if (!base.isCircle) base._guiRect.children(".box").text("");
+      }, 1, this);
+    }
+  };
+
+  Box.prototype.drop = function () {
+    if (this.active && !this.hasData && this.wordModel != null) {
+      if (!this.pathModel.addWord(this.wordModel, this.index)) {
+        app.woz.dialog.show('alert', "It's not your turn!");
+      }
+    }
+  };
+
+  Box.prototype.put = function (data) {
+    /// <param name='data' value='{obsWords: ko.observableArray(), obsWord: ko.observable()}'/>
+    if (!this.hasData && data.obsWords() != null) {
+      var nWord = this.pathModel.nWords;
+      var activeWords = data.obsWords();
+      if (activeWords.length == nWord) {
+        for (var i = 0; i < activeWords.length; i++) {
+          this.pathModel.addWord(activeWords[i], i + 1);
+        }
+      }
+    }
+  };
+
+  Box.prototype.updateBtn = function () {
     var values = {
       left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
       top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2
     };
 
-    this.scale *= .6;
+    this.scale *= .5;
 
     var btn = this._guiElem.find('.button');
     if (Box.options.animate) {
       btn.stop(); this._guiElem.stop();
       this._guiElem.transition(values);
-      btn.transition({scale: this.scale}, 500, 'ease');
+      btn.transition({ scale: this.scale }, 500, 'ease');
     }
     else {
       this._guiElem.css(values);
@@ -107,7 +153,7 @@
   }
 
   Box.prototype.createBtn = function () {
-    var div = $('<div/>', { 'class': 'confirm-box'}), base = this;
+    var div = $('<div/>', { 'class': 'confirm-box' }), base = this;
     var cw = this.pathModel.cw ? ' cw' : '';
 
     div.append(
@@ -116,8 +162,7 @@
 
     div.css({
       left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-      top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
-      zIndex: 2
+      top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top
     });
     div.appendTo('#tiles');
 
@@ -152,15 +197,9 @@
       rotate: this.angle + 'deg'
     };
 
-    if (Box.options.animate) {
-      values.scale = this.scale;
-      this._guiElem.stop();
-      this._guiElem.transition(values, 500, 'ease');
-    }
-    else {
-      this._guiElem.css(values);
-      this._guiElem.transition({ scale: this.scale });
-    }
+    values.scale = this.scale;
+    this._guiElem.stop();
+    this._guiElem.transition(values, 500, 'ease');
   }
 
   Box.prototype.createElem = function () {
@@ -186,117 +225,38 @@
   };
 
   Box.prototype.updateRect = function () {
-    var item = this._guiRect
-
-    item.rotate(this.angle - this.prevAngle);
-    item.scale(this.scale - this.prevScale + 1);
-    item.position = this.cPoint;
-    
-    this.prevAngle = this.angle;
-    this.prevScale = this.scale;
+    this._guiRect.css({
+      left: this.cPoint.x - Box.pathOptions.container.left - this._guiRect.outerWidth() / 2,
+      top: this.cPoint.y - Box.pathOptions.container.top - this._guiRect.outerHeight() / 2,
+      rotate: this.angle,
+      scale: this.scale
+    });
   };
 
   Box.prototype.createRect = function () {
-    var item;
+    var div = $('<div/>', { 'class': 'magnet-placeholder' }),
+      cls = this.isCircle ? "circle" : "box";
 
-    if (this.isCircle) {
-      item = new scope.Path.Circle(this.cPoint, Box.options.circle.radius);
-      item.style = Box.options.circle.style;      
-    } else {
-      item = new scope.Path.Rectangle(
-        this.cPoint.subtract(Box.options.rect.size),
-        this.cPoint.add(Box.options.rect.size));
-      item.style = Box.options.rect.style;
-    }
-    item.data = this;
+    div.append($('<div/>', { 'class': cls }));
 
-    if (this._guiRect != null) this._guiRect.remove();
-    this._guiRect = item;
+    div.css({
+      left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
+      top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
+      zIndex: 2
+    });
+    div.appendTo('#tiles');
+
+    this._guiRect = div;
 
     this.updateRect();
-  };
-
-  Box.prototype.enter = function (word) {
-    if (!this.hasData && word != null) {
-      this.active = true;
-      if (this.isCircle) {
-        this._guiRect.style = Box.options.circle.activeStyle;
-      } else {
-        this.wordModel = word;
-        clearInterval(this._hoverHandler);
-        this._hoverHandler = setTimeout(function (base) {
-          base._guiRect.style = Box.options.rect.activeStyle;
-          base._guiText.content = word.lemma;
-          base._guiText.visible = true;
-        }, 1, this);
-      }
-      return this;
-    }
-    return null;
-  };
-
-  Box.prototype.leave = function () {
-    if (!this.hasData && this.active) {
-      this.active = false;
-      if (this.isCircle) {
-        this._guiRect.style = Box.options.circle.style;
-      } else {
-        clearInterval(this._hoverHandler);
-        this._hoverHandler = setTimeout(function (base) {
-          base._guiRect.style = Box.options.rect.style;
-          base._guiText.visible = false;
-        }, 1, this);
-      }
-    }
-  };
-
-  Box.prototype.drop = function () {
-    if (this.active && !this.hasData && this.wordModel != null) {
-      if (!this.pathModel.addWord(this.wordModel, this.index)) {
-        app.woz.dialog.show('alert', "It's not your turn!");
-      }
-    }
-  };
-
-  Box.prototype.put = function (data) {
-    /// <param name='data' value='{obsWords: ko.observableArray(), obsWord: ko.observable()}'/>
-    if (!this.hasData && data.obsWords() != null) {
-      var nWord = this.pathModel.nWords;
-      var activeWords = data.obsWords();
-      if (activeWords.length == nWord) {
-        for (var i = 0; i < activeWords.length; i++) {
-          this.pathModel.addWord(activeWords[i], i + 1);
-        }
-      }
-    }
-  };
-
-  Box.prototype.createText = function (content) {
-    var text = new scope.PointText({
-      point: this.cPoint,
-      content: '-',
-      style: Box.options.textStyle,
-      visible: false
-    });
-    text.position.y += 5;
-    text.rotate(this.angle, this.cPoint);
-    text.characterStyle.fontStyle = 'bold';
-
-    text.sendToBack();
-
-    if (this._guiText) this._guiText.remove();
-
-    return this._guiText = text;    
   };
 
   Box.prototype._clear = function () {
     if (this._guiRect) this._guiRect.remove();
     if (this._guiElem) this._guiElem.remove();
-    if (this._guiText) this._guiText.remove();
 
     this._guiElem = null;
     this._guiRect = null;
-    this._guiText = null;
   };
 
   Box.prototype.remove = function () {

@@ -21,7 +21,7 @@
     };
 
     base.phrase.complete = ko.computed(function () {
-      return this.phrase._complete() === true || (this.nWords != 0 && this.phrase.words().length == this.nWords);
+      return this.phrase._complete() === true || this.phrase.words().length == 6  || (this.nWords != 0 && this.phrase.words().length == this.nWords);
     }, base);
 
     base.phrase.complete.subscribe(function (complete) {
