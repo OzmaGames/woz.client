@@ -70,6 +70,9 @@
 
       ko.utils.arrayForEach(json.words, function (word) {
         word.isSelected = ko.observable(false);
+        if (ko.utils.arrayFilter(json.words, function (w) { return word.id === w.id }).length > 1) {
+          word.isPlayed = true;
+        }
       });
       model.words(json.words);
 
@@ -91,9 +94,9 @@
 
       model.winner = function () {
         if (model.gameOver()) {
-          var maxScore = 0, winner = model.player;
+          var maxScore = -1, winner = null;
           ko.utils.arrayForEach(this.players(), function (player) {
-            if (maxScore < player.score()) {
+            if (maxScore < player.score() && !player.resigned()) {
               winner = player;
               maxScore = player.score();
             }
@@ -150,6 +153,8 @@
           var winner = model.winner(), data;
           if (winner === model.player) {
             data = DIALOGS.GAME_OVER_YOU_WON;
+          } else if(winner === null){
+            data = DIALOGS.GAME_OVER_SOLO_YOU_RESIGNED;
           } else {
             data = DIALOGS.GAME_OVER_THEY_WON;
           }
@@ -177,11 +182,11 @@
     model.loadingStatus("Waiting for the server...");
 
     setTimeout(function () {
-      //app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
-      //  model.loadingStatus("Waiting to pair up...");
-      //});
+      app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
+        model.loadingStatus("Waiting to pair up...");
+      });
     }, 2000);
-    app.trigger("game:start", entity);
+    //app.trigger("game:start", entity);
   };
 
   model.playedWords = ko.computed(function () {

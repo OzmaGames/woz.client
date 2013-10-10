@@ -15,6 +15,11 @@
       content: "Your opponent won!"
     },
 
+    GAME_OVER_SOLO_YOU_RESIGNED: {
+      heading: "GAME OVER!",
+      content: "Too bad! You resigned the game!"
+    },
+
     YOUR_TURN_FIRST_ROUND: {
       heading: "IT'S YOUR TURN!",
       content: "To score you need to place a phrase, but first you can use the buttons on the left to choose one out of 3 actions: Swap words, Place tile and Swap tile. Use checkmark to skip turn."

@@ -50,8 +50,14 @@
       $el.css({
         left: tile.x * 100 + '%',
         top: tile.y * 100 + '%'
-      })
-      instructionDoms.push($('.instruction', $el));
+      });
+      var inst = $('.instruction', $el);
+      inst.transition({
+        rotate: ((tile.x-0.1) - 0.5) * 30,
+        marginLeft: (tile.x - 0.5) * 60
+      });
+
+      instructionDoms.push(inst);
     }
     animationQueue = [];
 
@@ -77,6 +83,20 @@
 
     toggleTile: function () {
       this.active(this.active() ^ 1);
+      if (this.active()) {
+        var h = $('#tiles').height(),
+          w = $('#tiles').width();
+        this.$el.css({ width: h, left: w - h });
+      } else {
+        this.$el.css({ width: '', left: this.x * 100 + '%' });
+      }
+    },
+
+    help: function (tile, e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      return false;
     },
 
     afterRender: function (el, tile) {
@@ -92,6 +112,7 @@
       //    $(window).resize();
       //  }
       //});
+      tile.$el = $el;
 
       if (animationQueue.length == 0) setTimeout(showTiles, 100);
       animationQueue.push({ $el: $el, tile: tile });

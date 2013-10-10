@@ -159,7 +159,7 @@ body {
     }
 
         #game-main .logo-fixed-size .logo-wrapper {
-            top: 20px;
+            top: 10px;
         }
 
     #game-main hr {
@@ -220,7 +220,7 @@ body {
 
 #players {
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 20px;
 }
 
@@ -329,9 +329,8 @@ body {
     }
 
         #tiles .tile.active {
-            width: 100%;
             height: 100%;
-            left: 80px !important;
+            width: 100%;
             top: 80px !important;
             z-index: 4;
         }
@@ -392,18 +391,32 @@ body {
             transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
         }
 
+            #tiles .tile .instruction .help, body .tile .instruction .help {
+                position: absolute;
+                content: "";
+                top: 15px;
+                right: 0px;
+                background-image: url(../images/game/Help_Btn_Up.png);
+                -moz-background-size: 100% 100%;
+                -o-background-size: 100% 100%;
+                -webkit-background-size: 100% 100%;
+                background-size: 100% 100%;
+                width: 25px;
+                height: 25px;
+                cursor: pointer;
+            }
+
+                #tiles .tile .instruction .help:hover, body .tile .instruction .help:hover {
+                    background-image: url(../images/game/Help_Btn_Down.png);
+                }
+
         #tiles .tile .instruction, body .instruction {
             z-index: 5;
             position: absolute;
             top: -30px;
-            left: -20px;
+            left: 10px;
             width: 80px;
             height: 50px;
-            -moz-transform: rotate(-15deg) translate3d(0,0,0);
-            -webkit-transform: rotate(-15deg) translate3d(0,0,0);
-            -ms-transform: rotate(-15deg) translate3d(0,0,0);
-            -o-transform: rotate(-15deg) translate3d(0,0,0);
-            transform: rotate(-15deg) translate3d(0,0,0);
             background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 20px 0 20px;
             border-radius: 50%;
@@ -531,10 +544,13 @@ body {
         cursor: default!important;
     }
 
+#tiles .magnet {
+}
+
 .magnet-placeholder {
     position: absolute;
-    width: 60px;
-    height: 30px;
+    width: 43px;
+    height: 23px;
     -moz-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
     -o-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
     -webkit-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
@@ -546,7 +562,7 @@ body {
         border-radius: 100%;
         width: 20px;
         height: 20px;
-        margin-top:5px;
+        margin-top: 1.5px;
         background-color: #CBB28F;
     }
 
@@ -560,7 +576,7 @@ body {
         border-radius: 2px;
         color: #38270b;
         font-size: 16px;
-        padding-top:2px;
+        padding-top: 2px;
         font-family: CopseRegular;
         text-align: center;
     }
@@ -786,8 +802,19 @@ input[type="text"], input[type="password"] {
     position: absolute;
     width: 80px;
     height: 80px;
-    z-index:5;        
+    z-index: 5;
+    -moz-transition: left .5s 1s ease, top .5s 1s ease;
+    -o-transition: left .5s 1s ease, top .5s 1s ease;
+    -webkit-transition: left .5s 1s ease, top .5s 1s ease;
+    transition: left .5s 1s ease, top .5s 1s ease;
 }
+
+    .confirm-box.ready {
+        -moz-transition-delay: 0;
+        -o-transition-delay: 0;
+        -webkit-transition-delay: 0;
+        transition-delay: 0;
+    }
 
     .confirm-box .button {
         position: absolute;
@@ -802,6 +829,10 @@ input[type="text"], input[type="password"] {
         top: 0;
         left: 0;
         cursor: pointer;
+        -moz-transition: all 10s ease;
+        -o-transition: all 10s ease;
+        -webkit-transition: all 10s ease;
+        transition: all 10s ease;
     }
 
     .confirm-box .tooltip {
@@ -856,11 +887,11 @@ input[type="text"], input[type="password"] {
         background-image: url('../images/game/swap-words-icon-cancel.png');
     }
 
-#add-tile {
+#selection-icon {
     background-image: url('../images/game/add-tile-icon.png');
 }
 
-    #add-tile:active:not(.disabled) {
+    #selection-icon:active:not(.disabled) {
         background-image: url('../images/game/add-tile-icon-active.png');
     }
 

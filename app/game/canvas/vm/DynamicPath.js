@@ -19,6 +19,7 @@
 
     this.pathModel = pathModel;
     this.activeWord = null;
+    this.activeWords = null;
 
     this.events = {
       mouseenter: function (e) {
@@ -29,6 +30,16 @@
           }
           activePath = base;
           base.activeWord = word;
+        } else if (activeWords() != null) {
+          var words = activeWords();
+          if (words.length >= 3 && words.length <= 6) {
+            var arr = base.pathModel.guiBoxes;
+            for (var i = 0; i < arr.length; i++) {
+              arr[i].enter({});
+            }
+            activePath = base;
+            base.activeWords = words;
+          }
         }
       },
       mouseleave: function (e) {
@@ -39,6 +50,7 @@
           }
           activePath = null;
           base.activeWord = null;
+          base.activeWords = null;
         }
       }
     };
@@ -46,6 +58,14 @@
     this.events.mousedown = function (e) {
       if (base.activeWord != null) {
         base.pathModel.addWord(base.activeWord);
+        base.events.mouseleave(e);
+      } else if (base.activeWords != null) {
+        var words = base.activeWords;
+        for (var i = 0; i < words.length; i++) {
+          base.pathModel.addWord(words[i]);
+        }
+        base.pathModel.phrase._complete(true);
+        base.pathModel.phrase.words.valueHasMutated();
         base.events.mouseleave(e);
       }
     }

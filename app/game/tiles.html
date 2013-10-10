@@ -5,9 +5,10 @@
                 <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }">
                     <div class="tile" data-bind="css: { active: active() }, click: $root.toggleTile">
                         <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }">
-                            <div class="instruction">
+                            <div class="instruction" data-bind="click: $root.help">
                                 <span data-bind="text: instruction"></span>
                                 <div class="info" data-bind="text: info"></div>
+                                <div class="help"></div>
                             </div>
                         </div>
                     </div>

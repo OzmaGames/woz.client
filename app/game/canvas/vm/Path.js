@@ -262,7 +262,7 @@
     tileRadius: 80,
     tileMargin: 5,
     hoverMargin: 60,
-    rectMargin: 10,
+    rectMargin: 0,
     minArc: 33,
     maxArc: 99,
     debug: 0,

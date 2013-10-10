@@ -1,55 +1,39 @@
 ﻿define(['durandal/app', 'api/datacontext', 'paper', 'jquery'], function (app, ctx, Paper, $) {
 
-  var scope = paper;
   var unplayedWords = ctx.unplayedWords;
 
   return {
-    draw: draw, setup: setup, redraw: redraw,
-    setScope: function (paperScope) { scope = paperScope; }
+    draw: draw, setup: setup, redraw: redraw    
   };
 
-  function setup(canvas) {
-    //scope = new paper.PaperScope();
-    //scope.setup(canvas);    
-
+  function setup() {    
     draw();
   }
 
   function redraw() {
-
     draw();
   }
 
   function draw() {
-    //return;
-    var tool = new scope.Tool(), stars = [], path;
+    var tool = new paper.Tool(), stars = [], path;
 
-    //tool.minDistance = 32;
-    tool.fixedDistance = 32;
-
-    //var text = new paper.PointText({
-    //  point: new paper.Point(100, 300),
-    //  content: ''
-    //});
-    //text.fillColor = 'black';
-
+    tool.minDistance = 16;
+    tool.maxDistance = 32;
+   
     tool.onMouseDown = function (event) {
-      //text.content = "mouseDown";
-      path = new scope.Path();
+      path = new paper.Path();
       path.add(event.point);
-      path.strokeColor = 'red';
+      //path.strokeColor = 'red';
       stars = [];
-      //addStarAt(event.point);
+      addStarAt(event.point);
     };
 
     tool.onMouseDrag = function (event) {
-      //text.content = "drag " + path.length;
       path.add(event.point);
-      //addStarAt(event.point);
+      addStarAt(event.point);
     };
 
     tool.onMouseUp = function (event) {
-      //text.content = "mouseup " + path.length;
       if (path.length == 0) return;
       path.closePath();
 
@@ -71,7 +55,7 @@
     };
 
     addStarAt = function (point) {
-      star = new scope.Raster("star");
+      star = new paper.Raster("star");
 
       star.position = point;
       star.rotate(Math.floor(Math.random() * 360));
@@ -106,7 +90,6 @@
         }
       }
       words.splice(words.indexOf(upper), 1);
-      //console.log(upper);
       return upper;
     }
 

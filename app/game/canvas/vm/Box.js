@@ -133,23 +133,17 @@
     var values = {
       left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
       top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2
-    };
+    }, 
+      btn = this._guiElem.find('.button');
 
     this.scale *= .5;
 
-    var btn = this._guiElem.find('.button');
-    if (Box.options.animate) {
-      btn.stop(); this._guiElem.stop();
-      this._guiElem.transition(values);
-      btn.transition({ scale: this.scale }, 500, 'ease');
-    }
-    else {
-      this._guiElem.css(values);
-      btn.transition({
-        scale: this.scale,
-        rotate: this.angle + 'deg'
-      });
-    }
+    var el = this._guiElem;
+    el.css(values);
+    btn.transition({
+      scale: this.scale,
+      rotate: this.angle
+    }, 500, 'ease').promise().then(function () { el.addClass("ready"); });
   }
 
   Box.prototype.createBtn = function () {
@@ -158,7 +152,7 @@
 
     div.append(
       $('<div/>', { 'class': 'button', title: 'Done!' }).append(
-        $('<div/>', { 'class': 'tooltip' + cw, text: 'Click me when you are done!' })));
+        $('<div/>', { 'class': 'tooltip' + cw, text: 'Click me when you are done!' }).delay(4000).fadeOut(1000)));
 
     div.css({
       left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
@@ -197,7 +191,7 @@
       rotate: this.angle + 'deg'
     };
 
-    values.scale = this.scale;
+    values.scale = this.scale * .8;
     this._guiElem.stop();
     this._guiElem.transition(values, 500, 'ease');
   }
@@ -209,7 +203,8 @@
     div.css({
       left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
       top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
-      zIndex: 2
+      zIndex: 2,
+      scale: .8
     });
     div.appendTo('#tiles');
 

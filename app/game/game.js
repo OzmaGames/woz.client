@@ -1,6 +1,7 @@
-﻿define(['durandal/app', 'api/datacontext', 'const/DIALOGS'], function (app, ctx, DIALOGS) {
+﻿define(['durandal/app', 'durandal/system', 'api/datacontext', 'const/DIALOGS'], function (app, system, ctx, DIALOGS) {
 
-  var swapTicket = ko.observable(0);
+  var swapTicket = ko.observable(0),
+    allowSelect = ko.observable(true);
 
   ctx.loading.subscribe(function (loading) {
     if (loading === true) {
@@ -39,6 +40,7 @@
     player: ctx.player,
     allowSwap: ko.computed(function () { return ctx.player.active() && swapTicket() > 0 }),
     allowResign: ko.computed(function () { return !ctx.gameOver(); }),
+    allowSelect: allowSelect,
 
     activate: function () {
       app.loading(true);
@@ -65,7 +67,6 @@
     },
 
     swap: function () {
-
       if (!ctx.player.active()) return;
       if (ctx.mode() == 'swap') {
         $('#swap-words').removeClass('cancel');
@@ -136,6 +137,24 @@
           });
         }
       });
+    },
+
+    select: function () {
+      if (!ctx.player.active()) return;
+      if (ctx.mode() == 'select') {
+        $('#selection-icon').removeClass('cancel');
+        cancel();
+      }
+      else {
+        app.woz.dialog.show("slipper", DIALOGS.SWAP_WORDS);
+        ctx.mode('select');
+        $("body").animate({ scrollTop: 1000 }, "slow");
+        $('#selection-icon').addClass('cancel');
+
+        system.acquire("game/canvas/selection").then(function (module) {
+          module.setup();
+        });
+      }
     },
 
     detached: function () {
