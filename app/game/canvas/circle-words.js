@@ -1,21 +1,35 @@
-﻿define(['durandal/app', 'api/datacontext', 'paper', 'jquery'], function (app, ctx, Paper, $) {
+﻿define(['durandal/system', 'durandal/app', 'api/datacontext', 'paper'], function (system, app, ctx, Paper) {
 
-  var unplayedWords = ctx.unplayedWords;
+  var unplayedWords = ctx.unplayedWords, tool, dfd;
 
-  return {
-    draw: draw, setup: setup, redraw: redraw    
+  circleWords = {
+    load: function () {
+      dfd = system.defer();
+      draw();
+      return dfd.promise();
+    },
+    reload: redraw,
+    unload: unload
   };
 
-  function setup() {    
-    draw();
+  return circleWords;
+
+  function unload() {
+    if (tool) {
+      tool.detach('mousedown');
+      tool.detach('mouseup');
+      tool.detach('mousedrag');
+      tool.remove();
+      tool = null;
+    }
   }
 
   function redraw() {
     draw();
   }
 
-  function draw() {
-    var tool = new paper.Tool(), stars = [], path;
+  function draw() {    
+    tool = new paper.Tool(), stars = [], path;    
 
     tool.minDistance = 16;
     tool.maxDistance = 32;
@@ -41,15 +55,15 @@
 
       if (selection.length < 3) {
         console.log("Too few words!");
+        dfd.reject(selection);
       } else if (selection.length > 9) {
         console.log("Too many words!");
-        app.woz.dialog.show("alert", "Too many words!");
-      } else {
-        selection = Sort(selection);
-        ctx.activeWords(selection);
-        $("body").animate({ scrollTop: 0 }, "slow");
-
+        app.dialog.show("alert", "Too many words!");
+        dfd.reject(selection);
+      } else {        
+        selection = Sort(selection);        
         for (var i = 0; i < selection.length; i++) console.log(selection[i].lemma);
+        dfd.resolve(selection);
       }
       path.remove();
     };

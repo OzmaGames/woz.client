@@ -111,7 +111,7 @@
   Box.prototype.drop = function () {
     if (this.active && !this.hasData && this.wordModel != null) {
       if (!this.pathModel.addWord(this.wordModel, this.index)) {
-        app.woz.dialog.show('alert', "It's not your turn!");
+        app.dialog.show('alert', "It's not your turn!");
       }
     }
   };

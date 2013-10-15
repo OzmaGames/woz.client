@@ -56,10 +56,10 @@
           player.tickets = {
             swap: 1
           };
-          app.woz.dialog.show("slipper", DIALOGS.YOUR_TURN_FIRST_ROUND);
+          app.dialog.show("slipper", DIALOGS.YOUR_TURN_FIRST_ROUND);
         } else {
           player.active = ko.observable(player.active);
-          app.woz.dialog.show("slipper", DIALOGS.THEIR_TURN_FIRST_ROUND);
+          app.dialog.show("slipper", DIALOGS.THEIR_TURN_FIRST_ROUND);
         }
         player.resigned = ko.observable(player.resigned || false);
         player.score = ko.observable(player.score);
@@ -125,14 +125,14 @@
 
           if (jplayer.active) {
             if (jplayer.username === model.player.username) {
-              app.woz.dialog.show("slipper", DIALOGS.YOUR_TURN);
+              app.dialog.show("slipper", DIALOGS.YOUR_TURN);
             } else {
-              app.woz.dialog.show("slipper", DIALOGS.THEIR_TURN);
+              app.dialog.show("slipper", DIALOGS.THEIR_TURN);
             }
           }
 
           if (cplayer.username === model.player.username) {
-            if (scored) app.woz.dialog.show("alert", { content: "You scored <b>" + scored + "</b> points!" });
+            if (scored) app.dialog.show("alert", { content: "You scored <b>" + scored + "</b> points!" });
 
             if (json.words) {
               for (var j = 0; j < json.words.length; j++) {
@@ -149,7 +149,7 @@
 
         model._gameOver(json.gameOver || false);
         if (model.gameOver()) {
-          app.woz.dialog.close("slipper");
+          app.dialog.close("slipper");
           var winner = model.winner(), data;
           if (winner === model.player) {
             data = DIALOGS.GAME_OVER_YOU_WON;
@@ -159,7 +159,7 @@
             data = DIALOGS.GAME_OVER_THEY_WON;
           }
           data.content = $('<b/>', { text: data.content }).prepend('<br/>').html();
-          app.woz.dialog.show("notice", data);
+          app.dialog.show("notice", data);
         }
 
         model.players.valueHasMutated();

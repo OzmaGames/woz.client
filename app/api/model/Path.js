@@ -11,6 +11,7 @@
     base.cw = (cw === undefined ? true : cw);
     //base.cw = (base.startTile.y - base.endTile.y) < 0.1;
     //base.cw = (Math.abs(base.startTile.y - base.endTile.y) < 0.2) || base.startTile.x > base.endTile.x;
+    base.silence = false;
 
     var words = (phrase && phrase.words) ? phrase.words : [];
     base.phrase = {
@@ -25,8 +26,8 @@
     }, base);
 
     base.phrase.complete.subscribe(function (complete) {
-      if (complete) {
-        app.woz.dialog.show("confirm", { modal: true }).then(function (result) {
+      if (complete && !base.silence) {
+        app.dialog.show("confirm", { modal: true }).then(function (result) {
           model.activeWords(null);
           if (result == "cancel") {
             base.phrase._complete(false);
@@ -51,6 +52,8 @@
       });
     });
 
+    base.addWords 
+    
     base.hasWordAt = function (index) {
       var entity = base._getEntityAt(index);
       return entity != null ? true : false;

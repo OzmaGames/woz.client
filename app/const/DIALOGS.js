@@ -35,7 +35,7 @@
       content: "Work on your masterpiece while you wait for your opponent to place a phrase."
     },
 
-    YOUR_TURN_SELECT_MAGNETS: {
+    CIRCLE_WORDS: {
       heading: "IT'S YOUR TURN! - Select a phrase!",
       content: "Drag and drop words to make a phrase. A phrase must have 3 – 9 words. Select a phrase by circling it. Make sure the phrase is following the rules of the two tiles you wish to connect."
     },
@@ -53,12 +53,7 @@
     SWAP_WORDS: {
       heading: "SWAP WORDS",
       content: "Select the words you like to swap to exchange them for new ones. Then click \"Done\""
-    },
-
-    SWAP_TILE: {
-      heading: "SWAP TILE",
-      content: "You can only swap unlinked picture tiles. Circle the tile you like to swap to exchange it for a new one."
-    },
+    },    
 
     ACTIONS: {
 

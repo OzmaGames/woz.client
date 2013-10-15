@@ -757,47 +757,6 @@ input[type="text"], input[type="password"] {
 }
 
 
-.icons {
-    background: #faf5ef;
-    padding: 5px 5px 0 5px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-}
-
-.action-icons {
-    border: 2px solid #cab193;
-    margin-bottom: 5px;
-}
-
-.normal-icons {
-    margin: 2px;
-    padding-bottom: 5px;
-}
-
-.icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 5px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    border: 1px solid transparent;
-}
-
-    .icon:hover:not(.disabled) {
-        border: 1px solid #b8b0a3;
-        border-radius: 3px;
-    }
-
-.action-icon {
-}
-
 .confirm-box {
     position: absolute;
     width: 80px;
@@ -857,71 +816,127 @@ input[type="text"], input[type="password"] {
             top: 100px !important;
         }
 
-#swap-words {
-    background-image: url('../images/game/swap-words-icon.png');
-    background-repeat: no-repeat;
-    -moz-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+/*#region Icons */
+
+.action-icons {
+    background: #faf5ef;
+    padding: 5px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
 }
 
-    #swap-words:active:not(.disabled):not(.cancel) {
-        background-image: url('../images/game/swap-words-icon-active.png');
+.normal-icons {
+    margin: 2px;
+}
+
+.icon {
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    -moz-transition: background-color .5s ease, opacity .5s ease;
+    -o-transition: background-color .5s ease, opacity .5s ease;
+    -webkit-transition: background-color .5s ease, opacity .5s ease;
+    transition: background-color .5s ease, opacity .5s ease;
+}
+
+    .icon:hover:not(.disabled) {
+        border: 1px solid #b8b0a3;
     }
 
-    #swap-words.disabled {
-        background-image: url('../images/game/swap-words-icon-disabled.png');
+    .icon.disabled:not(.cancel) {
+        opacity: 0.4;
+        filter: alpha(opacity=40);
+        background-color: #000;
     }
 
-    #swap-words.cancel {
+    .icon.disabled:not(.cancel) i {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -o-filter: grayscale(100%);        
+        filter: grayscale(100%);
+    }
+
+    .icon.cancel, .icon.disabled {
+        border-color: #faf5ef;
+    }
+    .icon.cancel {
+        opacity: 0.9;
+        filter: alpha(opacity=90); /* msie */
+        background-color: #f0323f;
+    }
+
+    .icon:last-child {
+        margin-bottom: 0;
+    }
+
+    .icon i {
+        background-repeat: no-repeat;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+        width: 40px;
+        height: 40px;
+        display: block;
         -moz-transition: all .5s ease-in-out;
         -o-transition: all .5s ease-in-out;
         -webkit-transition: all .5s ease-in-out;
         transition: all .5s ease-in-out;
+    }
+
+    .icon.cancel i {
         -moz-transform: rotateY(180deg);
         -ms-transform: rotateY(180deg);
         -o-transform: rotateY(180deg);
         -webkit-transform: rotateY(180deg);
         transform: rotateY(180deg);
+    }
+
+
+    .icon.action {
+    }
+
+        
+
+    .icon i.swap-words {
+        background-image: url('../images/game/swap-words-icon.png');
+    }
+
+    .icon:active:not(.disabled):not(.cancel) i.swap-words {
+        background-image: url('../images/game/swap-words-icon-active.png');
+    }
+
+    .icon.disabled i.swap-words {
+        background-image: url('../images/game/swap-words-icon-disabled.png');
+    }
+
+    .icon.cancel i.swap-words {
         background-image: url('../images/game/swap-words-icon-cancel.png');
     }
 
-#selection-icon {
-    background-image: url('../images/game/add-tile-icon.png');
-}
+    .icon i.circle-words {
+        background-image: url('../images/game/add-tile-icon.png');
+    }
 
-    #selection-icon:active:not(.disabled) {
+    .icon:active:not(.disabled) i.circle-words {
         background-image: url('../images/game/add-tile-icon-active.png');
     }
 
-#swap-tile {
-    background-image: url('../images/game/swap-tile-icon.png');
-}
-
-    #swap-tile:active:not(.disabled) {
-        background-image: url('../images/game/swap-tile-icon-active.png');
+    .icon i.resign {
+        background-image: url('../images/game/end-game-icon.png');
     }
 
-#end-turn {
-    background-image: url('../images/game/end-turn-icon.png');
-}
-
-    #end-turn:active:not(.disabled) {
-        background-image: url('../images/game/end-turn-icon-avtive.png');
+    .icon:active:not(.disabled) i.resign {
+        background-image: url('../images/game/end-game-icon-active.png');
     }
 
-#end-game:active:not(.disabled) {
-    background-image: url('../images/game/end-game-icon-active.png');
-}
+/*#endregion */
 
-.normal-icon {
-    margin-bottom: 0;
-}
 
-#end-game {
-    background-image: url('../images/game/end-game-icon.png');
-}
+
 
 .dialog {
     position: fixed;

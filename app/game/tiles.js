@@ -68,7 +68,8 @@
     tiles: ctx.tiles,
 
     disabled: ko.computed(function () {
-      return ctx.mode() == 'swap';
+      var mode = ctx.mode();
+      return mode == 'swap' || mode == 'circle-words';
     }),
 
     activate: function () { },

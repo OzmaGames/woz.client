@@ -42,10 +42,16 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server',
       owner: this
     });
 
-    app.woz = {
-      dialog: Dialog
+    app.scrollUp = function () {
+      $("body").animate({ scrollTop: 0 }, "slow", "swing");
     };
 
+    app.scrollDown = function () {
+      $("body").animate({ scrollTop: 1000 }, "slow", "swing");
+    }
+
+    app.dialog = Dialog;
+    
     app.start().then(function () {
       viewLocator.useConvention();
       app.setRoot('shell', null, 'app');
