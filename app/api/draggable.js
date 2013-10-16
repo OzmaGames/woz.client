@@ -20,7 +20,7 @@
 
           opt.within = { l: padLeft, t: padTop, r: width - padLeft - padRight, b: height - padTop - padBottom };
         }
-
+ 
         var startPoint = {
           h: $el.outerHeight(),
           w: $el.outerWidth(),
@@ -28,7 +28,7 @@
           l: $el.position().left - e.pageX,
           windowTop: $(window).scrollTop()
         };
-
+        
         $el.css('z-index', 1000);
         $el.addClass('drag');
 
@@ -56,7 +56,7 @@
           $el.css({ top: top });
         }        
         
-        if (hasMoved) {
+        if (hasMoved && opt.usePercentage) {
           top = 100.0 * top / (opt.within.b - opt.within.t);
           left = 100.0 * left / (opt.within.r - opt.within.l);
           $el.css({
@@ -91,65 +91,29 @@
           if (e.data.windowTop < 0) e.data.windowTop = 0;
           $("body").animate({ scrollTop: e.data.windowTop }, "fast");
         }
-        //console.log(e.pageY, e.clientY, e.screenY);
-
-        //console.log(e.data.windowTop);
       },
 
       isWithinBoundaries: function (e) {
         var newTop = e.pageY + e.data.t,
             newLeft = e.pageX + e.data.l;
 
-        if (newTop - e.data.h / 2 < opt.within.t || newTop + e.data.h / 2 > opt.within.b || newLeft - e.data.w / 2 < opt.within.l || newLeft + e.data.w / 2 > opt.within.r)
+        //console.log(newLeft, newTop, opt.within, e.data);
+
+        if (
+          newTop < opt.within.t ||
+          newTop + e.data.h > opt.within.b ||
+          newLeft < opt.within.l ||
+          newLeft + e.data.w > opt.within.r)
           return false;
 
         return true;
-      },
-
-      //touch: function(event) {
-      //  if (event.originalEvent.touches.length > 1) {
-      //    // Ignore multi-touch events
-      //    return false;
-      //  }
-      //  event.preventDefault();
-
-      //  var touch = event.originalEvent.changedTouches[0];
-
-      //  event.pageX = touch.pageX;
-      //  event.pageY = touch.pageY;
-
-      //  return touch;
-      //}
+      }
     };
 
     $el.bind({
-      mousedown: events.mousedown,
-      //touchstart: function (e) {
-      //  var startPoint;
-      //  if (events.touch(e)) startPoint = events.mousedown(e); else return;
-
-      //  var $target = $(e.target);
-      //  $target.bind({
-      //    touchmove: function (e) {
-      //      e.data = startPoint;
-      //      if (events.touch(e)) events.mousemove(e);
-      //    },
-      //    touchend: function (e) {
-      //      e.data = startPoint;
-      //      if (events.touch(e)) events.mouseup(e);
-      //      $target.unbind("");
-      //    },
-      //    touchcancel: function (e) {
-      //      alert('c');
-      //      e.data = startPoint;
-      //      if (events.touch(e)) events.mouseup(e);
-      //      $target.unbind();
-      //    }
-      //  });
-      //}
+      mousedown: events.mousedown      
     });
 
-    //Clean up garbage        
     $el.data('draggable', this);
 
     this.dispose = function () {
@@ -168,6 +132,7 @@
     move: function () { },
     parent: $(document),
     dragable: true,
+    usePercentage: true,
     cursor: "pointer"
   };
 

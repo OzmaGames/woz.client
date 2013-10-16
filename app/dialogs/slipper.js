@@ -18,6 +18,12 @@
       return dfd;
     }
 
+    this.collapse = function (a, e) {
+      e.preventDefault();
+      e.stopPropagation();
+      base.el.toggleClass('minimized');
+    }
+
     this.onClose = function () { }
   }
 
