@@ -558,9 +558,9 @@ body {
     .magnet-placeholder .circle {
         margin: 0 auto;
         border-radius: 100%;
-        width: 20px;
-        height: 20px;
-        margin-top: 1.5px;
+        width: 15px;
+        height: 15px;
+        margin-top: 4px;
         background-color: #CBB28F;
     }
 
