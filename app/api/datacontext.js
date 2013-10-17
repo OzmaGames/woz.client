@@ -56,10 +56,10 @@
           player.tickets = {
             swap: 1
           };
-          app.dialog.show("slipper", DIALOGS.YOUR_TURN_FIRST_ROUND);
+          app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
         } else {
           player.active = ko.observable(player.active);
-          app.dialog.show("slipper", DIALOGS.THEIR_TURN_FIRST_ROUND);
+          app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN_FIRST_ROUND);
         }
         player.resigned = ko.observable(player.resigned || false);
         player.score = ko.observable(player.score);
@@ -125,9 +125,9 @@
 
           if (jplayer.active) {
             if (jplayer.username === model.player.username) {
-              app.dialog.show("slipper", DIALOGS.YOUR_TURN);
+              app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN);
             } else {
-              app.dialog.show("slipper", DIALOGS.THEIR_TURN);
+              app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
             }
           }
 

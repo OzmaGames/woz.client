@@ -42,7 +42,9 @@
     var base = this;
     this.el.css({ y: -100, display: 'block', opacity: 0 })
       .transition({ y: 10, opacity: 1 }, 500, 'ease')
-      .transition({ y: 0 }, 300);
+      .transition({ y: 0 }, 300).delay(5000).promise().then(function () {
+        base.el.toggleClass('minimized');
+      });
   }
 
   Slipper.prototype.canDeactivate = function (a, s, d) {

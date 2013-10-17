@@ -28,7 +28,10 @@
   Window.prototype.attached = function (el) {
     this.el = $('.window', el);
 
-    this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left })
+    var height = this.el.height();
+    this.el.css({ top: ($(window).height() - height) / 2 });
+
+    this.el.css({ x: 100, opacity: 0})
       .transition({ x: -10, opacity: 1 }, 500, 'ease')
       .transition({ x: 0 }, 300).promise().then(function () {
         this.css({ x: 0 });

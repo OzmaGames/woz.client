@@ -943,6 +943,9 @@ input[type="text"], input[type="password"] {
     font-family: CopseRegular;
     -webkit-font-smoothing: antialiased;
 }
+    .dialog.absolute {
+        position:absolute;        
+    }
 
     .dialog.bottom-center {
         bottom: 0;
@@ -1046,7 +1049,7 @@ input[type="text"], input[type="password"] {
         position: relative;
         z-index: 11;
         margin: 0 auto;
-        width: 615px;
+        width: 555px;
         top: -30px;
         background-image: url('../images/app/dialogs/background.png');
         background-position: center bottom;
@@ -1059,10 +1062,10 @@ input[type="text"], input[type="password"] {
         line-height: 120%;
         padding: 40px 30px 20px 30px;
         cursor: pointer;
-        -moz-transition: width .5s ease;
-        -o-transition: width .5s ease;
-        -webkit-transition: width .5s ease;
-        transition: width .5s ease;
+        -moz-transition: width .5s ease, padding .5s ease;
+        -o-transition: width .5s ease, padding .5s ease;
+        -webkit-transition: width .5s ease, padding .5s ease;
+        transition: width .5s ease, padding .5s ease;
     }
 
         .dialog .slipper .btnCommand {
@@ -1084,13 +1087,17 @@ input[type="text"], input[type="password"] {
         }
 
         .dialog .slipper .content {
-            -webkit-text-shadow: 0px 0px 1px #c95;
-            text-shadow: 0px 0px 1px #c95;
+            
+            font-size: .95em;
         }
 
         .dialog .slipper h1 {
-            font-size: 1.5em;
+            font-family: cambria!important;
+            font-size: 1.2em;
+            font-weight: bold;
             margin-bottom: 10px;
+            -webkit-text-shadow: 0px 0px 1px #c95;
+            text-shadow: 0px 0px 1px #c95;
             -moz-transition: all .5s ease;
             -o-transition: all .5s ease;
             -webkit-transition: all .5s ease;
@@ -1099,6 +1106,8 @@ input[type="text"], input[type="password"] {
 
         .dialog .slipper.minimized {
             width: 300px;
+            padding-top: 35px;
+            padding-bottom: 10px;
         }
 
             .dialog .slipper.minimized .btnCommand {
@@ -1114,16 +1123,15 @@ input[type="text"], input[type="password"] {
             }
 
             .dialog .slipper.minimized h1 {
-                font-weight: normal;
-                font-size: 1em;
-                -webkit-text-shadow: 0px 0px 1px #c95;
-                text-shadow: 0px 0px 1px #c95;
+                font-weight: bold;
+                font-size: 1.0em;
                 margin-bottom: 0px;
             }
 
 
     .dialog .window {
-        position: absolute;
+        position: relative;
+        margin: 0 auto;        
         z-index: 11;
         width: 240px;
         background-color: white;
