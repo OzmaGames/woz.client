@@ -89,9 +89,7 @@
                     }
                   }
                 }
-              };
-              dialogs[obj] = theDialog;
-
+              };              
               instance.onClose = function () {
                 var args = [];
                 for (var i = 0; i < arguments.length; i++) {
@@ -100,9 +98,17 @@
                 args.push({ forced: true });
                 theDialog.close.apply(this, args);
               };
-              theDialog.settings = createCompositionSettings(instance, context);
-              theDialog.host = host;
-              composition.compose(theDialog.host, theDialog.settings);
+
+              if (dialogs.hasOwnProperty(obj)) {
+                //it closes before it get a chance to open
+                theDialog.close();
+              } else {
+                dialogs[obj] = theDialog;
+
+                theDialog.settings = createCompositionSettings(instance, context);
+                theDialog.host = host;
+                composition.compose(theDialog.host, theDialog.settings);
+              }
             } else {
               dfd.resolve(false);
             }

@@ -21,13 +21,18 @@
   }
 
   Path.prototype.enter = function () {
-    if (activeWords() != null) {
-      var words = activeWords(), pm = this.pathModel;
+    var hasData = activeWords() != null,
+      pm = this.pathModel;
+
+    if (hasData) {
+      var words = activeWords();
       if (words.length != pm.nWords) return;
 
       for (var i = 0; i < pm.guiBoxes.length; i++) {
         pm.guiBoxes[i].enter(words[i]);
       }
+    } else {
+      if (pm && pm.onEnter) this.pathModel.onEnter(hasData, this.midPath);
     }
   }
 
@@ -39,6 +44,8 @@
       for (var i = 0; i < pm.guiBoxes.length; i++) {
         pm.guiBoxes[i].leave();
       }
+    } else {
+      if (this.pathModel && this.pathModel.onLeave) this.pathModel.onLeave();
     }
   }
 
@@ -63,7 +70,7 @@
     boxHoverEvents: {
       mouseenter: function (e) {
         activeBox = this.data.enter(activeWord());
-        this.data.pathModel.canvas.enter();
+        this.data.pathModel.canvas.enter(e);
       },
       mouseleave: function (e) {
         this.data.leave();
@@ -88,6 +95,8 @@
         var box = pm.guiBoxes[i]
         box.updateModel(pm);
       }
+    } else if (pm.guiBoxes) {
+      //this.dispose();
     } else {
       pm.guiBoxes = [];
       for (var i = 0; i < nWords; i++) {
@@ -108,6 +117,8 @@
     var desiredLength = Path.getDesiredLength(pm.guiBoxes);
     path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw, nWords);
     this.cPoint = Path.cPoint;
+
+    this.midPath = path.getPointAt(path.length/2);
 
     var delta = path.length - desiredLength,
         visibleLength = path.length - 2 * (Path.options.tileMargin + Path.options.tileRadius),
@@ -183,6 +194,8 @@
   Path.prototype.remove = function () {
     this._removeAll(this._trash);
     this._removeAll(this._displayItems);
+    this._displayItems = [];
+    this._trash = [];
   }
 
   Path.scope = paper;
@@ -232,8 +245,8 @@
       line.strokeWidth = 2;
       bestArc.strokeColor = 'grey';
 
-    //  Path._trash.push(line);
-    //  Path._trash.push(circle);
+      //  Path._trash.push(line);
+      //  Path._trash.push(circle);
     }
     else {
       line.remove();
@@ -256,6 +269,12 @@
       item.remove();
     }
     Path._trash = [];
+  }
+
+  Path.prototype.dispose = function () {
+    this.remove();
+    this._removeAll(this.pathModel.guiBoxes);
+    this.pathModel.guiBoxes = null;
   }
 
   Path.options = {

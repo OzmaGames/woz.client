@@ -52,7 +52,7 @@
       });
     });
 
-    base.addWords 
+    //base.addWords 
     
     base.hasWordAt = function (index) {
       var entity = base._getEntityAt(index);

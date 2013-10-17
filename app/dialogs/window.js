@@ -6,7 +6,7 @@
     
     var base = this;
     this.close = function (duration) {
-      base.el.data("draggable").dispose();
+      if(this.draggable) base.el.data("draggable").dispose();
       return base.el.animate({ height: 0, opacity: 0 }, 250);
     }
 
@@ -18,6 +18,7 @@
     this.content = data.content;
     this.left = data.left || 0;
     this.top = data.top || 0;
+    this.draggable = (data.draggable === undefined) ? true : data.draggable;
 
     var width = $(window).innerWidth();      
     if (width - this.left < 300) {
@@ -37,7 +38,8 @@
         this.css({ x: 0 });
       });
     
-    this.el.draggable({ usePercentage: false });
+    if(this.draggable)
+      this.el.draggable({ usePercentage: false });
   }
 
   Window.prototype.canDeactivate = function (a, s, d) {

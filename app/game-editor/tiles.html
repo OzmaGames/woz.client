@@ -1,0 +1,24 @@
+﻿<div id="gameboard">
+    <div id="tiles-max">
+        <div id="tiles-aspect">
+            <div id="tiles" style="border: 1px solid brown">
+                <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }">
+                    <div class="tile">
+                        <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }">
+                            <div class="instruction">
+                                <span data-bind="text: instruction"></span>
+                                <div class="info" data-bind="text: info"></div>
+                                <div class="help"></div>
+                            </div>
+                        </div>
+                        <div class="rest" data-bind="foreach: rest">
+                            <div class="thumbnail"
+                                data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }, click: $parent.addPath">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -40,6 +40,9 @@
             activePath = base;
             base.activeWords = words;
           }
+        } else {
+          var pm = base.pathModel;
+          if (pm && pm.onEnter) pm.onEnter(false, base.midPath);
         }
       },
       mouseleave: function (e) {
@@ -51,6 +54,9 @@
           activePath = null;
           base.activeWord = null;
           base.activeWords = null;
+        } else {
+          var pm = base.pathModel;
+          if (pm && pm.onLeave) pm.onLeave();
         }
       }
     };
@@ -115,6 +121,7 @@
     var desiredLength = Path.getDesiredLength(pm.guiBoxes, nWords),
       path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw, nWords * 3 / 2);
     this.cPoint = Path.cPoint;
+    this.midPath = path.getPointAt(path.length / 2);
 
     var delta = path.length - desiredLength,
         visibleLength = path.length - 2 * (Path.options.tileMargin + Path.options.tileRadius),

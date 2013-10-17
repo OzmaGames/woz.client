@@ -77,7 +77,7 @@
       model.words(json.words);
 
       for (var i = 0; i < json.tiles.length; i++) {
-        json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
+        //json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
         json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
         json.tiles[i].active = ko.observable(false);
       }
