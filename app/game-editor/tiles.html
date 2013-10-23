@@ -16,6 +16,11 @@
                                 data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }, click: $parent.addPath">
                             </div>
                         </div>
+                        <div class="control">
+                            <div class="up" data-bind="click: $parent.tileAngleUp"></div>
+                            <div class="number" data-bind="text: instructorAngle"></div>
+                            <div class="down" data-bind="click: $parent.tileAngleDown"></div>
+                        </div>
                     </div>
                 </div>
             </div>

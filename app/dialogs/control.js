@@ -12,7 +12,7 @@
 
     this.up = function () {
       var nWords = this.nWords();
-      if (nWords < 6) {
+      if (nWords < 9) {
         if (nWords == 0) nWords = 2;
         this.nWords(nWords + 1);
         data.changed(this.nWords());

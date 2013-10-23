@@ -77,7 +77,7 @@
       model.words(json.words);
 
       for (var i = 0; i < json.tiles.length; i++) {
-        //json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
+        json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
         json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
         json.tiles[i].active = ko.observable(false);
       }
@@ -182,11 +182,11 @@
     model.loadingStatus("Waiting for the server...");
 
     setTimeout(function () {
-      //app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
-      //  model.loadingStatus("Waiting to pair up...");
-      //});
+      app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
+        model.loadingStatus("Waiting to pair up...");
+      });
     }, 2000);
-    app.trigger("game:start", entity);
+    //app.trigger("game:start", entity);
   };
 
   model.playedWords = ko.computed(function () {

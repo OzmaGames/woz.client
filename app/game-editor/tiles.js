@@ -10,10 +10,14 @@
         left: tile.x * 100 + '%',
         top: tile.y * 100 + '%'
       });
+
+      tile.instructorAngle(Math.floor(((tile.x - 0.1) - 0.5) * 30));
+      tile.instuctorMargin = Math.sin(tile.instructorAngle() * (Math.PI / 180)) * 150;
+
       var inst = $('.instruction', $el);
       inst.transition({
-        rotate: ((tile.x - 0.1) - 0.5) * 30,
-        marginLeft: (tile.x - 0.5) * 60
+        rotate: tile.instructorAngle(),
+        marginLeft: tile.instuctorMargin
       });
 
     }
@@ -22,8 +26,30 @@
     $(window).scroll(scroll);
   }
 
+  function UpdateTileInstruction(tile) {
+    tile.instuctorMargin = Math.sin(tile.instructorAngle() * (Math.PI / 180)) * 150;
+    tile.$inst.stop().css({
+      rotate: tile.instructorAngle(),
+      marginLeft: tile.instuctorMargin
+    });
+  }
+
   return {
     tiles: ctx.tiles,
+
+    tileAngleUp: function (tile, e) {
+      tile.instructorAngle(tile.instructorAngle() + 1);
+      UpdateTileInstruction(tile);
+      e.stopPropagation();
+      return false;
+    },
+
+    tileAngleDown: function (tile, e) {
+      tile.instructorAngle(tile.instructorAngle() - 1);
+      UpdateTileInstruction(tile);
+      e.stopPropagation();
+      return false;
+    },
 
     afterRender: function (el, tile) {
       var $el = $(el).filter('.tile:first');
@@ -40,14 +66,11 @@
           tile.x = data.left / $el.parent().innerWidth();
           tile.y = data.top / $el.parent().innerHeight();
 
-          //$(window).resize();
-          
-          tile.$inst.stop().css({
-            rotate: ((tile.x - 0.1) - 0.5) * 30,
-            marginLeft: (tile.x - 0.5) * 60
-          });          
+          tile.instructorAngle(Math.floor(((tile.x - 0.1) - 0.5) * 30));
+          UpdateTileInstruction(tile);
         },
-        dropped: function (e) {
+        dropped: function (e, data) {
+          if (!data.hasMoved) return;
           var paths = ctx.paths();
           for (var i = 0; i < paths.length; i++) {
             var p = paths[i];

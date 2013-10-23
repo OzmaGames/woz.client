@@ -74,12 +74,20 @@
       },
       mouseleave: function (e) {
         this.data.leave();
-        this.data.pathModel.canvas.leave();
+        if (this.data.pathModel.canvas) {
+          this.data.pathModel.canvas.leave();
+        }
       },
       mousedown: function (e) {
         this.data.pathModel.canvas.put();
       }
     }
+  }
+
+  Path.prototype.dispose = function () {
+    this.remove();
+    this._removeAll(this.pathModel.guiBoxes);
+    this.pathModel.guiBoxes = null;
   }
 
   Path.prototype.setup = function () {
@@ -96,7 +104,17 @@
         box.updateModel(pm);
       }
     } else if (pm.guiBoxes) {
-      //this.dispose();
+      if (pm.guiBoxes.length > pm.nWords) {
+        //remove
+        pm.guiBoxes[nWords].remove();
+        pm.removeWordAt(nWords);
+        pm.guiBoxes.splice(nWords, 1);
+      } else {
+        //Add
+        var box = new Box(nWords - 1, pm);
+        pm.guiBoxes.push(box);
+        this._displayItems.push(box);
+      }
     } else {
       pm.guiBoxes = [];
       for (var i = 0; i < nWords; i++) {
@@ -112,6 +130,7 @@
 
     var pm = this.pathModel, nWords = pm.nWords;
 
+    if (pm.guiBoxes == null) return;
     this._cleanCycle();
 
     var desiredLength = Path.getDesiredLength(pm.guiBoxes);
@@ -150,6 +169,10 @@
       path.remove();
     } else {
       this._trash.push(path);
+      for (var i = 0; i < Path._trash.length; i++) {
+        this._trash.push(Path._trash[i]);
+      }
+      Path._trash = [];
     }
 
     scope.view.draw();
@@ -187,7 +210,7 @@
   Path.prototype._removeAll = function (arr) {
     if (arr == null) return;
     for (var i = 0; i < arr.length; i++) {
-      try { arr[i].remove(); } catch (ex) { }
+      arr[i].remove();
     }
   }
 
@@ -244,9 +267,8 @@
       line.strokeColor = 'orange';
       line.strokeWidth = 2;
       bestArc.strokeColor = 'grey';
-
-      //  Path._trash.push(line);
-      //  Path._trash.push(circle);
+      Path._trash.push(circle);
+      Path._trash.push(line);
     }
     else {
       line.remove();
@@ -269,13 +291,7 @@
       item.remove();
     }
     Path._trash = [];
-  }
-
-  Path.prototype.dispose = function () {
-    this.remove();
-    this._removeAll(this.pathModel.guiBoxes);
-    this.pathModel.guiBoxes = null;
-  }
+  }  
 
   Path.options = {
     tileRadius: 80,

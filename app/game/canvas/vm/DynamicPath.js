@@ -96,10 +96,6 @@
         this.confirmBox.button(pm);
         this.confirmBox.show();
       }
-      //for (var i = 0; i < nWords; i++) {
-      //  var box = pm.guiBoxes[i];
-      //  if (!box.hasData) { break; }
-      //}
       pm.guiBoxes.splice(nWords, 0, this.confirmBox);
       nWords++;
     } else {
@@ -137,7 +133,7 @@
 
       offset += half;
       var point = path.getPointAt(offset),
-         normal = path.getNormalAt(offset).normalize(Path.options.hoverMargin / 2);
+         normal = path.getNormalAt(offset).normalize(Path.options.hoverMargin / 1.5);
 
       hover.add(point.subtract(normal));
       hover.insert(0, point.add(normal));

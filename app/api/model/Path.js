@@ -1,7 +1,5 @@
 ﻿define(['durandal/app', 'api/constants', 'api/utils'], function (app, constants, utils) {
-
-  //{id, nWords, startTile, endTile, cw, phrase: { words: [ {[words-object], index},.. ] } }
-  function Path(model, id, nWords, startTile, endTile, cw, phrase) {
+  function Path(model, id, nWords, startTile, endTile, cw, words) {
     var base = this;
 
     base.id = id;
@@ -9,16 +7,13 @@
     base.startTile = utils.find(model.tiles(), { id: startTile });
     base.endTile = utils.find(model.tiles(), { id: endTile });
     base.cw = (cw === undefined ? true : cw);
-    //base.cw = (base.startTile.y - base.endTile.y) < 0.1;
-    //base.cw = (Math.abs(base.startTile.y - base.endTile.y) < 0.2) || base.startTile.x > base.endTile.x;
     base.silence = false;
-
-    var words = (phrase && phrase.words) ? phrase.words : [];
+    
     base.phrase = {
       _complete: ko.observable(false),
       playerId: 0,
       score: 0,
-      words: ko.observableArray(words)
+      words: ko.observableArray(words || [])
     };
 
     base.phrase.complete = ko.computed(function () {
@@ -51,8 +46,6 @@
         word.word.isPlayed = (complete ? 2 : 1);
       });
     });
-
-    //base.addWords 
     
     base.hasWordAt = function (index) {
       var entity = base._getEntityAt(index);
@@ -106,6 +99,8 @@
     }
 
     base._removeEntity = function (entity) {
+      if (entity == null) return false;
+
       entity.word.isPlayed = 0;
       base.phrase.words.remove(entity);
 
@@ -124,7 +119,6 @@
       }      
     }    
   }
-
 
   return Path;
 });

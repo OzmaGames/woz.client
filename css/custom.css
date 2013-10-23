@@ -474,6 +474,21 @@ body {
                 margin-bottom: 0;
             }
 
+        #tiles .tile .control {
+            visibility: hidden;
+            position: absolute;
+            top: 50px;
+            left: 0px;
+            width: 45px;
+            z-index: 5;
+            background-color: white;
+            border-radius: 100%;
+            color: #976b2c;
+        }
+        #tiles .tile:hover .control{
+            visibility:visible;
+        }
+
 #workspace {
     position: relative;
     width: auto;
@@ -891,6 +906,26 @@ button.sign-up {
         -o-transition: all .5s ease-in-out;
         -webkit-transition: all .5s ease-in-out;
         transition: all .5s ease-in-out;
+        cursor:pointer;
+    }
+
+    .icon i:not(:empty){
+        display:table-cell;
+        vertical-align:middle;
+        background-color:#bad7e4;
+        border-radius:3px;
+        text-align:center;
+    }
+    .icon i:not(:empty):hover, .icon i:not(:empty):active{
+        background-color:#8ab;
+    }
+    .icon.cancel i:not(:empty) {
+        -moz-transform: rotateY(360deg)!important;
+        -ms-transform: rotateY(360deg)!important;
+        -o-transform: rotateY(360deg)!important;
+        -webkit-transform: rotateY(360deg)!important;
+        transform: rotateY(360deg)!important;
+        background-color: orange;
     }
 
     .icon.cancel i {
@@ -905,7 +940,11 @@ button.sign-up {
     .icon.action {
     }
 
+    .icon i.export {
+        background-color: pink;
+    }
 
+    .icon:active i.export, .icon:hover i.export{ background-color: hotpink;}
 
     .icon i.swap-words {
         background-image: url('../images/game/swap-words-icon.png');
@@ -1149,7 +1188,7 @@ button.sign-up {
         z-index: 3;
         width: 45px;
         margin-left: -15px;
-        margin-top:-40px;
+        margin-top: -40px;
         background-color: white;
         text-align: center;
         color: #976b2c;
@@ -1160,47 +1199,53 @@ button.sign-up {
         -webkit-text-shadow: 0px 0px 1px #999;
         text-shadow: 0px 0px 1px #999;
     }
-        .dialog .control .nWords{
-            float:left;
-            width:30px;
+
+        .dialog .control .nWords {
+            float: left;
+            width: 30px;
         }
+
         .dialog .control .btnDel {
-            float:left;
+            float: left;
             width: 10px;
-            font-family:CopseRegular;
-            font-size:1.5em;
+            font-family: CopseRegular;
+            font-size: 1.5em;
         }
+
         .dialog .control .btnCW {
-            float:left;
+            float: left;
             width: 10px;
-            font-family:CopseRegular;
-            font-size:0.6em;
+            font-family: CopseRegular;
+            font-size: 0.6em;
         }
-        .dialog .control .up, .dialog .control .down {
+
+        .dialog .control .up, .dialog .control .down, .control .up, .control .down {
             float: left;
             width: 30px;
             height: 9px;
             background-image: url('../images/game/ArrowMinimize_Btn.png');
-            background-position:center center;
+            background-position: center center;
             background-repeat: no-repeat;
             -moz-background-size: 15px 9px;
             -o-background-size: 15px 9px;
             -webkit-background-size: 15px 9px;
             background-size: 15px 9px;
         }
-        .dialog .control .down {
+
+        .dialog .control .down, .control .down {
             -moz-transform: rotate(180deg);
             -ms-transform: rotate(180deg);
             -o-transform: rotate(180deg);
             -webkit-transform: rotate(180deg);
             transform: rotate(180deg);
         }
-        .dialog .control .number{
-            width:30px;
-            text-align:center;
-            float:left;
-            font-family:CopseRegular;
-            font-size:1.5em;
+
+        .dialog .control .number, .control .number {
+            width: 30px;
+            text-align: center;
+            float: left;
+            font-family: CopseRegular;
+            font-size: 1.5em;
         }
 
     .dialog .window {
