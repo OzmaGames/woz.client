@@ -485,8 +485,9 @@ body {
             border-radius: 100%;
             color: #976b2c;
         }
-        #tiles .tile:hover .control{
-            visibility:visible;
+
+        #tiles .tile:hover .control {
+            visibility: visible;
         }
 
 #workspace {
@@ -906,19 +907,21 @@ button.sign-up {
         -o-transition: all .5s ease-in-out;
         -webkit-transition: all .5s ease-in-out;
         transition: all .5s ease-in-out;
-        cursor:pointer;
+        cursor: pointer;
     }
 
-    .icon i:not(:empty){
-        display:table-cell;
-        vertical-align:middle;
-        background-color:#bad7e4;
-        border-radius:3px;
-        text-align:center;
-    }
-    .icon i:not(:empty):hover, .icon i:not(:empty):active{
-        background-color:#8ab;
-    }
+        .icon i:not(:empty) {
+            display: table-cell;
+            vertical-align: middle;
+            background-color: #bad7e4;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+            .icon i:not(:empty):hover, .icon i:not(:empty):active {
+                background-color: #8ab;
+            }
+
     .icon.cancel i:not(:empty) {
         -moz-transform: rotateY(360deg)!important;
         -ms-transform: rotateY(360deg)!important;
@@ -944,7 +947,9 @@ button.sign-up {
         background-color: pink;
     }
 
-    .icon:active i.export, .icon:hover i.export{ background-color: hotpink;}
+    .icon:active i.export, .icon:hover i.export {
+        background-color: hotpink;
+    }
 
     .icon i.swap-words {
         background-image: url('../images/game/swap-words-icon.png');
@@ -1364,3 +1369,163 @@ button.sign-up {
     text-align: center;
     background-image: url('../images/big-button-background-up.jpg');
 }
+
+
+/*#region Form - controls */
+
+input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+    input[type="checkbox"] + span {
+        display: inline-block;
+        vertical-align: middle;
+        width: 3em;
+        height: 1em;
+        border: 2px solid #cfa972;
+        border-radius: 1em;
+        margin: 0 .5em;
+        margin-top: -5px;
+        padding: 1px;
+        overflow: hidden;
+        background-image: linear-gradient(90deg, #f5cf76 50%, #e5d7bd 50%), linear-gradient(rgba(0,0,0,.1), transparent);
+        -moz-background-size: 200% 100%;
+        -o-background-size: 200% 100%;
+        -webkit-background-size: 200% 100%;
+        background-size: 200% 100%;
+        background-position: 100% 0;
+        -moz-transition-duration: .4s;
+        -o-transition-duration: .4s;
+        -webkit-transition-duration: .4s;
+        transition-duration: .4s;
+        -moz-transition-property: padding, width, background-position, text-indent, box-shadow;
+        -o-transition-property: padding, width, background-position, text-indent, box-shadow;
+        -webkit-transition-property: padding, width, background-position, text-indent, box-shadow;
+        transition-property: padding, width, background-position, text-indent, box-shadow;
+        box-shadow: 0 .1em .1em rgba(0,0,0,.2) inset, 0 .3em 0 .1em rgba(0,0,0,.05) inset;
+        float: right;
+    }
+
+    input[type="checkbox"]:checked + span {
+        padding-left: 2em;
+        width: 1em;
+        background-position: 0 0;
+        box-shadow: 0 .1em .1em rgba(255,255,255,.2) inset, 0 .3em 0 .1em rgba(255,255,255,.2) inset;
+    }
+
+    input[type="checkbox"] + span:before {
+        content: 'On';
+        float: left;
+        width: 1.65em;
+        height: 1.65em;
+        margin-top: -.1em;
+        margin-left: -.1em;
+        border: 1px solid rgba(152, 107, 49,.9);
+        border-radius: inherit;
+        background: white;
+        box-shadow: -1px -1px 5px .02px white inset, -.1em -.2em .7em .4em #cfa972 inset, 1px 1px .5em rgba(0,0,0,.9);
+        color: #986B31;
+        -webkit-text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        text-indent: -2.5em;
+    }
+
+    input[type="checkbox"]:active + span:before {
+    }
+
+    input[type="checkbox"]:focus + span, label:focus + span {
+        box-shadow: 0 1px 1px rgba(0,0,0,.2) inset, 0 .45em 0 .1em rgba(0,0,0,.05) inset, 0 0 .5em 1px #986B31;
+    }
+
+    input[type="checkbox"]:checked:focus + span {
+        box-shadow: 0 .1em .1em rgba(255,255,255,.2) inset, 0 .3em 0 .1em rgba(255,255,255,.2) inset, 0 1px 1px rgba(0,0,0,.2) inset, 0 .45em 0 .1em rgba(0,0,0,.05) inset, 0 0 .5em 1px #986B31;
+    }
+
+    input[type="checkbox"] + span:before,
+    input[type="checkbox"] + span:after {
+        font: bold 60%/1.7 CopseRegular;
+        text-transform: uppercase;
+    }
+
+    input[type="checkbox"] + span:after {
+        content: 'Off';
+        float: left;
+        text-indent: .5em;
+        color: rgba(0,0,0,.45);
+        -webkit-text-shadow: none;
+        text-shadow: none;
+    }
+
+label {
+    position: relative;
+    display: block;
+    padding: .8em;
+    margin-bottom: 10px;
+    border: 2px solid #d7bea2;
+    border-radius: 7px;
+    background: #f1e8d5;
+    text-transform: uppercase;
+    font-family: CopseRegular;
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 18px;
+    color: #986B31;
+    width: 400px;
+    -webkit-text-shadow: 0 0 2px #986B31;
+    text-shadow: 0 0 2px #986B31;
+    -webkit-font-smoothing: antialiased;
+}
+
+    label:last-child {
+        margin-bottom: 0;
+    }
+
+    .container.y, .container.x, .container.group{
+        padding:10px;
+        margin-bottom:10px;
+    }
+.container.y {
+    max-height:182px;
+    border:2px solid #d7bea2;
+    border-radius:10px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    width:440px;
+}
+
+.container.group{
+
+}
+
+.scroll{
+    position:relative;
+}
+
+/*.scroll:after{
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    width:5px;
+    height:100%;
+    background-color:rgba(192, 157, 108, .3);
+}*/
+
+.scroll::-webkit-scrollbar
+{
+	width: 12px;
+    background-color:rgba(192, 157, 108, .3);
+}
+
+.scroll::-webkit-scrollbar-thumb
+{
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.5);
+	background-color: #c8b39b;
+	width: 5px;
+}
+
+
+/*#endregion */
