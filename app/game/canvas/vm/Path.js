@@ -104,7 +104,7 @@
         box.updateModel(pm);
       }
     } else if (pm.guiBoxes) {
-      if (pm.guiBoxes.length > pm.nWords) {
+      if (pm.guiBoxes.length > nWords) {
         //remove
         pm.guiBoxes[nWords].remove();
         pm.removeWordAt(nWords);
@@ -239,6 +239,8 @@
       minArc = Path.options.minArc * (nWords / 4);
     }
     if (maxArc > 150) maxArc = 150;
+    maxArc = nWords * 30;
+    minArc = maxArc - 60;
 
     line = new scope.Path.Line(
       cPoint.subtract(vector.normalize(-minArc * (clockwise ? 1 : -1))),

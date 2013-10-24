@@ -7,6 +7,7 @@
             return router.map([
                 { route: ['', 'home'],      moduleId: 'home/index',       title: 'Start',                nav: true },
                 { route: 'test',            moduleId: 'home/test',        title: 'Test',                 nav: true },
+                { route: 'lobby',           moduleId: 'home/lobby',       title: 'Lobby',                nav: true },
                 { route: 'not-found',       moduleId: 'error/not-found',  title: 'Error 404: Not Found', nav: true },
                 { route: 'game',            moduleId: 'game/game',        title: 'Play',                 nav: true },
                 { route: 'game-editor',     moduleId: 'game-editor/game', title: 'Game Editor',          nav: true },

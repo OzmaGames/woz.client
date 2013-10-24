@@ -1486,13 +1486,10 @@ input[type="checkbox"], input[type="radio"] {
         content: 'Off';
         float: left;
         text-indent: .5em;
-        color: rgba(0,0,0,.45);
-        -webkit-text-shadow: none;
-        text-shadow: none;
+        color: rgba(0,0,0,.45);        
     }
 
     input[type="radio"] + span {
-        content: "aaaa";
         position: absolute;
         top: 0;
         left: 0;
@@ -1501,14 +1498,16 @@ input[type="checkbox"], input[type="radio"] {
         width: 100%;
         height: 100%;
         z-index: -1;
-        -moz-transition: .4s background-color;
-        -o-transition: .4s background-color;
-        -webkit-transition: .4s background-color;
-        transition: .4s background-color;
+        border-radius:inherit;
+        -moz-transition: .4s background-color, .4s box-shadow;
+        -o-transition: .4s background-color, .4s box-shadow;
+        -webkit-transition: .4s background-color, .4s box-shadow;
+        transition: .4s background-color, .4s box-shadow;
     }
 
     input[type="radio"]:checked + span {
         background-color: white;
+        box-shadow: 0 0 10px 3px #986B31;
     }
 
 label {
@@ -1535,10 +1534,20 @@ label {
 }
 
     label.radio {
-        padding-top: .7em;
-        padding-bottom: .7em;
+        padding-top: .55em;
+        padding-bottom: .55em;
+        overflow:visible;
     }
 
+    label .text{
+        display: inline-block;
+    }
+    label .box{
+        width: 80px;
+        height:100%;
+        display:inline-block;
+    }
+    
     label:last-child {
         margin-bottom: 0;
     }
@@ -1546,8 +1555,10 @@ label {
     label .description {
         display: block;
         font-size: .8em;
-        -webkit-text-shadow: 0 0 1px #986B31;
-        text-shadow: 0 0 1px #986B31;
+        -webkit-text-shadow: 0 0 0px #986B31;
+        text-shadow: 0 0 0px #986B31;
+        text-transform:none;
+        -webkit-font-smoothing: antialiased;
     }
 
 
@@ -1563,6 +1574,11 @@ label {
     overflow-x: hidden;
     overflow-y: auto;
     width: 400px;
+    background-color:#F2EBE3;
+}
+
+ul.container.y{
+    padding:0;
 }
 
 .container.group {
@@ -1589,6 +1605,78 @@ label {
     .grid .col:last-child{
         padding-right:0;
     }
+
+    .grid h1{
+        padding-left:10px;
+        text-transform:uppercase;
+    }
+
+    .grid ul{
+        list-style:none;
+    }
+
+    .grid ul li{
+        display: block;
+        width: 100%;
+        height: 1em;
+        padding: .8em;
+        font-family: CopseRegular;
+        font-weight: normal;
+        color:#986B31;
+        background-color:#F9F8F4;
+        border-bottom: 1px solid #d7bea2;        
+    }
+    .grid ul li:last-child{
+        border-bottom:none;
+    }
+
+    .grid ul li.header{
+        color:white;
+        background-color: #cfa972;
+        padding: .4em;
+        text-transform: capitalize;
+    }
+
+    .grid ul li:hover:not(.header){
+        background-color: #f1ebe2;
+    }
+
+    .grid ul li:active, .grid ul li.active{
+        background-color: #d9cfc0!important;
+        font-weight:bold;
+    }
+
+    .grid input[type="text"]{
+        padding: .8em;
+        border: 1px solid #d7bea2;
+        background-color:#F9F8F4;
+        box-shadow:none;
+        width:350px;
+    }
+        .grid input[type="text"] ~ span {
+            position:relative;
+            display:inline-block;
+            width: 1.8em;
+            height: 1.4em;
+            top:.3em;
+            -moz-background-size: 100% 100%;
+            -o-background-size: 100% 100%;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+            .grid input[type="text"] ~ span.clear {
+                background-image: url('../images/game/add.png');
+            }
+        .grid input[type="text"] ~ span.clear:hover, .grid input[type="text"] ~ span.clear:active{
+            background-image: url('../images/game/add-active.png');
+        }
+        .grid input[type="text"] ~ span.find {
+            margin-left: -2em;            
+            background-image: url('../images/game/find.png');
+        }
+            .grid input[type="text"] ~ span.find:hover, .grid input[type="text"] ~ span.find:active {
+                background-image: url('../images/game/find-active.png');
+            }
 
 .scroll {
     position: relative;

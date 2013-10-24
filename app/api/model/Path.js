@@ -76,9 +76,13 @@
           }
         }
       }
-      if ((nWords == 0 && index >= 6) || (nWords != 0 && index >= nWords) ) return false;
+      
+      if ((base.nWords == 0 && index >= 6) || (base.nWords != 0 && index >= base.nWords) ) return false;
 
-      if (null != ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === index; })) return;
+      if (null != ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === index; })) {
+        base.removeWordAt(index);
+        //return false;
+      }
 
       word.isPlayed = 1;
       base.phrase.words.push({ word: word, index: index });

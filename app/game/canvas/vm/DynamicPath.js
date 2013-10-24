@@ -115,7 +115,7 @@
     this._cleanCycle();
 
     var desiredLength = Path.getDesiredLength(pm.guiBoxes, nWords),
-      path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw, nWords * 3 / 2);
+      path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw, nWords);
     this.cPoint = Path.cPoint;
     this.midPath = path.getPointAt(path.length / 2);
 

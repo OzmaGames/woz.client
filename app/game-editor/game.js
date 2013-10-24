@@ -29,7 +29,7 @@
           return {
             id: t.id,
             x: t.x.toFixed(2), y: t.y.toFixed(2),
-            instructorAngle: t.instructorAngle
+            instructorAngle: t.instructorAngle()
           };
         });
         var paths = ko.utils.arrayMap(ctx.paths(), function (p) {
@@ -72,7 +72,7 @@
                  (p.startTile.id == t.id && p.endTile.id == tile.id))
               len++;
           }
-          return t.id != tile.id && len < 2;
+          return t.id != tile.id && len < 4;
         });
       });
 
