@@ -32,7 +32,7 @@
           return {
             id: t.id,
             x: t.x.toFixed(2), y: t.y.toFixed(2),
-            instructorAngle: t.instructorAngle()
+            instructionAngle: t.instructionAngle()
           };
         });
         var paths = ko.utils.arrayMap(ctx.paths(), function (p) {
@@ -61,7 +61,7 @@
         x: 0.5, y: 0.5,
         imageName: consts.images[lastID - 1].imageName,
         instruction: 'tile image',
-        instructorAngle:  ko.observable(0)
+        instructionAngle:  ko.observable(0)
       };
       tile.info = tile.id;
 
