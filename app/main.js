@@ -17,7 +17,7 @@ define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'api/server', 'api/datacontext', 'dialogs/_dialog',
-  '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3'],
+  '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout'],
   function (system, app, viewLocator, server, ctx, Dialog) {
     //>>excludeStart("build", true);
     system.debug(true);

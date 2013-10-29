@@ -1,5 +1,5 @@
 ﻿<div>
-    <div class="grid">
+    <div class="grid" style="display:none">
         <div class="col">
             <h1>Radios:</h1>
             <div class="container group">
@@ -33,6 +33,28 @@
                 <label>3/4<input type="checkbox" checked /><span></span></label>
                 <label>4/4<input type="checkbox" /><span></span></label>
             </div>
+            <h1>drop down</h1>
+            <div class="container group">
+                <select class="woz" data-bind="dropdown: { inst: 'Change Language', options: null, selected: null }">
+                    <option selected>English</option>
+                    <option>German</option>
+                    <option>Portuguese</option>
+                    <option>Spanish</option>
+                    <option>Swedish</option>
+                </select>
+                <label class="select">
+                    <span class="selected">English</span>
+                    <span class="description">Change Language</span>
+                </label>
+                <ul class="container y scroll">
+                    <li class="active">English</li>
+                    <li>German</li>
+                    <li>Portuguese</li>
+                    <li>Spanish</li>
+                    <li>Swedish</li>
+                </ul>
+            </div>
         </div>
+
     </div>
 </div>

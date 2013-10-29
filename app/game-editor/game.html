@@ -15,9 +15,13 @@
                 </div>
             </div>
         </div>
+        <div style="position:absolute; left:10px;top:10px;z-index:4">
+            Game Level:
+            <input type="number" data-bind="value: level" max="3" min="1"
+                style="width:40px;padding: .8em;border: 1px solid #d7bea2;background-color:#F9F8F4;" />
+        </div>
     </div>
     <div id="game-players" data-bind="compose: 'game/players'"></div>
-
     <div id="menu">
         <div class="palette" id="palette-left">
             <div class="action-icons">

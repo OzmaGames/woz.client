@@ -5,8 +5,11 @@
 
     entity.players[0].active = ko.observable(true);
     ctx.player = entity.players[0];
-    
+    var gameLevel = ko.observable(1);
+
     var game = {
+
+      level: gameLevel,
 
       debugMode: ko.observable(false),
 
@@ -41,7 +44,7 @@
             nWords: p.nWords
           };
         });
-        var json = { tiles: tiles, paths: paths };
+        var json = { tiles: tiles, paths: paths, level: gameLevel() };
         
         var div =
           $('<div/>', { text: 'Copy this and give it to Pedro :)' })
