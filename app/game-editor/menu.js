@@ -7,7 +7,7 @@
   return {
     activate: function () {
       app.trigger("server:manager:getBoards", {}, function (data) {
-        var groups = Groups(), grpBy = 'level';
+        var groups = Groups(), grpBy = 'level', items = data.boards;
         for (var i = 0; i < items.length; i++) {
           var obj = groups[items[i][grpBy]];
           if (!obj) {
