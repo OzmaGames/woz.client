@@ -223,7 +223,6 @@ h6 {
 
         #game-main hr, #game-main hr:before {
             background: -moz-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%, rgba(152, 107, 49,0) 75%);
-            background: -webkit-gradient(radial, center center, 0px, center center, 75%, color-stop(0%,rgba(152, 107, 49,0.3)), color-stop(75%,rgba(152, 107, 49,0)));
             background: -webkit-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
             background: -o-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
             background: -ms-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
@@ -232,7 +231,6 @@ h6 {
 
 
 #palette-right, #palette-left {
-    top: 100px;
     -moz-transition: .3s top ease-in-out;
     -o-transition: .3s top ease-in-out;
     -webkit-transition: .3s top ease-in-out;
@@ -240,6 +238,7 @@ h6 {
 }
 
 .palette {
+    top: 100px;
     position: fixed;
     z-index: 4;
 }
@@ -248,7 +247,7 @@ h6 {
     left: 20px;
 }
 
-#palette-right {
+#palette-right, .palette.right {
     right: 20px;
 }
 
@@ -929,7 +928,7 @@ button.sign-up {
         margin-bottom: 0;
     }
 
-    .icon i {
+    .icon i, .palette i {
         background-repeat: no-repeat;
         -moz-background-size: 100% 100%;
         -o-background-size: 100% 100%;
@@ -978,11 +977,11 @@ button.sign-up {
     .icon.action {
     }
 
-    .icon i.export {
+    .icon i.save {
         background-color: pink;
     }
 
-    .icon:active i.export, .icon:hover i.export {
+    .icon:active i.save, .icon:hover i.save {
         background-color: hotpink;
     }
 
@@ -1026,6 +1025,20 @@ button.sign-up {
         background-image: url('../images/game/end-game-icon-active.png');
     }
 
+i.disabled {
+    cursor: default;
+}
+
+i.menu {
+    height: 22px !important;
+    width: 40px!important;
+    background-image: url('../images/game/Menu_Btn_Up.png');
+}
+
+    i.menu:active:not(.disabled), i.menu:hover:not(.disabled) {
+        background-image: url('../images/game/Menu_Btn_Down.png');
+    }
+
 /*#endregion */
 
 
@@ -1058,6 +1071,11 @@ button.sign-up {
     .dialog.top-left {
         top: 0;
         left: 0;
+    }
+
+    .dialog.top-right {
+        top: 0;
+        right: 0;
     }
 
     .dialog.modal .ui-overlay {
@@ -1222,6 +1240,23 @@ button.sign-up {
                 margin-bottom: 0px;
             }
 
+    .dialog .menu {
+        position: relative;
+        z-index: 11;
+        margin: 0 auto;
+        width: 100px;
+        right: -10px;
+        background-image: url('../images/app/menu.png');
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+        text-align: center;
+        color: #976b2c;
+        line-height: 120%;
+        padding: 40px 30px 20px 30px;
+        cursor: pointer;
+    }
 
     .dialog .control {
         position: absolute;
@@ -1711,11 +1746,11 @@ ul.container.y {
         }
 
             .grid input[type="text"] ~ span.clear {
-                background-image: url('../images/game/add.png');
+                background-image: url('../images/game/add-friend.png');
             }
 
                 .grid input[type="text"] ~ span.clear:hover, .grid input[type="text"] ~ span.clear:active {
-                    background-image: url('../images/game/add-active.png');
+                    background-image: url('../images/game/add-friend-active.png');
                 }
 
             .grid input[type="text"] ~ span.find {
@@ -1783,11 +1818,15 @@ ul.container.y {
     -webkit-text-shadow: 0 0 1px #986B31;
     text-shadow: 0 0 1px #986B31;
     -webkit-font-smoothing: antialiased;
-    cursor: pointer;
 }
-.game-item:hover .cell{
-    background-color: rgb(255, 254, 250)!important;
-}
+    .game-item button, button.btn{
+        border: 1px solid #d7bea2;
+        border-radius:3px; 
+        padding:.5em 1em;
+    }
+    .game-item .float.right{
+        float: right;
+    }
 
     .game-item .cell {
         position: relative;
@@ -1798,15 +1837,38 @@ ul.container.y {
         border-radius: 7px;
         background: #f9f8f4;
         width: 22em;
+        cursor: pointer;
+        -moz-transition: .4s box-shadow, .4s border-color, .4s background-color;
+        -o-transition: .4s box-shadow, .4s border-color, .4s background-color;
+        -webkit-transition: .4s box-shadow, .4s border-color, .4s background-color;
+        transition: .4s box-shadow, .4s border-color, .4s background-color;
     }
 
-        .game-item .cell.left {
-            width: 60em;
-        }
+    .game-item:hover .cell {
+        background-color: rgb(255, 254, 250);
+    }
 
-        .game-item .cell.right {
-            width: 15em;
-        }
+    .game-item.active .cell {
+        background-color: white;
+        border-color: #986B31;
+        box-shadow: 0 0 10px 3px #986B31;
+        cursor: default;
+    }
+    .game-item .visibleOnActive{
+        visibility:hidden;
+    }
+    .game-item.active .visibleOnActive{
+        visibility:visible;
+    }
+
+
+    .game-item .cell.left {
+        width: 60em;
+    }
+
+    .game-item .cell.right {
+        width: 15em;
+    }
 
     .game-item .pic {
         position: absolute;
@@ -1839,19 +1901,27 @@ ul.container.y {
 
     .game-item .phrase {
         font-weight: bold;
-        font-size:1.2em;
+        font-size: 1.2em;
     }
-    .game-item .phrase:after,.game-item .phrase:before{
-        content: '"';
-    }
+
+        .game-item .phrase:after, .game-item .phrase:before {
+            content: '"';
+        }
 
     .game-item .point {
         font-weight: bold;
     }
-    .game-item .point:after {
-         content: " points"
-    }
 
+        .game-item .point:after {
+            content: " points";
+        }
+
+        .game-item .bold{
+            font-weight: bold;
+        }
+    .game-item .italic {
+        font-style: italic;
+    }
     .game-item .icons {
         position: relative;
     }
@@ -1896,9 +1966,10 @@ ul.container.y {
             -webkit-background-size: 100% 100%;
             background-size: 100% 100%;
         }
-        .game-item .icons .resign:hover,.game-item .icons .resign:active  {
-            background-image: url('../images/game/end-game-icon-active.png');            
-        }
+
+            .game-item .icons .resign:hover, .game-item .icons .resign:active {
+                background-image: url('../images/game/end-game-icon-active.png');
+            }
 
     .game-item .players {
         position: absolute;

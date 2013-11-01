@@ -48,6 +48,7 @@
     }
   ];
 
+  var activeGame = ko.observable(games[0]);
 
   return {
     lobby: [
@@ -69,8 +70,9 @@
         }
     ],
     select: function (game, e) {
-      console.log(e);
+      activeGame(game);
     },
+    activeGame: activeGame,
     binding: function () {
       return { cacheViews: false };
     }

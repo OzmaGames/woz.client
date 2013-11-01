@@ -42,7 +42,7 @@
           }
         } else {
           var pm = base.pathModel;
-          if (pm && pm.onEnter) pm.onEnter(false, base.midPath);
+          if (pm && pm.onEnter) pm.onEnter(base.midPath);
         }
       },
       mouseleave: function (e) {

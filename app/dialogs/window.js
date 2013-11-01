@@ -29,17 +29,18 @@
   Window.prototype.attached = function (el) {
     this.el = $('.window', el);
 
-    var height = this.el.height();
-    this.el.css({ top: ($(window).height() - height) / 2 });
+    this.left = ($(window).innerWidth() - this.el.outerWidth()) / 2
+    //var height = this.el.height();
+    //this.el.css({ top: ($(window).height() - height) / 2 });
 
-    this.el.css({ x: 100, opacity: 0})
+    this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left})
       .transition({ x: -10, opacity: 1 }, 500, 'ease')
       .transition({ x: 0 }, 300).promise().then(function () {
         this.css({ x: 0 });
       });
     
     if(this.draggable)
-      this.el.draggable({ usePercentage: false });
+      this.el.draggable({ usePercentage: false, topLimit:true });
   }
 
   Window.prototype.canDeactivate = function (a, s, d) {

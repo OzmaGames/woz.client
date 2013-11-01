@@ -2,7 +2,7 @@
   <div class="grid" data-bind="foreach: lobby">
     <h1 data-bind="text: title">My turn</h1>
     <div class="table" data-bind="foreach: games">
-      <div class="game-item" data-bind="click: $root.select">
+      <div class="game-item" data-bind="click: $root.select, css: {active: $root.activeGame() == $data}">
         <div class="cell left">
           <div class="pic" data-bind="css: collection.short"></div>
           <div>
@@ -13,9 +13,9 @@
         </div>
         <div class="cell right">
           <div class="icons">
-            <div class="time" data-bind="text: timeAgo"></div>
-            <div class="chat"><div data-bind="text: unreads">1</div></div>
-            <div class="resign"></div>
+            <div class="time" title="" data-bind="text: timeAgo"></div>
+            <div class="chat" title="Number of unread messages"><div data-bind="text: unreads">1</div></div>
+            <div class="resign" title="Resign the game"></div>
           </div>
           <div class="players" data-bind="foreach: players">
             <div>

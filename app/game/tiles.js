@@ -96,7 +96,8 @@
 
       if (tile.$inst.hasClass("fixed")) {
         top -= 120;
-      }      
+      }
+      top= 150;
       
       app.dialog.show("window", {
         heading: tile.instruction,

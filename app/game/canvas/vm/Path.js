@@ -32,7 +32,7 @@
         pm.guiBoxes[i].enter(words[i]);
       }
     } else {
-      if (pm && pm.onEnter) this.pathModel.onEnter(hasData, this.midPath);
+      if (pm && pm.onEnter) this.pathModel.onEnter(this.midPath);
     }
   }
 
@@ -127,7 +127,6 @@
 
   Path.prototype.show = function () {
     console.log('%cPath', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
-
     var pm = this.pathModel, nWords = pm.nWords;
 
     if (pm.guiBoxes == null) return;

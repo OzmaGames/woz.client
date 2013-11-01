@@ -198,8 +198,13 @@
         $('#workspace').touchPunch();
     },
 
-    detached: function () {
-
+    detached: function () {      
+      $('#menu').remove();
+      app.dialog.close("slipper");
+      app.dialog.close("slipper-fixed");
+      app.dialog.close("window");
+      app.dialog.close("notice");
+      app.dialog.close("menu");
     }
   });
  
