@@ -18,10 +18,11 @@
       return system.defer(function (dfd) {
         if (singleton) {
           close(moduleId, { msg: 'queue' }).then(createHost);
-        } else { createHost(); }
+        } else {
+          createHost();
+        }
 
         function createHost() {
-          //dialogs[moduleId] = theDialog;
           var host = $('<div/>', { 'module': moduleId }).appendTo(baseHost).get(0);
           dfd.resolve(host);
         }
@@ -56,9 +57,17 @@
       return settings;
     }
 
+    function setup(key) {
+      return close(key, { msg: 'new' }).pipe(function () {
+        dialogs[key] = {
+          ready: system.defer()
+        };
+      });
+    }
+
     function show(obj, activationData, context) {
       return system.defer(function (dfd) {
-        $.when(ensureDialogInstance(obj), getHost(obj, true)).then(function (instance, host) {
+        $.when(ensureDialogInstance(obj), getHost(obj, true), setup(obj)).then(function (instance, host) {
           var dialogActivator = activator.create();
           dialogActivator.activateItem(instance, activationData).then(function (success) {
             if (success) {
@@ -68,28 +77,22 @@
                 activator: dialogActivator,
                 close: function () {
                   var args = arguments, last = args.length ? args[args.length - 1] : {};
-                  if (last && last.forced) {
-                    resolve(args);
-                  }
-                  return dialogActivator.deactivateItem(instance, true).then(function (closeSuccess) {
-                    if (closeSuccess) {
-                      ko.removeNode(dialogs[obj].host);
-                      delete instance.__dialog__;
-                      if (!last || !last.forced) { resolve(args); }
-                    }
-                  });
 
-                  function resolve(args) {
-                    if (args.length === 0) {
-                      dfd.resolve();
-                    } else if (args.length === 1) {
-                      dfd.resolve(args[0]);
-                    } else {
-                      dfd.resolve.apply(dfd, args);
-                    }
+                  delete dialogs[obj];
+
+                  if (last && last.forced) {
+                    dfd.resolve.apply(dfd, args);
                   }
+                  return dialogActivator.deactivateItem(instance, true).then(function () {
+                      ko.removeNode(theDialog.host);
+                      delete instance.__dialog__;
+                      if (!last || !last.forced) {
+                        dfd.resolve.apply(dfd, args);
+                      }
+                  });                  
                 }
-              };              
+              };
+
               instance.onClose = function () {
                 var args = [];
                 for (var i = 0; i < arguments.length; i++) {
@@ -98,17 +101,12 @@
                 args.push({ forced: true });
                 theDialog.close.apply(this, args);
               };
+              
+              theDialog.settings = createCompositionSettings(instance, context);
+              theDialog.host = host;
+              composition.compose(theDialog.host, theDialog.settings);
 
-              if (dialogs.hasOwnProperty(obj)) {
-                //it closes before it get a chance to open
-                theDialog.close();
-              } else {
-                dialogs[obj] = theDialog;
-
-                theDialog.settings = createCompositionSettings(instance, context);
-                theDialog.host = host;
-                composition.compose(theDialog.host, theDialog.settings);
-              }
+              dialogs[obj].ready.resolve(theDialog);
             } else {
               dfd.resolve(false);
             }
@@ -120,9 +118,10 @@
     function close(key, deactivationData) {
       return system.defer(function (dfd) {
         if (dialogs.hasOwnProperty(key)) {
-          dialogs[key].close(deactivationData).then(function () {
-            delete dialogs[key];
-            dfd.resolve();
+          dialogs[key].ready.then(function (dialog) {
+            dialog.close(deactivationData).then(function () {
+              dfd.resolve();
+            });
           });
         } else {
           dfd.resolve();

@@ -14,7 +14,7 @@
           { route: 'game-editor',     moduleId: 'game-editor/menu', title: 'Game Editor',          nav: true },
           {
             route: 'game-editor/edit/:id',
-            moduleId: 'game-editor/game', title: 'Game Editor - Edit', nav: true
+            moduleId: 'game-editor/edit', title: 'Game Editor - Edit', nav: true
           },
           { route: 'account',         moduleId: 'account/index',    title: 'Account Settings',     nav: true, hash: '#account' }
       ]).buildNavigationModel()

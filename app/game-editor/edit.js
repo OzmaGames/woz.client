@@ -72,6 +72,10 @@
         ctx.player = ctx.players[0];
 
         ctx.words(entity.words);
+
+        app.dialog.show("alert", { content: 1 });
+        app.dialog.show("alert", { content: 12 });
+        app.dialog.show("alert", { content: 123 });
       },
 
       binding: function () {

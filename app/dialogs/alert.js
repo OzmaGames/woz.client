@@ -28,10 +28,13 @@
       .delay(delay).fadeOut();
   };
 
-  Alert.prototype.canDeactivate = function (a, s, d) {
+  Alert.prototype.canDeactivate = function () {
     var base = this;
     return $.Deferred(function (dfd) {
-      base.el.promise().then(function () { dfd.resolve(true); });
+      if (base.el)
+        base.el.promise().then(function () { dfd.resolve(); });
+      else
+        dfd.resolve();
     }).promise();
   };
   
