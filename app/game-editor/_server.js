@@ -2,7 +2,7 @@
 
   //input: {}
   //output: [{id, tiles:[{id, x, y, angle}], paths:[{id, startTile, endTile, cw, nWords, minCurve, maxCurve}], level}, {..}]
-  cnn.addEmission("manager:getBoards");
+  cnn.addEmission("manager:manageBoards");
   
   //input: {gameboard object}
   //output: {success: true|false}

@@ -8,7 +8,11 @@
     } else if (loading === false) {
       swapTicket(ctx.player.tickets.swap);
     }
-  });  
+  });
+
+  app.on("game:updated").then(function () {
+    swapTicket(1);
+  });
 
   var subs = [];
 
@@ -80,6 +84,8 @@
             app.dialog.show("confirm").then(function (res) {
               $('#swap-words').removeClass('cancel');
               if (res == "cancel") {
+                $('#swap-words').removeClass('cancel');
+                ctx.player.tickets.swap = 1;
                 cancel();
               } else {
                 var data = {
@@ -88,6 +94,7 @@
                   words: ko.utils.arrayMap(ctx.selectedWords(), function (w) { return w.id })
                 };
 
+                app.dialog.close("slipper");
                 ctx.loadingStatus("Swapping words");
                 ctx.loading(true);
                 app.trigger("slipper:close");

@@ -17,11 +17,6 @@
 * {
     padding: 0;
     margin: 0;
-    -mozilla-tap-highlight-color: rgba(0, 0, 0, 0);
-    -ms-tap-highlight-color: rgba(0, 0, 0, 0);
-    -o-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 html {
@@ -69,25 +64,18 @@ h5 {
     font-size: .7em;
 }
 
-h6 {
-    font-size: .6em;
-}
-
-
-
 #app {
     position: absolute;
+    /*
     -moz-transform: translateZ(0);
     -ms-transform: translateZ(0);
     -o-transform: translateZ(0);
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+        */
     width: 100%;
     height: 100%;
-    margin: auto;
-    background-image: url('../images/app/background.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: url('../images/app/background.jpg') no-repeat;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
@@ -95,25 +83,22 @@ h6 {
 }
 
 #splash {
-    margin-left: auto;
-    margin-right: auto;
     width: 300px;
-    text-align: center;
+    margin: 0 auto;
     padding-top: 100px;
+    text-align: center;
     color: #713b00;
 }
 
 #title {
-    background-image: url('../images/app/title/background.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('../images/app/title/background.jpg') no-repeat;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
-    position: absolute;
-    width: 100%;
-    height: 100%;
 }
 
 .loader {
@@ -139,7 +124,6 @@ h6 {
     display: none;
 }
 
-
 .logo-wrapper {
     position: relative;
     padding-bottom: 27.3%;
@@ -151,15 +135,12 @@ h6 {
         position: absolute;
         width: 100%;
         height: 100%;
-        background-image: url('../images/app/title/logo.png');
-        background-position: center center;
-        background-repeat: no-repeat;
+        background: url('../images/app/title/logo.png') no-repeat;
         -moz-background-size: 90% 90%;
         -o-background-size: 90% 90%;
         -webkit-background-size: 90% 90%;
         background-size: 90% 90%;
     }
-
 
 #game-main {
     position: relative;
@@ -513,7 +494,8 @@ h6 {
             position: absolute;
             top: 50px;
             left: 0px;
-            width: 45px;
+            width: 60px;
+            height: 70px;
             z-index: 5;
             background-color: white;
             border-radius: 100%;
@@ -1280,7 +1262,7 @@ i.menu {
             width: 30px;
         }
 
-        .dialog .control .btnDel {
+        .dialog .control .btnDel, .control .btnDel {
             float: left;
             width: 10px;
             font-family: CopseRegular;

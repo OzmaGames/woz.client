@@ -1,12 +1,12 @@
 ﻿define(['plugins/router', 'durandal/app', 'api/datacontext', './_server'], function (router, app, ctx) {
- 
+
   var activeItem = ko.observable();
   var Groups = ko.observableArray();
   var lastId = 0;
 
   return {
     activate: function () {
-      app.trigger("server:manager:getBoards", {}, function (data) {
+      app.trigger("server:manager:manageBoards", { command: 'getAll' }, function (data) {
         var groups = Groups(), grpBy = 'level', items = data.boards;
         for (var i = 0; i < items.length; i++) {
           var obj = groups[items[i][grpBy]];
@@ -30,7 +30,7 @@
     select: function (item, e) {
       activeItem(item);
     },
-    
+
     edit: function (gameObject) {
       router.navigate('game-editor/edit/' + gameObject.id);
     },
@@ -41,10 +41,12 @@
         doneText: 'YES', cancelText: 'NO'
       }).then(function (res) {
         if (res != "cancel") {
-          app.trigger("server:manager:setBoard", {
+          app.trigger("server:manager:manageBoards", {
             id: gameObject.id,
-            destroy: true
+            command: 'delete'
           });
+          var arr = Groups[gameObject.level].value;
+          //arr.splice()
         }
       });
     },
@@ -58,7 +60,7 @@
     },
 
     deactivate: function () {
-      
+
     }
   }
 });

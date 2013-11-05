@@ -22,7 +22,7 @@
           base.el.hide().css({ opacity: '' });
         });
       base.el.parent().removeClass('modal');
-      //base.onClose(command);
+      base.onClose(command);
     }
 
     this.onClose = function () { };

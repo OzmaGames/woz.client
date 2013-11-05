@@ -163,6 +163,8 @@
         }
 
         model.players.valueHasMutated();
+
+        app.trigger("game:updated");
       }
     });
 

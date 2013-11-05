@@ -47,10 +47,12 @@
         };
       });
       var json = { id: this.id, tiles: tiles, paths: paths, level: this.level() };
-      
+
       json = JSON.parse(JSON.stringify(json));
 
-      app.trigger("server:manager:setBoard", json, function (data) {
+      json.command = 'set';
+
+      app.trigger("server:manager:manageBoards", json, function (data) {
         app.dialog.show("alert", { content: 'Game Board Saved' });
       });
 
@@ -64,18 +66,43 @@
     system.extend(GameBoard.prototype, {
       activate: function (id) {
         this.id = id == "new" ? -1 : id * 1;
-        
+
         ko.utils.arrayForEach(entity.words, function (word) {
           word.isSelected = ko.observable(false);
         });
         ctx.players = [{ "username": "ali", "score": 0, "active": ko.observable(true) }];
         ctx.player = ctx.players[0];
 
-        ctx.words(entity.words);
+        var paths = ctx.paths();
+        for (var i = 0; i < paths.length; i++) {
+          paths[i].dispose();
+        }
+        ctx.paths([]);
 
-        app.dialog.show("alert", { content: 1 });
-        app.dialog.show("alert", { content: 12 });
-        app.dialog.show("alert", { content: 123 });
+        ctx.tiles([]);
+        app.trigger("server:manager:manageBoards", { command: 'getAll' }, function (data) {
+          for (var i = 0; i < data.boards.length; i++) {
+            if (data.boards[i].id === id * 1) {
+              lastID = data.boards[i].tiles.length;
+              var board = data.boards[i];
+              for (var j = 0; j < board.tiles.length; j++) {
+                var tile = new Tile(j, board.tiles[j].x * 1, board.tiles[j].y * 1, board.tiles[j].angle);
+
+                ctx.tiles.push(tile);
+              }
+              for (var j = 0; j < board.paths.length; j++) {
+                var path = board.paths[j],
+                  sTile = ko.utils.arrayFirst(ctx.tiles(), function (t) { return t.id == path.startTile }),
+                  eTile = ko.utils.arrayFirst(ctx.tiles(), function (t) { return t.id == path.endTile });
+
+                eTile.addPath(sTile, null, path.nWords, path.cw);
+              }
+              break;
+            }
+          }
+        });
+
+        ctx.words(entity.words);
       },
 
       binding: function () {
