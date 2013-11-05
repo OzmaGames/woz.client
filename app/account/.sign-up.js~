@@ -15,6 +15,7 @@
         };
 
         app.trigger("server:account:sign-up", data, function (res) {
+
             app.loading(false);
 
             if (res.success) {
