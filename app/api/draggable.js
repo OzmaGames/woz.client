@@ -10,6 +10,7 @@
     var events = {
       mousedown: function (e) {
         e.preventDefault(); // disable selection
+        e.stopPropagation();
 
         if (opt.withinEl) {
           var height = opt.withinEl.innerHeight(), width = opt.withinEl.innerWidth();
@@ -81,22 +82,21 @@
         var newTop = e.pageY + e.data.t,
             newLeft = e.pageX + e.data.l;
 
-
         if (opt.topLimit && newTop < opt.within.t) newTop = opt.within.t;
         if (newLeft < opt.within.l) newLeft = opt.within.l;
         if (newTop + e.data.h > opt.within.b) newTop = opt.within.b - e.data.h;
         if (newLeft + e.data.w > opt.within.r) newLeft = opt.within.r - e.data.w;
+        
+        if (opt.move(e, { top: newTop, left: newLeft })) {
+          $el.css({ top: newTop, left: newLeft });
 
-        $el.css({ top: newTop, left: newLeft });
+          hasMoved = true;
 
-        opt.move(e, { top: newTop, left: newLeft });
-
-        hasMoved = true;
-
-        if (e.data.windowTop != 0 && e.pageY - e.data.windowTop < 100) {
-          e.data.windowTop = e.data.windowTop - 50;
-          if (e.data.windowTop < 0) e.data.windowTop = 0;
-          $("body").animate({ scrollTop: e.data.windowTop }, "fast");
+          if (e.data.windowTop != 0 && e.pageY - e.data.windowTop < 100) {
+            e.data.windowTop = e.data.windowTop - 50;
+            if (e.data.windowTop < 0) e.data.windowTop = 0;
+            $("body").animate({ scrollTop: e.data.windowTop }, "fast");
+          }
         }
       },
 
@@ -134,7 +134,7 @@
     withinEl: null,
     dragStart: function () { },
     dropped: function () { },
-    move: function () { },
+    move: function () { return true },
     parent: $(document),
     dragable: true,
     usePercentage: true,

@@ -1,6 +1,7 @@
 ﻿define(['durandal/app', 'api/datacontext', 'api/draggable'], function (app, ctx) {
 
   var animationQueue = [];
+  var RADIUS = 75;
 
   function showTiles() {
     for (var i = 0; i < animationQueue.length; i++) {
@@ -11,27 +12,32 @@
         top: tile.y * 100 + '%'
       });
 
-      tile.angle(Math.floor(((tile.x - 0.1) - 0.5) * 30));
-      tile.instuctorMargin = Math.sin(tile.angle() * (Math.PI / 180)) * 150;
+      tile.ruleOffset = { x: 0, y: 0 };
 
-      var inst = $('.instruction', $el);
-      inst.transition({
-        rotate: tile.angle(),
-        marginLeft: tile.instuctorMargin
-      });
-
+      UpdateTileInstruction(tile, true);
     }
     animationQueue = [];
 
     $(window).scroll(scroll);
   }
 
-  function UpdateTileInstruction(tile) {
-    tile.instuctorMargin = Math.sin(tile.angle() * (Math.PI / 180)) * 150;
-    tile.$inst.stop().css({
-      rotate: tile.angle(),
-      marginLeft: tile.instuctorMargin
-    });
+  function UpdateTileInstruction(tile, animate) {
+    var angle = tile.angle();
+
+    tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS;
+    tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS;
+
+    var diff = {
+      rotate: (angle > 90 || angle < -90) ? angle + 180 : angle,
+      marginLeft: tile.ruleOffset.x,
+      marginTop: RADIUS - tile.ruleOffset.y
+    };
+
+    if (animate)
+      tile.$inst.stop().transition(diff, 1000);
+    else
+      tile.$inst.stop().css(diff);
+
   }
 
   return {
@@ -40,15 +46,11 @@
     tileAngleUp: function (tile, e) {
       tile.angle(tile.angle() + 1);
       UpdateTileInstruction(tile);
-      e.stopPropagation();
-      return false;
     },
 
     tileAngleDown: function (tile, e) {
       tile.angle(tile.angle() - 1);
       UpdateTileInstruction(tile);
-      e.stopPropagation();
-      return false;
     },
 
     del: function (tile, e) {
@@ -78,18 +80,25 @@
 
       tile.$el = $el;
       tile.$inst = $el.find('.instruction');
-      
-      $el.draggable({
+
+      tile.$el.draggable({
         withinEl: $el.parent(),
         centerBased: true,
-        topLimit: true,        
-        dragStart: function (e) { },
+        topLimit: true,
+        dragStart: function (e) {
+          tile.lastAngle = tile.angle();
+          tile.lastX = tile.x;
+        },
         move: function (e, data) {
           tile.x = data.left / $el.parent().innerWidth();
           tile.y = data.top / $el.parent().innerHeight();
 
-          tile.angle(Math.floor(((tile.x - 0.1) - 0.5) * 30));
+          if (tile.lastAngle > 90 || tile.lastAngle < -90)
+            tile.angle(tile.lastAngle - Math.floor((tile.x - tile.lastX) * 90));
+          else
+            tile.angle(tile.lastAngle + Math.floor((tile.x - tile.lastX) * 90));
           UpdateTileInstruction(tile);
+          return true;
         },
         dropped: function (e, data) {
           if (!data.hasMoved) return;
@@ -104,6 +113,20 @@
             }
             p.phrase.words.valueHasMutated();
           }
+        }
+      });
+
+      tile.$inst.draggable({
+        within: tile.$el,
+        centerBased: true,
+        usePercentage: false,
+        topLimit: true,
+        move: function (e, data) {
+          var angle = Math.ceil(90 + Math.atan2(data.top, data.left) * (180 / Math.PI));
+
+          tile.angle(angle);
+          UpdateTileInstruction(tile);
+          return false;
         }
       });
 

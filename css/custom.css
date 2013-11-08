@@ -132,7 +132,6 @@ h5 {
     }
 
 #login-page .background {
-
     position: absolute;
     top: 0;
     left: 0;
@@ -140,6 +139,7 @@ h5 {
     bottom: 0;
     margin: 2em;
 }
+
     #login-page .background.logo {
         background: url('../images/app/title/logo.png') no-repeat;
         background-position: top center;
@@ -148,6 +148,7 @@ h5 {
         -webkit-background-size: 100% auto;
         background-size: 100% auto;
     }
+
     #login-page .background.footer {
         background: url('../images/footer.png') no-repeat;
         background-position: bottom center;
@@ -749,12 +750,14 @@ h5 {
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        .popup-dialog-container .popup-dialog a{
+
+        .popup-dialog-container .popup-dialog a {
             font-family: Cambria !important;
-            cursor:pointer;
+            cursor: pointer;
         }
-        .popup-dialog-container .popup-dialog a.small {
-        }
+
+            .popup-dialog-container .popup-dialog a.small {
+            }
 
         .popup-dialog-container .popup-dialog.login {
             position: relative;
@@ -763,67 +766,30 @@ h5 {
             width: 50%;
         }
 
-input[type="text"], input[type="password"] {
-    background: #fff;
-    border: 1px solid rgba(152, 107, 49, 1);
-    padding: 8px 16px 8px 16px;
-    margin-bottom: 16px;
-    font-weight: bold;
-    color: rgba(152, 107, 49, 1);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 60%;
-    -moz-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
-    -ms-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
-    -o-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
-    -webkit-box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
-    box-shadow: 0px 1px 1px rgba(152, 107, 49, 1);
-}
-
-h1.link, h2.link, h3.link, h4.link, h5.link {
-    font-weight: bold;
-    padding-bottom: 5px;
-    cursor: pointer;
-}
-
-h2.link {
-    font-size: 16px;
-}
-
-h3.link {
-    font-size: 14px;
-}
-
-h4.linkP {
-    font-size: 12px;
-}
-
-button.blue {
-    border: 2px solid #b7dbe7;
-    border-radius: 5px;
-    background-image: url('../images/app/blue-button.jpg');
-    padding: 10px;
-    margin-bottom: 16px;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    letter-spacing: 1px;
-}
-
-button.width40 {
-    width: 40%;
-}
-
-button.sign-up {
-    width: 40%;
-    font-size: 18px;
-}
-
 .error {
-    font-family:Cambria !important;
+    font-family: Cambria !important;
     color: red;
     margin: .5em;
+}
+
+.block {
+    display: block;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.space {
+    margin: 1em;
+}
+
+a.big {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+a.small {
 }
 
 .confirm-box {
@@ -1983,33 +1949,72 @@ button {
     }
 /*#endregion */
 
-
-button.orange {
-    position: relative;
-    padding: .5em 1em;
-    background-color: orange;
+input[type="text"], input[type="password"], input[type="email"] {
     font-family: Cambria;
-    font-size: 1.5em;
-    -webkit-text-shadow: 0 0 5px white;
-    text-shadow: 0 0 5px white;
-    color: white;
-    text-transform: uppercase;
-    border: 2px solid white;
-    border-radius: 5px;
-    background-image: url('../images/core/tiles/goat.jpg');
-    background-position: 100% 0;
-    /*background-image: url('../images/big-button-background-down.jpg'), linear-gradient(top, black, transparent) ;*/
-    background-repeat: no-repeat;
-    box-shadow: 0 .2em .5em .2em rgba(230, 157, 95, .7) inset, 0 .9em .1em .1em rgba(255, 255, 255, .5) inset;
-    /*background-image: linear-gradient(to bottom, white 20%, transparent 80%);
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;*/
+    font-weight: bold;
+    font-size: 1em;
+    background: white;
+    border: 1px solid #BE9967;
+    padding: .5em 1em;
+    margin-bottom: 16px;
+    color: #986B31;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 20em;
+    border-radius: .2em;
+    -moz-box-shadow: 0px 0px 2px #986b31;
+    -ms-box-shadow: 0px 0px 2px #986b31;
+    -o-box-shadow: 0px 0px 2px #986b31;
+    -webkit-box-shadow: 0px 0px 2px #986b31;
+    box-shadow: 0px 0px 2px #986b31;
 }
 
-    button.orange:active {
-        box-shadow: 0 0 .5em .2em rgba(186, 132, 86, 0.70) inset, 0 .9em .1em .1em rgba(255, 255, 255, .5) inset;
+input[type="text"]:invalid, input[type="password"]:invalid, input[type="email"]:invalid {
+    box-shadow: 0 0 5px red;
+}
+
+
+button.orange, button.blue {
+    font-family: Cambria;
+    font-size: 1.5em;
+    padding: .5em 1em;
+    -webkit-text-shadow: 0 0 2px white;
+    text-shadow: 0 0 2px white;
+    color: white;
+    text-transform: uppercase;
+    border: 2px solid;
+    border-radius: .3em;
+    cursor: pointer;
+    outline: none;
+}
+
+button:disabled {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+button.orange {
+    border-color: white;
+    background-image: url('../images/big-button-background-down.jpg');
+    box-shadow: 0 -.9em 1em .01em rgba(192, 157, 108, .5) inset, 0 .2em .5em .2em rgba(230, 157, 95, .7) inset, 0 .8em .5em .1em rgba(255, 255, 255, .5) inset;
+}
+
+    button.orange:active:not(:disabled), button.orange.active:not(:disabled) {
+        box-shadow: 0 .1em .5em .4em rgba(186, 132, 86, 0.7) inset, 0 .7em .3em .1em rgba(255, 255, 255, .5) inset;
+    }
+
+button.blue {
+    border-color: #b7dbe7;
+    background-image: url('../images/app/blue-button.jpg');
+    box-shadow: 0 -.9em 1em .01em rgba(183, 219, 231, .5) inset, 0 .2em .5em .2em #54A8C0 inset, 0 .8em .5em .1em rgba(255, 255, 255, .5) inset;
+}
+
+    button.blue:active:not(:disabled), button.blue.active:not(:disabled) {
+        box-shadow: 0 .1em .5em .4em #5da8c0 inset,0 -.9em 1em .01em rgba(183, 219, 231, .5) inset, 0 .7em .3em .1em rgba(255, 255, 255, .5) inset;
     }
 
 button.menuItem {
@@ -2031,17 +2036,3 @@ button.menuItem {
 .clear {
     clear: both;
 }
-
-/*button.orange:after {
-        position: absolute;
-        content: "";
-        background-image: linear-gradient(to bottom, rgba(240, 166, 99, .8), transparent);
-        -moz-background-size: 100% 100%;
-        -o-background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
-        left: 1em;
-        right: 1em;
-        bottom: .2em;
-        height: 1em;
-    }*/

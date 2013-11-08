@@ -1,22 +1,24 @@
 ﻿<div>
-    <div class="popup-dialog-container">
-        <div class="ui-overlay1 1fullscreen"></div>
-        <div class="popup-dialog login">
-            <h1>Join The Game!</h1>
+   <div class="popup-dialog-container">
+      <div class="ui-overlay1 1fullscreen"></div>
+      <div class="popup-dialog login">
+         <h1>Join The Game!</h1>
 
-            <input type="text" placeholder="Username" data-bind="value: username"><br />
-            <input type="password" placeholder="Password" data-bind="value: password"><br />
+         <form data-bind="submit: login">
+            <input type="text" required placeholder="Username or e-mail" data-bind="value: username" autofocus><br />
+            <input type="password" required placeholder="Password" data-bind="value: password"><br />
 
             <p class="error" data-bind="text: errorMessage"></p>
 
-            <button class="blue width40" data-bind="click: login, disable: loading()">
-                <span>LOG IN</span>
-                <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+            <button class="blue" type="submit" data-bind="disable: loading()">
+               <span>LOG IN</span>
+               <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
             </button>
-            
-           <div>
-               <a class="link" data-bind="click: signUp">SIGN UP</a> | <a class="link small">recover password</a>
-            </div>
-        </div>
-    </div>
+         </form>
+
+
+         <a class="block link big space" data-bind="click: signUp">SIGN UP</a>
+         <a class="block link small">recover password</a>
+      </div>
+   </div>
 </div>

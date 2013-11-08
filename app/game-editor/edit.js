@@ -41,7 +41,8 @@
       var tiles = ko.utils.arrayMap(ctx.tiles(), function (t) {
         return {
           id: t.id,
-          x: t.x.toFixed(2) * 1, y: t.y.toFixed(2) * 1,
+          x: t.x.toFixed(2) * 1,
+          y: t.y.toFixed(2) * 1,
           angle: t.angle()
         };
       });

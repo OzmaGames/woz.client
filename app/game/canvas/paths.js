@@ -13,7 +13,7 @@
       clearTimeout(resizeHelperID);
       resizeHelperID = setTimeout(resize, resizeDelay);
     });
-
+    
     ctx.tiles.subscribe(function (tiles) {
       updateModel(tiles);
     });

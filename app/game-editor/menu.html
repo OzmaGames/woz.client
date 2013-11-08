@@ -23,7 +23,7 @@
                </div>
                <div class="float left">
                   <div style="margin-top:1em;margin-left:2em">
-                     <span class="bold" data-bind="text: '2013-11-07'"></span></div>
+                     <span class="bold" data-bind="text: new Date(lastMod).toLocaleDateString() + ' ' + new Date(lastMod).toLocaleTimeString()"></span></div>
                </div>
                <div class="float right visibleOnHover visibleOnActive" style="margin-top: 5px;">
                   <button class="right" data-bind="click: $root.remove, clickBubble: false">Remove</button>

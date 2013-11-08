@@ -4,7 +4,7 @@
       password = ko.observable(),
       errorMessage = ko.observable();
 
-  function login() {
+  function login(e) {
     app.loading(true);
 
     var data = {
