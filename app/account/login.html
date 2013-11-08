@@ -1,6 +1,6 @@
 ﻿<div>
     <div class="popup-dialog-container">
-        <div class="ui-overlay fullscreen"></div>
+        <div class="ui-overlay1 1fullscreen"></div>
         <div class="popup-dialog login">
             <h1>Join The Game!</h1>
 
@@ -14,8 +14,9 @@
                 <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
             </button>
             
-            <h2 class="link" data-bind="click: signUp">SIGN UP</h2>
-            <h4 class="link">recover password</h4>
+           <div>
+               <a class="link" data-bind="click: signUp">SIGN UP</a> | <a class="link small">recover password</a>
+            </div>
         </div>
     </div>
 </div>

@@ -1,9 +1,8 @@
 ﻿define(['durandal/app', 'api/datacontext', 'game/canvas/vm/Box', 'paper'], function (app, ctx, Box) {
 
-  var scope = paper;
   var activeWord = ctx.activeWord;
   var activeWords = ctx.activeWords;
-  var transparent = new scope.Color(0, 0);
+  var transparent = new paper.Color(0, 0);
 
   var activeBox = null;
   activeWord.subscribe(function (word) {
@@ -12,13 +11,15 @@
     }
   });
 
-  function Path(paperScope, pathModel) {
-    scope = paperScope;
-
+  function Path(pathModel) {
     this._displayItems = [];
     this._trash = [];
     this.pathModel = pathModel;
   }
+
+  Path.activePath = null;
+  Path.prototype.isActive = false;
+  Path.prototype.leavingHandler = 0;
 
   Path.prototype.enter = function () {
     var hasData = activeWords() != null,
@@ -32,20 +33,47 @@
         pm.guiBoxes[i].enter(words[i]);
       }
     } else {
-      if (pm && pm.onEnter) this.pathModel.onEnter(this.midPath);
+      if (pm && pm.onEnter) {
+        
+        if (!this.isActive) {
+          if (Path.activePath && Path.activePath != this) Path.activePath.isActive = false;
+          this.isActive = true;
+          Path.activePath = this;
+          pm.onEnter(this.midPath);
+          //console.log("in", pm.id);
+        }
+
+        if (this.leavingHandler) {
+          clearTimeout(this.leavingHandler);
+          this.leavingHandler = 0;
+          //console.log("canceled", pm.id, this.isActive);
+        }        
+
+      }
     }
   }
 
   Path.prototype.leave = function () {
+    var pm = this.pathModel;
     if (activeWords() != null) {
-      var words = activeWords(), pm = this.pathModel;
+      var words = activeWords();
       if (words.length != pm.nWords) return;
 
       for (var i = 0; i < pm.guiBoxes.length; i++) {
         pm.guiBoxes[i].leave();
       }
     } else {
-      if (this.pathModel && this.pathModel.onLeave) this.pathModel.onLeave();
+      if (pm && pm.onLeave) {
+        if (this.leavingHandler) clearTimeout(this.leavingHandler);
+        this.leavingHandler = setTimeout(function (base) {
+          if (base.isActive) {
+            base.isActive = false;
+            pm.onLeave();
+            //console.log("out", pm.id);
+            if (Path.activePath == base) Path.activePath = null;
+          }
+        }, 1, this);
+      }
     }
   }
 
@@ -84,10 +112,10 @@
     }
   }
 
-  Path.prototype.dispose = function () {
+  Path.prototype.dispose = function () {    
     this.remove();
     this._removeAll(this.pathModel.guiBoxes);
-    this.pathModel.guiBoxes = null;
+    delete this.pathModel.guiBoxes;
   }
 
   Path.prototype.setup = function () {
@@ -174,7 +202,7 @@
       Path._trash = [];
     }
 
-    scope.view.draw();
+    paper.view.draw();
   }
 
   Path.prototype.createHoverArea = function (path, offset, width) {
@@ -186,7 +214,7 @@
         nextPoint = path.getPointAt(nextOffset),
         nextNoramal = path.getNormalAt(nextOffset).normalize(Path.options.hoverMargin);
 
-    var hover = new scope.Path(
+    var hover = new paper.Path(
         prevPoint.add(prevNoramal), prevPoint.subtract(prevNoramal),
         nextPoint.subtract(nextNoramal), nextPoint.add(nextNoramal));
 
@@ -220,14 +248,12 @@
     this._trash = [];
   }
 
-  Path.scope = paper;
   Path._trash = [];
   Path.getBestArc = function (from, to, desiredLength, clockwise, nWords, accuracy) {
-    var scope = Path.scope,
-      len = to.subtract(from).length,
+    var len = to.subtract(from).length,
       minArc = Path.options.minArc * (nWords / 2),
       maxArc = Path.options.maxArc * (nWords / 3),
-      line = new scope.Path.Line(from, to),
+      line = new paper.Path.Line(from, to),
       cPoint = line.getPointAt(line.length / 2),
       vector = line.getNormalAt(line.length / 2);
     line.remove();
@@ -239,9 +265,9 @@
     }
     if (maxArc > 150) maxArc = 150;
     maxArc = nWords * 30;
-    minArc = maxArc - 60;
+    minArc = maxArc - 40;
 
-    line = new scope.Path.Line(
+    line = new paper.Path.Line(
       cPoint.subtract(vector.normalize(-minArc * (clockwise ? 1 : -1))),
       cPoint.subtract(vector.normalize(-maxArc * (clockwise ? 1 : -1))));
 
@@ -249,7 +275,7 @@
     accuracy = accuracy || 10;
     for (var i = 0; i < accuracy; i++, M /= 2.0) {
       var through = line.getPointAt((S + E) / 2);
-      var arc = new scope.Path.Arc(from, through, to);
+      var arc = new paper.Path.Arc(from, through, to);
 
       if (Math.abs(arc.length - desiredLength) < bestDelta) {
         if (bestArc) bestArc.remove();
@@ -263,7 +289,7 @@
     }
 
     if (Path.options.debug) {
-      var circle = new scope.Path.Circle(cPoint, 5);
+      var circle = new paper.Path.Circle(cPoint, 5);
       circle.fillColor = 'orange';
       line.strokeColor = 'orange';
       line.strokeWidth = 2;

@@ -10,7 +10,16 @@
 
   return {
     compositionComplete: function (canvas) {
-      setup(canvas);      
+      setup(canvas);
+    },
+
+    binding: function () {
+      return { cacheViews: false };
+    },
+    
+    detached: function () {
+      canvasPaths.dispose();
     }
+
   };
 });

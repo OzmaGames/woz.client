@@ -90,17 +90,6 @@ h5 {
     color: #713b00;
 }
 
-#title {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('../images/app/title/background.jpg') no-repeat;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-}
-
 .loader {
     color: #713b00;
     margin: 6px 8px 4px 8px;
@@ -136,10 +125,36 @@ h5 {
         width: 100%;
         height: 100%;
         background: url('../images/app/title/logo.png') no-repeat;
-        -moz-background-size: 90% 90%;
-        -o-background-size: 90% 90%;
-        -webkit-background-size: 90% 90%;
-        background-size: 90% 90%;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        -webkit-background-size: 100% auto;
+        background-size: 100% auto;
+    }
+
+#login-page .background {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 2em;
+}
+    #login-page .background.logo {
+        background: url('../images/app/title/logo.png') no-repeat;
+        background-position: top center;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        -webkit-background-size: 100% auto;
+        background-size: 100% auto;
+    }
+    #login-page .background.footer {
+        background: url('../images/footer.png') no-repeat;
+        background-position: bottom center;
+        -moz-background-size: 100% auto;
+        -o-background-size: 100% auto;
+        -webkit-background-size: 100% auto;
+        background-size: 100% auto;
     }
 
 #game-main {
@@ -221,7 +236,7 @@ h5 {
 .palette {
     top: 100px;
     position: fixed;
-    z-index: 4;
+    z-index: 99;
 }
 
 #palette-left {
@@ -293,22 +308,31 @@ h5 {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 50px; /*in portrait mode the tiles wont get stuck on the edges*/
+    padding: 0 70px 0 80px; /*in portrait mode the tiles wont get stuck on the edges*/
+    -moz-transition: padding-top 1s;
+    -o-transition: padding-top 1s;
+    -webkit-transition: padding-top 1s;
+    transition: padding-top 1s;
 }
 
-
-    /*
-        @media screen and (min-height: 768px) {
-    #tiles-max {
-        max-width: 1200px!important;
-    }
-}*/
-
     #tiles-max > #tiles-aspect {
+        min-width: 600px;
         position: relative;
         padding-bottom: 75%;
         width: 100%;
     }
+
+@media screen and (max-width: 900px) {
+    #tiles-max {
+        padding-top: 80px;
+        height: 450px;
+    }
+
+        #tiles-max > #tiles-aspect {
+            height: 450px;
+            padding-bottom: 0;
+        }
+}
 
 #tiles {
     position: absolute;
@@ -679,7 +703,7 @@ h5 {
 
 
 .ui-overlay {
-    background: #666 url('../images/overlay.png') 50% 50% repeat;
+    background: #666;
     opacity: .3;
     filter: alpha(opacity=30);
 }
@@ -710,7 +734,7 @@ h5 {
         box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.5);
         border-radius: 8px;
         text-align: center;
-        padding: 20px 20px 0 20px;
+        padding: 20px 20px 20px 20px;
         color: rgba(152, 107, 49, 1);
     }
 
@@ -724,6 +748,12 @@ h5 {
             font-size: 24px;
             letter-spacing: 1px;
             text-transform: uppercase;
+        }
+        .popup-dialog-container .popup-dialog a{
+            font-family: Cambria !important;
+            cursor:pointer;
+        }
+        .popup-dialog-container .popup-dialog a.small {
         }
 
         .popup-dialog-container .popup-dialog.login {
@@ -791,7 +821,9 @@ button.sign-up {
 }
 
 .error {
+    font-family:Cambria !important;
     color: red;
+    margin: .5em;
 }
 
 .confirm-box {
@@ -1028,7 +1060,7 @@ i.menu {
 
 .dialog {
     position: fixed;
-    z-index: 10;
+    z-index: 100;
     font-family: CopseRegular;
     -webkit-font-smoothing: antialiased;
 }
@@ -1073,6 +1105,14 @@ i.menu {
         height: 100%;
         position: fixed;
     }
+
+        .dialog.modal .ui-overlay.pale {
+            background-color: #aaa;
+        }
+
+        .dialog.modal .ui-overlay.transparent {
+            background-color: transparent;
+        }
 
     .dialog .loading {
         position: relative;
@@ -1226,7 +1266,7 @@ i.menu {
         position: relative;
         z-index: 11;
         margin: 0 auto;
-        width: 100px;
+        width: 150px;
         right: -10px;
         background-image: url('../images/app/menu.png');
         -moz-background-size: 100% 100%;
@@ -1236,7 +1276,7 @@ i.menu {
         text-align: center;
         color: #976b2c;
         line-height: 120%;
-        padding: 40px 30px 20px 30px;
+        padding: 2em 0 2em 1.5em;
         cursor: pointer;
     }
 
@@ -1378,50 +1418,6 @@ i.menu {
             padding: 14px 20px;
         }
 }
-
-#player-buttons {
-    position: absolute;
-    top: 52%;
-    right: 5%;
-    left: 5%;
-    color: #976b2c;
-}
-
-.player-button {
-    float: left;
-    width: 50%;
-}
-
-#one-player-button .inner {
-    font-weight: bold;
-    font-size: large;
-    padding: 20px;
-    border: 4px solid #fff;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    margin: 0 20px 0 0;
-    text-align: center;
-    background-image: url('../images/big-button-background-up.jpg');
-}
-
-#two-player-button .inner {
-    font-weight: bold;
-    font-size: large;
-    padding: 20px;
-    border: 4px solid #fff;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    margin: 0 0 0 20px;
-    text-align: center;
-    background-image: url('../images/big-button-background-up.jpg');
-}
-
 
 /*#region Form - controls */
 
@@ -1801,12 +1797,14 @@ ul.container.y {
     text-shadow: 0 0 1px #986B31;
     -webkit-font-smoothing: antialiased;
 }
-    .game-item button, button.btn{
+
+    .game-item button, button.btn {
         border: 1px solid #d7bea2;
-        border-radius:3px; 
-        padding:.5em 1em;
+        border-radius: 3px;
+        padding: .5em 1em;
     }
-    .game-item .float.right{
+
+    .game-item .float.right {
         float: right;
     }
 
@@ -1836,147 +1834,158 @@ ul.container.y {
         box-shadow: 0 0 10px 3px #986B31;
         cursor: default;
     }
-    .game-item .visibleOnActive{
-        visibility:hidden;
-    }
-    .game-item.active .visibleOnActive{
-        visibility:visible;
+
+    .game-item .visibleOnActive, .game-item .visibleOnHover {
+        visibility: hidden;
     }
 
-
-    .game-item .cell.left {
-        width: 60em;
+    .game-item.active .visibleOnActive, .game-item:hover .visibleOnHover {
+        visibility: visible;
     }
 
-    .game-item .cell.right {
-        width: 15em;
+button {
+    cursor: pointer;
+}
+
+    button:hover {
+        box-shadow: 0 0 4px gold;
     }
 
-    .game-item .pic {
+.game-item .cell.left {
+    width: 60em;
+}
+
+.game-item .cell.right {
+    width: 15em;
+}
+
+.game-item .pic {
+    position: absolute;
+    top: -.75em;
+    height: 7em;
+    width: 8em;
+    -moz-background-size: auto 100%;
+    -o-background-size: auto 100%;
+    -webkit-background-size: auto 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+
+    .game-item .pic + div {
+        margin-left: 9em;
+    }
+
+.game-item .name {
+    font-weight: bold;
+}
+
+.game-item .collection {
+    font-style: italic;
+    margin-right: .2em;
+}
+
+.game-item .date {
+    font-style: italic;
+}
+
+.game-item .phrase {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+    .game-item .phrase:after, .game-item .phrase:before {
+        content: '"';
+    }
+
+.game-item .point {
+    font-weight: bold;
+}
+
+    .game-item .point:after {
+        content: " points";
+    }
+
+.game-item .bold {
+    font-weight: bold;
+}
+
+.game-item .italic {
+    font-style: italic;
+}
+
+.game-item .icons {
+    position: relative;
+}
+
+    .game-item .icons .time {
+        border: 1px solid #d7bea2;
+        border-radius: 3px;
+        box-shadow: 0 0 2px #d7bea2;
+        padding: 0 2px;
+        display: inline-block;
+    }
+
+    .game-item .icons .chat {
         position: absolute;
-        top: -.75em;
-        height: 7em;
-        width: 8em;
-        -moz-background-size: auto 100%;
-        -o-background-size: auto 100%;
-        -webkit-background-size: auto 100%;
-        background-size: auto 100%;
-        background-repeat: no-repeat;
+        top: -.25em;
+        display: inline-block;
+        width: 2.5em;
+        height: 2.5em;
+        padding-left: .5em;
+        background-image: url('../images/game/chat.png');
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
     }
 
-        .game-item .pic + div {
-            margin-left: 9em;
-        }
-
-    .game-item .name {
-        font-weight: bold;
-    }
-
-    .game-item .collection {
-        font-style: italic;
-        margin-right: .2em;
-    }
-
-    .game-item .date {
-        font-style: italic;
-    }
-
-    .game-item .phrase {
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-
-        .game-item .phrase:after, .game-item .phrase:before {
-            content: '"';
-        }
-
-    .game-item .point {
-        font-weight: bold;
-    }
-
-        .game-item .point:after {
-            content: " points";
-        }
-
-        .game-item .bold{
-            font-weight: bold;
-        }
-    .game-item .italic {
-        font-style: italic;
-    }
-    .game-item .icons {
-        position: relative;
-    }
-
-        .game-item .icons .time {
-            border: 1px solid #d7bea2;
-            border-radius: 3px;
-            box-shadow: 0 0 2px #d7bea2;
-            padding: 0 2px;
-            display: inline-block;
-        }
-
-        .game-item .icons .chat {
-            position: absolute;
-            top: -.25em;
-            display: inline-block;
-            width: 2.5em;
-            height: 2.5em;
-            padding-left: .5em;
-            background-image: url('../images/game/chat.png');
-            -moz-background-size: 100% 100%;
-            -o-background-size: 100% 100%;
-            -webkit-background-size: 100% 100%;
-            background-size: 100% 100%;
-        }
-
-            .game-item .icons .chat > div {
-                padding: .4em 0 0 .8em;
-                font-size: .8em;
-            }
-
-        .game-item .icons .resign {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 2em;
-            height: 2em;
-            background-image: url('../images/game/end-game-icon.png');
-            background-repeat: no-repeat;
-            -moz-background-size: 100% 100%;
-            -o-background-size: 100% 100%;
-            -webkit-background-size: 100% 100%;
-            background-size: 100% 100%;
-        }
-
-            .game-item .icons .resign:hover, .game-item .icons .resign:active {
-                background-image: url('../images/game/end-game-icon-active.png');
-            }
-
-    .game-item .players {
-        position: absolute;
-        bottom: .5em;
-        left: 0;
-        line-height: 1em;
-        width: 10.5em;
-    }
-
-        .game-item .players .player {
+        .game-item .icons .chat > div {
+            padding: .4em 0 0 .8em;
             font-size: .8em;
-            float: left;
-            margin-left: 1em;
-            width: 8em;
         }
 
-        .game-item .players .score {
-            float: right;
-            font-weight: bold;
+    .game-item .icons .resign {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2em;
+        height: 2em;
+        background-image: url('../images/game/end-game-icon.png');
+        background-repeat: no-repeat;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+    }
+
+        .game-item .icons .resign:hover, .game-item .icons .resign:active {
+            background-image: url('../images/game/end-game-icon-active.png');
         }
+
+.game-item .players {
+    position: absolute;
+    bottom: .5em;
+    left: 0;
+    line-height: 1em;
+    width: 10.5em;
+}
+
+    .game-item .players .player {
+        font-size: .8em;
+        float: left;
+        margin-left: 1em;
+        width: 8em;
+    }
+
+    .game-item .players .score {
+        float: right;
+        font-weight: bold;
+    }
 /*#endregion */
 
 
 button.orange {
-    position:relative;
+    position: relative;
     padding: .5em 1em;
     background-color: orange;
     font-family: Cambria;
@@ -1988,21 +1997,42 @@ button.orange {
     border: 2px solid white;
     border-radius: 5px;
     background-image: url('../images/core/tiles/goat.jpg');
-    background-position: 100 0;
-    /*background-image: url('../images/big-button-background-down.jpg'), linear-gradient(top, black, transparent) ;*/    
-    background-repeat:no-repeat;        
+    background-position: 100% 0;
+    /*background-image: url('../images/big-button-background-down.jpg'), linear-gradient(top, black, transparent) ;*/
+    background-repeat: no-repeat;
     box-shadow: 0 .2em .5em .2em rgba(230, 157, 95, .7) inset, 0 .9em .1em .1em rgba(255, 255, 255, .5) inset;
-     /*background-image: linear-gradient(to bottom, white 20%, transparent 80%);
+    /*background-image: linear-gradient(to bottom, white 20%, transparent 80%);
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;*/    
-}
-button.orange:active{
-    box-shadow: 0 0 .5em .2em rgba(186, 132, 86, 0.70) inset, 0 .9em .1em .1em rgba(255, 255, 255, .5) inset; 
+    background-size: 100% 100%;*/
 }
 
-    /*button.orange:after {
+    button.orange:active {
+        box-shadow: 0 0 .5em .2em rgba(186, 132, 86, 0.70) inset, 0 .9em .1em .1em rgba(255, 255, 255, .5) inset;
+    }
+
+button.menuItem {
+    font: normal 1em CopseRegular;
+    text-transform: uppercase;
+    background-color: rgba(255, 255, 255, .5);
+    background-image: none;
+    border: 0;
+    margin: .5em 0;
+    padding: .5em 1em;
+    width: 15em;
+    text-align: left;
+}
+
+.float.left {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+/*button.orange:after {
         position: absolute;
         content: "";
         background-image: linear-gradient(to bottom, rgba(240, 166, 99, .8), transparent);

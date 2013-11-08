@@ -15,6 +15,10 @@
   return {
     model: model,
 
+    activate: function () {
+      app.commandMenuVisibility(false);
+    },
+
     binding: function () {
       return { cacheViews: false };
     },
@@ -22,6 +26,7 @@
     detached: function (view) {
       viewChanger.off();
       loginListener.off();
+      app.commandMenuVisibility(true);
     },
 
     playSolo: function () {

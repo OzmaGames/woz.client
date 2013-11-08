@@ -2,7 +2,7 @@
   <div id="tiles-max">
     <div id="tiles-aspect">
       <div id="tiles" style="border: 1px solid orange">
-        <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }">
+        <div class="container" style="border: 1px solid blue" data-bind="foreach: { data: tiles, afterRender: afterRender }">
           <div class="tile">
             <div class="mask" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }">
               <div class="instruction">

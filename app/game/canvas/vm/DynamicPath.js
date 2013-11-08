@@ -1,9 +1,8 @@
 ﻿define(['api/datacontext', './Box', './Path', './confirm-box', 'paper'], function (ctx, Box, Path, ConfirmBox) {
 
-  var scope = paper;
   var activeWord = ctx.activeWord;
   var activeWords = ctx.activeWords;
-  var transparent = new scope.Color(0, 0);
+  var transparent = new paper.Color(0, 0);
 
   var activePath = null;
   activeWord.subscribe(function (word) {
@@ -14,7 +13,7 @@
 
   var confirmBox;
 
-  function DynamicPath(paperScope, pathModel) {
+  function DynamicPath(pathModel) {
     var base = this;    
 
     this.pathModel = pathModel;
@@ -124,7 +123,7 @@
         startPoint = Path.options.tileRadius + Path.options.tileMargin,
         offset = startPoint;
 
-    var hover = new scope.Path();
+    var hover = new paper.Path();
     hover.add(pm.startTile.center);
 
     for (var i = 0; i < nWords; i++) {
@@ -147,7 +146,7 @@
     }
 
     hover.on(this.events);
-    hover.fillColor = new scope.Color(0, 0);
+    hover.fillColor = new paper.Color(0, 0);
     hover.add(pm.endTile.center);
     hover.closePath();
     this._trash.push(hover);
@@ -172,7 +171,7 @@
       this._trash.push(path);
     }
 
-    scope.view.draw();
+    paper.view.draw();
   };
 
   DynamicPath.prototype._hideCircles = function () {

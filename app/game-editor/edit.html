@@ -1,13 +1,9 @@
 ﻿<div>
     <div id="game-main">
-        <!--ko compose: { model: 'game/canvas', mode: 'inline' }-->
-        <canvas></canvas>
-        <!--/ko-->
-        <!--ko compose: 'game-editor/tiles'-->
-        <!--/ko-->
+        <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
+        <!--ko compose: 'game-editor/tiles'--><!--/ko-->
         <hr />
-        <!--ko compose: 'game/words'-->
-        <!--/ko-->
+        <!--ko compose: 'game/words'--><!--/ko-->
         <div class="logo-absolute">
             <div class="logo-fixed-size">
                 <div class="logo-wrapper">
@@ -39,9 +35,9 @@
 
         <div class="palette" id="palette-right">
             <div class="action-icons">
-                <div class="icon action">
-                    <i class="resign"></i>
-                </div>
+                <div class="icon action" data-bind="click: back">
+                    <i class="back">BACK</i>
+                </div>               
             </div>
         </div>
     </div>

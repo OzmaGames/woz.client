@@ -52,17 +52,25 @@
     },
 
     del: function (tile, e) {
-      var paths = ctx.paths();
-      for (var i = 0; i < paths.length; i++) {
-        var path = paths[i];
-        if (path.startTile.id == tile.id || path.endTile.id == tile.id) {
-          ctx.paths.splice(ctx.paths.indexOf(path), 1);
-          path.dispose();
-          i--;
-        }
-      }
+      app.dialog.show("confirm", {
+        content: "Delete tile?", modal: true,
+        doneText: 'YES', cancelText: 'NO'
+      }).then(function (res) {
+        if (res != "cancel") {
 
-      ctx.tiles.splice(ctx.tiles.indexOf(tile),1);
+          var paths = ctx.paths();
+          for (var i = 0; i < paths.length; i++) {
+            var path = paths[i];
+            if (path.startTile.id == tile.id || path.endTile.id == tile.id) {
+              ctx.paths.splice(ctx.paths.indexOf(path), 1);
+              path.dispose();
+              i--;
+            }
+          }
+
+          ctx.tiles.splice(ctx.tiles.indexOf(tile), 1);
+        }
+      });
     },
 
     afterRender: function (el, tile) {

@@ -1,10 +1,10 @@
 ﻿<div>
-    <div class="loader pull-right" data-bind="css: { active: loading }">
-        <i class="icon-spinner icon-2x icon-spin"></i>
-    </div>
-    
-  <div class="palette right">
-    <i class="menu" data-bind="click: openMenu"></i>
-  </div>
-    <!--ko router: { transition: 'entrance', cacheViews: true }--><!--/ko-->    
+   <div class="loader pull-right" data-bind="css: { active: loading }">
+      <i class="icon-spinner icon-2x icon-spin"></i>
+   </div>
+
+   <div class="palette right" data-bind="visible: menuVisibility">
+      <i class="menu" data-bind="click: openMenu"></i>
+   </div>
+   <!--ko router: { transition: 'entrance', cacheViews: true }--><!--/ko-->
 </div>

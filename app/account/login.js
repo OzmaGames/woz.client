@@ -27,8 +27,17 @@
   }
 
   return {
-    activate: function () { app.loading(true); },
-    compositionComplete: function (view) { app.loading(false); },
+    activate: function () {
+      app.loading(true);
+    },
+    bindingComplete: function (view) {
+      var dialog = $('.popup-dialog', view);
+      var height = $(window).innerHeight();
+      console.log(dialog.css({ marginTop: (height - 300) / 2 }));
+    },
+    compositionComplete: function (view) {
+      app.loading(false);
+    },
 
     loading: app.loading,
     username: username,

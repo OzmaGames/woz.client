@@ -27,6 +27,7 @@
     clearSubs();
     app.dialog.close("confirm");
     app.dialog.close("slipper");
+    swapTicket(1);
     ctx.mode('');
 
     var selectedWords = ctx.selectedWords();

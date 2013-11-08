@@ -1,29 +1,47 @@
-﻿define(['durandal/app'], function (app) {
+﻿define(['durandal/app', 'durandal/plugins/router'], function (app, router) {
+
+  var items = [
+    { text: "games", hash: 'lobby' },
+    { text: "collections", hash: 'collections' },
+    { text: "store", hash: 'store' },
+    { text: "help", hash: 'help' },
+    { text: "credits", hash: 'credits' },
+    { text: "settings", hash: 'settings' }
+  ];
 
   function Menu() {
-    
     var base = this;
+
     this.close = function (duration) {
       console.log(duration);
-      duration = duration || 500;
-      var dfd = base.el.transition({ x: -10 }, duration / 2, 'ease')
-        .transition({ x: 100, opacity: 0 }, duration).promise().then(function () {
-          base.el.css({ x: 0, display: 'none' });
-        });
 
-      base.el.parent().removeClass('modal');
+      if (base.el.is(":visible")) {
+        duration = duration || 500;
+        var dfd = base.el.transition({ x: -10 }, duration / 2, 'ease')
+          .transition({ x: 100, opacity: 0 }, duration).promise().then(function () {
+            base.el.css({ x: 0 }).hide();
+          });
 
-      return dfd;
-    }    
+        base.el.parent().removeClass('modal');
 
-    this.onClose = function () { }
+        return dfd;
+      }
+
+      return base.el.promise();
+    };
+
+    this.onClose = function () { };
+
+    this.items = items;
+
+    this.nav = function (item) {
+      router.navigate(item.hash);
+    };
   }
 
   Menu.prototype.activate = function (data) {
-    if (data && data.modal === true) {
-      this.el.parent().addClass('modal');
-    }    
-  }
+
+  };
 
   Menu.prototype.attached = function (el) {
     this.el = $('.menu', el);
@@ -32,12 +50,12 @@
     this.el.css({ x: 100, opacity: 0, top: '100px' })
       .transition({ x: -10, opacity: 1 }, 400, 'ease')
       .transition({ y: 0 }, 300);
-  }
+  };
 
   Menu.prototype.canDeactivate = function (a, s, d) {
     var base = this;
-    return this.close(200);    
-  }
+    return this.close(200);
+  };
 
   return Menu;
 });

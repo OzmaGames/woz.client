@@ -106,7 +106,11 @@
               theDialog.host = host;
               composition.compose(theDialog.host, theDialog.settings);
 
-              dialogs[obj].ready.resolve(theDialog);
+              if (dialogs[obj] && dialogs[obj].ready) {
+                dialogs[obj].ready.resolve(theDialog);
+              } else {
+                theDialog.close();
+              }              
             } else {
               dfd.resolve(false);
             }
