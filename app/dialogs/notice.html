@@ -1,7 +1,15 @@
 ﻿<div class="dialog top-center">
-    <div class="ui-overlay"></div>
-    <div class="notice" data-bind="click: close">
-        <h1 data-bind="text: heading"></h1>
-        <div data-bind="html: content"></div>        
-    </div>
+   <div class="ui-overlay"></div>
+   <div class="notice" data-bind="click: close">
+      <h1 data-bind="text: heading"></h1>
+      <div data-bind="html: content"></div>
+
+      <div data-bind="if: showXP">
+         <br />
+         <div class="strong"> You received:</div>
+         <div>5 XP</div>
+         <br />
+      </div>
+      <button class="blue" data-bind="text: buttonText, click: gotoLobby, clickBubble: false"></button>
+   </div>
 </div>

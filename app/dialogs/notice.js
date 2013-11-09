@@ -1,9 +1,11 @@
-﻿define(['durandal/app'], function (app) {
+﻿define(['durandal/app', 'durandal/plugins/router'], function (app, router) {
   var duration = 400;
 
   function Notice() {
     this.heading = '';
     this.content = '';
+    this.showXP = false;
+    this.buttonText = '';
     this.modal = true;
 
     var base = this;
@@ -19,11 +21,18 @@
 
       return dfd;
     }
+
+    this.gotoLobby = function () {
+      router.navigate("lobby");
+    }
   }
 
   Notice.prototype.activate = function (data) {
     this.heading = data.heading || '';
     this.content = data.content || '';
+    this.showXP = data.showXP || false;
+    this.buttonText = data.buttonText || "";
+
     this.modal = data.modal || this.modal;
   }
 
