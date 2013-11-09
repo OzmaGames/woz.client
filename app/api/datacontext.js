@@ -27,6 +27,11 @@
 
     playerCount: 1
   };
+  model.collection = {
+    short: ko.observable("woz"),
+    fullName: ko.observable("Words Of Oz")
+  };
+
   model._gameOver = ko.observable(false);
   model.gameOver = ko.computed(function () {
     var completedPaths = ko.utils.arrayFilter(this.paths(), function (path) {
@@ -48,6 +53,9 @@
       model.loadingStatus("Starting The Game...");
 
       model.gameID = json.id;
+
+      model.collection.short(json.collectionShort || "woz");
+      model.collection.fullName(json.collectionFull || "Words Of Oz");        
 
       ko.utils.arrayForEach(json.players, function (player) {
         if (player.username === username) {
@@ -77,7 +85,8 @@
       model.words(json.words);
 
       for (var i = 0; i < json.tiles.length; i++) {
-        json.tiles[i].imageName = consts.getURL(json.tiles[i].imageName);
+        json.tiles[i].imageName = consts.bigImageURL(model.collection.short(), json.tiles[i].imageId || json.tiles[i].id);
+        json.tiles[i].imageId = json.tiles[i].imageId || json.tiles[i].id;
         json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
         json.tiles[i].active = ko.observable(false);
       }
@@ -152,11 +161,15 @@
           app.dialog.close("slipper");
           var winner = model.winner(), data;
           if (winner === model.player) {
-            data = DIALOGS.GAME_OVER_YOU_WON;
+            if (model.playerCount == 1) {
+              data = DIALOGS.GAME_OVER_SOLO;
+            } else {
+              data = DIALOGS.GAME_OVER_YOU_WON;
+            }
           } else if(winner === null){
-            data = DIALOGS.GAME_OVER_SOLO_YOU_RESIGNED;
+            data = DIALOGS.GAME_OVER_YOU_RESIGNED;
           } else {
-            data = DIALOGS.GAME_OVER_THEY_WON;
+            data = DIALOGS.GAME_OVER_YOU_LOST;
           }
           data.content = $('<b/>', { text: data.content }).prepend('<br/>').html();
           app.dialog.show("notice", data);

@@ -58,7 +58,7 @@
         dfd.reject(selection);
       } else if (selection.length > 9) {
         console.log("Too many words!");
-        app.dialog.show("alert", "Too many words!");
+        app.dialog.show("alert", { content: "Too many words!" });
         dfd.reject(selection);
       } else {        
         selection = Sort(selection);        

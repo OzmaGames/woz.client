@@ -4,10 +4,11 @@
     this.id = id,
     this.x = x || 0.5;
     this.y = y || 0.5;
-    this.imageName = consts.images[id].imageName;
+    this.imageName = consts.bigImageURL('woz', id);
+    this.imageId = id;
     this.instruction = 'tile image';
     this.angle = ko.observable(angle || 0);
-    this.info = this.id;
+    this.info = id;
 
     var base = this;
     this.rest = ko.computed(function () {

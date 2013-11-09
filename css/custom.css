@@ -351,14 +351,10 @@ h5 {
 
     #tiles .tile {
         position: absolute;
+        z-index: 3;
         width: 160px;
         height: 160px;
         cursor: pointer!important;
-        -moz-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
-        -o-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
-        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
-        transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
-        z-index: 3;
         left: 50%;
         top: 50%;
         margin-left: -80px;
@@ -366,6 +362,10 @@ h5 {
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
         backface-visibility: hidden;
+        -moz-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+        -o-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+        transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
     }
 
         #tiles .tile.active {
@@ -374,19 +374,10 @@ h5 {
             top: 80px !important;
             z-index: 4;
         }
-
-            #tiles .tile.active .mask {
-                border-radius: 50%;
-                width: 100%;
-                height: 100%;
-                z-index: 5;
-            }
-
+            
             #tiles .tile.active .instruction {
                 left: 50%;
                 top: 10px;
-                margin-left: -40px;
-                z-index: 6;
                 opacity: 0;
             }
 
@@ -398,31 +389,37 @@ h5 {
         }
 
         #tiles .tile .mask {
-            z-index: 4;
             position: relative;
-            -moz-backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            z-index: 4;
             border-radius: 50%;
-            -moz-box-shadow: 5px 5px 10px 0 #333;
-            -ms-box-shadow: 5px 5px 10px 0 #333;
-            -o-box-shadow: 5px 5px 10px 0 #333;
-            -webkit-box-shadow: 5px 5px 10px 0 #333;
             box-shadow: 5px 5px 10px 0 #333;
             border: 5px solid #fff;
-            width: 140px;
-            height: 140px;
-            background-position: center center;
+            width: 100%;
+            height: 100%;
+            background-position: left center;
             background-repeat: no-repeat;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            -webkit-background-size: cover;
-            background-size: cover;
-            -moz-transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
-            -o-transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
-            -webkit-transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
-            transition: height .5s ease-in-out, width .5s ease-in-out, border-radius .5s ease-in-out;
+            -moz-background-size: auto 100%;
+            -o-background-size: auto 100%;
+            -webkit-background-size: auto 100%;
+            background-size: auto 100%;
+            -moz-transition: height .5s ease-in-out, width .5s ease-in-out;
+            -o-transition: height .5s ease-in-out, width .5s ease-in-out;
+            -webkit-transition: height .5s ease-in-out, width .5s ease-in-out;
+            transition: height .5s ease-in-out, width .5s ease-in-out;
         }
+            #tiles .tile .mask .big {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                -webkit-background-size: cover;
+                background-size: cover;
+                background-repeat: no-repeat;
+                border-radius:100%;
+            }
 
         #tiles .tile .instruction {
             -moz-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
@@ -529,6 +526,13 @@ h5 {
 
         #tiles .tile:hover .control {
             visibility: visible;
+        }
+
+        #tiles.woz .mask{
+            background-image: url('../images/tiles/woz.jpg');
+        }
+        #tiles.nf .mask{
+            background-image: url('../images/tiles/nf.jpg');
         }
 
 #workspace {
@@ -706,7 +710,6 @@ h5 {
 .ui-overlay {
     background: #666;
     opacity: .3;
-    filter: alpha(opacity=30);
 }
 
     .ui-overlay.fullscreen {
@@ -739,25 +742,13 @@ h5 {
         color: rgba(152, 107, 49, 1);
     }
 
-        .popup-dialog-container .popup-dialog h1, h2, h3 {
-            font-weight: normal;
-            white-space: nowrap;
-            padding-bottom: 20px;
-        }
-
         .popup-dialog-container .popup-dialog h1 {
-            font-size: 24px;
+            font-weight: normal;
+            font-size: 1.5em;
+            white-space: nowrap;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-
-        .popup-dialog-container .popup-dialog a {
-            font-family: Cambria !important;
-            cursor: pointer;
-        }
-
-            .popup-dialog-container .popup-dialog a.small {
-            }
 
         .popup-dialog-container .popup-dialog.login {
             position: relative;
@@ -765,12 +756,6 @@ h5 {
             margin-right: auto;
             width: 50%;
         }
-
-.error {
-    font-family: Cambria !important;
-    color: red;
-    margin: .5em;
-}
 
 .block {
     display: block;
@@ -782,6 +767,10 @@ h5 {
 
 .space {
     margin: 1em;
+}
+
+.agreement {
+    margin-top: 1em;
 }
 
 a.big {
@@ -1352,25 +1341,34 @@ i.menu {
         z-index: 11;
         margin: 0 auto;
         width: 379px;
-        height: 177px;
+        min-height: 177px;
         background-image: url('../images/app/notice-background.png');
-        background-position: center center;
         background-repeat: no-repeat;
         -moz-background-size: 100% 100%;
         -o-background-size: 100% 100%;
         -webkit-background-size: 100% 100%;
         background-size: 100% 100%;
         text-align: center;
-        font-size: x-large;
         color: #976b2c;
         line-height: 140%;
-        padding: 50px;
+        padding: 2em;
         cursor: pointer;
+        font-family: cambria;
     }
 
         .dialog .notice h1 {
+            font-family: cambria;
             font-size: 2em;
             margin-bottom: 20px;
+        }
+        .dialog .notice > div{
+            font-size: 1.2em;
+        }
+        .dialog .notice .strong{
+            font-weight:bold;
+        }
+        .dialog .notice button{
+            font-size: 1em;
         }
 
 
@@ -1956,7 +1954,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     background: white;
     border: 1px solid #BE9967;
     padding: .5em 1em;
-    margin-bottom: 16px;
+    margin-top: 1.5em;
     color: #986B31;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -1968,10 +1966,33 @@ input[type="text"], input[type="password"], input[type="email"] {
     -o-box-shadow: 0px 0px 2px #986b31;
     -webkit-box-shadow: 0px 0px 2px #986b31;
     box-shadow: 0px 0px 2px #986b31;
+    display: inline-block;
 }
 
-input[type="text"]:invalid, input[type="password"]:invalid, input[type="email"]:invalid {
-    box-shadow: 0 0 5px red;
+    input[type="text"]:invalid, input[type="password"]:invalid, input[type="email"]:invalid {
+        box-shadow: 0 0 5px red;
+    }
+
+span + input {
+    margin-top: 0!important;
+}
+
+input + span.error {
+    position: relative;
+    display: inline-block;
+    height: 1em;
+    width: 20em;
+    visibility: hidden;
+}
+
+input:invalid + span.error {
+    font-family: Cambria;
+    font-style: italic;
+    font-size: 1em;
+    color: red;
+    top: -3.5em;
+    text-align: center;
+    visibility: visible;
 }
 
 

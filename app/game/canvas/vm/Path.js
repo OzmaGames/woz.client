@@ -82,9 +82,9 @@
       var words = activeWords(), pm = this.pathModel;
       if (words.length != pm.nWords) {
         if (words.length > pm.nWords)
-          app.dialog.show("alert", "too many words");
+          app.dialog.show("alert", { content: "too many words" });
         else
-          app.dialog.show("alert", "need more words");
+          app.dialog.show("alert", { content: "need more words" });
         return;
       }
 

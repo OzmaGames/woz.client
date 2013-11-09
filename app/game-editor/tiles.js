@@ -42,6 +42,7 @@
 
   return {
     tiles: ctx.tiles,
+    collection: ctx.collection,
 
     tileAngleUp: function (tile, e) {
       tile.angle(tile.angle() + 1);

@@ -29,7 +29,7 @@
       }).promise();
     }
 
-    function ensureDialogInstance(objOrModuleId) {
+    function ensureInstance(objOrModuleId) {
       return system.defer(function (dfd) {
         if (system.isString(objOrModuleId)) {
           system.acquire(objOrModuleId).then(function (module) {
@@ -65,57 +65,58 @@
       });
     }
 
-    function show(obj, activationData, context) {
+    function show(obj, data, context) {
       return system.defer(function (dfd) {
-        $.when(ensureDialogInstance(obj), getHost(obj, true), setup(obj)).then(function (instance, host) {
-          var dialogActivator = activator.create();
-          dialogActivator.activateItem(instance, activationData).then(function (success) {
-            if (success) {
-              var theDialog = instance.__dialog__ = {
-                owner: instance,
-                context: context,
-                activator: dialogActivator,
-                close: function () {
-                  var args = arguments, last = args.length ? args[args.length - 1] : {};
+        $.when(ensureInstance(obj), ensureInstance(data), getHost(obj, true), setup(obj))
+          .then(function (instance, activationData, host) {
+            var dialogActivator = activator.create();
+            dialogActivator.activateItem(instance, activationData).then(function (success) {
+              if (success) {
+                var theDialog = instance.__dialog__ = {
+                  owner: instance,
+                  context: context,
+                  activator: dialogActivator,
+                  close: function () {
+                    var args = arguments, last = args.length ? args[args.length - 1] : {};
 
-                  delete dialogs[obj];
+                    delete dialogs[obj];
 
-                  if (last && last.forced) {
-                    dfd.resolve.apply(dfd, args);
-                  }
-                  return dialogActivator.deactivateItem(instance, true).then(function () {
+                    if (last && last.forced) {
+                      dfd.resolve.apply(dfd, args);
+                    }
+                    return dialogActivator.deactivateItem(instance, true).then(function () {
                       ko.removeNode(theDialog.host);
                       delete instance.__dialog__;
                       if (!last || !last.forced) {
                         dfd.resolve.apply(dfd, args);
                       }
-                  });                  
-                }
-              };
+                    });
+                  }
+                };
 
-              instance.onClose = function () {
-                var args = [];
-                for (var i = 0; i < arguments.length; i++) {
-                  args.push(arguments[i]);
-                }
-                args.push({ forced: true });
-                theDialog.close.apply(this, args);
-              };
-              
-              theDialog.settings = createCompositionSettings(instance, context);
-              theDialog.host = host;
-              composition.compose(theDialog.host, theDialog.settings);
+                instance.onClose = function () {
+                  var args = [];
+                  for (var i = 0; i < arguments.length; i++) {
+                    args.push(arguments[i]);
+                  }
+                  args.push({ forced: true });
+                  theDialog.close.apply(this, args);
+                };
 
-              if (dialogs[obj] && dialogs[obj].ready) {
-                dialogs[obj].ready.resolve(theDialog);
+                theDialog.settings = createCompositionSettings(instance, context);
+                theDialog.host = host;
+                composition.compose(theDialog.host, theDialog.settings);
+
+                if (dialogs[obj] && dialogs[obj].ready) {
+                  dialogs[obj].ready.resolve(theDialog);
+                } else {
+                  theDialog.close();
+                }
               } else {
-                theDialog.close();
-              }              
-            } else {
-              dfd.resolve(false);
-            }
+                dfd.resolve(false);
+              }
+            });
           });
-        });
       }).promise();
     }
 

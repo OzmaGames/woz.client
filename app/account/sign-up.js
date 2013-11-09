@@ -4,6 +4,38 @@
       email = ko.observable(),
       errorMessage = ko.observable();
 
+  username.verify = function (username) {
+    if (username == "") {
+      return "Username is required"
+    }
+    if (username.length < 3) {
+      return "Incorrect e-mail or username";
+    }
+    return "";
+  }
+
+  password.verify = function (password) {
+    if (password == "") {
+      return "Password is required";
+    }
+    return "";
+  }
+
+  email.verify = function (email) {
+    if (email == "") {
+      return "E-mail is required";
+    }
+    if (!validateEmail(email)) {
+      return "Incorrect E-mail address"
+    }
+    return "";
+  }
+
+  function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  } 
+
   function signUp() {
     app.loading(true);
 
@@ -17,7 +49,9 @@
       app.loading(false);
 
       if (res.success) {
+        res.username = username();
         app.trigger('account:login', res);
+        router.navigate("newGame");
       } else {
         errorMessage(res.errorMessage);
       }

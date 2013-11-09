@@ -1,18 +1,13 @@
-﻿define(['durandal/app'], function (app) { 
+﻿define(['durandal/app'], function (app) {
   var delay = 2000, duration = 500;
-  
+
   function Alert() {
     this.content = '';
   }
 
   Alert.prototype.activate = function (data) {
-    if (typeof data === "string") {
-      this.content = data;
-    }
-    else {
-      this.content = data.content;
-      delay = data.delay || delay;
-    }
+    this.content = data.content;
+    delay = data.delay || delay;
   };
 
   Alert.prototype.attached = function (el) {
@@ -37,6 +32,6 @@
         dfd.resolve();
     }).promise();
   };
-  
+
   return Alert;
 });

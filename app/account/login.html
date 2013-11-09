@@ -4,10 +4,12 @@
       <div class="popup-dialog login">
          <h1>Join The Game!</h1>
 
-         <form data-bind="submit: login">
-            <input type="text" required placeholder="Username or e-mail" data-bind="value: username" autofocus><br />
-            <input type="password" required placeholder="Password" data-bind="value: password"><br />
-
+         <form data-bind="verifiableSubmit: login">
+            <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username" autofocus />
+            <span class="error" data-bind="text: username.errorMessage"></span>
+            <input type="password" placeholder="Password" data-bind="verifiableValue: password" />            
+            <span class="error" data-bind="text: password.errorMessage"></span>
+            
             <p class="error" data-bind="text: errorMessage"></p>
 
             <button class="blue" type="submit" data-bind="disable: loading()">

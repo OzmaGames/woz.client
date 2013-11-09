@@ -1,23 +1,30 @@
 ﻿<div>
-    <div class="popup-dialog-container">
-        <div class="ui-overlay1 1fullscreen"></div>
-        <div class="popup-dialog login">                  
-            <h1>Join The Game!</h1>
+   <div class="popup-dialog-container">
+      <div class="ui-overlay1 1fullscreen"></div>
+      <div class="popup-dialog login">
+         <h1>Join The Game!</h1>
 
-            <input type="text" placeholder="Username" data-bind="value: username" /><br />
-            <input type="text" placeholder="E-mail" data-bind="value: email"><br>
-            <input type="password" placeholder="Password" data-bind="value: password"><br>
-            
+         <form data-bind="verifiableSubmit: signUp">
+            <input type="text" placeholder="Username" data-bind="verifiableValue: username" />
+            <span class="error" data-bind="text: username.errorMessage"></span>
+            <input type="text" placeholder="E-mail" data-bind="verifiableValue: email">
+            <span class="error" data-bind="text: email.errorMessage"></span>
+            <input type="password" placeholder="Password" data-bind="verifiableValue: password">
+            <span class="error" data-bind="text: password.errorMessage"></span>
+
             <p class="error" data-bind="text: errorMessage"></p>
 
-            <button class="blue width40" data-bind="click: signUp, disable: loading()">
-                <span>SIGN UP</span>
-                <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+            <button type="submit" class="blue" data-bind="disable: loading()">
+               <span>SIGN UP</span>
+               <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
             </button>
-            
-            <p id="agreement">By clicking <i>sign up</i> you confirm that you have read and agree to the terms of service.</p>
+         </form>
+         
+         <p class="agreement">
+            By clicking <i>sign up</i> you confirm that you have read and agree to the terms of service.
+         </p>
 
-            <h2 class="link" data-bind="click: login">Back to Login</h2>
-        </div>
-    </div>
+         <a class="block link big" data-bind="click: login">Back to Login</a>
+      </div>
+   </div>
 </div>

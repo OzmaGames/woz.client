@@ -60,6 +60,8 @@
   return {
     tiles: ctx.tiles,
 
+    collection: ctx.collection,
+
     disabled: ko.computed(function () {
       var mode = ctx.mode();
       return mode == 'swap' || mode == 'circle-words';
@@ -76,20 +78,18 @@
     },
 
     toggleTile: function () {
-      this.active(this.active() ^ 1);
-      if (this.active()) {
+      var active = this.active();
+      if (!active) {
         var h = $('#tiles').height(),
-          w = $('#tiles').width();
+            w = $('#tiles').width();
         this.$el.css({ width: h, left: w - h });
       } else {
         this.$el.css({ width: '', left: this.x * 100 + '%' });
       }
+      this.active(active ^ 1);
     },
 
     help: function (tile, e) {
-      e.preventDefault();
-      e.stopPropagation();
-
       var offset = tile.$inst.offset(),
         left = offset.left,
         top = offset.top + 200 - $(window).scrollTop();      
@@ -104,23 +104,11 @@
         content: tile.description,
         left: left, top: top
       });
-
-      return false;
     },
 
     afterRender: function (el, tile) {
       var $el = $(el).filter('.tile:first');
 
-      //$el.draggable({
-      //  withinEl: $el.parent(),
-      //  dragStart: function (e) { },
-      //  move: function (e) {
-      //    tile.x = $el.position().left / $el.parent().innerWidth();
-      //    tile.y = $el.position().top / $el.parent().innerHeight();
-
-      //    $(window).resize();
-      //  }
-      //});
       tile.$el = $el;
       tile.$inst = $el.find('.instruction');
 

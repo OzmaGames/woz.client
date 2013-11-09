@@ -1,10 +1,27 @@
-﻿define(['durandal/app', 'api/constants'], function (app, constants) {
+﻿define(['durandal/app', 'api/constants', 'durandal/plugins/router'], function (app, constants, router) {
 
   var username = ko.observable(),
       password = ko.observable(),
       errorMessage = ko.observable();
 
-  function login(e) {
+  username.verify = function (username) {
+    if (username == "") {
+      return "You need to enter you username or e-mail"
+    }
+    if (username.length < 3) {
+      return "Incorrect e-mail or username";
+    }
+    return "";
+  }
+
+  password.verify = function (password) {
+    if (password == "") {
+      return "You need to enter your password";
+    }
+    return "";
+  }
+
+  function login(el) {    
     app.loading(true);
 
     var data = {
@@ -20,6 +37,7 @@
       if (res.success) {
         res.username = username();
         app.trigger('account:login', res);
+        router.navigate("newGame");
       } else {
         errorMessage('Error: ' + res.errorMessage);
       }

@@ -1,25 +1,6 @@
 ﻿define(function () {
   return {
-    LOGIN_FAILURE: {
-      heading: "INCORRECT LOG-IN",
-      content: "Please try again."
-    },
-
-    GAME_OVER_YOU_WON: {
-      heading: "GAME OVER!",
-      content: "You won!"
-    },
-
-    GAME_OVER_THEY_WON: {
-      heading: "GAME OVER!",
-      content: "Your opponent won!"
-    },
-
-    GAME_OVER_SOLO_YOU_RESIGNED: {
-      heading: "GAME OVER!",
-      content: "Too bad! You resigned the game!"
-    },
-
+    
     YOUR_TURN_FIRST_ROUND: {
       heading: "IT'S YOUR TURN!",
       content: "Place a phrase on the game board to score. Use action buttons to the left."
@@ -38,22 +19,38 @@
     CIRCLE_WORDS: {
       heading: "Select a Phrase!",
       content: "Place a whole phrase on the game board, by circling it and then choose a path to place it."
-    },
-
-    YOUR_TURN_MAKE_PHRASE: {
-      heading: "IT'S YOUR TURN! - Make a phrase!",
-      content: "To score you must place a phrase between two picture tiles. Turn tiles over to find the rules the phrase must follow. Go to your workspace to make a phrase, or use checkmark to skip turn."
-    },
-
-    YOUR_TURN_PLACE_PHRASE: {
-      heading: "IT'S YOUR TURN! - Place a phrase!",
-      content: "To place a phrase: Draw a line on the gameboard between the two tiles you wish to connect. When you’re happy use the DONE-button to submit your phrase."
-    },
+    },    
 
     SWAP_WORDS: {
       heading: "SWAP WORDS",
       content: "Select the words you like to swap to exchange them for new ones. Then click \"Done\""
-    },    
+    },
+
+    GAME_OVER_YOU_WON: {
+      heading: "Congratulations!",
+      content: "You won the game.",
+      buttonText: "back to lobby",
+      showXP: true 
+    },
+    GAME_OVER_YOU_LOST: {
+      heading: "Good luck next time!",
+      content: "You lost the game.",
+      buttonText: "back to lobby",
+      showXP: true
+    },
+    GAME_OVER_SOLO: {
+      heading: "Well done!",
+      content: "You completed the game board.",
+      buttonText: "continue playing",
+      showXP: true
+    },
+    GAME_OVER_YOU_RESIGNED:{
+      heading: "Meh, Good luck next time!",
+      content: "You resigned the game.",
+      buttonText: "back to lobby",
+      showXP: true
+    },
+
 
     ACTIONS: {
 
