@@ -15,13 +15,14 @@
   return circleWords;
 
   function unload() {
-    if (tool) {
-      tool.detach('mousedown');
-      tool.detach('mouseup');
-      tool.detach('mousedrag');
-      tool.remove();
-      tool = null;
-    }
+    //if (tool) {
+    //  tool.detach('mousedown');
+    //  tool.detach('mouseup');
+    //  tool.detach('mousedrag');
+    //  tool.remove();
+    //  tool = null;
+    //}
+    paper.tool.remove();
   }
 
   function redraw() {

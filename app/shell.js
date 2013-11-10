@@ -1,10 +1,23 @@
-﻿define(['plugins/router', 'durandal/app'], function (router, app) {
+﻿define(['plugins/router', 'durandal/app', 'api/server/connection'], function (router, app, cnn) {
 
   app.commandMenuVisibility = ko.observable(true);
+  var connected = ko.observable(false);
+  var online = ko.observable(false);
+
+  cnn.connected
+    .then(function () { connected(true); })
+    .fail(function () { connected(false); });
+
+  window.addEventListener("online", function () { online(true); });
+  window.addEventListener("offline", function () { online(false); });
 
   return {
     router: router,
     loading: ko.computed(function () { return router.isNavigating() || app.loading() }),
+    status: {
+      cnn: connected,
+      online: online
+    },  
     activate: function () {
       window.router = router;
       return router.map([

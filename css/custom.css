@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
     font-family: 'CopseRegular';
     src: url('../fonts/Copse-Regular-webfont.eot');
     src: url('../fonts/Copse-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/Copse-Regular-webfont.woff') format('woff'), url('../fonts/Copse-Regular-webfont.ttf') format('truetype'), url('../fonts/Copse-Regular-webfont.svg#CopseRegular') format('svg');
@@ -113,23 +113,13 @@ h5 {
     display: none;
 }
 
-.logo-wrapper {
-    position: relative;
-    padding-bottom: 27.3%;
-    width: 100%;
-    top: 15%;
+.logo {
+    background: url('../images/app/title/logo.png') no-repeat;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    -webkit-background-size: 100% auto;
+    background-size: 100% auto;
 }
-
-    .logo-wrapper .logo {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: url('../images/app/title/logo.png') no-repeat;
-        -moz-background-size: 100% auto;
-        -o-background-size: 100% auto;
-        -webkit-background-size: 100% auto;
-        background-size: 100% auto;
-    }
 
 #login-page .background {
     position: absolute;
@@ -141,12 +131,7 @@ h5 {
 }
 
     #login-page .background.logo {
-        background: url('../images/app/title/logo.png') no-repeat;
         background-position: top center;
-        -moz-background-size: 100% auto;
-        -o-background-size: 100% auto;
-        -webkit-background-size: 100% auto;
-        background-size: 100% auto;
     }
 
     #login-page .background.footer {
@@ -178,20 +163,37 @@ h5 {
         z-index: 1;
     }
 
-    #game-main .logo-absolute {
+    #game-main .logo {
         position: absolute;
         top: 0;
         width: 100%;
+        height: 80px;
+        margin-top: 10px;
+        -moz-background-size: auto 100%;
+        -o-background-size: auto 100%;
+        -webkit-background-size: auto 100%;
+        background-size: auto 100%;
+        background-position: center top;
+        z-index: 1;
+        -moz-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        -moz-transition: all 1s ease-in-out;
+        -o-transition: all 1s ease-in-out;
+        -webkit-transition: all 1s ease-in-out;
+        transition: all 1s ease-in-out;
     }
 
-    #game-main .logo-fixed-size {
-        width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-        #game-main .logo-fixed-size .logo-wrapper {
-            top: 10px;
+        #game-main .logo.loading {
+            top: 100px;
+            height: 200px;
+            -moz-transform: rotateY(360deg);
+            -ms-transform: rotateY(360deg);
+            -o-transform: rotateY(360deg);
+            -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
         }
 
     #game-main hr {
@@ -374,8 +376,8 @@ h5 {
             top: 80px !important;
             z-index: 4;
         }
-            
-            #tiles .tile.active .instruction {
+
+            #tiles .tile.active .instruction, .carry .instruction:hover {
                 left: 50%;
                 top: 10px;
                 opacity: 0;
@@ -407,6 +409,7 @@ h5 {
             -webkit-transition: height .5s ease-in-out, width .5s ease-in-out;
             transition: height .5s ease-in-out, width .5s ease-in-out;
         }
+
             #tiles .tile .mask .big {
                 position: absolute;
                 top: 0;
@@ -418,7 +421,7 @@ h5 {
                 -webkit-background-size: cover;
                 background-size: cover;
                 background-repeat: no-repeat;
-                border-radius:100%;
+                border-radius: 100%;
             }
 
         #tiles .tile .instruction {
@@ -528,12 +531,13 @@ h5 {
             visibility: visible;
         }
 
-        #tiles.woz .mask{
-            background-image: url('../images/tiles/woz.jpg');
-        }
-        #tiles.nf .mask{
-            background-image: url('../images/tiles/nf.jpg');
-        }
+    #tiles.woz .mask {
+        background-image: url('../images/tiles/woz.jpg');
+    }
+
+    #tiles.nf .mask {
+        background-image: url('../images/tiles/nf.jpg');
+    }
 
 #workspace {
     position: relative;
@@ -670,7 +674,10 @@ h5 {
         padding-top: 2px;
         font-family: CopseRegular;
         text-align: center;
-    }
+    
+        /* background-color: black; */
+        /* z-index: -7; */
+}
 
     .magnet-placeholder.hover .box, .magnet-placeholder.hover .circle {
         box-shadow: 0 0 15px #986B31, 0 0 15px #986B31 inset;
@@ -754,7 +761,7 @@ h5 {
             position: relative;
             margin-left: auto;
             margin-right: auto;
-            width: 50%;
+            width: 25em;
         }
 
 .block {
@@ -1018,6 +1025,9 @@ i.menu {
     z-index: 100;
     font-family: CopseRegular;
     -webkit-font-smoothing: antialiased;
+}
+.dialog.low{
+    z-index:99;
 }
 
     .dialog.absolute {
@@ -1314,6 +1324,7 @@ i.menu {
         box-shadow: 2px 2px 5px gray;
         -webkit-text-shadow: 0px 0px 1px #999;
         text-shadow: 0px 0px 1px #999;
+        font-family:Cambria;
     }
 
         .dialog .window .close {
@@ -1332,6 +1343,7 @@ i.menu {
 
         .dialog .window h1 {
             font-size: 1em;
+            font-family:CopseRegular;
             margin-bottom: 5px;
         }
 
@@ -1361,13 +1373,16 @@ i.menu {
             font-size: 2em;
             margin-bottom: 20px;
         }
-        .dialog .notice > div{
+
+        .dialog .notice > div {
             font-size: 1.2em;
         }
-        .dialog .notice .strong{
-            font-weight:bold;
+
+        .dialog .notice .strong {
+            font-weight: bold;
         }
-        .dialog .notice button{
+
+        .dialog .notice button {
             font-size: 1em;
         }
 
@@ -1989,7 +2004,7 @@ input:invalid + span.error {
     font-family: Cambria;
     font-style: italic;
     font-size: 1em;
-    color: red;
+    color: #f0323f;
     top: -3.5em;
     text-align: center;
     visibility: visible;
@@ -2057,3 +2072,48 @@ button.menuItem {
 .clear {
     clear: both;
 }
+
+.status-box {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: .2em;
+    font-family: Cambria;
+    font-size: .7em;
+    z-index: 1;
+    cursor: default;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+    .status-box .switch {
+        position: relative;
+        display: inline-block;
+        line-height: 1em;
+        overflow: hidden;
+        height: 1em;
+    }
+
+        .status-box .switch span {
+            display: block;
+            margin-top: 0;
+            -moz-transition: margin-top .5s;
+            -o-transition: margin-top .5s;
+            -webkit-transition: margin-top .5s;
+            transition: margin-top .5s;
+            opacity: .4;
+        }
+
+        .status-box .switch.b span:first-child {
+            margin-top: -.97em;
+        }
+
+    .status-box .good {
+        color: green;
+    }
+
+    .status-box .bad {
+        color: rgb(190, 63, 63);
+    }

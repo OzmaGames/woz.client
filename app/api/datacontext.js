@@ -13,7 +13,7 @@
 
     player: { active: ko.observable() },
     players: ko.observableArray([]),
-    
+
     words: ko.observableArray([]),
     tiles: ko.observableArray([]),
 
@@ -55,7 +55,7 @@
       model.gameID = json.id;
 
       model.collection.short(json.collectionShort || "woz");
-      model.collection.fullName(json.collectionFull || "Words Of Oz");        
+      model.collection.fullName(json.collectionFull || "Words Of Oz");
 
       ko.utils.arrayForEach(json.players, function (player) {
         if (player.username === username) {
@@ -64,10 +64,12 @@
           player.tickets = {
             swap: 1
           };
-          app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
+          if (model.playerCount > 1)
+            app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
         } else {
           player.active = ko.observable(player.active);
-          app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN_FIRST_ROUND);
+          if (model.playerCount > 1)
+            app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN_FIRST_ROUND);
         }
         player.resigned = ko.observable(player.resigned || false);
         player.score = ko.observable(player.score);
@@ -134,9 +136,11 @@
 
           if (jplayer.active) {
             if (jplayer.username === model.player.username) {
-              app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN);
+              if (model.playerCount > 1)
+                app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN);
             } else {
-              app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
+              if (model.playerCount > 1)
+                app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
             }
           }
 
@@ -166,12 +170,13 @@
             } else {
               data = DIALOGS.GAME_OVER_YOU_WON;
             }
-          } else if(winner === null){
+          } else if (winner === null) {
             data = DIALOGS.GAME_OVER_YOU_RESIGNED;
           } else {
             data = DIALOGS.GAME_OVER_YOU_LOST;
           }
           data.content = $('<b/>', { text: data.content }).prepend('<br/>').html();
+          app.dialog.close("all");
           app.dialog.show("notice", data);
         }
 

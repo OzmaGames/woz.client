@@ -122,14 +122,24 @@
 
     function close(key, deactivationData) {
       return system.defer(function (dfd) {
-        if (dialogs.hasOwnProperty(key)) {
-          dialogs[key].ready.then(function (dialog) {
-            dialog.close(deactivationData).then(function () {
-              dfd.resolve();
+        if (key == 'all') {
+          for (var i = 0; i < dialogs.length; i++) {
+            dialogs.ready.then(function (dialog) {
+              dialog.close(deactivationData).then(function () {
+                dfd.resolve();
+              });
             });
-          });
+          }
         } else {
-          dfd.resolve();
+          if (dialogs.hasOwnProperty(key)) {
+            dialogs[key].ready.then(function (dialog) {
+              dialog.close(deactivationData).then(function () {
+                dfd.resolve();
+              });
+            });
+          } else {
+            dfd.resolve();
+          }
         }
       }).promise();
     }

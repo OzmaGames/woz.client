@@ -59,8 +59,13 @@
 
   return {
     tiles: ctx.tiles,
-
+    gameOver: ctx.gameOver,
     collection: ctx.collection,
+    carryingWords: ko.computed(function () {
+      words = ctx.activeWords();
+      word = ctx.activeWord();
+      return words || word;
+    }),
 
     disabled: ko.computed(function () {
       var mode = ctx.mode();

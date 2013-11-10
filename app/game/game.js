@@ -49,7 +49,7 @@
   var isPlayerActive = ko.computed(function () {
     return ctx.player.active();
   });
-
+  
   var game = {
     loadingStatus: ctx.loadingStatus,
     loading: ctx.loading,

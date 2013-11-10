@@ -6,13 +6,7 @@
         <!--ko compose: 'game/tiles'--><!--/ko-->
         <hr />
         <!--ko compose: 'game/words'--><!--/ko-->
-        <div class="logo-absolute">
-            <div class="logo-fixed-size">
-                <div class="logo-wrapper">
-                    <div class="logo"></div>
-                </div>
-            </div>
-        </div>
+        <div class="logo" data-bind="css: { loading: loading }"></div>
     </div>
     <div id="game-players" data-bind="compose: 'game/players'"></div>
 

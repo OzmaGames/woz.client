@@ -62,7 +62,9 @@
           } else {
             ctx.activeWord(word);
             $el.css({ rotate: '0deg' });
-          }          
+          }
+          word.originalX = word.x;
+          word.originalY = word.y;
         },
 
         dropped: function (e, data) {

@@ -237,7 +237,7 @@
     div.css({
       left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
       top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
-      zIndex: 2
+      zIndex: 0
     });
     div.appendTo('#tiles');
 
