@@ -8,6 +8,10 @@
     .then(function () { connected(true); })
     .fail(function () { connected(false); });
 
+  app.on("socket:status").then(function (status) {
+    connected(status == "connect");
+  });
+
   window.addEventListener("online", function () { online(true); });
   window.addEventListener("offline", function () { online(false); });
 

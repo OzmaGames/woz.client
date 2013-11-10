@@ -7,11 +7,13 @@
 
   socket.on('connect', function () {
     console.log("%c" + "connected", "background: green; color: white");
+    app.trigger("socket:status", "connect");
     dfd.resolve();
   });
 
   socket.on('disconnect', function () {
     console.log("%c" + "disconnected", "background: red; color: white");
+    app.trigger("socket:status", "disconnect");
     dfd.reject();
   });
 
