@@ -53,22 +53,28 @@
         app.trigger('account:login', res);
         router.navigate("newGame");
       } else {
-        errorMessage(res.errorMessage);
+        errorMessage(res.message);
       }
     });
   }
 
   return {
     activate: function () {
+      
+    },
+    binding: function () {
       app.loading(true);
     },
     bindingComplete: function (view) {
       var dialog = $('.popup-dialog', view);
       var height = $(window).innerHeight();
-      console.log(dialog.css({ marginTop: (height - 500) / 2 }));
+      dialog.css({ marginTop: (height - 500) / 2 });
     },
     compositionComplete: function (view) {
       app.loading(false);
+    },
+    attached: function () {
+      
     },
 
     loading: app.loading,

@@ -2000,7 +2000,7 @@ input + span.error {
     visibility: hidden;
 }
 
-input:invalid + span.error {
+input:invalid + span.error, p.error {
     font-family: Cambria;
     font-style: italic;
     font-size: 1em;

@@ -39,13 +39,16 @@
         app.trigger('account:login', res);
         router.navigate("newGame");
       } else {
-        errorMessage('Error: ' + res.errorMessage);
+        errorMessage(res.message);
       }
     });
   }
 
   return {
     activate: function () {
+      
+    },
+    binding: function () {
       app.loading(true);
     },
     bindingComplete: function (view) {
