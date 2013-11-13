@@ -1,0 +1,176 @@
+﻿/*.actions {
+    background: #faf5ef;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.action {
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    width: 40px;
+    height: 40px;
+    display: block;
+    cursor: pointer;
+}
+
+.action i{
+    background: url('../images/icons.png') no-repeat;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    -moz-transition: background-image .5s ease;
+    -o-transition: background-image .5s ease;
+    -webkit-transition: background-image .5s ease;
+    transition: background-image .5s ease;
+}*/
+
+
+
+.icon {
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    -moz-transition: background-color .5s ease, opacity .5s ease;
+    -o-transition: background-color .5s ease, opacity .5s ease;
+    -webkit-transition: background-color .5s ease, opacity .5s ease;
+    transition: background-color .5s ease, opacity .5s ease;
+}
+    .icon.cancel, .icon.disabled {
+        border-color: #faf5ef;
+    }
+
+    .icon.cancel {
+        opacity: 0.9;
+        background-color: #f0323f;
+    }
+
+    .icon:hover:not(.disabled) {
+        border: 1px solid #b8b0a3;
+    }
+
+    .icon.disabled {
+        opacity: 0.4;
+        background-color: #000;
+    }
+        .icon.disabled i {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+
+    .icon:last-child {
+        margin-bottom: 0;
+    }
+
+    .icon i, .palette i {
+        background-repeat: no-repeat;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+        width: 40px;
+        height: 40px;
+        display: block;
+        -moz-transition: all .5s ease-in-out;
+        -o-transition: all .5s ease-in-out;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+        cursor: pointer;
+    }
+
+        .icon i:not(:empty) {
+            display: table-cell;
+            vertical-align: middle;
+            background-color: #bad7e4;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+            .icon i:not(:empty):hover, .icon i:not(:empty):active {
+                background-color: #8ab;
+            }
+
+    .icon.cancel i:not(:empty) {
+        -moz-transform: rotateY(360deg)!important;
+        -ms-transform: rotateY(360deg)!important;
+        -o-transform: rotateY(360deg)!important;
+        -webkit-transform: rotateY(360deg)!important;
+        transform: rotateY(360deg)!important;
+        background-color: orange;
+    }
+
+    .icon.cancel i {
+        -moz-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+
+    .icon.action {
+    }
+
+    .icon i.save {
+        background-color: pink;
+    }
+
+    .icon:active i.save, .icon:hover i.save {
+        background-color: hotpink;
+    }
+
+    .icon i.swap-words {
+        background-image: url('../images/game/swap-words-icon.png');
+    }
+
+    .icon:active:not(.disabled):not(.cancel) i.swap-words, .icon:hover:not(.disabled):not(.cancel) i.swap-words {
+        background-image: url('../images/game/swap-words-icon-active.png');
+    }
+
+    .icon.disabled i.swap-words {
+        background-image: url('../images/game/swap-words-icon-disabled.png');
+    }
+
+    .icon.cancel i.swap-words {
+        background-image: url('../images/game/swap-words-icon-cancel.png');
+    }
+
+    .icon i.circle-words {
+        background-image: url('../images/game/add-tile-icon.png');
+    }
+
+    .icon:active:not(.disabled) i.circle-words, .icon:hover:not(.disabled) i.circle-words {
+        background-image: url('../images/game/add-tile-icon-active.png');
+    }
+
+    .icon i.swap-tiles {
+        background-image: url('../images/game/swap-tile-icon.png');
+    }
+
+    .icon:active:not(.disabled) i.swap-tiles, .icon:hover:not(.disabled) i.swap-tiles {
+        background-image: url('../images/game/swap-tile-icon-active.png');
+    }
+
+    .icon i.resign {
+        background-image: url('../images/game/end-game-icon.png');
+    }
+
+    .icon:active:not(.disabled) i.resign {
+        background-image: url('../images/game/end-game-icon-active.png');
+    }
+
+i.disabled {
+    cursor: default;
+}
+
+i.menu {
+    height: 22px !important;
+    width: 40px!important;
+    background-image: url('../images/game/Menu_Btn_Up.png');
+}
+
+    i.menu:active:not(.disabled), i.menu:hover:not(.disabled) {
+        background-image: url('../images/game/Menu_Btn_Down.png');
+    }

@@ -202,11 +202,12 @@
     model.loadingStatus("Waiting for the server...");
 
     setTimeout(function () {
-      app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
-        model.loadingStatus("Waiting to pair up...");
-      });
-    }, 2000);
-    //app.trigger("game:start", entity);
+      //app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
+      //  model.loadingStatus("Waiting to pair up...");
+      //});
+      app.trigger("game:start", entity);
+    }, 1000);
+    
   };
 
   model.playedWords = ko.computed(function () {

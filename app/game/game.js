@@ -36,6 +36,7 @@
     }
 
     ctx.player.tickets.swap++;
+    paper.tool.remove();
   }
 
   var hasSwapTicket = ko.computed(function () {
@@ -171,9 +172,9 @@
           ctx.mode('');
         }
       };
-
       if (ctx.mode() == 'circle-words') {
-        module.unload();        
+        paper.tool.remove();
+        module.unload();
       } else {
         ctx.mode('circle-words');
         module.load();

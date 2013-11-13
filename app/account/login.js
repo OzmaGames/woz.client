@@ -54,7 +54,7 @@
     bindingComplete: function (view) {
       var dialog = $('.popup-dialog', view);
       var height = $(window).innerHeight();
-      console.log(dialog.css({ marginTop: (height - 300) / 2 }));
+      console.log(dialog.css({ marginTop: (height - 400) / 2 }));
     },
     compositionComplete: function (view) {
       app.loading(false);

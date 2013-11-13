@@ -26,7 +26,7 @@
       return "E-mail is required";
     }
     if (!validateEmail(email)) {
-      return "Incorrect E-mail address"
+      return "Incorrect e-mail address"
     }
     return "";
   }

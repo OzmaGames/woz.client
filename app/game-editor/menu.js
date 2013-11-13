@@ -18,7 +18,7 @@
           }          
           groups[level].value.push(board);
         }
-        activeItem(data[0]);
+        if(data.boards.length) activeItem(data.boards[0]);
         Groups.valueHasMutated();
       });
     },

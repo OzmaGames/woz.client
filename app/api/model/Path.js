@@ -24,9 +24,10 @@
       if (complete && !base.silence) {
         app.dialog.show("confirm", { modal: true }).then(function (result) {
           model.activeWords(null);
+          paper.tool.remove();
           if (result == "cancel") {
             base.phrase._complete(false);
-            base.removeAll();
+            base.removeAll();            
           }
           else {
             app.loading(true);

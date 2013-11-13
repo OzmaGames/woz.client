@@ -4,7 +4,7 @@
          <div id="tiles" data-bind="css: collection.short">
             <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }, css: {carry: carryingWords}">
                <div class="tile" data-bind="css: { active: active }, click: $root.toggleTile">
-                  <div class="mask" data-bind="style: { 'background-position-x': 'calc(100% / 19 * ' + imageId + ')' }">
+                  <div class="mask" data-bind="style: { 'background-position-x': (100 / 19 * imageId).toFixed(2) + '%'  }">
                      <div data-bind="fadeVisible: !$root.gameOver()">
                         <div class="instruction" data-bind="click: $root.help, clickBubble: false">
                            <span data-bind="text: instruction"></span>
