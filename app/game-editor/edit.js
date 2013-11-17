@@ -12,7 +12,7 @@
 
       base.id = id;
       base.level = ko.observable(1);
-      base.sandbox = ko.observable(true);
+      base.draft = ko.observable(true);
 
       lastID = 0;
     }
@@ -101,7 +101,7 @@
           }
 
           base.level(board.level);
-          base.sandbox(board.sandbox || true);
+          base.draft(board.draft || true);
         });
 
         ctx.words(entity.words);
