@@ -7,7 +7,7 @@
     var base = this;
     this.close = function (duration) {
       if(this.draggable) base.el.data("draggable").dispose();
-      return base.el.animate({ height: 0, opacity: 0 }, 250);
+      return base.el.animate({ height: 0, opacity: 0 }, 250).promise().then(function () { $(this).hide(); });
     }
 
     this.onClose = function () { }

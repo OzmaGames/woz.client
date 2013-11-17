@@ -1,26 +1,18 @@
-﻿<div>
-   <div class="popup-dialog-container">
-      <div class="ui-overlay1 1fullscreen"></div>
-      <div class="popup-dialog login">
-         <h1>Join The Game!</h1>
+﻿<h1>Join The Game!</h1>
 
-         <form data-bind="verifiableSubmit: login">
-            <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username" autofocus />
-            <span class="error" data-bind="text: username.errorMessage"></span>
-            <input type="password" placeholder="Password" data-bind="verifiableValue: password" />            
-            <span class="error" data-bind="text: password.errorMessage"></span>
-            
-            <p class="error" data-bind="text: errorMessage"></p>
+<form data-bind="verifiableSubmit: login">
+    <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username" autofocus />
+    <span class="error" data-bind="text: username.errorMessage"></span>
+    <input type="password" placeholder="Password" data-bind="verifiableValue: password" />
+    <span class="error" data-bind="text: password.errorMessage"></span>
 
-            <button class="blue" type="submit" data-bind="disable: loading()">
-               <span>LOG IN</span>
-               <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
-            </button>
-         </form>
+    <p class="error" data-bind="text: errorMessage"></p>
 
+    <button class="blue" type="submit" data-bind="disable: loading()">
+        <span>LOG IN</span>
+        <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+    </button>
+</form>
 
-         <a class="block link big space" data-bind="click: signUp">SIGN UP</a>
-         <a class="block link small">recover password</a>
-      </div>
-   </div>
-</div>
+<a class="block link big space" data-bind="click: signUp">SIGN UP</a>
+<a class="block link small" data-bind="click: recover">recover password</a>

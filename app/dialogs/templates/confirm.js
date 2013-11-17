@@ -38,7 +38,7 @@
     }    
   }
 
-  Confirm.prototype.attached = function (el) {
+  Confirm.prototype.compositionComplete = function (el) {
     this.el = $('.confirm', el);
 
     if (this.modal) this.el.parent().addClass('modal');

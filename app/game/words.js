@@ -57,11 +57,11 @@
         withinEl: $el.parent(),
 
         dragStart: function () {
-          if (ctx.mode() == 'swap') {
+          if (ctx.mode() == 'swapWords') {
             word.isSelected(word.isSelected() ^ 1);
           } else {
             ctx.activeWord(word);
-            $el.css({ rotate: '0deg' });
+            $el.css({ rotate: 0 });
           }
           word.originalX = word.x;
           word.originalY = word.y;
@@ -72,6 +72,11 @@
 
           word.x = data.hasMoved ? data.left / 100 : word.x;
           word.y = data.hasMoved ? data.top / 100 : word.y;
+
+          if (!word.isPlayed) {
+            word.originalX = word.x;
+            word.originalY = word.y;
+          }
         }
       }).hide();
 

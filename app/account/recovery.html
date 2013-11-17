@@ -1,0 +1,17 @@
+﻿<h1>Recover your password!</h1>
+
+<i class="command close" data-bind="click:login"></i>
+
+<form data-bind="verifiableSubmit: recover">   
+   <br />
+   <p>enter your email address bellow and you will receive an e-mail shortly giving you instruction to change your password.</p>
+   <input type="email" placeholder="e-mail" data-bind="verifiableValue: email" autofocus />
+   <span class="error" data-bind="text: email.errorMessage"></span>
+
+   <p class="error" data-bind="text: errorMessage"></p>
+
+   <button class="blue" type="submit" data-bind="disable: loading()">
+      <span>Send Request</span>
+      <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+   </button>
+</form>

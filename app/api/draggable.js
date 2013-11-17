@@ -95,6 +95,7 @@
           if (e.data.windowTop != 0 && e.pageY - e.data.windowTop < 100) {
             e.data.windowTop = e.data.windowTop - 50;
             if (e.data.windowTop < 0) e.data.windowTop = 0;
+            console.log("scrolled")
             $("body").animate({ scrollTop: e.data.windowTop }, "fast");
           }
         }

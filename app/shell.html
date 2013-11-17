@@ -6,14 +6,20 @@
       <div class="switch" data-bind="css: { b: status.cnn }">
          <span class="bad">Offline</span>
          <span class="good">Online</span>
-      </div>      
+      </div>
+      <div class="switch" data-bind="css: { b: errors().length }">
+         <span class="good"></span>
+         <span class="bad" data-bind="attr:{title: $root.summary}">
+            Errors on the page: <span data-bind="text: errors().length"></span>
+         </span>
+      </div>
    </div>
    <div class="loader pull-right" data-bind="css: { active: loading }">
       <i class="icon-spinner icon-2x icon-spin"></i>
    </div>
 
-   <div class="palette right" data-bind="visible: menuVisibility">
-      <i class="menu" data-bind="click: openMenu"></i>
+   <div class="palette right fixed" data-bind="visible: menuVisibility">
+      <i class="command menu" data-bind="click: openMenu"></i>
    </div>
    <!--ko router: { transition: 'entrance', cacheViews: true }--><!--/ko-->
 </div>

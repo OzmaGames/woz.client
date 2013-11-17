@@ -1,36 +1,41 @@
 ﻿<div>
-   <div style="margin: 30px 0 0 30px">
-      <button class="btn" data-bind="click: createNew">Create New Game Board</button>
-      <div class="loader active" data-bind="visible: !groups().length">
-         <i class="icon-spinner icon-2x icon-spin"></i>
-      </div>
-   </div>
-   <div class="grid" data-bind="foreach: groups">
-      <!-- ko if: $data -->
-      <h1>Level <span data-bind="text: key"></span></h1>
-      <div class="table" data-bind="foreach: { data: value, beforeRemove: $root.beingRemove }">
-         <div class="game-item" data-bind="click: $root.select, css: { active: $root.activeItem() == $data }">
-            <div class="cell" style="width: 400px" data-bind="click: $root.edit">
-               <div class="float left"
-                  style="height: 3em; width: 4em; position: relative; margin-right: 10px; box-shadow: 0 0 1px #986B31; background-color: #F1EAD7"
-                  data-bind="foreach: tiles">
-                  <a data-bind="style: { left: 100 * x + '%', top: 100 * y + '%' }"
-                     style="display: block; background-color: rgba(255, 106, 0, .5); width: 10px; height: 10px; border-radius: 100%; position: absolute; margin-left: -5px; margin-top: -5px"></a>
-               </div>
-               <div class="float left">
-                  <div>#Tiles: <span class="bold" data-bind="text: tiles.length"></span></div>
-                  <div>#Paths: <span class="bold" data-bind="text: paths.length"></span></div>
-               </div>
-               <div class="float left">
-                  <div style="margin-top:1em;margin-left:2em">
-                     <span class="bold" data-bind="text: new Date(lastMod).toLocaleDateString() + ' ' + new Date(lastMod).toLocaleTimeString()"></span></div>
-               </div>
-               <div class="float right visibleOnHover visibleOnActive" style="margin-top: 5px;">
-                  <button class="right" data-bind="click: $root.remove, clickBubble: false">Remove</button>
-               </div>               
+    <div style="margin: 30px 0 0 30px">
+        <button class="orange flat" data-bind="click: createNew">Create New Game Board</button>
+        <div class="loader active" data-bind="visible: !groups().length">
+            <i class="icon-spinner icon-2x icon-spin"></i>
+        </div>
+    </div>
+    <div class="grid" data-bind="foreach: groups">
+        <!-- ko if: $data -->
+        <h1>Level <span data-bind="text: key"></span></h1>
+        <div class="table" data-bind="foreach: { data: value, beforeRemove: $root.beingRemove }">
+            <div class="game-item" data-bind="click: $root.select, css: { active: $root.activeItem() == $data }">
+                <div class="cell" style="width: 500px" data-bind="click: $root.edit">
+                    <div class="float left"
+                         style="height: 3em; width: 4em; position: relative; margin-right: 10px; box-shadow: 0 0 1px #986B31; background-color: #F1EAD7"
+                         data-bind="foreach: tiles">
+                        <a data-bind="style: { left: 100 * x + '%', top: 100 * y + '%' }"
+                           style="display: block; background-color: rgba(255, 106, 0, .5); width: 10px; height: 10px; border-radius: 100%; position: absolute; margin-left: -5px; margin-top: -5px"></a>
+                    </div>
+                    <div class="float left">
+                        <div>#Tiles: <span class="bold" data-bind="text: tiles.length"></span></div>
+                        <div>#Paths: <span class="bold" data-bind="text: paths.length"></span></div>
+                    </div>
+                    <div class="float left">
+                        <div style="margin-left:2em">
+                            <span data-bind="text: new Date(lastMod).toLocaleDateString() + ' ' + new Date(lastMod).toLocaleTimeString()"></span>
+                        </div>
+                        <div style="margin-left:2em">
+                            <span data-bind="if: draft">Draft</span>
+                           <span data-bind="ifnot: draft">Published</span>
+                        </div>
+                    </div>
+                    <div class="float right visibleOnHover visibleOnActive" >
+                        <button class="right blue flat" data-bind="click: $root.remove, clickBubble: false">Remove</button>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <!-- /ko -->
-   </div>
+        </div>
+        <!-- /ko -->
+    </div>
 </div>

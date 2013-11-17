@@ -3,6 +3,7 @@
   app.commandMenuVisibility = ko.observable(true);
   var connected = ko.observable(false);
   var online = ko.observable(false);
+  var errors = ko.observableArray();  
 
   cnn.connected
     .then(function () { connected(true); })
@@ -15,13 +16,28 @@
   window.addEventListener("online", function () { online(true); });
   window.addEventListener("offline", function () { online(false); });
 
+  window.addEventListener("error", function (e) {
+    errors.push(e);
+  });
+  
   return {
     router: router,
     loading: ko.computed(function () { return router.isNavigating() || app.loading() }),
     status: {
       cnn: connected,
       online: online
-    },  
+    },
+    errors: errors,
+    summary: ko.computed(function () {
+      var str = "";
+      ko.utils.arrayForEach(errors(), function (e) {
+        str += e.message;
+        str += '\n';
+        str += e.lineno + ' ' + e.filename
+        str += '\n';
+      });
+      return str;
+    }),
     activate: function () {
       window.router = router;
       return router.map([

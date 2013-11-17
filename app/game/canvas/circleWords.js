@@ -56,11 +56,11 @@
 
       if (selection.length < 3) {
         console.log("Too few words!");
-        dfd.reject(selection);
+        //dfd.reject(selection);
       } else if (selection.length > 9) {
         console.log("Too many words!");
         app.dialog.show("alert", { content: "Too many words!" });
-        dfd.reject(selection);
+        //dfd.reject(selection);
       } else {        
         selection = Sort(selection);        
         for (var i = 0; i < selection.length; i++) console.log(selection[i].lemma);

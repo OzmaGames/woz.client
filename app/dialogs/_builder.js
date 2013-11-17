@@ -65,10 +65,10 @@
       });
     }
 
-    function show(obj, data, context) {
+    function show(obj, activationData, context) {
       return system.defer(function (dfd) {
-        $.when(ensureInstance(obj), ensureInstance(data), getHost(obj, true), setup(obj))
-          .then(function (instance, activationData, host) {
+        $.when(ensureInstance(obj), getHost(obj, true), setup(obj))
+          .then(function (instance, host) {
             var dialogActivator = activator.create();
             dialogActivator.activateItem(instance, activationData).then(function (success) {
               if (success) {
@@ -146,10 +146,10 @@
 
     return {
       show: function (type, activationData, context) {
-        return show('dialogs/' + type, activationData, context);
+        return show('dialogs/templates/' + type, activationData, context);
       },
       close: function (type, deactivationData) {
-        return close('dialogs/' + type, deactivationData);
+        return close('dialogs/templates/' + type, deactivationData);
       }
     };
   });

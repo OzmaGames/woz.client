@@ -31,7 +31,6 @@
           }
           else {
             app.loading(true);
-            $("body").animate({ scrollTop: 0 }, "slow");
             model.player.active(false);
             var data = {
               gameID: model.gameID,
@@ -40,7 +39,8 @@
               words: ko.utils.arrayMap(base.phrase.words(), function (word) { return word.word.id; })
             };
             app.trigger("server:game:place-phrase", data);
-          }          
+            app.scrollUp();
+          }
         });
       }
       ko.utils.arrayForEach(base.phrase.words(), function (word) {

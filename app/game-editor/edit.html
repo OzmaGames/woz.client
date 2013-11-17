@@ -1,43 +1,36 @@
 ﻿<div>
     <div id="game-main">
         <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
+        <div class="logo"></div>
         <!--ko compose: 'game-editor/tiles'--><!--/ko-->
         <hr />
-        <!--ko compose: 'game/words'--><!--/ko-->
-        <div class="logo-absolute">
-            <div class="logo-fixed-size">
-                <div class="logo-wrapper">
-                    <div class="logo"></div>
-                </div>
-            </div>
+        <div>
+            <label class="sm">
+                Game Level:
+                <input type="number" data-bind="value: level" max="3" min="1"
+                       style="position:absolute; width: 2em; padding: .5em; border: 1px solid #d7bea2; background-color: #F9F8F4; border-radius: 5px; float:right; top:.7em;right:2em" />
+            </label>
+            <label class="sm">
+                Draft:
+               <input type="checkbox" data-bind="value: draft" /> <span></span>
+            </label>
+
         </div>
-        <div style="position:absolute; left:10px;top:10px;z-index:4">
-            Game Level:
-            <input type="number" data-bind="value: level" max="3" min="1"
-                style="width:40px;padding:.8em;border: 1px solid #d7bea2;background-color:#F9F8F4; border-radius:5px" />
-        </div>
+        <!--ko compose: 'game/words'--><!--/ko-->        
     </div>
     <div id="game-players" data-bind="compose: 'game/players'"></div>
     <div id="menu">
-        <div class="palette" id="palette-left">
-            <div class="action-icons">
-                <div class="icon action" data-bind="click: addTile">
-                    <i class="circle-words"></i>
-                </div>
-                <div class="icon action" data-bind="click: save">
-                    <i class="save">save</i>
-                </div>
-                <div class="icon action" data-bind="click: debug, css: { cancel: debugMode }">
-                    <i class="debug">debug</i>
-                </div>
+        <div class="palette left">
+            <div class="actions">
+                <i class="command green" data-bind="click: addTile"><span>add tile</span></i>
+                <i class="command pink" data-bind="click: save"><span>save</span></i>
+                <i class="action" data-bind="click: debug, css: { cancel: debugMode }"><span>debug</span></i>
             </div>
         </div>
 
-        <div class="palette" id="palette-right">
-            <div class="action-icons">
-                <div class="icon action" data-bind="click: back">
-                    <i class="back">BACK</i>
-                </div>               
+        <div class="palette right">
+            <div class="actions">
+                <i class="command back" data-bind="click: back"><span>BACK</span></i>
             </div>
         </div>
     </div>

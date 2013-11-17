@@ -36,12 +36,17 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: cambria!important;
+    font-family: cambria !important;
     font-weight: normal;
     color: #986B31;
     -webkit-text-shadow: 0px 0px 1px #986B31;
     text-shadow: 0px 0px 1px #986B31;
     -webkit-font-smoothing: antialiased;
+    cursor: default;
+}
+
+p {
+    cursor: default;
 }
 
 h1 {
@@ -106,8 +111,12 @@ h5 {
     display: none;
 }
 
+.curly {
+    font-family: GreatVibesRegular !important;
+}
+
 .logo {
-    background: url('../images/app/title/logo.png') no-repeat;
+    background: url('../images/app/logo.png') no-repeat;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
     -webkit-background-size: 100% auto;
@@ -128,7 +137,7 @@ h5 {
     }
 
     #login-page .background.footer {
-        background: url('../images/footer.png') no-repeat;
+        background: url('../images/app/footer.png') no-repeat;
         background-position: bottom center;
         -moz-background-size: 100% auto;
         -o-background-size: 100% auto;
@@ -167,7 +176,7 @@ h5 {
         -webkit-background-size: auto 100%;
         background-size: auto 100%;
         background-position: center top;
-        z-index: 1;
+        z-index: 0;
         -moz-transition: left 1s ease-in-out, height 1s ease-in-out;
         -o-transition: left 1s ease-in-out, height 1s ease-in-out;
         -webkit-transition: left 1s ease-in-out, height 1s ease-in-out;
@@ -180,7 +189,6 @@ h5 {
         #game-main .logo.loading {
             top: 100px;
             height: 200px;
-            
         }
 
     #game-main hr {
@@ -215,26 +223,23 @@ h5 {
             background: radial-gradient(ellipse at center, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
         }
 
-#palette-right, #palette-left {
-    -moz-transition: .3s top ease-in-out;
-    -o-transition: .3s top ease-in-out;
-    -webkit-transition: .3s top ease-in-out;
-    transition: .3s top ease-in-out;
-}
-
 .palette {
     top: 100px;
     position: fixed;
     z-index: 99;
+    -moz-transition: top .3s ease-in-out;
+    -o-transition: top .3s ease-in-out;
+    -webkit-transition: top .3s ease-in-out;
+    transition: top .3s ease-in-out;
 }
 
-#palette-left {
-    left: 20px;
-}
+    .palette.left {
+        left: 20px;
+    }
 
-#palette-right, .palette.right {
-    right: 20px;
-}
+    .palette.right {
+        right: 20px;
+    }
 
 #players {
     position: absolute;
@@ -270,6 +275,7 @@ h5 {
         }
 
     .player .name {
+        font-family: Cambria;
         text-align: center;
     }
 
@@ -285,9 +291,7 @@ h5 {
         left: 0;
         bottom: 0;
         right: 0;
-        z-index: 100;
-        -moz-box-shadow: 5px 5px 10px 0 #976b2c;
-        -webkit-box-shadow: 5px 5px 10px 0 #976b2c;
+        z-index: 99;
         box-shadow: 5px 5px 10px 0 #976b2c;
         display: none;
     }
@@ -336,202 +340,189 @@ h5 {
         height: 100%;
     }
 
-    #tiles .tile {
+.tile {
+    position: absolute;
+    z-index: 3;
+    width: 160px;
+    height: 160px;
+    cursor: pointer !important;
+    left: 50%;
+    top: 50%;
+    margin-left: -80px;
+    margin-top: -80px;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+    -o-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+    -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+    transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+}
+
+    .tile.active {
+        height: 100%;
+        width: 100%;
+        top: 80px !important;
+        z-index: 5;
+    }
+
+        .tile.active .instruction, .carry .instruction:hover {
+            left: 50%;
+            top: 10px;
+            opacity: 0;
+        }
+
+        .tile.active .mask {
+            border-width: 10px;
+        }
+
+    .tile.drag {
+        -moz-transition: none !important;
+        -o-transition: none !important;
+        -webkit-transition: none !important;
+        transition: none !important;
+    }
+
+    .tile .mask {
+        position: relative;
+        z-index: 4;
+        border-radius: 50%;
+        box-shadow: 5px 5px 10px 0 #333;
+        border: 5px solid #fff;
+        width: 100%;
+        height: 100%;
+        background-position: left center;
+        background-repeat: no-repeat;
+        -moz-background-size: auto 100%;
+        -o-background-size: auto 100%;
+        -webkit-background-size: auto 100%;
+        background-size: auto 100%;
+        -moz-transition: height .5s ease-in-out, width .5s ease-in-out, border-width .5s ease-in-out;
+        -o-transition: height .5s ease-in-out, width .5s ease-in-out, border-width .5s ease-in-out;
+        -webkit-transition: height .5s ease-in-out, width .5s ease-in-out, border-width .5s ease-in-out;
+        transition: height .5s ease-in-out, width .5s ease-in-out, border-width .5s ease-in-out;
+    }
+
+        .tile .mask .big {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 100%;
+        }
+
+    .tile .instruction {
+        -moz-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
+        -o-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
+        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
+        transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
+    }
+
+        .tile .instruction .help, .instruction .help {
+            position: absolute;
+            top: 12px;
+            right: 0px;
+        }
+
+    .tile .instruction, body .instruction {
+        z-index: 5;
         position: absolute;
-        z-index: 3;
-        width: 160px;
-        height: 160px;
-        cursor: pointer!important;
-        left: 50%;
-        top: 50%;
-        margin-left: -80px;
-        margin-top: -80px;
+        top: -30px;
+        left: 10px;
+        width: 80px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px 0 20px;
+        border-radius: 50%;
+        box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
+        text-align: center;
+        line-height: 100%;
+        font-family: CopseRegular;
+        font-size: medium;
+        color: #296e8b;
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
         backface-visibility: hidden;
-        -moz-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
-        -o-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
-        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
-        transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-shadow: 0px 0px 1px #bad7e4;
+        text-shadow: 0px 0px 1px #bad7e4;
     }
 
-        #tiles .tile.active {
-            height: 100%;
-            width: 100%;
-            top: 80px !important;
-            z-index: 4;
+        .tile .instruction .info, body .instruction .info {
+            margin-top: 5px;
+            font-family: GreatVibesRegular;
+            font-weight: bold;
+            font-size: large;
         }
 
-            #tiles .tile.active .instruction, .carry .instruction:hover {
-                left: 50%;
-                top: 10px;
-                opacity: 0;
-            }
-
-        #tiles .tile.drag {
-            -moz-transition: none!important;
-            -o-transition: none!important;
-            -webkit-transition: none!important;
-            transition: none!important;
-        }
-
-        #tiles .tile .mask {
-            position: relative;
-            z-index: 4;
-            border-radius: 50%;
-            box-shadow: 5px 5px 10px 0 #333;
-            border: 5px solid #fff;
-            width: 100%;
-            height: 100%;
-            background-position: left center;
-            background-repeat: no-repeat;
-            -moz-background-size: auto 100%;
-            -o-background-size: auto 100%;
-            -webkit-background-size: auto 100%;
-            background-size: auto 100%;
-            -moz-transition: height .5s ease-in-out, width .5s ease-in-out;
-            -o-transition: height .5s ease-in-out, width .5s ease-in-out;
-            -webkit-transition: height .5s ease-in-out, width .5s ease-in-out;
-            transition: height .5s ease-in-out, width .5s ease-in-out;
-        }
-
-            #tiles .tile .mask .big {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                -webkit-background-size: cover;
-                background-size: cover;
-                background-repeat: no-repeat;
-                border-radius: 100%;
-            }
-
-        #tiles .tile .instruction {
-            -moz-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
-            -o-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
-            -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
-            transition: left .5s ease-in-out, top .5s ease-in-out, opacity .5s ease-in-out;
-        }
-
-            #tiles .tile .instruction .help, body .instruction .help {
-                position: absolute;
-                content: "";
-                top: 15px;
-                right: 0px;
-                background-image: url(../images/game/Help_Btn_Up.png);
-                -moz-background-size: 100% 100%;
-                -o-background-size: 100% 100%;
-                -webkit-background-size: 100% 100%;
-                background-size: 100% 100%;
-                width: 25px;
-                height: 25px;
-                cursor: pointer;
-            }
-
-                #tiles .tile .instruction .help:hover, body .instruction .help:hover {
-                    background-image: url(../images/game/Help_Btn_Down.png);
-                }
-
-        #tiles .tile .instruction, body .instruction {
-            z-index: 5;
-            position: absolute;
-            top: -30px;
-            left: 10px;
-            width: 80px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px 0 20px;
-            border-radius: 50%;
-            -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
-            box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
-            text-align: center;
-            line-height: 100%;
-            font-family: CopseRegular;
-            font-size: medium;
-            color: #296e8b;
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-shadow: 0px 0px 1px #bad7e4;
-            text-shadow: 0px 0px 1px #bad7e4;
-        }
-
-            #tiles .tile .instruction .info, body .instruction .info {
-                margin-top: 5px;
-                font-family: GreatVibesRegular;
-                font-weight: bold;
-                font-size: large;
-            }
-
-        #tiles .tile .rest {
-            position: absolute;
-            z-index: 5;
-            right: -30px;
-            top: 0;
-            visibility: hidden;
-        }
-
-        #tiles .tile:hover .rest {
-            visibility: visible;
-        }
-
-        #tiles .tile .rest .thumbnail {
-            margin-bottom: 3px;
-            border: 3px solid white;
-            border-radius: 100%;
-            width: 40px;
-            height: 40px;
-            -moz-background-size: 100% 100%;
-            -o-background-size: 100% 100%;
-            -webkit-background-size: 100% 100%;
-            background-size: 100% 100%;
-        }
-
-            #tiles .tile .rest .thumbnail:hover {
-                border-color: orange;
-            }
-
-            #tiles .tile .rest .thumbnail:last-child {
-                margin-bottom: 0;
-            }
-
-        #tiles .tile .control {
-            visibility: hidden;
-            position: absolute;
-            top: 50px;
-            left: 0px;
-            width: 60px;
-            height: 70px;
-            z-index: 5;
-            background-color: white;
-            border-radius: 100%;
-            color: #976b2c;
-        }
-
-        #tiles .tile:hover .control {
-            visibility: visible;
-        }
-
-    #tiles.woz .mask {
-        background-image: url('../images/tiles/woz.jpg');
+    .tile .rest {
+        position: absolute;
+        z-index: 5;
+        right: -30px;
+        top: 0;
+        visibility: hidden;
     }
 
-    #tiles.nf .mask {
-        background-image: url('../images/tiles/nf.jpg');
+    .tile:hover .rest {
+        visibility: visible;
     }
+
+    .tile .rest .thumbnail {
+        margin-bottom: 3px;
+        border: 3px solid white;
+        border-radius: 100%;
+        width: 40px;
+        height: 40px;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+    }
+
+        .tile .rest .thumbnail:hover {
+            border-color: orange;
+        }
+
+        .tile .rest .thumbnail:last-child {
+            margin-bottom: 0;
+        }
+
+    .tile .control {
+        visibility: hidden;
+        position: absolute;
+        top: 50px;
+        left: 0px;
+        width: 60px;
+        height: 70px;
+        z-index: 5;
+        background-color: white;
+        border-radius: 100%;
+        color: #976b2c;
+    }
+
+    .tile:hover .control {
+        visibility: visible;
+    }
+
+#tiles.woz .mask {
+    background-image: url('../images/tiles/woz.jpg');
+}
+
+#tiles.nf .mask {
+    background-image: url('../images/tiles/nf.jpg');
+}
 
 #workspace {
     position: relative;
     width: auto;
     height: 500px;
-    /*padding: 10px;*/
 }
-
-
 
 .magnet {
     position: absolute !important;
@@ -539,27 +530,15 @@ h5 {
     padding: 2px 4px;
     border: 1px solid #e8e0d3;
     background-color: #fff;
-    -moz-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
-    -ms-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
-    -o-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
-    -webkit-box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
     box-shadow: 1px 1px 2px #333, inset -1px -1px 4px #ccc;
     color: #38270b;
     font-size: 22px;
     font-family: CopseRegular;
     cursor: pointer;
-    -moz-transition-duration: .2s,.2s,0,0,0;
-    -o-transition-duration: .2s,.2s,0,0,0;
-    -webkit-transition-duration: .2s,.2s,0,0,0;
-    -moz-transition-property: all, box-shadow, opacity, width, height;
-    -o-transition-property: all, box-shadow, opacity, width, height;
-    -webkit-transition-property: all, box-shadow, opacity, width, height;
-    -moz-transition-timing-function: ease-in-out;
-    -o-transition-timing-function: ease-in-out;
-    -webkit-transition-timing-function: ease-in-out;
-    transition-timing-function: ease-in-out;
-    transition-duration: .2s,.2s,0,0,0;
-    transition-property: all, box-shadow, opacity, width, height;
+    -moz-transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
+    -o-transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
+    -webkit-transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
+    transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -567,16 +546,12 @@ h5 {
 
     .magnet.related {
         border-width: 2px;
-        -moz-box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
-        -webkit-box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
         box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
         border: 1px solid #f5cf76;
     }
 
     .magnet.selected {
         border-width: 2px;
-        -moz-box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
-        -webkit-box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
         box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
         border: 1px solid #986B31;
         border-radius: 3px;
@@ -597,31 +572,29 @@ h5 {
     }
 
     .magnet.drag {
-        -moz-transform: scale(1.1)!important;
-        -ms-transform: scale(1.1)!important;
-        -o-transform: scale(1.1)!important;
-        -webkit-transform: scale(1.1)!important;
-        transform: scale(1.1)!important;
+        -moz-transform: scale(1.1) !important;
+        -ms-transform: scale(1.1) !important;
+        -o-transform: scale(1.1) !important;
+        -webkit-transform: scale(1.1) !important;
+        transform: scale(1.1) !important;
         -moz-transition: all 0;
         -o-transition: all 0;
         -webkit-transition: all 0;
         transition: all 0;
-        /*-webkit-box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;
-        box-shadow: 7px 7px 7px #444, inset -1px -1px 4px #ccc;*/
     }
 
     .magnet:hover:not(.drag):not(:active):not(.placed) {
-        -moz-transform: scale(1.05)!important;
-        -ms-transform: scale(1.05)!important;
-        -o-transform: scale(1.05)!important;
-        -webkit-transform: scale(1.05)!important;
-        transform: scale(1.05)!important;
+        -moz-transform: scale(1.05) !important;
+        -ms-transform: scale(1.05) !important;
+        -o-transform: scale(1.05) !important;
+        -webkit-transform: scale(1.05) !important;
+        transform: scale(1.05) !important;
         border-color: #b8b0a3;
         border-radius: 4px;
     }
 
     .magnet.placed {
-        cursor: default!important;
+        cursor: default !important;
     }
 
 #tiles .magnet {
@@ -659,48 +632,22 @@ h5 {
         padding-top: 2px;
         font-family: CopseRegular;
         text-align: center;
-    
         /* background-color: black; */
         /* z-index: -7; */
-}
+    }
 
     .magnet-placeholder.hover .box, .magnet-placeholder.hover .circle {
         box-shadow: 0 0 15px #986B31, 0 0 15px #986B31 inset;
     }
 
 
-.button-small {
-    font-weight: bold;
-    font-size: small;
-    padding: 5px;
-    border: 2px solid #fff;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    margin: 20px 10px 20px 20px;
-    text-align: center;
-    background-image: url('../images/button-background-up.jpg');
-}
 
-    .button-small:active, .button-small.active {
-        background-image: url('../images/button-background-down.jpg');
-    }
-
-    .button-small:disabled, .button-small.disabled {
-        background-image: url('../images/button-background-disabled.jpg');
-    }
-
-    .button-small:hover {
-        transform: scale(1.1);
-        transition: all .2s ease-in-out;
-    }
 
 .ui-overlay {
     background: #666;
     opacity: .3;
 }
+
     .ui-overlay.fullscreen {
         position: fixed;
         top: 0;
@@ -785,10 +732,6 @@ a.small {
         padding: 20px 30px;
         border-radius: 50% 50% 50% 50%;
         background-color: rgba(255, 255, 255, 0.9);
-        -moz-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
-        -ms-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
-        -o-box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
-        -webkit-box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.9);
         box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
         color: #b49363;
         font-family: CopseRegular;
@@ -886,7 +829,7 @@ ul.container.y {
             }
 
             .grid ul li:active, .grid ul li.active {
-                background-color: #d9cfc0!important;
+                background-color: #d9cfc0 !important;
                 font-weight: bold;
                 cursor: default;
             }
@@ -947,15 +890,15 @@ ul.container.y {
     }
 
 .pic.woz {
-    background-image: url('../images/game/wordsofoz_collection.png');
+    background-image: url('../images/tiles/couple-woz.png');
 }
 
 .pic.nf {
-    background-image: url('../images/game/nightfall_collection.png');
+    background-image: url('../images/tiles/couple-nf.png');
 }
 
 .pic.loc {
-    background-image: url('../images/game/lifeofcolor_collection.png');
+    background-image: url('../images/tiles/couple-loc.png');
 }
 
 .grid .table {
@@ -975,12 +918,6 @@ ul.container.y {
     text-shadow: 0 0 1px #986B31;
     -webkit-font-smoothing: antialiased;
 }
-
-    .game-item button, button.btn {
-        border: 1px solid #d7bea2;
-        border-radius: 3px;
-        padding: .5em 1em;
-    }
 
     .game-item .float.right {
         float: right;
@@ -1021,136 +958,136 @@ ul.container.y {
         visibility: visible;
     }
 
-.game-item .cell.left {
-    width: 60em;
-}
-
-.game-item .cell.right {
-    width: 15em;
-}
-
-.game-item .pic {
-    position: absolute;
-    top: -.75em;
-    height: 7em;
-    width: 8em;
-    -moz-background-size: auto 100%;
-    -o-background-size: auto 100%;
-    -webkit-background-size: auto 100%;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-}
-
-    .game-item .pic + div {
-        margin-left: 9em;
+    .game-item .cell.left {
+        width: 60em;
     }
 
-.game-item .name {
-    font-weight: bold;
-}
-
-.game-item .collection {
-    font-style: italic;
-    margin-right: .2em;
-}
-
-.game-item .date {
-    font-style: italic;
-}
-
-.game-item .phrase {
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
-    .game-item .phrase:after, .game-item .phrase:before {
-        content: '"';
+    .game-item .cell.right {
+        width: 15em;
     }
 
-.game-item .point {
-    font-weight: bold;
-}
-
-    .game-item .point:after {
-        content: " points";
-    }
-
-.game-item .bold {
-    font-weight: bold;
-}
-
-.game-item .italic {
-    font-style: italic;
-}
-
-.game-item .icons {
-    position: relative;
-}
-
-    .game-item .icons .time {
-        border: 1px solid #d7bea2;
-        border-radius: 3px;
-        box-shadow: 0 0 2px #d7bea2;
-        padding: 0 2px;
-        display: inline-block;
-    }
-
-    .game-item .icons .chat {
+    .game-item .pic {
         position: absolute;
-        top: -.25em;
-        display: inline-block;
-        width: 2.5em;
-        height: 2.5em;
-        padding-left: .5em;
-        background-image: url('../images/game/chat.png');
-        -moz-background-size: 100% 100%;
-        -o-background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
-    }
-
-        .game-item .icons .chat > div {
-            padding: .4em 0 0 .8em;
-            font-size: .8em;
-        }
-
-    .game-item .icons .resign {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 2em;
-        height: 2em;
-        background-image: url('../images/game/end-game-icon.png');
-        background-repeat: no-repeat;
-        -moz-background-size: 100% 100%;
-        -o-background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
-    }
-
-        .game-item .icons .resign:hover, .game-item .icons .resign:active {
-            background-image: url('../images/game/end-game-icon-active.png');
-        }
-
-.game-item .players {
-    position: absolute;
-    bottom: .5em;
-    left: 0;
-    line-height: 1em;
-    width: 10.5em;
-}
-
-    .game-item .players .player {
-        font-size: .8em;
-        float: left;
-        margin-left: 1em;
+        top: -.75em;
+        height: 7em;
         width: 8em;
+        -moz-background-size: auto 100%;
+        -o-background-size: auto 100%;
+        -webkit-background-size: auto 100%;
+        background-size: auto 100%;
+        background-repeat: no-repeat;
     }
 
-    .game-item .players .score {
-        float: right;
+        .game-item .pic + div {
+            margin-left: 9em;
+        }
+
+    .game-item .name {
         font-weight: bold;
     }
+
+    .game-item .collection {
+        font-style: italic;
+        margin-right: .2em;
+    }
+
+    .game-item .date {
+        font-style: italic;
+    }
+
+    .game-item .phrase {
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+        .game-item .phrase:after, .game-item .phrase:before {
+            content: '"';
+        }
+
+    .game-item .point {
+        font-weight: bold;
+    }
+
+        .game-item .point:after {
+            content: " points";
+        }
+
+    .game-item .bold {
+        font-weight: bold;
+    }
+
+    .game-item .italic {
+        font-style: italic;
+    }
+
+    .game-item .icons {
+        position: relative;
+    }
+
+        .game-item .icons .time {
+            border: 1px solid #d7bea2;
+            border-radius: 3px;
+            box-shadow: 0 0 2px #d7bea2;
+            padding: 0 2px;
+            display: inline-block;
+        }
+
+        .game-item .icons .chat {
+            position: absolute;
+            top: -.25em;
+            display: inline-block;
+            width: 2.5em;
+            height: 2.5em;
+            padding-left: .5em;
+            background-image: url('../images/game/chat.png');
+            -moz-background-size: 100% 100%;
+            -o-background-size: 100% 100%;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+
+            .game-item .icons .chat > div {
+                padding: .4em 0 0 .8em;
+                font-size: .8em;
+            }
+
+        .game-item .icons .resign {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2em;
+            height: 2em;
+            background-image: url('../images/game/end-game-icon.png');
+            background-repeat: no-repeat;
+            -moz-background-size: 100% 100%;
+            -o-background-size: 100% 100%;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+
+            .game-item .icons .resign:hover, .game-item .icons .resign:active {
+                background-image: url('../images/game/end-game-icon-active.png');
+            }
+
+    .game-item .players {
+        position: absolute;
+        bottom: .5em;
+        left: 0;
+        line-height: 1em;
+        width: 10.5em;
+    }
+
+        .game-item .players .player {
+            font-size: .8em;
+            float: left;
+            margin-left: 1em;
+            width: 8em;
+        }
+
+        .game-item .players .score {
+            float: right;
+            font-weight: bold;
+        }
 /*#endregion */
 
 
@@ -1172,10 +1109,6 @@ ul.container.y {
     font-size: .7em;
     z-index: 1;
     cursor: default;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
 }
 
     .status-box .switch {
@@ -1186,17 +1119,18 @@ ul.container.y {
         height: 1em;
     }
 
-        .status-box .switch span {
+        .status-box .switch > span {
             display: block;
             margin-top: 0;
             -moz-transition: margin-top .5s;
             -o-transition: margin-top .5s;
             -webkit-transition: margin-top .5s;
             transition: margin-top .5s;
+            height: 1em;
             opacity: .4;
         }
 
-        .status-box .switch.b span:first-child {
+        .status-box .switch.b > span:first-child {
             margin-top: -.97em;
         }
 

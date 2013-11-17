@@ -21,53 +21,43 @@
     return "";
   }
 
-  function login(el) {    
-    app.loading(true);
-
-    var data = {
-      username: username(),
-      //password: CryptoJS.SHA3(constants.salt + username() + password()).toString()
-      password: 12345
-    };
-
-    app.trigger("server:account:login", data, function (res) {
-
-      app.loading(false);
-
-      if (res.success) {
-        res.username = username();
-        app.trigger('account:login', res);
-        router.navigate("newGame");
-      } else {
-        errorMessage(res.message);
-      }
-    });
-  }
-
-  return {
-    activate: function () {
-      
-    },
-    binding: function () {
-      app.loading(true);
-    },
-    bindingComplete: function (view) {
-      var dialog = $('.popup-dialog', view);
-      var height = $(window).innerHeight();
-      console.log(dialog.css({ marginTop: (height - 400) / 2 }));
-    },
-    compositionComplete: function (view) {
-      app.loading(false);
-    },
-
+  return {   
     loading: app.loading,
     username: username,
     password: password,
     errorMessage: errorMessage,
-    login: login,
 
     signUp: function () {
       app.trigger('account:view:change', 'account/sign-up');
+    },
+
+    recover: function () {
+      app.trigger('account:view:change', 'account/recovery');
+    },
+
+    login: function(el) {    
+      app.loading(true);
+
+      var data = {
+        username: username(),
+        //password: CryptoJS.SHA3(constants.salt + username() + password()).toString()
+        password: 12345
+      };
+
+      app.trigger("server:account:login", data, function (res) {
+
+        app.loading(false);
+
+        if (res.success) {
+          res.username = username();
+          app.dialog.close("panel");
+          app.trigger('account:login', res);          
+          router.navigate("newGame");
+        } else {
+          errorMessage(res.message);
+        }
+      });
     }
+
   };
 });

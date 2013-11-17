@@ -1,33 +1,24 @@
-﻿<div>   
-    <img id="star" src="images/core/stardust/star.png" style="display: none;" />    
+﻿<div>
+    <img id="star" src="images/app/star.png" style="display: none;" />
 
     <div id="game-main">
         <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
+        <div class="logo" data-bind="css: { loading: loading }"></div>
         <!--ko compose: 'game/tiles'--><!--/ko-->
         <hr />
-        <!--ko compose: 'game/words'--><!--/ko-->
-        <div class="logo" data-bind="css: { loading: loading }"></div>
+        <!--ko compose: 'game/words'--><!--/ko-->        
     </div>
     <div id="game-players" data-bind="compose: 'game/players'"></div>
 
     <div id="menu" data-bind="visible: !loading()">
-        <div class="palette" id="palette-left">
-            <div class="action-icons">
-                <div class="icon action" data-bind="click: swap, css: { disabled: !allowSwap(), cancel: (mode() === 'swap') }">
-                    <i class="swap-words"></i>
-                </div>
-                <div class="icon action" data-bind="click: circle, css: { disabled: !allowCircle(), cancel: (mode() === 'circle-words') }">
-                    <i class="circle-words"></i>
-                </div>
+        <div class="palette left">
+            <div class="actions">
+                <i class="action swapWords" data-bind="click: swapWords, css: { cancel: (mode() === 'swapWords'), disabled: !allowSwap()}"></i>
+                <i class="action circleWords" data-bind="click: circleWords, css: { cancel: (mode() === 'circleWords'), disabled: !allowCircle() }"></i>
             </div>
         </div>
-        
-        <div class="palette" id="palette-right">
-            <div class="action-icons">
-                <div class="icon action" data-bind="click: resign, css: {disabled: !allowResign()}">
-                    <i class="resign"></i>
-                </div>
-            </div>
+        <div class="palette right">
+            <i class="command quit" data-bind="click: resign, css: { disabled: !allowResign() }"></i>
         </div>
     </div>
 </div>

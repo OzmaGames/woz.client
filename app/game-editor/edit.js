@@ -12,6 +12,7 @@
 
       base.id = id;
       base.level = ko.observable(1);
+      base.sandbox = ko.observable(true);
 
       lastID = 0;
     }
@@ -100,6 +101,7 @@
           }
 
           base.level(board.level);
+          base.sandbox(board.sandbox || true);
         });
 
         ctx.words(entity.words);
@@ -113,7 +115,7 @@
         $('#menu').appendTo('body');
         var h = $(window).innerHeight();
 
-        $('#palette-right, #palette-left').each(function (i, el) {
+        $('.palette:not(.fixed)').each(function (i, el) {
           var $el = $(el);
           $el.css('top', (h - $el.outerHeight()) / 2);
         });

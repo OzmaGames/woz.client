@@ -2,6 +2,5 @@
 /// <reference path="lib/jquery.transit.js" />
 /// <reference path="lib/knockout/knockout-2.3.0.debug.js" />
 /// <reference path="lib/requirejs/require.js" />
-/// <reference path="lib/underscore/underscore.js" />
 /// <reference path="lib/paper/paper-full.js" />
 /// <reference path="lib/socket.io" />

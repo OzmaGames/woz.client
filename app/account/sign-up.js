@@ -36,56 +36,40 @@
     return re.test(email);
   } 
 
-  function signUp() {
-    app.loading(true);
-
-    var data = {
-      username: username(),
-      email: email(),
-      password: CryptoJS.SHA3(constants.salt + username() + password()).toString()
-    };
-
-    app.trigger("server:account:sign-up", data, function (res) {
-      app.loading(false);
-
-      if (res.success) {
-        res.username = username();
-        app.trigger('account:login', res);
-        router.navigate("newGame");
-      } else {
-        errorMessage(res.message);
-      }
-    });
-  }
-
-  return {
-    activate: function () {
-      
-    },
-    binding: function () {
-      app.loading(true);
-    },
-    bindingComplete: function (view) {
-      var dialog = $('.popup-dialog', view);
-      var height = $(window).innerHeight();
-      dialog.css({ marginTop: (height - 500) / 2 });
-    },
-    compositionComplete: function (view) {
-      app.loading(false);
-    },
-    attached: function () {
-      
-    },
-
+  
+  return {    
     loading: app.loading,
     username: username,
     password: password,
     errorMessage: errorMessage,
     email: email,
-    signUp: signUp,
+   
+    signUp: function() {
+      app.loading(true);
+
+      var data = {
+        username: username(),
+        email: email(),
+        password: CryptoJS.SHA3(constants.salt + username() + password()).toString()
+      };
+
+      app.trigger("server:account:sign-up", data, function (res) {
+        app.loading(false);
+
+        if (res.success) {
+          res.username = username();
+          app.dialog.close("panel");
+          app.trigger('account:login', res);
+          router.navigate("newGame");
+          app.dialog.show("notice", { model: {}, view: "dialogs/pages/welcome" });
+        } else {
+          errorMessage(res.message);
+        }
+      });
+    },
 
     login: function () {
       app.trigger('account:view:change', 'account/login');
     }
-  };
+};
 });
