@@ -115,8 +115,8 @@ label {
     line-height: 18px;
     color: #986B31;
     width: 22em;
-    -webkit-text-shadow: 0 0 2px #986B31;
-    text-shadow: 0 0 2px #986B31;
+    /*-webkit-text-shadow: 0 0 2px #986B31;
+    text-shadow: 0 0 2px #986B31;*/
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
     z-index: 1;
@@ -129,13 +129,16 @@ label.sm{
     label.radio {
         padding-top: .55em;
         padding-bottom: .55em;
-        overflow: visible;
+        overflow: visible;        
     }
 
     label .text {
         margin-left: 80px;
         display: inline-block;
+        font-weight:normal;
     }
+
+    label .title{    font-weight:bold;}
 
     label .pic {
         position: absolute;
@@ -172,6 +175,7 @@ label.sm{
         text-shadow: 0 0 0px #986B31;
         text-transform: none;
         -webkit-font-smoothing: antialiased;
+        font-weight:normal;
     }
 
     label.select {
@@ -200,7 +204,6 @@ input[type="text"], input[type="password"], input[type="email"] {
     background: white;
     border: 1px solid #BE9967;
     padding: .5em 1em;
-    margin-top: 1.5em;
     color: #986B31;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -267,6 +270,13 @@ button {
         text-transform: uppercase;
         border: 2px solid;
         border-radius: 0.2em;
+    }
+
+    button.sm{
+        font-size: 1em;
+    }
+    button.xsm{
+        font-size: .8em;
     }
 
     button.flat {

@@ -2,7 +2,7 @@
 
   var dfd = $.Deferred();
 
-  socket = io.connect("http://wordstesting.herokuapp.com:80");
+  socket = io.connect("http://wordsdevel.herokuapp.com:80");
 //socket = io.connect("http://localhost:8080");
 
   socket.on('connect', function () {

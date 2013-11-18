@@ -69,6 +69,9 @@
           })
         }
     ],
+    start: function () {
+      app.navigate("newGame");
+    },
     select: function (game, e) {
       activeGame(game);
     },

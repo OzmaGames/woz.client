@@ -121,7 +121,28 @@ h5 {
     -o-background-size: 100% auto;
     -webkit-background-size: 100% auto;
     background-size: 100% auto;
+    background-position: center top;
 }
+
+    .logo.page {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 80px;
+        margin-top: 10px;
+        z-index: 1;
+        -moz-background-size: auto 100%;
+        -o-background-size: auto 100%;
+        -webkit-background-size: auto 100%;
+        background-size: auto 100%;
+        -moz-transition: left 1s ease-in-out, height 1s ease-in-out;
+        -o-transition: left 1s ease-in-out, height 1s ease-in-out;
+        -webkit-transition: left 1s ease-in-out, height 1s ease-in-out;
+        transition: left 1s ease-in-out, height 1s ease-in-out;
+        -moz-backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
 
 #login-page .background {
     position: absolute;
@@ -165,31 +186,10 @@ h5 {
         z-index: 1;
     }
 
-    #game-main .logo {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 80px;
-        margin-top: 10px;
-        -moz-background-size: auto 100%;
-        -o-background-size: auto 100%;
-        -webkit-background-size: auto 100%;
-        background-size: auto 100%;
-        background-position: center top;
-        z-index: 0;
-        -moz-transition: left 1s ease-in-out, height 1s ease-in-out;
-        -o-transition: left 1s ease-in-out, height 1s ease-in-out;
-        -webkit-transition: left 1s ease-in-out, height 1s ease-in-out;
-        transition: left 1s ease-in-out, height 1s ease-in-out;
-        -moz-backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    #game-main .logo.loading {
+        top: 100px;
+        height: 200px;
     }
-
-        #game-main .logo.loading {
-            top: 100px;
-            height: 200px;
-        }
 
     #game-main hr {
         border: 0;
@@ -332,6 +332,7 @@ h5 {
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: 1;
 }
 
     #tiles .container {
@@ -767,9 +768,9 @@ ul.container.y {
 .container.group {
 }
 
-.container.y:last-of-type, container.group:last-of-type {
-    margin-bottom: 0;
-}
+    .container.y:last-of-type, .container.group:last-of-type {
+        margin-bottom: 0;
+    }
 
 .grid {
     position: relative;
@@ -786,7 +787,8 @@ ul.container.y {
         overflow: visible;
     }
 
-        .grid .col:last-child {
+        .grid .col.right {
+            float: right;
             padding-right: 0;
         }
 
@@ -795,83 +797,87 @@ ul.container.y {
         text-transform: uppercase;
     }
 
-    .grid ul {
-        list-style: none;
-    }
+.grid label + ul {
+    max-height: 8em !important;
+}
 
-        .grid ul li {
-            display: block;
-            width: 100%;
-            height: 1em;
-            padding: .8em;
-            font-family: CopseRegular;
-            font-weight: normal;
-            color: #986B31;
-            background-color: #F9F8F4;
-            border-bottom: 1px solid #d7bea2;
-            cursor: pointer;
-        }
+.grid ul {
+    list-style: none;
+}
 
-            .grid ul li:last-child {
-                border-bottom: none;
-            }
-
-            .grid ul li.header {
-                color: white;
-                background-color: #cfa972;
-                padding: .4em;
-                text-transform: capitalize;
-                cursor: default;
-            }
-
-            .grid ul li:hover:not(.header) {
-                background-color: #f1ebe2;
-            }
-
-            .grid ul li:active, .grid ul li.active {
-                background-color: #d9cfc0 !important;
-                font-weight: bold;
-                cursor: default;
-            }
-
-    .grid input[type="text"] {
+    .grid ul li {
+        display: block;
+        width: 100%;
+        height: 1em;
         padding: .8em;
-        border: 1px solid #d7bea2;
+        font-family: Cambria;
+        font-weight: normal;
+        color: #986B31;
         background-color: #F9F8F4;
-        box-shadow: none;
-        width: 350px;
+        border-bottom: 1px solid #d7bea2;
+        cursor: pointer;
     }
 
-        .grid input[type="text"] ~ span {
-            position: relative;
-            display: inline-block;
-            width: 1.8em;
-            height: 1.4em;
-            top: .3em;
-            -moz-background-size: 100% 100%;
-            -o-background-size: 100% 100%;
-            -webkit-background-size: 100% 100%;
-            background-size: 100% 100%;
-            cursor: pointer;
+        .grid ul li:last-child {
+            border-bottom: none;
         }
 
-            .grid input[type="text"] ~ span.clear {
-                background-image: url('../images/game/add-friend.png');
+        .grid ul li.header {
+            color: white;
+            background-color: #cfa972;
+            padding: .4em;
+            text-transform: capitalize;
+            cursor: default;
+        }
+
+        .grid ul li:hover:not(.header) {
+            background-color: #f1ebe2;
+        }
+
+        .grid ul li:active, .grid ul li.active {
+            background-color: #d9cfc0 !important;
+            font-weight: bold;
+            cursor: default;
+        }
+
+.grid input[type="text"] {
+    padding: .8em;
+    border: 1px solid #d7bea2;
+    background-color: #F9F8F4;
+    box-shadow: none;
+    width: 350px;
+}
+
+    .grid input[type="text"] ~ span {
+        position: relative;
+        display: inline-block;
+        width: 1.8em;
+        height: 1.4em;
+        top: .3em;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+        cursor: pointer;
+    }
+
+        .grid input[type="text"] ~ span.clear {
+            background-image: url('../images/game/add-friend.png');
+        }
+
+            .grid input[type="text"] ~ span.clear:hover, .grid input[type="text"] ~ span.clear:active {
+                background-image: url('../images/game/add-friend-active.png');
             }
 
-                .grid input[type="text"] ~ span.clear:hover, .grid input[type="text"] ~ span.clear:active {
-                    background-image: url('../images/game/add-friend-active.png');
-                }
+        .grid input[type="text"] ~ span.find {
+            width: 1.6em;
+            margin-left: -2em;
+            background-image: url('../images/game/find.png');
+        }
 
-            .grid input[type="text"] ~ span.find {
-                width: 1.6em;
-                margin-left: -2em;
-                background-image: url('../images/game/find.png');
+            .grid input[type="text"] ~ span.find:hover, .grid input[type="text"] ~ span.find:active {
+                background-image: url('../images/game/find-active.png');
             }
-
-                .grid input[type="text"] ~ span.find:hover, .grid input[type="text"] ~ span.find:active {
-                    background-image: url('../images/game/find-active.png');
-                }
 
 .scroll {
     position: relative;

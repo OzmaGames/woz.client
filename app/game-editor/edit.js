@@ -64,6 +64,7 @@
         tiles: tiles,
         paths: paths,
         level: this.level() * 1,
+        draft: this.draft()
       };
 
       app.trigger("server:manager:manageBoards", json, function (data) {

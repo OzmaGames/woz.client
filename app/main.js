@@ -23,7 +23,7 @@ define(['durandal/system', 'durandal/app', 'durandal/plugins/router', 'durandal/
     system.debug(true);
     //>>excludeEnd("build");    
     
-    app.title = 'Words Of Oz';
+    app.title = 'Words of Oz';
 
     app.configurePlugins({
       router: true,
