@@ -1,7 +1,7 @@
 ﻿<div id="gameboard">
    <div id="tiles-max">
       <div id="tiles-aspect">
-         <div id="tiles" data-bind="css: collection.short" style="border: 1px solid orange">
+         <div id="tiles" data-bind="css: collection.name" style="border: 1px solid orange">
             <div class="container" style="border: 1px solid blue" data-bind="foreach: { data: tiles, afterRender: afterRender }">
                <div class="tile">
                   <div class="mask" data-bind="style: { 'background-position-x': 'calc(100% / 19 * ' + imageId + ')' }">

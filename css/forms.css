@@ -258,7 +258,7 @@ button {
     }
 
     button:hover {
-        box-shadow: 0 0 4px gold;
+        box-shadow: 0 0 4px #986B31;
     }
 
     button.orange, button.blue {

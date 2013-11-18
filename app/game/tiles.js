@@ -69,7 +69,7 @@
 
     disabled: ko.computed(function () {
       var mode = ctx.mode();
-      return mode == 'swap' || mode == 'circle-words';
+      return mode == 'swapWords' || mode == 'circleWords';
     }),
 
     activate: function () { },

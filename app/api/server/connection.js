@@ -2,9 +2,9 @@
 
   var dfd = $.Deferred();
 
-  //socket = io.connect("http://wordsdevel.herokuapp.com:80");
-  socket = io.connect("http://wordstesting.herokuapp.com:80");
-//socket = io.connect("http://localhost:8080");
+  socket = io.connect("http://wordsdevel.herokuapp.com:80");
+  //socket = io.connect("http://wordstesting.herokuapp.com:80");
+  //socket = io.connect("http://localhost:8080");
 
   socket.on('connect', function () {
     console.log("%c" + "connected", "background: green; color: white");
@@ -27,7 +27,7 @@
     },
     connected: dfd.promise()
   }
-  
+
   function addEvent(event, func) {
     event = "server:" + event;
     app.on(event).then(function (data, callback) {

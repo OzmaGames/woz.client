@@ -54,9 +54,9 @@
       model.loadingStatus("Starting The Game...");
 
       model.gameID = json.id;
-
-      model.collection.short(json.collectionShort || "woz");
-      model.collection.fullName(json.collectionFull || "Words Of Oz");
+      
+      model.collection.name((json.collection && json.collection.name) ? json.collection.name :"woz");
+      model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
 
       ko.utils.arrayForEach(json.players, function (player) {
         if (player.username === username) {
@@ -85,8 +85,8 @@
       model.words(json.words);
 
       for (var i = 0; i < json.tiles.length; i++) {
-        json.tiles[i].imageName = consts.bigImageURL(model.collection.short(), json.tiles[i].imageId || json.tiles[i].id);
-        json.tiles[i].imageId = json.tiles[i].imageId || json.tiles[i].id;
+        json.tiles[i].imageId = json.tiles[i].imageID || json.tiles[i].id;
+        json.tiles[i].imageName = consts.bigImageURL(model.collection.name(), json.tiles[i].imageId);
         json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
         json.tiles[i].active = ko.observable(false);
       }
@@ -98,8 +98,6 @@
       model.paths(json.paths);
 
       model._gameOver(json.gameOver);
-
-
 
       model.winner = function () {
         if (model.gameOver()) {

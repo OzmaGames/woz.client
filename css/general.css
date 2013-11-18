@@ -183,7 +183,7 @@ h5 {
         height: 100%;
         margin: 0px;
         top: 0px;
-        z-index: 1;
+        z-index: 2;
     }
 
     #game-main .logo.loading {
@@ -324,6 +324,9 @@ h5 {
             height: 450px;
             padding-bottom: 0;
         }
+        #game-main hr {
+            margin-top:40px;
+        }
 }
 
 #tiles {
@@ -332,7 +335,10 @@ h5 {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: 8;
+}
+.carry #tiles{
+    z-index:1;
 }
 
     #tiles .container {
@@ -386,7 +392,7 @@ h5 {
 
     .tile .mask {
         position: relative;
-        z-index: 4;
+        z-index: 5;
         border-radius: 50%;
         box-shadow: 5px 5px 10px 0 #333;
         border: 5px solid #fff;
@@ -761,7 +767,7 @@ a.small {
     background-color: #F2EBE3;
 }
 
-ul.container.y {
+.container.y.compact {
     padding: 0;
 }
 
@@ -816,6 +822,7 @@ ul.container.y {
         background-color: #F9F8F4;
         border-bottom: 1px solid #d7bea2;
         cursor: pointer;
+        overflow:hidden;
     }
 
         .grid ul li:last-child {

@@ -3,8 +3,8 @@
 <i class="command close" data-bind="click:login"></i>
 
 <form data-bind="verifiableSubmit: recover">   
-   <br />
    <p>enter your email address bellow and you will receive an e-mail shortly giving you instruction to change your password.</p>
+   <br />
    <input type="email" placeholder="e-mail" data-bind="verifiableValue: email" autofocus />
    <span class="error" data-bind="text: email.errorMessage"></span>
 

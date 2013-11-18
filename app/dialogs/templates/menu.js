@@ -1,12 +1,11 @@
 ﻿define(['durandal/app', 'durandal/plugins/router'], function (app, router) {
 
   var items = [
-    { text: "games", hash: 'lobby' },
-    { text: "collections", hash: 'collections' },
-    { text: "store", hash: 'store' },
-    { text: "help", hash: 'help' },
-    { text: "credits", hash: 'credits' },
-    { text: "settings", hash: 'settings' }
+    { text: "New Game", hash: 'newGame' },
+    { text: "My Games", hash: 'lobby' },
+    { text: "Shop", hash: 'shop' },
+    { text: "settings", hash: 'settings' },
+    { text: "help", hash: 'help' }    
   ];
 
   function Menu() {
