@@ -3,9 +3,9 @@
 
     <div id="game-main">
         <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
-        <div class="logo page" data-bind="css: { loading: loading }"></div>
+        <div class="logo page" data-bind="css: { loadin1g: loading }"></div>
         <!--ko compose: 'game/tiles'--><!--/ko-->
-        <hr />
+        <hr data-bind="visible: !loading()" />
         <!--ko compose: 'game/words'--><!--/ko-->        
     </div>
     <div id="game-players" data-bind="compose: 'game/players'"></div>

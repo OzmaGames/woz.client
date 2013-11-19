@@ -1,5 +1,5 @@
 ﻿define(['durandal/app'], function (app) {
-  
+
   return {
     activate: function (moduleName) {
       if (!moduleName) return;
@@ -11,13 +11,20 @@
       return { cacheViews: false };
     },
 
-    compositionComplete: function (view) {      
-      var dialog = $('.panel', view);
+    compositionComplete: function (view) {
+      var dialog = this.el = $('.panel', view);
       var height = $(window).innerHeight();
-      dialog.css({ marginTop: (height - dialog.outerHeight()) / 2 }).show();
-      dialog.css({ y: -100, opacity: 0 }).transition({ y: 10, opacity: 1 }).transition({ y: 0 });
+      var top = (height - dialog.outerHeight()) / 2;
+      dialog.css({ y: -top }).show();
+      dialog.css({ y: -top - 100, opacity: 0 }).transition({ y: -top + 10, opacity: 1 }).transition({ y: -top });
     },
 
-    modelName: ko.observable()
+    canDeactivate: function () {
+      return this.el.fadeOut("fast").promise()
+    },
+
+    modelName: ko.observable(),
+
+    loading: app.loading
   };
 });

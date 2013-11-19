@@ -6,7 +6,7 @@
 
   username.verify = function (username) {
     if (username == "") {
-      return "You need to enter you username or e-mail"
+      return "You need to enter you username or e-mail";
     }
     if (username.length < 3) {
       return "Incorrect e-mail or username";

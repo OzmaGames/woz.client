@@ -199,10 +199,10 @@
 
     setTimeout(function () {
       app.trigger("server:game:queue", { username: username, password: 12345, playerCount: playerCount }, function () {
-        model.loadingStatus("Waiting to pair up...");
+        model.loadingStatus("Waiting for awesomeness...");
       });
       //app.trigger("game:start", entity);
-    }, 2000);
+    }, 1500);
     
   };
 

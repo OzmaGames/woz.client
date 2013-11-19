@@ -1,12 +1,12 @@
 ﻿define(['durandal/app', 'durandal/system', 'api/datacontext', 'dialogs/_constants'], function (app, system, ctx, DIALOGS) {
 
-  ctx.canSwap = ko.observable(false);
+  ctx.canSwap = ko.observable(true);
 
   ctx.loading.subscribe(function (loading) {
     if (loading === true) {
       app.loading(false);
-    } else if (loading === false) {
-      ctx.canSwap(ctx.player.active());
+    } else if (loading === false) {      
+      //ctx.canSwap(ctx.player.active());
     }
   });
 
@@ -82,8 +82,9 @@
                 };
                 app.trigger("server:game:swap-words", data, function (res) {
                   if (!res.success) {
-                    ctx.canSwap(true);
                     cancel();
+                  } else {
+                    ctx.canSwap(false);
                   }
                   ctx.mode('');
                   ctx.loading(false);
