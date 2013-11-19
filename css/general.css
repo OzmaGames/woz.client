@@ -438,7 +438,7 @@ h5 {
         }
 
     .tile .instruction, body .instruction {
-        z-index: 5;
+        z-index: 9;
         position: absolute;
         top: -30px;
         left: 10px;

@@ -29,8 +29,8 @@
     playerCount: 1
   };
   model.collection = {
-    short: ko.observable("woz"),
-    fullName: ko.observable("Words Of Oz")
+    name: ko.observable("woz"),
+    size: ko.observable(20)
   };
 
   model._gameOver = ko.observable(false);
@@ -202,7 +202,7 @@
         model.loadingStatus("Waiting to pair up...");
       });
       //app.trigger("game:start", entity);
-    }, 100);
+    }, 2000);
     
   };
 

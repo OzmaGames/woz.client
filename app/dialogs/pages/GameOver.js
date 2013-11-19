@@ -20,17 +20,17 @@
     LOST: {
       heading: "Good luck next time!",
       content: "You lost the game.",
-      buttonText: "back to lobby"
+      btnText: "back to lobby"
     },
     SOLO: {
       heading: "Well done!",
       content: "You completed the game board.",
-      buttonText: "continue playing"
+      btnText: "continue playing"
     },
     RESIGNED: {
       heading: "Meh, Good luck next time!",
       content: "You resigned the game.",
-      buttonText: "back to lobby"
+      btnText: "back to lobby"
     }
   }
 
