@@ -3,7 +3,6 @@
     position: fixed;
     z-index: 100;
     font-family: CopseRegular;
-    -webkit-font-smoothing: antialiased;
 }
 
     .dialog.low {

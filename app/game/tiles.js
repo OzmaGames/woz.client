@@ -12,7 +12,7 @@
         elTop = $el.data('top') || $el.offset().top - parseInt($el.css('margin-top'));
       if (top > elTop && !$el.data('top')) {
         var margin = top - elTop + topPadding, angle;
-        
+
         if (!$el.hasClass("fixed")) {
           $el
             .css({ position: "fixed", left: $el.offset().left, top: topPadding })
@@ -46,7 +46,7 @@
       });
       var inst = $('.instruction', $el);
       inst.transition({
-        rotate: ((tile.x-0.1) - 0.5) * 30,
+        rotate: ((tile.x - 0.1) - 0.5) * 30,
         marginLeft: (tile.x - 0.5) * 60
       });
 
@@ -82,28 +82,27 @@
 
     },
 
-    toggleTile: function () {
+    toggleTile: function (tile) {
       var active = this.active();
       if (!active) {
-        var h = $('#tiles').height(),
-            w = $('#tiles').width();
-        this.$el.css({ width: h, left: w - h });
+        var h = $('#tiles').height();
+        tile.$el.css({ 'font-size': h });
       } else {
-        this.$el.css({ width: '', left: this.x * 100 + '%' });
+        tile.$el.css({ 'font-size': '' });
       }
-      this.active(active ^ 1);
+      tile.active(active ^ 1);
     },
 
     help: function (tile, e) {
       var offset = tile.$inst.offset(),
         left = offset.left,
-        top = offset.top + 200 - $(window).scrollTop();      
+        top = offset.top + 200 - $(window).scrollTop();
 
       if (tile.$inst.hasClass("fixed")) {
         top -= 120;
       }
-      top= 150;
-      
+      top = 150;
+
       app.dialog.show("window", {
         heading: tile.instruction,
         content: tile.description,

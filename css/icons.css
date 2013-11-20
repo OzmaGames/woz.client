@@ -19,7 +19,7 @@ i.action, i.command {
     font-size: 40px;
     width: 1em;
     height: 1em;
-    background: url('../images/app/icons.png') no-repeat;
+    background: url('../images/app/icons.png') no-repeat;    
     cursor: pointer;
     -moz-background-size: 5em auto;
     -o-background-size: 5em auto;
@@ -28,75 +28,76 @@ i.action, i.command {
 }
 
 i.action {
-    -moz-transition: all .5s ease, background-position-x 0;
-    -o-transition: all .5s ease, background-position-x 0;
-    -webkit-transition: all .5s ease, background-position-x 0;
-    transition: all .5s ease, background-position-x 0;
+    background-color: #faf5ef;
+    -moz-transition: all .5s ease, background-position-x 0, background-position 0;
+    -o-transition: all .5s ease, background-position-x 0, background-position 0;
+    -webkit-transition: all .5s ease, background-position-x 0, background-position 0;
+    transition: all .5s ease, background-position-x 0, background-position 0;    
 }
 
     i.action:hover:not(.still),
     i.command:hover:not(.still) {
-        background-position-x: -1em;
+        background-position-x: -1em !important;
     }
 
     i.action:active:not(.still),
     i.command:active:not(.still) {
-        background-position-x: -2em;
+        background-position-x: -2em !important;
     }
 
     i.action.disabled:not(.still),
     i.command.disabled:not(.still) {
-        background-position-x: -3em;
+        background-position-x: -3em !important;
         cursor: default;
     }
 
     i.action.cancel:not(.still) {
-        -moz-transform: rotateY(180deg) !important;
-        -ms-transform: rotateY(180deg) !important;
-        -o-transform: rotateY(180deg) !important;
-        -webkit-transform: rotateY(180deg) !important;
-        transform: rotateY(180deg) !important;
-        background-position-x: -4em;
+        -moz-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+        background-position-x: -4em !important;
     }
 
     i.action.swapWords {
-        background-position-y: 0;
+        background-position: 0 0;
     }
 
     i.action.circleWords {
-        background-position-y: -1em;
+        background-position: 0 -1em;
     }
 
     i.action.addWords {
-        background-position-y: -2em;
+        background-position: 0 -2em;
     }
 
     i.action.unknownWords {
-        background-position-y: -3em;
+        background-position: 0 -3em;
     }
 
 i.command.accept {
-    background-position-y: -4em;
+    background-position: 0 -4em;
 }
 
 i.command.menu {
-    background-position-y: -5em;
+    background-position:0 -5em;
 }
 
 i.command.connection {
-    background-position-y: -6em;
+    background-position:0 -6em;
 }
 
 i.command.chat {
-    background-position-y: -7em;
+    background-position:0 -7em;
 }
 
 i.command.help {
-    background-position-y: -8em;
+    background-position:0 -8em;
 }
 
 i.command.quit {
-    background-position-y: -9em;
+    background-position:0 -9em;
 }
 
 i.action:not(:empty),
@@ -167,6 +168,7 @@ i.command.close {
 i.sm {
     font-size: 25px;
 }
+
 i.xsm {
     font-size: 16px;
 }

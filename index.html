@@ -4,12 +4,12 @@
    <title>Words of Oz</title>
 
    <meta charset="utf-8" />
+   <meta       name="mobile-web-app-capable" content="yes">
    <meta name="apple-mobile-web-app-capable" content="yes" />
    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-   <meta name="format-detection" content="telephone=no" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-
-   <meta name="mobile-web-app-capable" content="yes">
+   <meta name="format-detection" content="telephone=no" />
+   <meta name="application-name" content="Words of Oz" />
 
    <link rel="shortcut icon" sizes="196x196" href="images/icon.png" />
    <link rel="shortcut icon" sizes="128x128" href="images/icon.png" />
@@ -18,21 +18,10 @@
    
    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css" />
    <link rel="stylesheet" href="css/general.css" />
+   <link rel="stylesheet" href="css/game.css" />
    <link rel="stylesheet" href="css/dialogs.css" />
    <link rel="stylesheet" href="css/forms.css" />
    <link rel="stylesheet" href="css/icons.css" />
-   
-   <!--    
-    <link rel="stylesheet" href="css/ie10mobile.css" />
-    <script type="text/javascript">
-        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-            var msViewportStyle = document.createElement("style");
-            var mq = "@@-ms-viewport{width:auto!important}";
-            msViewportStyle.appendChild(document.createTextNode(mq));
-            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
-        }
-    </script>
-    -->
 </head>
 <body>
    <div id="app">
@@ -46,6 +35,5 @@
    <script type="text/javascript" src="lib/knockout/knockout.js"></script>
 
    <script src="lib/requirejs/require.js" data-main="app/main"></script>
-
 </body>
 </html>

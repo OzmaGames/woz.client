@@ -202,7 +202,7 @@
         model.loadingStatus("Waiting for awesomeness...");
       });
       //app.trigger("game:start", entity);
-    }, 1500);
+    }, 500);
     
   };
 

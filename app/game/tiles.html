@@ -4,15 +4,15 @@
          <div id="tiles" data-bind="css: collection.name">
             <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }, css: {carry: carryingWords}">
                <div class="tile" data-bind="css: { active: active }, click: $root.toggleTile">
-                  <div class="mask" data-bind="style: { 'background-position-x': ((100 / 19) * imageId).toFixed(2) + '%'  }">
-                     <div data-bind="fadeVisible: !$root.gameOver()">
-                        <div class="instruction" data-bind="click: $root.help, clickBubble: false">
-                           <span data-bind="text: instruction"></span>
-                           <div class="info" data-bind="text: info"></div>
-                           <i class="command help sm"></i>
-                        </div>
-                     </div>
+                  <div class="mask" data-bind="style: { 'backgroundPosition': ((100 / 19) * imageId).toFixed(2) + '% 0' }">
                      <div class="big" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }, fadeVisible: active, duration: { fadeId: 300, fadeOut: 1000 }"></div>
+                  </div>
+                  <div data-bind="fadeVisible: !$root.gameOver()">
+                     <div class="instruction" data-bind="click: $root.help, clickBubble: false">
+                        <span data-bind="text: instruction"></span>
+                        <div class="info" data-bind="text: info"></div>
+                        <i class="command help sm"></i>
+                     </div>
                   </div>
                </div>
             </div>
