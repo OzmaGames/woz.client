@@ -1,5 +1,8 @@
 ﻿define(['plugins/router', 'durandal/app', 'api/datacontext'], function (router, app, ctx) {
 
+  app.trigger("server:game:lobby", {}, function (data) {
+    console.log(data);
+  });
   var games = [
     {
       players: [{ username: 'bobbisan', score: 240 }, { username: 'CrainFuzzrain', score: 210 }],

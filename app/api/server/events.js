@@ -25,7 +25,8 @@
       /// data = {gameId: #, username: ''}
       /// res = {success: true|false, errorMessage: ''}
       "game:skip-turn",
-      "game:resign"
+      "game:resign",
+      "game:lobby"
     ],
     custom: {
       /// data = {gameId: #, username: '', words: [#, #, #, ..]}

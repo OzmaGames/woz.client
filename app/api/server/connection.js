@@ -22,7 +22,7 @@
     addEvent: addEvent,
     addEmission: function (event) {
       addEvent(event, function (data, callback, socket) {
-        socket.emit(event, data, callback);
+        socket.emit(event, data, callback);        
       });
     },
     connected: dfd.promise()
