@@ -93,7 +93,7 @@
         model.tiles(json.tiles);
 
         json.paths = ko.utils.arrayMap(json.paths, function (p) {
-          return new Path(model, p.id, p.nWords, p.startTile, p.endTile, !p.cw, p.phrase);
+          return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
         });
         model.paths(json.paths);
 
