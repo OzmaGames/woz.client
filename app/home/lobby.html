@@ -4,22 +4,50 @@
       <button class="orange sm" style="position:absolute; top: -2em; right:0;z-index:1" data-bind="click: $root.start">
          Start New Game
       </button>
-      <h1 data-bind="text: title">My turn</h1>
+      <!-- ko if: games().length -->
+      <h1 data-bind="text: title"></h1>
       <div class="table" data-bind="foreach: games">
          <div class="game-item" data-bind="click: $root.select, css: {active: $root.activeGame() == $data}">
             <div class="cell left">
-               <div class="pic" data-bind="css: collection.short"></div>
+               <div class="pic" data-bind="css: collection"></div>
                <div>
-                  <div>Playing with <span class="name" data-bind="text: players[1].username"></span> - Using <span class="collection" data-bind="text: collection.name"></span> collection</div>
-                  <div>Game started <span class="date" data-bind="text: startDate"></span></div>
-                  <div><span data-bind="text: lastPhrase.username"></span> placed: <span class="phrase" data-bind="text: lastPhrase.phrase"></span> for <span class="point" data-bind="text: lastPhrase.score">9</span></div>
+                  <!-- ko if: players.length == 2 -->
+                  <div>
+                     Playing with
+                     <span class="name" data-bind="text: $root.getPlayer.bind($data).username"></span>
+                     - Using
+                     <span class="collection" data-bind="text: collection"></span> collection
+                  </div>
+                  <!-- /ko -->
+                  <!-- ko if: players.length == 1 -->
+                  <div>
+                     Playing Solo - Using
+                     <span class="collection" data-bind="text: collection"></span> collection
+                  </div>
+                  <!-- /ko -->
+                  <div>Game started <span class="date" data-bind="date: startDate"></span></div>
+                  <div>
+                     <!-- ko if: lastPhrase.username -->
+                     <span data-bind="text: lastPhrase.username"></span>
+                     placed:
+                     <span class="phrase" data-bind="text: lastPhrase.phrase"></span>
+                     for
+                     <span class="point" data-bind="text: lastPhrase.score"></span>
+                     points
+                     <!-- /ko -->
+                     <!-- ko ifnot: lastPhrase.username -->
+                     <span>has not been played yet</span>
+                     <!-- /ko -->
+                  </div>
                </div>
             </div>
             <div class="cell right">
+               <i class="command close" title="Resign the game"></i>
                <div class="icons">
-                  <div class="time" title="" data-bind="text: timeAgo"></div>
-                  <div class="chat" title="Number of unread messages"><div data-bind="text: unreads">1</div></div>
-                  <div class="resign" title="Resign the game"></div>
+                  <div class="time" title="" data-bind="timeAgo: lastMod"></div>
+                  <div class="chat" title="Number of unread messages">
+                     <div data-bin1d="text: unreads"></div>
+                  </div>
                </div>
                <div class="players" data-bind="foreach: players">
                   <div>
@@ -30,5 +58,6 @@
             </div>
          </div>
       </div>
+      <!-- /ko -->
    </div>
 </div>

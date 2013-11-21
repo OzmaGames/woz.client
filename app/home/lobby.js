@@ -1,77 +1,49 @@
 ﻿define(['plugins/router', 'durandal/app', 'api/datacontext'], function (router, app, ctx) {
 
-  app.trigger("server:game:lobby", {}, function (data) {
-    console.log(data);
-  });
-  var games = [
-    {
-      players: [{ username: 'bobbisan', score: 240 }, { username: 'CrainFuzzrain', score: 210 }],
-      collection: {
-        name: 'Nightfall',
-        short: 'nf'
-      },
-      startDate: 'Sep 24 13:14',
-      timeAgo: '30m',
-      unreads: 1,
-      lastPhrase: {
-        username: 'CrainFuzzrain',
-        phrase: "bitter with decoy",
-        score: 9
-      }
-    },
-    {
-      players: [{ username: 'bobbisan', score: 0 }, { username: 'Ali', score: 20 }],
-      collection: {
-        name: 'Life Of Color',
-        short: 'loc'
-      },
-      startDate: 'Sep 24 13:14',
-      timeAgo: '2h',
-      unreads: 5,
-      lastPhrase: {
-        username: 'Ali',
-        phrase: "this is working",
-        score: 20
-      }
-    },
-    {
-      players: [{ username: 'bobbisan', score: 25 }, { username: 'Pedro', score: 0 }],
-      collection: {
-        name: 'Words Of Oz',
-        short: 'woz'
-      },
-      startDate: 'Sep 24 13:14',
-      timeAgo: '2d',
-      unreads: 5,
-      lastPhrase: {
-        username: 'bobbisan',
-        phrase: "we need server support now ad ad adasd af asfasf asf asf",
-        score: 25
-      }
-    }
-  ];
+  var games = ko.observableArray(),
+    activeGame = ko.observable();
 
-  var activeGame = ko.observable(games[0]);
+  var username = 'ali';
+  function getPlayer(players) {
+    if (players[0].username === username) return players[0];
+    return players[1];
+  }
+
+  function getOpponent(playes) {
+    if (playes.length == 1) return null;
+    if (playes[0].username !== username) return players[0];
+    return players[1];
+  }
 
   return {
+    activate: function () {
+      app.trigger("server:game:lobby", { username: username }, function (data) {
+        if (!data || !data.success) {
+          return;
+        }
+        games(data.games);
+        app.loading(false);
+      });
+    },
     lobby: [
       {
         title: 'My Turn',
         games: ko.computed(function () {
-          return ko.utils.arrayFilter(games, function (g) {
-            return g.lastPhrase.username != 'bobbisan'
+          return ko.utils.arrayFilter(games(), function (g) {
+            return getPlayer(g.players).active;
           })
         })
-      },
-        {
-          title: 'Their Turn',
-          games: ko.computed(function () {
-            return ko.utils.arrayFilter(games, function (g) {
-              return g.lastPhrase.username == 'bobbisan'
-            })
+      }, {
+        title: 'Their Turn',
+        games: ko.computed(function () {
+          return ko.utils.arrayFilter(games(), function (g) {
+            return !getPlayer(g.players).active;
           })
-        }
+        })
+      }
     ],
+    getPlayer: function (game) { return getPlayer((game || this).players); },
+    getOpponent: function (game) { return getOpponent((game || this).players); },
     start: function () {
       app.navigate("newGame");
     },

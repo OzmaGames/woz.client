@@ -165,7 +165,7 @@
 
 .tile {
     position: absolute;
-    z-index: 3;
+    z-index: 8;
     font-size: 160px;
     width: 1em;
     height: 1em;
@@ -323,6 +323,7 @@
         }
 
     .tile .control {
+        font-size:13px;
         visibility: hidden;
         position: absolute;
         top: 50px;

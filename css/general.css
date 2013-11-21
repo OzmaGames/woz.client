@@ -93,12 +93,13 @@ h5 {
 .loader {
     color: #713b00;
     margin: 6px 8px 4px 8px;
-    visibility: hidden;
+    display: none;
     position: relative;
     z-index: 2;
 }
 
     .loader.active {
+        display:block;
         visibility: visible;
     }
 
@@ -388,7 +389,7 @@ a.small {
         width: 5px;
     }
 
-.pic.woz {
+.pic.woz, .pic.starter {
     background-image: url('../images/tiles/couple-woz.png');
 }
 
@@ -413,8 +414,8 @@ a.small {
     font-size: .9em;
     line-height: 1.5em;
     color: #986B31;
-    -webkit-text-shadow: 0 0 1px #986B31;
-    text-shadow: 0 0 1px #986B31;
+    -webkit-text-shadow: 0 0 1px rgba(152, 107, 49,.5);
+    text-shadow: 0 0 1px rgba(152, 107, 49,.5);
 }
 
     .game-item .float.right {
@@ -485,8 +486,7 @@ a.small {
     }
 
     .game-item .collection {
-        font-style: italic;
-        margin-right: .2em;
+        font-style: italic;        
     }
 
     .game-item .date {
@@ -506,10 +506,6 @@ a.small {
         font-weight: bold;
     }
 
-        .game-item .point:after {
-            content: " points";
-        }
-
     .game-item .bold {
         font-weight: bold;
     }
@@ -528,6 +524,8 @@ a.small {
             box-shadow: 0 0 2px #d7bea2;
             padding: 0 2px;
             display: inline-block;
+            font-size:.9em;
+            margin-right:25px;
         }
 
         .game-item .icons .chat {
@@ -548,25 +546,7 @@ a.small {
                 padding: .4em 0 0 .8em;
                 font-size: .8em;
             }
-
-        .game-item .icons .resign {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 2em;
-            height: 2em;
-            background-image: url('../images/game/end-game-icon.png');
-            background-repeat: no-repeat;
-            -moz-background-size: 100% 100%;
-            -o-background-size: 100% 100%;
-            -webkit-background-size: 100% 100%;
-            background-size: 100% 100%;
-        }
-
-            .game-item .icons .resign:hover, .game-item .icons .resign:active {
-                background-image: url('../images/game/end-game-icon-active.png');
-            }
-
+        
     .game-item .players {
         position: absolute;
         bottom: .5em;

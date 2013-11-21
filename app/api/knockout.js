@@ -23,6 +23,66 @@
     }
   };
 
+  ko.bindingHandlers["timeAgo"] = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+
+      var intervalID = setInterval(function (data) {
+        if (ko.dataFor(data.element)) {
+          var time = new Date().getTime() - data.time;
+          $(data.element).text(timeAgo(time) + 'ago');
+        } else {
+          clearInterval(intervalID);
+        }
+      }, 5000, { element: element, time: valueAccessor() });
+
+      var time = new Date(new Date().getTime() - valueAccessor());
+      $(element).text(timeAgo(time) + 'ago');
+
+
+      function suffix_s(number, name, s) {
+        return number + ' ' + name + (number > 1 ? (s || 's') : '') + ' ';
+      }
+
+      function timeAgo(time) {
+        var str = "", count = 0;
+        if (time / 86400000 > 1) {
+          str += suffix_s(Math.floor(time / 86400000), "day")
+          count++;
+        }
+        time %= 86400000;
+
+        if (str || time / 3600000 > 1) {
+          str += suffix_s(Math.floor(time / 3600000), "hour")
+          count++;
+        }
+        time %= 3600000;
+
+        if (count == 2) return str;
+        if (str || time / 60000 > 1) {
+          str += suffix_s(Math.floor(time / 60000), "min")
+          count++;
+        }
+        time %= 60000;
+
+        if (count == 2 || str) return str;
+        return "few seconds ";
+      }
+    }
+  };
+
+  ko.bindingHandlers["date"] = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+      var time = new Date(valueAccessor()), str = "";
+
+      str += ko.bindingHandlers.date.months[time.getMonth()] + ' ';
+      str += time.getDay() + ' ';
+      str += time.getHours() + ':' + time.getUTCMinutes();
+
+      $(element).text(str);
+    },
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  };
+
   ko.bindingHandlers["dropdown"] = {
     init: function (element, valueAccessor) {
       var data = valueAccessor(), $element = $(element).hide();
@@ -82,7 +142,7 @@
       $(element).focusout(element.verify);
       //$(element).change(verify);
 
-      element.verify = function() {        
+      element.verify = function () {
         ko.bindingHandlers.verifiableValue.verify(element, valueAccessor, true)
       }
     },
@@ -113,7 +173,7 @@
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
       ko.utils.registerEventHandler(element, "submit", function (event) {
         $('input', element).each(function (i, input) {
-          if(input.verify) input.verify();
+          if (input.verify) input.verify();
         });
         var handlerReturnValue;
         var value = valueAccessor();

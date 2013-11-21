@@ -162,7 +162,12 @@ i.command.close {
 }
 
     i.command.close:hover, i.command.active {
-        background-position: 0;
+        background-position: 0!important;
+    }
+
+    i.command.close.compact{
+        top:0;
+        right:0;
     }
 
 i.sm {
