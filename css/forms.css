@@ -29,6 +29,7 @@
         transition-property: padding, width, background-position, text-indent, box-shadow;
         box-shadow: 0 .1em .1em rgba(0,0,0,.2) inset, 0 .3em 0 .1em rgba(0,0,0,.05) inset;
         float: right;
+        text-align:left;
     }
 
     input[type="checkbox"]:checked + span {
@@ -97,7 +98,7 @@
 
     input[type="radio"]:checked + span {
         background-color: white;
-        box-shadow: 0 0 10px 3px #986B31;
+        box-shadow: 0 0 10px 3px #986B31;        
     }
 
 label {
@@ -188,6 +189,25 @@ label.sm{
             width: 24em !important;
         }
 
+.actions label {
+    font-size: 9px;
+    width: 40px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding:0;
+    border-width: 1px;
+    text-align:center;
+}
+.actions label input[type="number"]{
+    position:static!important;
+    display:block;
+    margin:0;
+    border:0!important;
+}
+.actions label input[type="checkbox"] + span{
+    margin:2px;    
+}
 select.woz {
     border: 2px solid #d7bea2;
     padding: .8em;

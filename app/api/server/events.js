@@ -49,7 +49,7 @@
 
         /// res = game object, the big bad ass object
         socket.on("game:start", function (data) {
-          console.log('%cgame:start', 'background: #222; color: #bada55', data);
+          console.log('%cgame:start', 'background: #222; color: #bada55', data);          
           app.trigger("game:start", data);
         });
 

@@ -22,7 +22,9 @@
   
   return {
     router: router,
-    loading: ko.computed(function () { return router.isNavigating() || app.loading() }),
+    loading: ko.computed(function () {
+      return (router.isNavigating() || app.loading()) && !app.inlineLoading();
+    }),
     status: {
       cnn: connected,
       online: online

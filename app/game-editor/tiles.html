@@ -4,12 +4,11 @@
          <div id="tiles" data-bind="css: collection.name" style="border: 1px solid orange">
             <div class="container" style="border: 1px solid blue" data-bind="foreach: { data: tiles, afterRender: afterRender }">
                <div class="tile">
-                  <div class="mask" data-bind="style: { 'background-position-x': 'calc(100% / 29 * ' + imageId + ')' }">
-                     <div class="instruction">
-                        <span data-bind="text: instruction"></span>
-                        <div class="info" data-bind="text: info"></div>
-                        <div class="help"></div>
-                     </div>
+                  <div class="mask" data-bind="style: { backgroundPosition: ((100 / 29) * imageId).toFixed(2) + '% 0' }"></div>
+                  <div class="instruction">
+                     <span data-bind="text: instruction"></span>
+                     <div class="info" data-bind="text: info"></div>
+                     <div class="help"></div>
                   </div>
                   <div class="rest" data-bind="foreach: rest">
                      <div class="thumbnail"

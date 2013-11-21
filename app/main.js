@@ -31,6 +31,7 @@ define(['durandal/system', 'durandal/app', 'durandal/plugins/router', 'durandal/
       http: true
     });
 
+    app.inlineLoading = ko.observable(false);
     app._loading = ko.observable(false);
     app.loading = ko.computed({
       read: function () {

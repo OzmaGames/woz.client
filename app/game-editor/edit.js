@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/system', 'durandal/plugins/router' , 'api/datacontext', './Tile', './_server', 'game/canvas'],
+﻿define(['durandal/app', 'durandal/system', 'durandal/plugins/router', 'api/datacontext', './Tile', './_server', 'game/canvas'],
   function (app, system, router, ctx, Tile) {
 
     var lastID = 0;
@@ -6,7 +6,7 @@
     ko.utils.arrayForEach(entity.words, function (word) {
       word.isSelected = ko.observable(false);
     });
-    
+
     var GameBoard = function (id) {
       var base = this;
 
@@ -78,31 +78,29 @@
 
         ctx.players = [{ "username": "ali", "score": 0, "active": ko.observable(true) }];
         ctx.player = ctx.players[0];
-        
+
         if (this.id == -1) return;
 
-        var base = this;        
-        app.trigger("server:manager:manageBoards", { command: 'getAll' }, function (data) {
-          for (var i = 0; i < data.boards.length; i++) {
-            if (data.boards[i].id === id * 1) break;
+        var base = this;
+        ctx.loading(true);
+        app.trigger("server:manager:manageBoards", { command: 'get', id: this.id }, function (data) {
+          ctx.loading(false);
+          if (data.success) {
+            var board = data.board;
+            ko.utils.arrayForEach(board.tiles, function (t) {
+              ctx.tiles.push(new Tile(t.id, t.x * 1, t.y * 1, t.angle));
+            });
+
+            ko.utils.arrayForEach(board.paths, function (path) {
+              var sTile = ko.utils.arrayFirst(ctx.tiles(), function (t) { return t.id == path.startTile });
+              var eTile = ko.utils.arrayFirst(ctx.tiles(), function (t) { return t.id == path.endTile });
+
+              eTile.addPath(sTile, null, path.nWords, path.cw);
+            });
+
+            base.level(board.level);
+            base.draft(board.draft || true);
           }
-
-          var board = data.boards[i];
-          for (var j = 0; j < board.tiles.length; j++) {
-            var tile = new Tile(j, board.tiles[j].x * 1, board.tiles[j].y * 1, board.tiles[j].angle);
-            ctx.tiles.push(tile);
-          }
-
-          for (var j = 0; j < board.paths.length; j++) {
-            var path = board.paths[j],
-              sTile = ko.utils.arrayFirst(ctx.tiles(), function (t) { return t.id == path.startTile }),
-              eTile = ko.utils.arrayFirst(ctx.tiles(), function (t) { return t.id == path.endTile });
-
-            eTile.addPath(sTile, null, path.nWords, path.cw);
-          }
-
-          base.level(board.level);
-          base.draft(board.draft || true);
         });
 
         ctx.words(entity.words);

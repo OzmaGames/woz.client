@@ -178,6 +178,13 @@
     },
 
     detached: function () {
+      var paths = ctx.paths();
+      for (var i = 0; i < paths.length; i++) {
+        paths[i].dispose();
+      }
+      ctx.paths.removeAll();
+      ctx.tiles.removeAll();
+
       $('#menu').remove();
       app.dialog.close("slipper");
       app.dialog.close("slipper-fixed");

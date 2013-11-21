@@ -8,11 +8,15 @@
   }
 
   Loading.prototype.activate = function (data) {
+  }
+
+  Loading.prototype.bindingComplete = function () {
     
   }
 
   Loading.prototype.attached = function (el) {
-    this.el = $('.loading', el);
+    this.el = $('.loading', el);    
+    app.inlineLoading(true);
 
     this.el.css({
       top: ($(window).innerHeight() - this.el.outerHeight()) / 2
@@ -26,6 +30,7 @@
   Loading.prototype.canDeactivate = function (a, s, d) {
     var base = this;
     return $.Deferred(function (dfd) {
+      app.inlineLoading(false);
       base.el.promise().then(function () { dfd.resolve(true); });
     }).promise();
   }

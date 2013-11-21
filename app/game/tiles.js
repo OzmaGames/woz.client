@@ -35,6 +35,7 @@
   }
 
   var animationQueue = [];
+  var RADIUS = 75;
 
   function showTiles() {
     for (var i = 0; i < animationQueue.length; i++) {
@@ -44,17 +45,33 @@
         left: tile.x * 100 + '%',
         top: tile.y * 100 + '%'
       });
-      var inst = $('.instruction', $el);
-      inst.transition({
-        rotate: ((tile.x - 0.1) - 0.5) * 30,
-        marginLeft: (tile.x - 0.5) * 60
-      });
 
-      instructionDoms.push(inst);
+      tile.ruleOffset = { x: 0, y: 0 };
+
+      UpdateTileInstruction(tile, true);
     }
     animationQueue = [];
 
     $(window).scroll(scroll);
+  }
+
+  function UpdateTileInstruction(tile, animate) {
+    var angle = tile.angle;
+
+    tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS;
+    tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS;
+
+    var diff = {
+      rotate: (angle > 90 || angle < -90) ? angle + 180 : angle,
+      marginLeft: tile.ruleOffset.x,
+      marginTop: RADIUS - tile.ruleOffset.y
+    };
+
+    if (animate)
+      tile.$inst.stop().transition(diff, 1000);
+    else
+      tile.$inst.stop().css(diff);
+
   }
 
   return {
