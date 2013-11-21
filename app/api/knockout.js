@@ -59,7 +59,7 @@
 
         if (count == 2) return str;
         if (str || time / 60000 > 1) {
-          str += suffix_s(Math.floor(time / 60000), "min")
+          str += suffix_s(Math.floor(time / 60000), "min", "")
           count++;
         }
         time %= 60000;
