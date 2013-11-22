@@ -30,7 +30,7 @@
     }
 
     GameBoard.prototype.addTile = function () {
-      var tile = new Tile(lastID++);
+      var tile = new Tile(lastID++);      
       ctx.tiles.push(tile);
     }
 
@@ -64,7 +64,7 @@
         tiles: tiles,
         paths: paths,
         level: this.level() * 1,
-        draft: this.draft()
+        draft: this.draft() * 1
       };
 
       app.trigger("server:manager:manageBoards", json, function (data) {
@@ -76,8 +76,12 @@
       activate: function (id) {
         this.id = id == "new" ? -1 : id * 1;
 
-        ctx.players = [{ "username": "ali", "score": 0, "active": ko.observable(true) }];
-        ctx.player = ctx.players[0];
+        ctx.players([
+          { "username": "player", "score": 100, "active": ko.observable(true) },
+          { "username": "opponent", "score": 0, "active": ko.observable(false) }
+        ]);
+        ctx.player = ctx.players()[0];
+        ctx.words(entity.words);
 
         if (this.id == -1) return;
 
@@ -99,11 +103,9 @@
             });
 
             base.level(board.level);
-            base.draft(board.draft || true);
+            base.draft(board.draft);
           }
         });
-
-        ctx.words(entity.words);
       },
 
       binding: function () {
@@ -130,6 +132,7 @@
         }
         ctx.paths.removeAll();
         ctx.tiles.removeAll();
+        ctx.words.removeAll();
         $('#menu').remove();
       }
     });

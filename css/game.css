@@ -114,7 +114,7 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 70px 0 80px; /*in portrait mode the tiles wont get stuck on the edges*/
+    padding: 0 60px 0 60px; /*in portrait mode the tiles wont get stuck on the edges*/
     -moz-transition: padding-top 1s;
     -o-transition: padding-top 1s;
     -webkit-transition: padding-top 1s;
@@ -192,7 +192,7 @@
         top: 50% !important;
         left: 50% !important;
         /*font-size: 320px;*/
-        z-index: 8;
+        z-index: 9;
     }
 
         .tile.active .instruction, .carry .instruction:hover {
@@ -230,6 +230,9 @@
         -o-transition: all .5s ease-in-out;
         -webkit-transition: all .5s ease-in-out;
         transition: all .5s ease-in-out;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
 
         .tile .mask .big {
@@ -372,6 +375,7 @@
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
+    white-space: nowrap;
 }
 
     .magnet.related {

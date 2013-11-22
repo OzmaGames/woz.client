@@ -47,6 +47,8 @@
 
     model.load = function (playerCount) {
 
+      app.off("game:start game:update game:swap-words");
+
       model.loading(true);
 
       app.on("game:start", function (json) {
@@ -93,7 +95,7 @@
         model.tiles(json.tiles);
 
         json.paths = ko.utils.arrayMap(json.paths, function (p) {
-          return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
+           return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
         });
         model.paths(json.paths);
 
@@ -115,7 +117,7 @@
 
         model.loadingStatus("Ready");
 
-        setTimeout(function () { model.loading(false); }, 100);
+        setTimeout(function () { model.loading(false); }, 100);        
       });
 
       app.on("game:update", function (json) {
@@ -205,6 +207,10 @@
       }, 500);
 
     };
+
+    model.unload = function () {
+      app.off("game:start game:update game:swap-words");
+    }
 
     model.playedWords = ko.computed(function () {
       return ko.utils.arrayFilter(model.words(), function (word) { return (word.isPlayed || false); });

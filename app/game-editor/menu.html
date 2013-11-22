@@ -9,7 +9,7 @@
       <!-- ko if: $data -->
       <h1>Level <span data-bind="text: key"></span></h1>
       <div class="table" data-bind="foreach: { data: value, beforeRemove: $root.beingRemove }">
-         <div class="game-item" data-bind="click: $root.select, css: { active: $root.activeItem() == $data }">
+         <div class="game-item">
             <div class="cell" style="width: 500px" data-bind="click: $root.edit">
                <div class="float left"
                     style="height: 3em; width: 4em; position: relative; margin-right: 10px; box-shadow: 0 0 1px #986B31; background-color: #F1EAD7"

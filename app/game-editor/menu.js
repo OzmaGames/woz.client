@@ -1,6 +1,5 @@
 ﻿define(['plugins/router', 'durandal/app', 'api/datacontext', './_server'], function (router, app, ctx) {
 
-  var activeItem = ko.observable();
   var Groups = ko.observableArray();
 
   return {
@@ -18,18 +17,11 @@
           }          
           groups[level].value.push(board);
         }
-        if(data.boards.length) activeItem(data.boards[0]);
         Groups.valueHasMutated();
       });
     },
 
     groups: Groups,
-
-    activeItem: activeItem,
-
-    select: function (item, e) {
-      activeItem(item);
-    },
 
     edit: function (gameObject) {
       router.navigate('game-editor/edit/' + gameObject.id);

@@ -6,36 +6,37 @@
 
   function scroll(e) {
     var top = $(window).scrollTop(), topPadding = 15;
+    top += topPadding / 2;
 
     for (var i = 0; i < instructionDoms.length; i++) {
       var $el = instructionDoms[i],
-        elTop = $el.data('top') || $el.offset().top - parseInt($el.css('margin-top'));
-      if (top > elTop && !$el.data('top')) {
-        var margin = top - elTop + topPadding, angle;
-
+        elTop = $el.data('topOffset') || $el.offset().top;
+      if (top > elTop && !$el.data('topOffset')) {
         if (!$el.hasClass("fixed")) {
-          $el
-            .css({ position: "fixed", left: $el.offset().left, top: topPadding })
+
+          $el.data({
+            parent: $el.parent(),
+            topOffset: elTop,
+            top: $el.css('top'),
+            left: $el.css('left'),
+            marginLeft: $el.css('marginLeft'),
+            marginTop: $el.css('marginTop')
+          }).css({ position: "fixed", left: $el.offset().left, top: topPadding, marginLeft: 0, marginTop: 0 })
             .addClass("fixed")
-            .data({
-              parent: $el.parent(),
-              top: elTop
-            })
             .appendTo('body');
         }
       } else if (top <= elTop) {
         if ($el.hasClass("fixed")) {
-          $el
-            .css({ position: '', left: '', top: '' })
+          $el.css({ position: '', left: $el.data('left'), top: $el.data('top'), marginLeft: $el.data('marginLeft'), marginTop: $el.data('marginTop') })
             .appendTo($el.data('parent')).removeClass("fixed")
-            .data('top', 0);
+            .data('topOffset', 0);
         }
       }
     }
   }
 
   var animationQueue = [];
-  var RADIUS = 75;
+  var RADIUS = 85;
 
   function showTiles() {
     for (var i = 0; i < animationQueue.length; i++) {
@@ -51,15 +52,13 @@
       UpdateTileInstruction(tile, true);
     }
     animationQueue = [];
-
-    $(window).scroll(scroll);
   }
 
   function UpdateTileInstruction(tile, animate) {
     var angle = tile.angle;
 
-    tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS;
-    tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS;
+    tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS + 10;
+    tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS + 5;
 
     var diff = {
       rotate: (angle > 90 || angle < -90) ? angle + 180 : angle,
@@ -89,7 +88,9 @@
       return mode == 'swapWords' || mode == 'circleWords';
     }),
 
-    activate: function () { },
+    activate: function () {
+      $(window).bind("scroll", scroll);
+    },
 
     binding: function () {
       return { cacheViews: false };
@@ -132,13 +133,22 @@
 
       tile.$el = $el;
       tile.$inst = $el.find('.instruction');
+      instructionDoms.push(tile.$inst);
 
       if (animationQueue.length == 0) setTimeout(showTiles, 100);
       animationQueue.push({ $el: $el, tile: tile });
     },
 
     detached: function () {
-
+      $(window).unbind("scroll", scroll);
+      for (var i = 0; i < instructionDoms.length; i++) {
+        var $el = instructionDoms[i];
+        if ($el.hasClass("fixed")) {
+          ko.removeNode($el[0]);
+        }
+      }
+      animationQueue.splice(0, animationQueue.length);
+      instructionDoms.splice(0, instructionDoms.length);
     }
   };
 });

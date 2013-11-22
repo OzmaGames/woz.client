@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'api/datacontext', 'api/draggable'], function (app, ctx) {
 
   var animationQueue = [];
-  var RADIUS = 75;
+  var RADIUS = 85;
 
   function showTiles() {
     for (var i = 0; i < animationQueue.length; i++) {
@@ -17,15 +17,13 @@
       UpdateTileInstruction(tile, true);
     }
     animationQueue = [];
-
-    $(window).scroll(scroll);
   }
 
   function UpdateTileInstruction(tile, animate) {
     var angle = tile.angle();
 
-    tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS;
-    tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS;
+    tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS + 10;
+    tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS + 5;
 
     var diff = {
       rotate: (angle > 90 || angle < -90) ? angle + 180 : angle,
@@ -76,7 +74,7 @@
       });
     },
 
-    afterRender: function (el, tile) {
+    afterRender: function (el, tile) {      
       var $el = $(el).filter('.tile:first');
 
       tile.$el = $el;
@@ -103,6 +101,7 @@
         },
         dropped: function (e, data) {
           if (!data.hasMoved) return;
+          app.trigger("game:tiles:update");
           var paths = ctx.paths();
           for (var i = 0; i < paths.length; i++) {
             var p = paths[i];
@@ -116,12 +115,12 @@
           }
         }
       });
-
+      
       tile.$inst.draggable({
         within: tile.$el,
         centerBased: true,
         usePercentage: false,
-        topLimit: true,
+        topLimit: false,
         move: function (e, data) {
           var angle = Math.ceil(90 + Math.atan2(data.top, data.left) * (180 / Math.PI));
 
@@ -130,7 +129,7 @@
           return false;
         }
       });
-
+      
       if (animationQueue.length == 0) setTimeout(showTiles, 100);
       animationQueue.push({ $el: $el, tile: tile });
     }

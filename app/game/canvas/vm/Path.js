@@ -321,8 +321,8 @@
   }  
 
   Path.options = {
-    tileRadius: 100,
-    tileMargin: 5,
+    tileRadius: 80,
+    tileMargin: 10,
     hoverMargin: 48,
     rectMargin: 0,
     minArc: 33,

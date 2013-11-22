@@ -31,12 +31,12 @@
     if (this.id == t.id || (this.x == t.x && this.y == t.y)) return;
 
     var p;
-    cw = (cw !== undefined) ? cw :
+    cw = (cw !== undefined) ? (cw ? 1 : 0) :
       (p = ko.utils.arrayFirst(ctx.paths(), function (p) {
         console.log(p, this.id, t.id);
         return (p.startTile.id == this.id && p.endTile.id == t.id) ||
                (p.startTile.id == t.id && p.endTile.id == this.id);
-      }, this)) != null ? !p.cw : true,
+      }, this)) != null ? (p.cw ? 0 : 1) : 1,
     startTile = t.x < this.x ? t : this,
     endTile = t.x > this.x ? t : this;
     nWords = nWords === undefined ? 3 : nWords;

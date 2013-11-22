@@ -37,8 +37,10 @@
         };
 
         updateTiles(tiles);
-      })      
+      })
     }
+
+    app.on("game:tiles:update").then(updateTiles);
 
     function updateTiles(tiles) {
       tiles = tiles || ctx.tiles();

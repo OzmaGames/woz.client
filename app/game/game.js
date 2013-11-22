@@ -178,19 +178,18 @@
     },
 
     detached: function () {
+      ctx.unload();
+
       var paths = ctx.paths();
       for (var i = 0; i < paths.length; i++) {
         paths[i].dispose();
       }
       ctx.paths.removeAll();
       ctx.tiles.removeAll();
-
+      ctx.words.removeAll();
+      
       $('#menu').remove();
-      app.dialog.close("slipper");
-      app.dialog.close("slipper-fixed");
-      app.dialog.close("window");
-      app.dialog.close("notice");
-      app.dialog.close("menu");
+      app.dialog.close("all");      
     }
   });
 
