@@ -5,10 +5,10 @@
          <i class="icon-spinner icon-2x icon-spin"></i>
       </div>
    </div>
-   <div class="grid" data-bind="foreach: groups">
+   <div class="grid container y scroll auto" data-bind="foreach: groups, style:{'max-height': height() + 'px'}">
       <!-- ko if: $data -->
       <h1>Level <span data-bind="text: key"></span></h1>
-      <div class="table" data-bind="foreach: { data: value, beforeRemove: $root.beingRemove }">
+      <div class="table compact" data-bind="foreach: { data: value, beforeRemove: $root.beingRemove }">
          <div class="game-item">
             <div class="cell" style="width: 500px" data-bind="click: $root.edit">
                <div class="float left"

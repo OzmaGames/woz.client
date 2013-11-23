@@ -8,7 +8,7 @@
                      <div class="big" data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }, fadeVisible: active, duration: { fadeId: 300, fadeOut: 1000 }"></div>
                   </div>
                   <div data-bind="fadeVisible: !$root.gameOver()">
-                     <div class="instruction" data-bind="click: $root.help, clickBubble: false">
+                     <div class="instruction" data-bind="click: $root.help, clickBubble: false, fadeVisible: !$root.gameOver()">
                         <span data-bind="text: instruction"></span>
                         <div class="info" data-bind="text: info"></div>
                         <i class="command help sm"></i>

@@ -159,7 +159,6 @@
     activate: function () {
       app.loading(true);
 
-      app.dialog.show("loading");
       ctx.load(ctx.playerCount);
     },
 
@@ -180,6 +179,8 @@
     detached: function () {
       ctx.unload();
 
+      app.dialog.close("all");
+
       var paths = ctx.paths();
       for (var i = 0; i < paths.length; i++) {
         paths[i].dispose();
@@ -188,8 +189,7 @@
       ctx.tiles.removeAll();
       ctx.words.removeAll();
       
-      $('#menu').remove();
-      app.dialog.close("all");      
+      $('#menu').remove();    
     }
   });
 

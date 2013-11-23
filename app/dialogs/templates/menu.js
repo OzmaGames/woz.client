@@ -1,60 +1,65 @@
 ﻿define(['durandal/app', 'durandal/plugins/router'], function (app, router) {
 
-  var items = [
-    { text: "New Game", hash: 'newGame' },
-    { text: "My Games", hash: 'lobby' },
-    { text: "Shop", hash: 'shop' },
-    { text: "settings", hash: 'settings' },
-    { text: "help", hash: 'help' }    
-  ];
+   var items = [
+     { text: "New Game", hash: 'newGame' },
+     { text: "My Games", hash: 'lobby' },
+     { text: "Shop", hash: 'shop' },
+     { text: "settings", hash: 'settings' },
+     { text: "help", hash: 'help' }
+   ];
 
-  function Menu() {
-    var base = this;
+   function Menu() {
+      this.images = true;
 
-    this.close = function (duration) {
-      console.log(duration);
+      var base = this;
 
-      if (base.el.is(":visible")) {
-        duration = duration || 500;
-        var dfd = base.el.transition({ x: -10 }, duration / 2, 'ease')
-          .transition({ x: 100, opacity: 0 }, duration).promise().then(function () {
-            base.el.css({ x: 0 }).hide();
-          });
+      this.close = function (duration) {
+         console.log(duration);
 
-        base.el.parent().removeClass('modal');
+         if (base.el.is(":visible")) {
+            duration = duration || 500;
+            var dfd = base.el.transition({ x: -10 }, duration / 2, 'ease')
+              .transition({ x: 100, opacity: 0 }, duration).promise().then(function () {
+                 base.el.css({ x: 0 }).hide();
+              });
 
-        return dfd;
-      }
+            base.el.parent().removeClass('modal');
 
-      return base.el.promise();
-    };
+            return dfd;
+         }
 
-    this.onClose = function () { };
+         return base.el.promise();
+      };
 
-    this.items = items;
+      this.onClose = function () { };
 
-    this.nav = function (item) {
-      router.navigate(item.hash);
-    };
-  }
+      this.items = items;
 
-  Menu.prototype.activate = function (data) {
+      this.nav = function (item) {
+         router.navigate(item.hash);
+      };
+   }
 
-  };
+   Menu.prototype.activate = function (data) {
 
-  Menu.prototype.attached = function (el) {
-    this.el = $('.menu', el);
+   };
 
-    var base = this;
-    this.el.css({ x: 100, opacity: 0, top: '100px' })
-      .transition({ x: -10, opacity: 1 }, 400, 'ease')
-      .transition({ y: 0 }, 300);
-  };
+   Menu.prototype.bindingComplete = function (el) {
+      this.el = $('.menu', el).hide();
+      this.__dialog__.settings.bindingComplete(el);
+   };
 
-  Menu.prototype.canDeactivate = function (a, s, d) {
-    var base = this;
-    return this.close(200);
-  };
+   Menu.prototype.load = function () {
+      var base = this;
+      this.el.show().css({ x: 100, opacity: 0, top: '100px' })
+        .transition({ x: -10, opacity: 1 }, 400, 'ease')
+        .transition({ y: 0 }, 300);
+   }
 
-  return Menu;
+   Menu.prototype.canDeactivate = function (a, s, d) {
+      var base = this;
+      return this.close(200);
+   };
+
+   return Menu;
 });

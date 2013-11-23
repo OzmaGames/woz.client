@@ -11,7 +11,7 @@
   }
 
   Loading.prototype.bindingComplete = function () {
-    
+     
   }
 
   Loading.prototype.attached = function (el) {

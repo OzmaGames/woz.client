@@ -1,59 +1,63 @@
 ﻿define(['durandal/app'], function (app) {
-  
-  function Confirm() {
-    this.content = '';
-    this.cancelText = 'CANCEL';
-    this.doneText = 'DONE';
-    this.duration = 400;
-    this.modal = false;
 
-    var base = this;
-    this.done = function () {
-      base.close("done");
-    }
+   function Confirm() {
+      this.content = '';
+      this.cancelText = 'CANCEL';
+      this.doneText = 'DONE';
+      this.duration = 400;
+      this.modal = false;
+      this.images = true;
 
-    this.cancel = function () {
-      base.close("cancel");
-    }
+      var base = this;
+      this.done = function () {
+         base.close("done");
+      }
 
-    this.close = function (command) {
-      base.el.transition({ y: 0 }, 300)
-        .transition({ y: 100, opacity: 0 }).promise().then(function () {
-          base.el.hide().css({ opacity: '' });
-        });
-      base.el.parent().removeClass('modal');
-      base.onClose(command);
-    }
+      this.cancel = function () {
+         base.close("cancel");
+      }
 
-    this.onClose = function () { };
-  }
+      this.close = function (command) {
+         base.el.transition({ y: 0 }, 300)
+           .transition({ y: 100, opacity: 0 }).promise().then(function () {
+              base.el.hide().css({ opacity: '' });
+           });
+         base.el.parent().removeClass('modal');
+         base.onClose(command);
+      }
 
-  Confirm.prototype.activate = function (data) {
-    if (data) {
-      this.modal = data.modal || this.modal;
-      this.duration = data.duration || this.duration;
-      this.content = data.content || this.content;
-      this.doneText = data.doneText || this.doneText;
-      this.cancelText = data.cancelText || this.cancelText;
-    }    
-  }
+      this.onClose = function () { };
+   }
 
-  Confirm.prototype.compositionComplete = function (el) {
-    this.el = $('.confirm', el);
+   Confirm.prototype.activate = function (data) {
+      if (data) {
+         this.modal = data.modal || this.modal;
+         this.duration = data.duration || this.duration;
+         this.content = data.content || this.content;
+         this.doneText = data.doneText || this.doneText;
+         this.cancelText = data.cancelText || this.cancelText;
+      }
+   }
 
-    if (this.modal) this.el.parent().addClass('modal');
+   Confirm.prototype.bindingComplete = function (el) {
+      this.el = $('.confirm', el).css({ opacity: 0 });
+      if (this.modal) this.el.parent().addClass('modal');
+      this.__dialog__.settings.bindingComplete(el);
+   }
 
-    this.el.css({ y: 100, opacity: 0 })
-     .transition({ y: 0, opacity: 1 }, 300, 'ease')
-     .transition({ y: 10 }, 200);
-  }
+   Confirm.prototype.load = function () {
+      var base = this;
+      base.el.css({ y: 100, opacity: 0 })
+       .transition({ y: 0, opacity: 1 }, 300, 'ease')
+       .transition({ y: 10 }, 200);
+   }
 
-  Confirm.prototype.canDeactivate = function () {
-    var base = this;
-    return $.Deferred(function (dfd) {
-      base.el.promise().then(function () { dfd.resolve(true); });
-    }).promise();
-  }
+   Confirm.prototype.canDeactivate = function () {
+      var base = this;
+      return $.Deferred(function (dfd) {
+         base.el.promise().then(function () { dfd.resolve(true); });
+      }).promise();
+   }
 
-  return Confirm;
+   return Confirm;
 });

@@ -251,6 +251,10 @@ a.small {
     width: 400px;
     background-color: #F2EBE3;
 }
+.container.y.auto{
+    max-height: none;
+    width:100%;
+}
 
     .container.y.compact {
         padding: 0;
@@ -405,6 +409,10 @@ a.small {
     display: table;
     border-collapse: separate;
     border-spacing: 1em;
+}
+
+.grid .table.compact{
+    border-spacing: .2em;
 }
 
 .game-item {

@@ -1,54 +1,59 @@
 ﻿define(['durandal/app'], function (app) {
 
-  function Slipper() {
-    this.heading = '';
-    this.content = '';
-    
-    var base = this;
-    this.close = function (duration) {
-      duration = duration || 500;
-      var dfd = base.el.transition({ y: 10 }, duration / 2, 'ease')
-        .transition({ y: -100, opacity: 0 }, duration).promise().then(function () {
-          base.el.css({ y: 0, display: 'none' });
-          //base.onClose();
-        });
+   function Slipper() {
+      this.heading = '';
+      this.content = '';
+      this.images = true;
 
-      base.el.parent().removeClass('modal');
+      var base = this;
+      this.close = function (duration) {
+         duration = duration || 500;
+         var dfd = base.el.transition({ y: 10 }, duration / 2, 'ease')
+           .transition({ y: -100, opacity: 0 }, duration).promise().then(function () {
+              base.el.css({ y: 0, display: 'none' });
+              //base.onClose();
+           });
 
-      return dfd;
-    }
+         base.el.parent().removeClass('modal');
 
-    this.collapse = function (a, e) {
-      e.preventDefault();
-      e.stopPropagation();
-      base.el.toggleClass('minimized');
-    }
+         return dfd;
+      }
 
-    this.onClose = function () { }
-  }
+      this.collapse = function (a, e) {
+         e.preventDefault();
+         e.stopPropagation();
+         base.el.toggleClass('minimized');
+      }
 
-  Slipper.prototype.activate = function (data) {
-    this.heading = data.heading;
-    this.content = data.content;
+      this.onClose = function () { }
+   }
 
-    if (data.modal === true) {
-      this.el.parent().addClass('modal');
-    }    
-  }
+   Slipper.prototype.activate = function (data) {
+      this.heading = data.heading;
+      this.content = data.content;
 
-  Slipper.prototype.attached = function (el) {
-    this.el = $('.slipper', el);
+      if (data.modal === true) {
+         this.el.parent().addClass('modal');
+      }
+   }
 
-    var base = this;
-    this.el.css({ y: -100, display: 'block', opacity: 0 })
-      .transition({ y: 10, opacity: 1 }, 500, 'ease')
-      .transition({ y: 0 }, 300);
-  }
+   Slipper.prototype.bindingComplete = function (el) {
+      var base = this;
+      base.el = $('.slipper', el).hide();
 
-  Slipper.prototype.canDeactivate = function (a, s, d) {
-    var base = this;
-    return this.close(200);    
-  }
+      this.__dialog__.settings.bindingComplete(el);
+   }
 
-  return Slipper;
+   Slipper.prototype.load = function () {
+      this.el.show().css({ y: -100, opacity: 0 })
+           .transition({ y: 10, opacity: 1 }, 500, 'ease')
+           .transition({ y: 0 }, 300);
+   }
+
+   Slipper.prototype.canDeactivate = function (a, s, d) {
+      var base = this;
+      return this.close(200);
+   }
+
+   return Slipper;
 });
