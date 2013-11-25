@@ -117,7 +117,7 @@
       });
       
       tile.$inst.draggable({
-        within: tile.$el,
+        withinEl: $(document),
         centerBased: true,
         usePercentage: false,
         topLimit: false,

@@ -5,7 +5,7 @@
          <i class="icon-spinner icon-2x icon-spin"></i>
       </div>
    </div>
-   <div class="grid container y scroll auto" data-bind="foreach: groups, style:{'max-height': height() + 'px'}">
+   <div class="grid container y scroll auto" data-bind="foreach: groups, style:{'max-height': height() + 'px'}" style="max-width:550px">
       <!-- ko if: $data -->
       <h1>Level <span data-bind="text: key"></span></h1>
       <div class="table compact" data-bind="foreach: { data: value, beforeRemove: $root.beingRemove }">
