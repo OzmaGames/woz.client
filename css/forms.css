@@ -114,7 +114,10 @@ label {
     font-weight: normal;
     line-height: 18px;
     color: #986B31;
-    width: 22em;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     /*-webkit-text-shadow: 0 0 2px #986B31;
     text-shadow: 0 0 2px #986B31;*/
     overflow: hidden;

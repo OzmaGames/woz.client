@@ -99,8 +99,13 @@ h5 {
 }
 
     .loader.active {
-        display:block;
+        display: block;
         visibility: visible;
+    }
+
+    .loader.page{
+        position:absolute;
+        top:0;right:0;
     }
 
 .loadingIndicator {
@@ -131,7 +136,8 @@ h5 {
         position: absolute;
         background-image: url('../images/app/logo-small.png');
         top: 0;
-        width: 100%;
+        left:0;
+        right:0;
         height: 80px;
         margin-top: 10px;
         z-index: 1;
@@ -231,15 +237,14 @@ a.big {
 a.small {
 }
 
-
-
-
 /*#region Form - controls */
-
 
 .container.y, .container.x, .container.group {
     padding: .5em;
     margin-bottom: .5em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .container.y {
@@ -248,13 +253,14 @@ a.small {
     border-radius: 10px;
     overflow-x: hidden;
     overflow-y: auto;
-    width: 400px;
+    width: 100%;
     background-color: #F2EBE3;
 }
-.container.y.auto{
-    max-height: none;
-    width:100%;
-}
+
+    .container.y.auto {
+        max-height: none;
+        width: 100%;
+    }
 
     .container.y.compact {
         padding: 0;
@@ -273,24 +279,47 @@ a.small {
     width: 100%;
     padding: 10px;
     margin: 0 auto;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 50px;
 }
 
-    .grid .col {
-        width: 400px;
-        padding-right: 40px;
-        float: left;
-        overflow: visible;
+    .grid.page {
+        margin-top: 80px;
     }
 
-        .grid .col.right {
-            float: right;
-            padding-right: 0;
-        }
+    .grid > .container {
+        position:relative;
+        min-width: 700px;
+        width: 100%;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .grid article {
+        display: inline-block;
+        width: 50%;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+        vertical-align:top;
+    }
+    
+    .grid aside + aside{
+        /*position:absolute;*/
+    }
 
     .grid h1 {
         padding-left: 10px;
         text-transform: uppercase;
     }
+
+        .grid h1:not(:first-child) {
+            margin-top: .5em;
+        }
 
     .grid label + ul {
         max-height: 8em !important;
@@ -330,18 +359,18 @@ a.small {
                 background-color: #f1ebe2;
             }
 
-            .grid ul li:active, .grid ul li.active {
+            .grid ul li:active:not(.header), .grid ul li.active:not(.header) {
                 background-color: #d9cfc0 !important;
                 font-weight: bold;
                 cursor: default;
             }
 
     .grid input[type="text"] {
-        padding: .8em;
         border: 1px solid #d7bea2;
         background-color: #F9F8F4;
         box-shadow: none;
-        width: 350px;
+        width: 80%;
+        margin-right: 2em !important;
     }
 
         .grid input[type="text"] ~ span {
@@ -367,7 +396,7 @@ a.small {
 
             .grid input[type="text"] ~ span.find {
                 width: 1.6em;
-                margin-left: -2em;
+                margin-left: -4em;
                 background-image: url('../images/game/find.png');
             }
 
@@ -411,9 +440,9 @@ a.small {
     border-spacing: 1em;
 }
 
-.grid .table.compact{
-    border-spacing: .2em;
-}
+    .grid .table.compact {
+        border-spacing: .2em;
+    }
 
 .game-item {
     display: table-row;
@@ -494,7 +523,7 @@ a.small {
     }
 
     .game-item .collection {
-        font-style: italic;        
+        font-style: italic;
     }
 
     .game-item .date {
@@ -532,8 +561,8 @@ a.small {
             box-shadow: 0 0 2px #d7bea2;
             padding: 0 2px;
             display: inline-block;
-            font-size:.9em;
-            margin-right:25px;
+            font-size: .9em;
+            margin-right: 25px;
         }
 
         .game-item .icons .chat {
@@ -554,7 +583,7 @@ a.small {
                 padding: .4em 0 0 .8em;
                 font-size: .8em;
             }
-        
+
     .game-item .players {
         position: absolute;
         bottom: .5em;

@@ -19,7 +19,7 @@ i.action, i.command {
     font-size: 40px;
     width: 1em;
     height: 1em;
-    background: url('../images/app/icons.png') no-repeat;    
+    background: url('../images/app/icons.png') no-repeat;
     cursor: pointer;
     -moz-background-size: 5em auto;
     -o-background-size: 5em auto;
@@ -32,7 +32,7 @@ i.action {
     -moz-transition: all .5s ease, background-position-x 0, background-position 0;
     -o-transition: all .5s ease, background-position-x 0, background-position 0;
     -webkit-transition: all .5s ease, background-position-x 0, background-position 0;
-    transition: all .5s ease, background-position-x 0, background-position 0;    
+    transition: all .5s ease, background-position-x 0, background-position 0;
 }
 
     i.action:hover:not(.still),
@@ -81,23 +81,23 @@ i.command.accept {
 }
 
 i.command.menu {
-    background-position:0 -5em;
+    background-position: 0 -5em;
 }
 
 i.command.connection {
-    background-position:0 -6em;
+    background-position: 0 -6em;
 }
 
 i.command.chat {
-    background-position:0 -7em;
+    background-position: 0 -7em;
 }
 
 i.command.help {
-    background-position:0 -8em;
+    background-position: 0 -8em;
 }
 
 i.command.quit {
-    background-position:0 -9em;
+    background-position: 0 -9em;
 }
 
 i.action:not(:empty),
@@ -162,12 +162,12 @@ i.command.close {
 }
 
     i.command.close:hover, i.command.active {
-        background-position: 0!important;
+        background-position: 0 !important;
     }
 
-    i.command.close.compact{
-        top:0;
-        right:0;
+    i.command.close.compact {
+        top: 0;
+        right: 0;
     }
 
 i.sm {
@@ -177,3 +177,17 @@ i.sm {
 i.xsm {
     font-size: 16px;
 }
+
+i.command.addFriend {
+    background-image: url('../images/game/add-friend.png');
+    background-position: 0 0 !important;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+    i.command.addFriend:active, i.command.addFriend:hover {
+        background-image: url('../images/game/add-friend-active.png');
+        background-position: 0 0 !important;
+    }

@@ -31,7 +31,7 @@
          heading: "Well done!",
          content: "You completed the game board.",
          btnText: "continue playing",
-         target: 'game'
+         target: 'singlePlayer'
       },
       RESIGNED: {
          heading: "Meh, Good luck next time!",

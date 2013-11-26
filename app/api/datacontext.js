@@ -120,6 +120,7 @@
            setTimeout(function () {
               app.dialog.close("loading");
               model.loading(false);
+              app.trigger("game:started");
            }, 100);
         });
 

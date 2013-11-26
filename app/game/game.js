@@ -1,17 +1,19 @@
 ﻿define(['durandal/app', 'durandal/system', 'api/datacontext', 'dialogs/_constants'], function (app, system, ctx, DIALOGS) {
 
-  ctx.canSwap = ko.observable(true);
+  ctx.canSwap = ko.observable(false);
 
   ctx.loading.subscribe(function (loading) {
     if (loading === true) {
       app.loading(false);
-    } else if (loading === false) {      
-      //ctx.canSwap(ctx.player.active());
     }
   });
 
   app.on("game:updated").then(function () {
     ctx.canSwap(ctx.player.active());
+  });
+
+  app.on("game:started").then(function () {
+     ctx.canSwap(ctx.player.active());
   });
 
   var cancel = function () {

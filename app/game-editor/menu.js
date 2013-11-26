@@ -6,7 +6,7 @@
       height: ko.observable(100),
       activate: function () {
          Groups([]);
-         app.trigger("server:manager:manageBoards", { command: 'getAll' }, function (data) {
+         app.trigger("server:manager:boards", { command: 'getAll' }, function (data) {
             var groups = Groups(), boards = data.boards;
             for (var i = 0; i < boards.length; i++) {               
                var board = boards[i], level = board.level;
@@ -34,7 +34,7 @@
             doneText: 'YES', cancelText: 'NO'
          }).then(function (res) {
             if (res != "cancel") {
-               app.trigger("server:manager:manageBoards", {
+               app.trigger("server:manager:boards", {
                   id: gameObject.id,
                   command: 'delete'
                });

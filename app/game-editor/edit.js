@@ -72,7 +72,7 @@
         var base = this;
 
         app.loading(true);
-        app.trigger("server:manager:manageBoards", json, function (data) {
+        app.trigger("server:manager:boards", json, function (data) {
            if (data.success) {
               base.id = data.id;
               app.dialog.show("alert", { content: 'Game Board Saved' });
@@ -99,7 +99,7 @@
 
            var base = this;
            ctx.loading(true);
-           app.trigger("server:manager:manageBoards", { command: 'get', id: this.id }, function (data) {
+           app.trigger("server:manager:boards", { command: 'get', id: this.id }, function (data) {
               ctx.loading(false);
               if (data.success) {
                  var board = data.board;

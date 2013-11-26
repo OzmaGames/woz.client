@@ -49,6 +49,7 @@
           { route: 'lobby',           moduleId: 'home/lobby',       title: 'Lobby',                nav: true },
           { route: 'settings',        moduleId: 'home/settings',    title: 'Settings',             nav: true },
           { route: 'newGame',         moduleId: 'home/newGame',     title: 'New Game',             nav: true },
+          { route: 'singlePlayer',    moduleId: 'home/singlePlayer',title: 'Loading the game',     nav: true },
           { route: 'not-found',       moduleId: 'error/not-found',  title: 'Error 404: Not Found', nav: true },
           { route: 'game',            moduleId: 'game/game',        title: 'Play',                 nav: true },
           { route: 'game-editor',     moduleId: 'game-editor/menu', title: 'Game Editor',          nav: true },

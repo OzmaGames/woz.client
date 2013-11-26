@@ -52,8 +52,8 @@ define(['durandal/system', 'durandal/app', 'durandal/plugins/router', 'durandal/
       console.log("scrollDown");
       $('body').animate({ scrollTop: 1000 }, "slow", "swing");
     }
-    app.navigate = function (hash) {
-      router.navigate(hash);
+    app.navigate = function (hash, options) {
+      router.navigate(hash, options);
     }
 
     app.dialog = Dialog;
