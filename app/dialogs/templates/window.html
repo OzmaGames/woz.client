@@ -1,6 +1,8 @@
 ﻿<div class="dialog absolute low top-left">
    <div class="window">
-      <i class="command close" data-bind="click: close"></i>
+      <div style="position:absolute; top:0; right:0; width:32px; height: 32px;" data-bind="click: close">
+         <i class="command close"></i>
+      </div>
       <h1 data-bind="text: heading"></h1>
       <div data-bind="html: content"></div>
    </div>

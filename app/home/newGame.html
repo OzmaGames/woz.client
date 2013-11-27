@@ -19,17 +19,18 @@
             </div>
             <div class="container y scroll compact">
                <ul>
-                  <li class="header">friends list</li>
+                  <li class="header" data-bind="text: friendListMode">friends list</li>
                   <!-- ko foreach: friends -->
-                  <li data-bin1d="text: username">
-                     <span></span>
-                     <i class="command addFriend sm"></i>
+                  <li>
+                     <span data-bind="text: username"></span>
+                     <i class="command addFriend sm pull-right" style="margin-right:1em" data-bind="click: $root.addFriend.bind($root, $data)"></i>
                   </li>
                   <!-- /ko -->
                   <!-- ko if: friends().length == 0 -->
-                  <li>
-                     <span></span>
-                     <i class="command addFriend sm"></i>
+                  <li class="inst">
+                     At the moment you have no friends!<br />
+                     You can search for new friends <br />
+                     and add them to your list.
                   </li>
                   <!-- /ko -->
                </ul>

@@ -1,139 +1,141 @@
 ﻿define(['api/datacontext', 'game/canvas/vm/Path', 'game/canvas/vm/DynamicPath', 'paper'],
   function (ctx, Path, DynamicPath) {
 
-    //when the user resize the screen, wait for a couple of ms before rendering
-    var resizeHelperID = null;
-    var resizeDelay = 100;
+     //when the user resize the screen, wait for a couple of ms before rendering
+     var resizeHelperID = null;
+     var resizeDelay = 100;
 
-    var canvasDOM;
+     var canvasDOM;
 
-    paper.dfd = $.Deferred();
+     paper.dfd = $.Deferred();
 
-    $(window).resize(function () {
-      clearTimeout(resizeHelperID);
-      resizeHelperID = setTimeout(resize, resizeDelay);
-    });
-    
-    ctx.tiles.subscribe(function (tiles) {
-      updateModel(tiles);
-    });
+     $(window).resize(function () {
+        clearTimeout(resizeHelperID);
+        resizeHelperID = setTimeout(resize, resizeDelay);
+     });
 
-    ctx.paths.subscribe(function (paths) {
-      for (var i = 0; i < paths.length; i++) {
-        createPath(paths[i]);
-      }
-    });
+     ctx.tiles.subscribe(function (tiles) {
+        updateModel(tiles);
+     });
 
-    function updateModel(tiles) {
-      paper.dfd.promise().then(function () {
-        console.log("UpdateModel")
-        var tilesDOM = $('#tiles');
-
-        Path.options.container = {
-          width: tilesDOM.width(),
-          height: tilesDOM.height(),
-          left: tilesDOM.offset().left,
-          top: tilesDOM.offset().top
-        };
-
-        updateTiles(tiles);
-      })
-    }
-
-    app.on("game:tiles:update").then(updateTiles);
-
-    function updateTiles(tiles) {
-      tiles = tiles || ctx.tiles();
-
-      for (var i = 0; i < tiles.length; i++) {
-        var tile = tiles[i];
-        tile.center = getTileCenterPoint(tile.x, tile.y);
-      }
-
-      function getTileCenterPoint(x, y) {
-        var point = new paper.Point();
-        point.x = Path.options.container.width * x + Path.options.container.left;
-        point.y = Path.options.container.height * y + Path.options.container.top;
-
-        return point;
-      }
-    }
-    
-    function createPath(pathModel) {
-      paper.dfd.promise().then(function () {
-        if (!pathModel.hasOwnProperty('canvas')) {
-          pathModel.canvas =
-            pathModel.nWords === 0 ?
-              new DynamicPath(pathModel) :
-              new Path(pathModel);
-
-          redrawThisPath.call(pathModel);
-          pathModel.canvasSub = pathModel.phrase.words.subscribe(redrawThisPath, pathModel);
-
-          pathModel.dispose = function () {
-            console.log('%cPath Disposed', 'background: orange; color: white', pathModel.id);
-            if (pathModel.canvasSub) {
-              pathModel.canvasSub.dispose();
-              delete pathModel.canvasSub;
-            }
-            if (pathModel.canvas) {
-              pathModel.canvas.dispose();
-              delete pathModel.canvas;
-            }
-          }
+     ctx.paths.subscribe(function (paths) {
+        for (var i = 0; i < paths.length; i++) {
+           createPath(paths[i]);
         }
-      });      
-    }
+     });
 
-    function redrawThisPath() {
-      updateModel();
-      this.canvas.setup();
-      this.canvas.show();
-    }
+     function updateModel(tiles) {
+        paper.dfd.promise().then(function () {
+           console.log("UpdateModel")
+           var tilesDOM = $('#tiles');
 
-    function setup(canvas) {
-      console.log("paths setup")
+           Path.options.container = {
+              width: tilesDOM.width(),
+              height: tilesDOM.height(),
+              left: tilesDOM.offset().left,
+              top: tilesDOM.offset().top
+           };
 
-      paper.setup(canvas);
+           updateTiles(tiles);
+        })
+     }
 
-      paper.pathsCSize = { w: $(canvas).width(), h: $(canvas).height() };
+     app.on("game:tiles:update").then(updateTiles);
 
-      canvasDOM = canvas;
+     function updateTiles(tiles) {
+        tiles = tiles || ctx.tiles();
 
-      paper.dfd.resolve();
-    }
+        for (var i = 0; i < tiles.length; i++) {
+           var tile = tiles[i];
+           tile.center = getTileCenterPoint(tile.x, tile.y);
+        }
 
-    function redraw() {
-      var context = canvasDOM.getContext("2d");
-      context.canvas.width = $(canvasDOM).width();
-      context.canvas.height = $(canvasDOM).height();
+        function getTileCenterPoint(x, y) {
+           var point = new paper.Point();
+           point.x = Path.options.container.width * x + Path.options.container.left;
+           point.y = Path.options.container.height * y + Path.options.container.top;
 
-      updateModel();
-      var paths = ctx.paths();
-      for (var i = 0; i < paths.length; i++) {
-        paths[i].canvas.show();
-      }
+           return point;
+        }
+     }
 
-      paper.view.draw();
-    }
+     function createPath(pathModel) {
+        paper.dfd.promise().then(function () {
+           if (!pathModel.hasOwnProperty('canvas')) {
+              pathModel.canvas =
+                pathModel.nWords === 0 ?
+                  new DynamicPath(pathModel) :
+                  new Path(pathModel);
 
-    function resize() {
-      var cSize = { w: $(canvasDOM).width(), h: $(canvasDOM).height() };
-      if (paper.pathsCSize.w != cSize.w || paper.pathsCSize.h != cSize.h) {
-        paper.pathsCSize = cSize;
-        redraw();
-        console.log('resized occurred');
-      }
-      else {
-        console.log('resized ignored');
-      }
-    }
+              redrawThisPath.call(pathModel);
+              pathModel.canvasSub = pathModel.phrase.words.subscribe(redrawThisPath, pathModel);
 
-    function dispose() {
-      console.log("paths disposed")
-      paper.dfd = $.Deferred();
-    }
+              pathModel.dispose = function () {
+                 console.log('%cPath Disposed', 'background: orange; color: white', pathModel.id);
+                 if (pathModel.canvasSub) {
+                    pathModel.canvasSub.dispose();
+                    delete pathModel.canvasSub;
+                 }
+                 if (pathModel.canvas) {
+                    pathModel.canvas.dispose();
+                    delete pathModel.canvas;
+                 }
+              }
+           }
+        });
+     }
 
-    return { setup: setup, redraw: redraw, dispose: dispose };
+     function redrawThisPath() {
+        updateModel();
+        this.canvas.setup();
+        this.canvas.show();
+     }
+
+     function setup(canvas) {
+        console.log("paths setup")
+
+        paper.setup(canvas);
+
+        paper.pathsCSize = { w: $(canvas).width(), h: $(canvas).height() };
+
+        canvasDOM = canvas;
+
+        paper.dfd.resolve();
+     }
+
+     function redraw() {
+        var context = canvasDOM.getContext("2d");
+        context.canvas.width = $(canvasDOM).width();
+        context.canvas.height = $(canvasDOM).height();
+
+        updateModel();
+
+        var paths = ctx.paths();
+        for (var i = 0; i < paths.length; i++) {
+           paths[i].canvas.show();
+        }
+
+        paper.view.draw();
+     }
+
+     function resize() {
+        var cSize = { w: $(canvasDOM).width(), h: $(canvasDOM).height() };
+
+        if (paper.pathsCSize.w != cSize.w || paper.pathsCSize.h != cSize.h) {
+           paper.pathsCSize = cSize;
+           redraw();
+           console.log('resized occurred');
+        }
+        else {
+           console.log('resized ignored');
+        }
+     }
+
+     function dispose() {
+        console.log("paths disposed")
+        paper.dfd = $.Deferred();
+     }
+
+     return { setup: setup, redraw: redraw, dispose: dispose };
 
   });

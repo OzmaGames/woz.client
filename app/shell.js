@@ -44,7 +44,7 @@
     activate: function () {
       window.router = router;
       return router.map([
-          { route: ['', 'home'],      moduleId: 'home/index',       title: '',                nav: true },
+          { route: ['', 'home'],      moduleId: 'home/index',       title: '',                     nav: true },
           { route: 'test',            moduleId: 'home/test',        title: 'Test',                 nav: true },
           { route: 'lobby',           moduleId: 'home/lobby',       title: 'Lobby',                nav: true },
           { route: 'settings',        moduleId: 'home/settings',    title: 'Settings',             nav: true },
