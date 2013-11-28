@@ -14,8 +14,10 @@
             </div>
             <h1>choose friend</h1>
             <div class="container group">
-               <input type="text" data-bind="value: query" />
-               <span class="find" data-bind="click: search"></span>               
+               <div class="input-box">
+                  <input type="search" data-bind="value: query, valueUpdate: 'afterkeydown'" />
+                  <i class="command find" data-bind="click: search"></i>
+               </div>
             </div>
             <div class="container y scroll compact">
                <ul>

@@ -40,6 +40,9 @@
       });
       return str;
     }),
+    showSummary: function () {
+       app.dialog.show("alert", { content: this.summary() });
+    },
 
     activate: function () {
       window.router = router;

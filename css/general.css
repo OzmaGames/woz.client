@@ -26,7 +26,7 @@ html {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;        
+    user-select: none;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -79,6 +79,7 @@ h5 {
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -103,9 +104,10 @@ h5 {
         visibility: visible;
     }
 
-    .loader.page{
-        position:absolute;
-        top:0;right:0;
+    .loader.page {
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
 .loadingIndicator {
@@ -136,8 +138,8 @@ h5 {
         position: absolute;
         background-image: url('../images/app/logo-small.png');
         top: 0;
-        left:0;
-        right:0;
+        left: 0;
+        right: 0;
         height: 80px;
         margin-top: 10px;
         z-index: 1;
@@ -153,33 +155,42 @@ h5 {
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
-    
+
     .logo.loading {
         top: 100px;
         height: 200px;
     }
 
-#login-page .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 2em;
+#login-page {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 900px;    
 }
 
-    #login-page .background.logo {
-        background-position: top center;
+    #login-page .background {
+        height: 100%;
+        width: 100%;
+        max-width: 900px;
+        position: fixed;
+        margin:2em;
+        margin-left:0;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
 
-    #login-page .background.footer {
-        background: url('../images/app/footer.png') no-repeat;
-        background-position: bottom center;
-        -moz-background-size: 100% auto;
-        -o-background-size: 100% auto;
-        -webkit-background-size: 100% auto;
-        background-size: 100% auto;
-    }
+        #login-page .background.logo {
+            background-position: top center;
+        }
+
+        #login-page .background.footer {
+            background: url('../images/app/footer.png') no-repeat;
+            background-position: bottom center;
+            -moz-background-size: 100% auto;
+            -o-background-size: 100% auto;
+            -webkit-background-size: 100% auto;
+            background-size: 100% auto;
+        }
 
 .palette {
     top: 100px;
@@ -295,7 +306,7 @@ a.small {
     }
 
     .grid > .container {
-        position:relative;
+        position: relative;
         min-width: 700px;
         width: 100%;
         -moz-box-sizing: border-box;
@@ -310,10 +321,10 @@ a.small {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         padding: 10px;
-        vertical-align:top;
+        vertical-align: top;
     }
-    
-    .grid aside + aside{
+
+    .grid aside + aside {
         /*position:absolute;*/
     }
 
@@ -370,52 +381,37 @@ a.small {
                 cursor: default;
             }
 
-            .grid li.inst{
-                color:gray;
-                height:4em;
-                text-align:center;
-                padding:.3em;
-            }
+    .grid li.inst {
+        color: gray;
+        height: 4em;
+        text-align: center;
+        padding: .3em;
+    }
 
-    .grid input[type="text"] {
+    .grid .input-box {
+        position: relative;
+    }
+
+    .grid input[type="search"] {
         border: 1px solid #d7bea2;
         background-color: #F9F8F4;
         box-shadow: none;
-        width: 80%;
-        margin-right: 2em !important;
+        width: 100%;
+        padding-right: 2em;
     }
 
-        .grid input[type="text"] ~ span {
-            position: relative;
-            display: inline-block;
-            width: 1.8em;
-            height: 1.4em;
+        .grid input[type="search"] + i {
+            position: absolute;
+            font-size: 1.5em;
+            display: block;
             top: .3em;
+            right: .3em;
             -moz-background-size: 100% 100%;
             -o-background-size: 100% 100%;
             -webkit-background-size: 100% 100%;
             background-size: 100% 100%;
             cursor: pointer;
         }
-
-            .grid input[type="text"] ~ span.clear {
-                background-image: url('../images/game/add-friend.png');
-            }
-
-                .grid input[type="text"] ~ span.clear:hover, .grid input[type="text"] ~ span.clear:active {
-                    background-image: url('../images/game/add-friend-active.png');
-                }
-
-            .grid input[type="text"] ~ span.find {
-                
-                width: 1.6em;
-                margin-left: -4em;
-                background-image: url('../images/game/find.png');
-            }
-
-                .grid input[type="text"] ~ span.find:hover, .grid input[type="text"] ~ span.find:active {
-                    background-image: url('../images/game/find-active.png');
-                }
 
 .scroll {
     position: relative;
@@ -433,6 +429,15 @@ a.small {
         box-shadow: inset 0 0 6px rgba(0,0,0,.5);
         background-color: #c8b39b;
         width: 5px;
+    }
+
+    .scroll.sm::-webkit-scrollbar {
+        width: 5px;
+        background-color: rgba(192, 157, 108, .1);
+    }
+
+    .scroll.sm::-webkit-scrollbar-thumb {
+        width: 3px;
     }
 
 .pic.woz, .pic.starter {
@@ -635,7 +640,7 @@ a.small {
     margin: .2em;
     font-family: Cambria;
     font-size: .7em;
-    z-index: 1;
+    z-index: 2;
     cursor: default;
 }
 

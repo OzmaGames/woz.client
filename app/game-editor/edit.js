@@ -104,6 +104,7 @@
               if (data.success) {
                  var board = data.board;
                  ko.utils.arrayForEach(board.tiles, function (t) {
+                    if (t.id > lastID) lastID = t.id + 1;
                     ctx.tiles.push(new Tile(t.id, t.x * 1, t.y * 1, t.angle));
                  });
 

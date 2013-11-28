@@ -151,11 +151,10 @@ hr {
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;    
+    left: 0;
 }
 
 .carry #tiles {
-    
 }
 
 #tiles .container {
@@ -253,99 +252,103 @@ hr {
             border-radius: 100%;
         }
 
-    .tile .instruction {
-        font-size: 1em;
-        -moz-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
-        -o-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
-        -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
-        transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
-    }
+body .instruction {
+    z-index: 3;
+}
 
-        .tile .instruction .help, .instruction .help {
-            position: absolute;
-            top: 12px;
-            right: 0px;
-        }
+.tile .instruction {
+    z-index: 1;
+    font-size: 1em;
+    -moz-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
+    -o-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
+    -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
+    transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
+}
 
-    .tile .instruction, body .instruction {
-        z-index: 1;
+    .tile .instruction .help, .instruction .help {
         position: absolute;
-        top: -30px;
-        left: 10px;
-        width: 80px;
-        height: 50px;
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 10px 20px 0 20px;
-        border-radius: 50%;
-        box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
-        text-align: center;
-        line-height: 100%;
-        font-family: CopseRegular;
-        font-size: medium;
-        color: #296e8b;
-        -webkit-backface-visibility: hidden;
-        -moz-backface-visibility: hidden;
-        backface-visibility: hidden;
-        -webkit-text-shadow: 0px 0px 1px #bad7e4;
-        text-shadow: 0px 0px 1px #bad7e4;
+        top: 12px;
+        right: 0px;
     }
 
-        .tile .instruction .info, body .instruction .info {
-            margin-top: 5px;
-            font-family: GreatVibesRegular;
-            font-weight: bold;
-            font-size: large;
-        }
+.tile .instruction, body .instruction {
+    position: absolute;
+    top: -30px;
+    left: 10px;
+    width: 80px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px 0 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
+    text-align: center;
+    line-height: 100%;
+    font-family: CopseRegular;
+    font-size: medium;
+    color: #296e8b;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-text-shadow: 0px 0px 1px #bad7e4;
+    text-shadow: 0px 0px 1px #bad7e4;
+}
 
-    .tile .rest {
-        position: absolute;
-        z-index: 2;
-        right: -30px;
-        top: 0;
-        visibility: hidden;
+    .tile .instruction .info, body .instruction .info {
+        margin-top: 5px;
+        font-family: GreatVibesRegular;
+        font-weight: bold;
+        font-size: large;
     }
 
-    .tile:hover .rest {
-        visibility: visible;
+.tile .rest {
+    position: absolute;
+    z-index: 2;
+    right: -30px;
+    top: 0;
+    visibility: hidden;
+}
+
+.tile:hover .rest {
+    visibility: visible;
+}
+
+.tile .rest .thumbnail {
+    margin-bottom: 3px;
+    border: 3px solid white;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+    .tile .rest .thumbnail:hover {
+        border-color: orange;
     }
 
-    .tile .rest .thumbnail {
-        margin-bottom: 3px;
-        border: 3px solid white;
-        border-radius: 100%;
-        width: 40px;
-        height: 40px;
-        -moz-background-size: 100% 100%;
-        -o-background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
+    .tile .rest .thumbnail:last-child {
+        margin-bottom: 0;
     }
 
-        .tile .rest .thumbnail:hover {
-            border-color: orange;
-        }
+.tile .control {
+    font-size: 13px;
+    visibility: hidden;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    width: 60px;
+    height: 70px;
+    z-index: 2;
+    background-color: white;
+    border-radius: 100%;
+    color: #976b2c;
+}
 
-        .tile .rest .thumbnail:last-child {
-            margin-bottom: 0;
-        }
-
-    .tile .control {
-        font-size: 13px;
-        visibility: hidden;
-        position: absolute;
-        top: 50px;
-        left: 0px;
-        width: 60px;
-        height: 70px;
-        z-index: 2;
-        background-color: white;
-        border-radius: 100%;
-        color: #976b2c;
-    }
-
-    .tile:hover .control {
-        visibility: visible;
-    }
+.tile:hover .control {
+    visibility: visible;
+}
 
 #tiles.woz .mask {
     background-image: url('../images/tiles/woz.jpg');

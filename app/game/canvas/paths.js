@@ -27,13 +27,13 @@
      function updateModel(tiles) {
         paper.dfd.promise().then(function () {
            console.log("UpdateModel")
-           var tilesDOM = $('#tiles');
+           var tilesDOM = $('#tiles'), container = tilesDOM.parent();
 
            Path.options.container = {
               width: tilesDOM.width(),
               height: tilesDOM.height(),
-              left: tilesDOM.offset().left,
-              top: tilesDOM.offset().top
+              left: container.position().left,
+              top: container.position().top
            };
 
            updateTiles(tiles);

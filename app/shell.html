@@ -9,7 +9,7 @@
       </div>
       <div class="switch" data-bind="css: { b: errors().length }">
          <span class="good"></span>
-         <span class="bad" data-bind="attr:{title: $root.summary}">
+         <span class="bad" data-bind="attr:{title: $root.summary}, click: $root.showSummary">
             Errors on the page: <span data-bind="text: errors().length"></span>
          </span>
       </div>

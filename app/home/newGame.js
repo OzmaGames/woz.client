@@ -29,32 +29,36 @@
       friendListMode: ko.observable(mode.none),
       activate: function () {
          var base = this;
-         app.trigger("server:friends", { username: 'ali', command: 'getAll' }, function (data) {
-            if (data.success) base.friends(data.friends);
-         });
+
+         ko.computed(function () {
+            var query = base.query();
+            if (query == '') {
+               app.trigger("server:friends", { username: 'ali', command: 'getAll' }, function (data) {
+                  if (data.success) base.friends(data.friends);
+               });
+            } else {
+               base.friendListMode(mode.search);
+               app.trigger("server:friends", {
+                  username: 'ali', command: 'search', friend: base.query()
+               }, function (data) {
+                  base.friends(data.fofs.concat(data.all));
+               });
+            }                        
+         }).extend({ throttle: 300 });
       },
       binding: function () {
          return { cacheViews: false };
       },
       search: function () {
          var base = this;
-         base.friendListMode(mode.search);
-         app.trigger("server:friends", {
-            username: 'ali', command: 'search', friend: base.query()
-         }, function (data) {
-            
-            base.friends(data.fofs.concat(data.all));
-         });
+         
       },
       addFriend: function (friend) {
          var base = this;         
          app.trigger("server:friends", {
             username: 'ali', command: 'add', friend: friend.username
          }, function () {
-            base.friends();
-            app.trigger("server:friends", { username: 'ali', command: 'getAll' }, function (data) {
-               if (data.success) base.friends(data.friends);
-            });
+            base.query('');
          });
       },
       start: function () {

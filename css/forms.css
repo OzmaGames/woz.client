@@ -218,7 +218,7 @@ select.woz {
     cursor: pointer;
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
+input[type="text"], input[type="password"], input[type="email"], input[type="search"] {
     font-family: Cambria;
     font-weight: bold;
     font-size: 1em;

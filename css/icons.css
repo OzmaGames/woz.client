@@ -191,3 +191,13 @@ i.command.addFriend {
         background-image: url('../images/game/add-friend-active.png');
         background-position: 0 0 !important;
     }
+
+i.command.find {
+    background-image: url('../images/game/find.png');
+    background-position: 0 0 !important;    
+}
+
+    i.command.find:active, i.command.find:hover {
+        background-image: url('../images/game/find-active.png');
+        background-position: 0 0 !important;
+    }
