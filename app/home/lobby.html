@@ -4,8 +4,8 @@
       <button class="orange sm" style="position:absolute; top: -2em; right:0;z-index:1" data-bind="click: $root.start">
          Start New Game
       </button>
-      <!-- ko if: games().length -->
       <h1 data-bind="text: title"></h1>
+      <!-- ko if: games().length -->
       <div class="table" data-bind="foreach: games">
          <div class="game-item" data-bind="click: $root.select, css: {active: $root.activeGame() == $data}">
             <div class="cell left">
@@ -57,6 +57,11 @@
                </div>
             </div>
          </div>
+      </div>
+      <!-- /ko -->
+      <!-- ko ifnot: games().length -->
+      <div class="grid">
+         <p style="margin-left:2em">no game found</p>
       </div>
       <!-- /ko -->
    </div>

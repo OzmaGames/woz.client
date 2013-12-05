@@ -8,6 +8,9 @@
       var base = this;
       this.close = function (duration) {
          duration = duration || 500;
+         if (!base.el) {
+            return $.Deferred(function (dfd) { dfd.resolve() });
+         }
          var dfd = base.el.transition({ y: 10 }, duration / 2, 'ease')
            .transition({ y: -100, opacity: 0 }, duration).promise().then(function () {
               base.el.css({ y: 0, display: 'none' });

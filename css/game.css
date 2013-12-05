@@ -422,6 +422,8 @@ body .instruction {
     }
 
     .magnet.drag {
+        /*position: fixed !important;*/
+        z-index: 50;
         -moz-transform: scale(1.1) !important;
         -ms-transform: scale(1.1) !important;
         -o-transform: scale(1.1) !important;

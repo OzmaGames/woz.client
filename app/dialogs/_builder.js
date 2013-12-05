@@ -4,8 +4,8 @@
      var className = 'dialogs';
      var dialogs = {};
 
-     function createBaseHost() {
-        var body = $('body'), host = body.children('.' + className).get(0);
+     function createBaseHost() {        
+        var body = $('#app'), host = body.children('.' + className).get(0);
         if (host === undefined) {
            return $('<div/>', { 'class': className }).appendTo(body).get(0);
         }
@@ -153,6 +153,7 @@
      }
 
      return {
+        _dialogs: dialogs,
         show: function (type, activationData, context) {
            return show('dialogs/templates/' + type, activationData, context);
         },

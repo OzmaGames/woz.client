@@ -3,21 +3,21 @@
 <i class="command close" data-bind="click:login"></i>
 
 <form data-bind="verifiableSubmit: signUp">
-    <input type="text" placeholder="Username" data-bind="verifiableValue: username" />
-    <span class="error" data-bind="text: username.errorMessage"></span>
-    <input type="text" placeholder="E-mail" data-bind="verifiableValue: email">
-    <span class="error" data-bind="text: email.errorMessage"></span>
-    <input type="password" placeholder="Password" data-bind="verifiableValue: password">
-    <span class="error" data-bind="text: password.errorMessage"></span>
+   <input type="text" placeholder="Username" data-bind="verifiableValue: username" />
+   <span class="error" data-bind="text: username.validationMessage"></span>
+   <input type="text" placeholder="E-mail" data-bind="verifiableValue: email">
+   <span class="error" data-bind="text: email.validationMessage"></span>
+   <input type="password" placeholder="Password" data-bind="verifiableValue: password">
+   <span class="error" data-bind="text: password.validationMessage"></span>
 
-    <p class="error" data-bind="text: errorMessage"></p>
+   <p class="error" data-bind="text: errorMessage"></p>
 
-    <button type="submit" class="blue" data-bind="disable: loading()">
-        <span>SIGN UP</span>
-        <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
-    </button>
+   <button type="submit" class="blue" data-bind="disable: loading()">
+      <span>SIGN UP</span>
+      <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+   </button>
 </form>
 
 <p class="agreement">
-    By clicking <i>sign up</i> you agree to our <b>Terms of Use</b> and <b>Privacy Policy</b>.
+   By clicking <i>sign up</i> you agree to our <b>Terms of Use</b> and <b>Privacy Policy</b>.
 </p>

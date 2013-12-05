@@ -19,54 +19,91 @@
       }
    ];
 
-   var mode = { none: 'Friends List', search: 'Search Results' }
+   var mode = {
+      list: {
+         mode: 'list',
+         title: 'Friends List'
+      }, search: {
+         mode: 'search',
+         title: 'Search Result'
+      }
+   }
 
-   return {
+
+   vm = {
       gameOptions: gameOptions,
       gameOptionId: ko.observable(0),
       friends: ko.observableArray(),
       query: ko.observable(''),
-      friendListMode: ko.observable(mode.none),
+      friendListMode: ko.observable(mode.list),
+      searchLoading: ko.observable(false),
+      activeFriend: ko.observable(),
+      friendSelected: function (friend) {
+         this.activeFriend(friend);
+      },
       activate: function () {
-         var base = this;
-
-         ko.computed(function () {
-            var query = base.query();
-            if (query == '') {
-               app.trigger("server:friends", { username: 'ali', command: 'getAll' }, function (data) {
-                  if (data.success) base.friends(data.friends);
-               });
-            } else {
-               base.friendListMode(mode.search);
-               app.trigger("server:friends", {
-                  username: 'ali', command: 'search', friend: base.query()
-               }, function (data) {
-                  base.friends(data.fofs.concat(data.all));
-               });
-            }                        
-         }).extend({ throttle: 300 });
+         this.activeFriend(null);                  
+         app.dialog.close("all");
+         $('#menu').remove();
       },
       binding: function () {
          return { cacheViews: false };
       },
-      search: function () {
-         var base = this;
-         
-      },
       addFriend: function (friend) {
          var base = this;         
          app.trigger("server:friends", {
-            username: 'ali', command: 'add', friend: friend.username
+            username: ctx.username, command: 'add', friend: friend.username
          }, function () {
             base.query('');
          });
       },
+      removeFriend: function (friend) {
+         var base = this;
+         app.trigger("server:friends", {
+            username: ctx.username, command: 'delete', friend: friend.username
+         }, function () {
+            if (!base.query()) {
+               base.query.valueHasMutated();
+            }
+         });
+      },
       start: function () {
-         var gameOptionId = this.gameOptionId();
+         if (vm.startEnable()) {
+            var gameOptionId = this.gameOptionId();
 
-         ctx.playerCount = gameOptions[gameOptionId].playerCount;
+            ctx.playerCount = gameOptions[gameOptionId].playerCount;
 
-         app.navigate("game")
+            app.navigate("game")
+         } else {
+            app.dialog.show("alert", { content: 'Please select a friend to continue.' });
+         }
+         
       }
    }
+
+   vm.startEnable = ko.computed(function () {
+      var gameOptionId = vm.gameOptionId(), activeFriend = vm.activeFriend();      
+      return activeFriend || gameOptionId != 0;
+   });
+
+   ko.computed(function () {
+      var query = vm.query();
+      if (query == '') {
+         app.trigger("server:friends", { username: ctx.username, command: 'getAll' }, function (data) {
+            vm.friendListMode(mode.list);
+            if (data.success) vm.friends(data.friends);
+         });
+      } else {
+         vm.searchLoading(true);
+         app.trigger("server:friends", {
+            username: ctx.username, command: 'search', friend: vm.query()
+         }, function (data) {
+            vm.friendListMode(mode.search);
+            vm.searchLoading(false);
+            vm.friends(data.users);
+         });
+      }
+   }).extend({ throttle: 300 });
+
+   return vm;
 });

@@ -1,63 +1,50 @@
-﻿define(['durandal/app', 'api/constants', 'durandal/plugins/router'], function (app, constants, router) {
+﻿define(['durandal/app', 'api/constants'], function (app, constants) {
 
-  var username = ko.observable(),
-      password = ko.observable(),
-      errorMessage = ko.observable();
+   return window.page = {
+      loading: app.loading,
 
-  username.verify = function (username) {
-    if (username == "") {
-      return "You need to enter you username or e-mail";
-    }
-    if (username.length < 3) {
-      return "Incorrect e-mail or username";
-    }
-    return "";
-  }
+      username: ko.observable().extend({
+         required: "You need to enter you username or e-mail",
+         stringLength: { minLength: 3, message: "Incorrect e-mail or username" }
+      }),
 
-  password.verify = function (password) {
-    if (password == "") {
-      return "You need to enter your password";
-    }
-    return "";
-  }
+      password: ko.observable().extend({
+         required: "You need to enter your password",
+      }),
 
-  return {   
-    loading: app.loading,
-    username: username,
-    password: password,
-    errorMessage: errorMessage,
+      errorMessage: ko.observable(),
 
-    signUp: function () {
-      app.trigger('account:view:change', 'account/sign-up');
-    },
+      signUp: function () {
+         app.trigger('account:view:change', 'account/sign-up');
+      },
 
-    recover: function () {
-      app.trigger('account:view:change', 'account/recovery');
-    },
+      recover: function () {
+         app.trigger('account:view:change', 'account/recovery');
+      },
 
-    login: function(el) {    
-      app.loading(true);
+      login: function (el) {
+         app.loading(true);
 
-      var data = {
-        username: username(),
-        //password: CryptoJS.SHA3(constants.salt + username() + password()).toString()
-        password: 12345
-      };
+         var data = {
+            username: this.username(),
+            password: CryptoJS.SHA3(constants.salt + this.username() + this.password()).toString()            
+         };
 
-      app.trigger("server:account:login", data, function (res) {
+         var base = this;
+         app.trigger("server:account:login", data, function (res) {
 
-        app.loading(false);
+            app.loading(false);
 
-        if (res.success) {
-          res.username = username();
-          app.dialog.close("panel");
-          app.trigger('account:login', res);          
-          router.navigate("newGame");
-        } else {
-          errorMessage(res.message);
-        }
-      });
-    }
+            if (res.success) {
+               res.username = data.username;
+               app.dialog.close("panel");
+               app.trigger('account:login', res);
+               app.navigate("newGame");
+            } else {
+               base.errorMessage(res.message);
+            }
+         });
+      }
 
-  };
+   };
 });

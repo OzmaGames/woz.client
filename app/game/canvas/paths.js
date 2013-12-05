@@ -120,9 +120,10 @@
 
      function resize() {
         var cSize = { w: $(canvasDOM).width(), h: $(canvasDOM).height() };
-
+        
         if (paper.pathsCSize.w != cSize.w || paper.pathsCSize.h != cSize.h) {
            paper.pathsCSize = cSize;
+           paper.setup(canvasDOM);
            redraw();
            console.log('resized occurred');
         }

@@ -5,6 +5,7 @@
    circleWords = {
       load: function () {
          dfd = system.defer();
+         //paper.setup($('canvas').get(0));
          draw();
          return dfd.promise();
       },

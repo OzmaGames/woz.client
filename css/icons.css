@@ -170,6 +170,19 @@ i.command.close {
         right: 0;
     }
 
+i.command.delete {
+    background-image: url('../images/game/Close_Btn.png');
+    background-position: 0 0 !important;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+    i.command.delete:active, i.command.delete:hover {
+        background-position: 0 !important;
+    }
+
 i.sm {
     font-size: 25px;
 }
@@ -178,23 +191,26 @@ i.xsm {
     font-size: 16px;
 }
 
+i.xxsm {
+    font-size: 12px;
+}
+
 i.command.addFriend {
     background-image: url('../images/game/add-friend.png');
     background-position: 0 0 !important;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
+    -moz-background-size: 2em auto;
+    -o-background-size: 2em auto;
+    -webkit-background-size: 2em auto;
+    background-size: 2em auto;
 }
 
     i.command.addFriend:active, i.command.addFriend:hover {
-        background-image: url('../images/game/add-friend-active.png');
-        background-position: 0 0 !important;
+        background-position: -1em 0 !important;
     }
 
 i.command.find {
     background-image: url('../images/game/find.png');
-    background-position: 0 0 !important;    
+    background-position: 0 0 !important;
 }
 
     i.command.find:active, i.command.find:hover {

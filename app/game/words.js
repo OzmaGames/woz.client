@@ -1,90 +1,92 @@
 ﻿define(['api/datacontext', 'jquery', 'api/draggable'], function (ctx, $, draggable) {
 
-  var boundaries = { l: 0, r: window.innerWidth, t: 0, b: window.innerHeight / 2 };
+   var boundaries = { l: 0, r: window.innerWidth, t: 0, b: window.innerHeight / 2 };
 
-  var unplayedWords = ctx.unplayedWords;
+   var unplayedWords = ctx.unplayedWords;
 
-  var animationQueue = [];
+   var animationQueue = [];
 
-  var showWords = function () {
-    animationQueue = animationQueue.sort(function () { return 0.5 - Math.random(); });
+   var showWords = function () {
+      animationQueue = animationQueue.sort(function () { return 0.5 - Math.random(); });
 
-    function next() {
-      if (animationQueue.length) animationQueue.pop().call(this, next);
-    }
+      function next() {
+         if (animationQueue.length) animationQueue.pop().call(this, next);
+      }
 
-    setTimeout(next, 75);
-    setTimeout(next, 200);
-    setTimeout(next, 280);
-  }
-  
-  return {
-    words: unplayedWords,
+      setTimeout(next, 75);
+      setTimeout(next, 200);
+      setTimeout(next, 280);
+   }
 
-    binding: function () {
-      //cancels view caching for this module, allowing the triggering of the detached callback
-      return { cacheViews: false };
-    },
+   return {
+      words: unplayedWords,
 
-    bindingComplete: function (view) {
-      //showWords()
-    },
+      binding: function () {
+         //cancels view caching for this module, allowing the triggering of the detached callback
+         return { cacheViews: false };
+      },
 
-    detached: function (view) {
-      $('.magnet', view).each(function (i, el) { $(el).data('draggable').dispose() });
-    },
+      bindingComplete: function (view) {
+         //showWords()
+      },
 
-    //reposition each word on the screen and add draggable feature to it
-    afterRender: function (el, word) {
+      detached: function (view) {
+         $('.magnet', view).each(function (i, el) { $(el).data('draggable').dispose() });
+      },
 
-      var $el = $(el);
+      //reposition each word on the screen and add draggable feature to it
+      afterRender: function (el, word) {
 
-      if (word.originalX === undefined) word.originalX = word.x;
-      if (word.originalY === undefined) word.originalY = word.y;
+         var $el = $(el);
 
-      word.x = word.originalX;
-      word.y = word.originalY;
+         if (word.originalX === undefined) word.originalX = word.x;
+         if (word.originalY === undefined) word.originalY = word.y;
 
-      $el.css({
-        left: 100 * word.x + '%',
-        top: 100 * word.y + '%'
-      }).transition({ rotate: word.angle + 'deg' });
-      
-      $el.data("immovable", ctx.words.immovable);
+         word.x = word.originalX;
+         word.y = word.originalY;
 
-      $el.draggable({
+         $el.css({
+            left: 100 * word.x + '%',
+            top: 100 * word.y + '%'
+         }).transition({ rotate: word.angle + 'deg' });
 
-        withinEl: $el.parent(),
+         $el.data("immovable", ctx.words.immovable);
 
-        dragStart: function () {
-          if (ctx.mode() == 'swapWords') {
-            word.isSelected(word.isSelected() ^ 1);
-          } else {
-            ctx.activeWord(word);
-            $el.css({ rotate: 0 });
-          }
-          word.originalX = word.x;
-          word.originalY = word.y;
-        },
+         $el.draggable({
 
-        dropped: function (e, data) {
-          ctx.activeWord(null);
+            withinEl: $el.parent(),
 
-          word.x = data.hasMoved ? data.left / 100 : word.x;
-          word.y = data.hasMoved ? data.top / 100 : word.y;
+            parent: $('#app'),
 
-          if (!word.isPlayed) {
-            word.originalX = word.x;
-            word.originalY = word.y;
-          }
-        }
-      }).hide();
+            dragStart: function () {
+               if (ctx.mode() == 'swapWords') {
+                  word.isSelected(word.isSelected() ^ 1);
+               } else {
+                  ctx.activeWord(word);
+                  $el.css({ rotate: 0 });
+               }
+               word.originalX = word.x;
+               word.originalY = word.y;
+            },
 
-      if (animationQueue.length == 0) setTimeout(showWords, 100);
+            dropped: function (e, data) {
+               ctx.activeWord(null);
 
-      animationQueue.push(function (cb) { return $el.show(200, cb); });
+               word.x = data.hasMoved ? data.left / 100 : word.x;
+               word.y = data.hasMoved ? data.top / 100 : word.y;
 
-      word.$el = $el;
-    }
-  }
+               if (!word.isPlayed) {
+                  word.originalX = word.x;
+                  word.originalY = word.y;
+               }
+            }
+         }).hide();
+
+         if (animationQueue.length == 0) setTimeout(showWords, 100);
+
+         animationQueue.push(function (cb) { return $el.show(200, cb); });
+
+         word.$el = $el;
+      }
+   }
 });

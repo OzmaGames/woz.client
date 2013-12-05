@@ -12,12 +12,15 @@
 
      return {        
         activate: function () {
-           app.commandMenuVisibility(false);
-           app.trigger("account:view:change", "account/login");
+           app.commandMenuVisibility(false);           
         },
 
         binding: function () {
            return { cacheViews: false };
+        },
+
+        compositionComplete: function () {
+           app.trigger("account:view:change", "account/login");
         },
 
         detached: function (view) {

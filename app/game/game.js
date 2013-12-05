@@ -78,7 +78,7 @@
                      } else if (res == "done") {
                         app.dialog.close("slipper");
                         ctx.loadingStatus("Swapping words");
-                        ctx.loading(true);
+                        app.loading(true);
 
                         var data = {
                            username: ctx.player.username,
@@ -92,7 +92,7 @@
                               ctx.canSwap(false);
                            }
                            ctx.mode('');
-                           ctx.loading(false);
+                           app.loading(false);
                         });
                      }
                   });

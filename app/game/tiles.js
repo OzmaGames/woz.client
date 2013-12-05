@@ -1,33 +1,44 @@
 ﻿define(['durandal/app', 'api/datacontext', 'api/draggable'], function (app, ctx) {
 
-   var instructionDoms = [];
+   var instructionDoms = [], topPadding = 15;
 
-   function scroll(e) {
-      var top = $('#app').scrollTop(), topPadding = 15;
+   function attachInstruction($el, top) {
+      var elTop = $el.data('topOffset');
+      if (elTop - top > -topPadding) {
+         $el.css({ position: '', left: $el.data('left'), top: $el.data('top'), marginLeft: $el.data('marginLeft'), marginTop: $el.data('marginTop') })
+         .appendTo($el.data('parent')).removeClass("fixed")
+              .data('topOffset', undefined);
+      }
+   }      
+
+   function floatInstruction($el, top) {
+      var elTop = $el.offset().top;
+      if (elTop < 0) {
+         $el.data({
+            parent: $el.parent(),
+            topOffset: top + elTop - topPadding,
+            top: $el.css('top'),
+            left: $el.css('left'),
+            marginLeft: $el.css('marginLeft'),
+            marginTop: $el.css('marginTop')
+         }).css({ position: "fixed", left: $el.offset().left, top: topPadding, marginLeft: 0, marginTop: 0 })
+        .addClass("fixed")
+        .appendTo('body');
+      }
+   }
+
+   function scroll() {
+      var top = $('#app').scrollTop();
 
       for (var i = 0; i < instructionDoms.length; i++) {
-         var $el = instructionDoms[i];
+         if (instructionDoms[i].$el.hasClass("active")) continue;
+         var $el = instructionDoms[i].$inst;
+
+         if ($el.css('opacity') == '0') continue;
          if ($el.hasClass('fixed')) {
-            var elTop = $el.data('topOffset');
-            if (elTop - top > -topPadding) {
-               $el.css({ position: '', left: $el.data('left'), top: $el.data('top'), marginLeft: $el.data('marginLeft'), marginTop: $el.data('marginTop') })
-                 .appendTo($el.data('parent')).removeClass("fixed")
-                 .data('topOffset', undefined);
-            }
+            attachInstruction($el, top);
          } else {
-            var elTop = $el.offset().top;
-            if (elTop < 0) {
-               $el.data({
-                  parent: $el.parent(),
-                  topOffset: top + elTop - topPadding,
-                  top: $el.css('top'),
-                  left: $el.css('left'),
-                  marginLeft: $el.css('marginLeft'),
-                  marginTop: $el.css('marginTop')
-               }).css({ position: "fixed", left: $el.offset().left, top: topPadding, marginLeft: 0, marginTop: 0 })
-              .addClass("fixed")
-              .appendTo('body');
-            }
+            floatInstruction($el, top);
          }
       }
    }
@@ -102,11 +113,15 @@
          if (!active) {
             var h = $('#tiles').height();
             tile.$el.css({ 'font-size': h });
+            if (tile.$inst.hasClass('fixed')) {
+               attachInstruction(tile.$inst, 0);
+            }
             app.scrollUp();
          } else {
             tile.$el.css({ 'font-size': '' });
+            setTimeout(scroll, 500);
          }
-         tile.active(active ^ 1);
+         tile.active(!active);
       },
 
       help: function (tile, e) {
@@ -131,7 +146,7 @@
 
          tile.$el = $el;
          tile.$inst = $el.find('.instruction');
-         instructionDoms.push(tile.$inst);
+         instructionDoms.push(tile);
 
          if (animationQueue.length == 0) setTimeout(showTiles, 100);
          animationQueue.push({ $el: $el, tile: tile });
@@ -140,7 +155,7 @@
       detached: function () {
          $('#app').unbind("scroll", scroll);
          for (var i = 0; i < instructionDoms.length; i++) {
-            var $el = instructionDoms[i];
+            var $el = instructionDoms[i].$inst;
             if ($el.hasClass("fixed")) {
                ko.removeNode($el[0]);
             }

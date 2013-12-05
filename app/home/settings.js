@@ -1,8 +1,11 @@
 ﻿define(['plugins/router', 'durandal/app', 'api/datacontext'], function (router, app, ctx) {
 
-  return {
-    binding: function () {
-      return { cacheViews: false };
-    }    
-  }
+   return {
+      activate: function () {
+         $('#menu').remove();
+      },
+      binding: function () {
+         return { cacheViews: false };
+      }
+   }
 });

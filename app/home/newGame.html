@@ -10,22 +10,24 @@
                   <span class="title" data-bind="text: title"></span>
                   <span class="description" data-bind="text: description">Choose from my friends list</span>
                   <input type="radio" name="gameOption" data-bind="value: id, checked: $root.gameOptionId" /><span></span>
-               </label>               
+               </label>
             </div>
             <h1>choose friend</h1>
             <div class="container group">
                <div class="input-box">
                   <input type="search" data-bind="value: query, valueUpdate: 'afterkeydown'" />
-                  <i class="command find" data-bind="click: search"></i>
+                  <i class="command find" data-bind1="click: search"></i>
+                  <i class="icon-spinner icon-spin" data-bind="css: {hidden: !searchLoading()}"></i>
                </div>
             </div>
-            <div class="container y scroll compact">
+            <div class="container y scroll compact" style="margin-left: .5em; width: auto;">
                <ul>
-                  <li class="header" data-bind="text: friendListMode">friends list</li>
+                  <li class="header" data-bind="text: friendListMode().title"></li>
+                  <!-- ko if: $root.friendListMode().mode == 'list' -->
                   <!-- ko foreach: friends -->
-                  <li>
+                  <li data-bind="css:{ active: $root.activeFriend() == $data }, click: $root.friendSelected.bind($root, $data)">
                      <span data-bind="text: username"></span>
-                     <i class="command addFriend sm pull-right" style="margin-right:1em" data-bind="click: $root.addFriend.bind($root, $data)"></i>
+                     <i class="command delete xxsm pull-right" style="margin-right:2em; margin-top: .2em" data-bind="click: $root.removeFriend.bind($root, $data)"></i>
                   </li>
                   <!-- /ko -->
                   <!-- ko if: friends().length == 0 -->
@@ -34,6 +36,20 @@
                      You can search for new friends <br />
                      and add them to your list.
                   </li>
+                  <!-- /ko -->
+                  <!-- /ko -->
+                  <!-- ko if: $root.friendListMode().mode == 'search' -->
+                  <!-- ko foreach: friends -->
+                  <li>
+                     <span data-bind="text: username"></span>
+                     <i class="command addFriend sm pull-right" style="margin-right:1em" data-bind="click: $root.addFriend.bind($root, $data)"></i>
+                  </li>
+                  <!-- /ko -->
+                  <!-- ko if: friends().length == 0 -->
+                  <li class="inst">
+                     Your query results in no result!<br />
+                  </li>
+                  <!-- /ko -->
                   <!-- /ko -->
                </ul>
             </div>

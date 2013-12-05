@@ -1,17 +1,17 @@
 ﻿<h1>Join The Game!</h1>
 
 <form data-bind="verifiableSubmit: login">
-    <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username" autofocus />
-    <span class="error" data-bind="text: username.errorMessage"></span>
-    <input type="password" placeholder="Password" data-bind="verifiableValue: password" />
-    <span class="error" data-bind="text: password.errorMessage"></span>
+   <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username" autofocus />
+   <span class="error" data-bind="text: username.validationMessage"></span>
+   <input type="password" placeholder="Password" data-bind="verifiableValue: password" />
+   <span class="error" data-bind="text: password.validationMessage"></span>
 
-    <p class="error" data-bind="text: errorMessage"></p>
+   <p class="error" data-bind="text: errorMessage"></p>
 
-    <button class="blue" type="submit" data-bind="disable: loading()">
-        <span>LOG IN</span>
-        <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
-    </button>
+   <button class="blue" type="submit" data-bind="disable: loading()">
+      <span>LOG IN</span>
+      <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+   </button>
 </form>
 
 <a class="block link big space" data-bind="click: signUp">SIGN UP</a>

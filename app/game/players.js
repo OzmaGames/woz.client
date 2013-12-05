@@ -1,13 +1,9 @@
-﻿define(['api/datacontext'], function (db) {
-  return {
-    players: db.players,
-    activate: function (data) {
-    },
-    binding: function () {
-      return { cacheViews: false };
-    },
-    deactivate: function () {
-
-    }
-  }
+﻿define(['api/datacontext'], function (ctx) {
+   return {
+      players: ctx.players,
+      loading: ctx.loading,
+      binding: function () {
+         return { cacheViews: false };
+      }
+   }
 });

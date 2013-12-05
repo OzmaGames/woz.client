@@ -1,75 +1,58 @@
 ﻿define(['durandal/app', 'api/constants'], function (app, constants) {
-  var username = ko.observable(),
-      password = ko.observable(),
-      email = ko.observable(),
-      errorMessage = ko.observable();
 
-  username.verify = function (username) {
-    if (username == "") {
-      return "Username is required"
-    }
-    if (username.length < 3) {
-      return "Incorrect e-mail or username";
-    }
-    return "";
-  }
+   function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+   }
 
-  password.verify = function (password) {
-    if (password == "") {
-      return "Password is required";
-    }
-    return "";
-  }
+   return {
+      loading: app.loading,
 
-  email.verify = function (email) {
-    if (email == "") {
-      return "E-mail is required";
-    }
-    if (!validateEmail(email)) {
-      return "Incorrect e-mail address"
-    }
-    return "";
-  }
+      username: ko.observable().extend({
+         required: "Username is required",
+         stringLength: { minLength: 3, message: "Incorrect e-mail or username" }
+      }),
 
-  function validateEmail(email) { 
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  } 
+      password: ko.observable().extend({
+         required: "Password is required"
+      }),
 
-  
-  return {    
-    loading: app.loading,
-    username: username,
-    password: password,
-    errorMessage: errorMessage,
-    email: email,
-   
-    signUp: function() {
-      app.loading(true);
+      email: ko.observable().extend({
+         required: "E-mail is required",
+         customValidation: function (newValue) {
+            return validateEmail(newValue) ? "" : "Incorrect e-mail address";
+         }
+      }),
 
-      var data = {
-        username: username(),
-        email: email(),
-        password: CryptoJS.SHA3(constants.salt + username() + password()).toString()
-      };
+      errorMessage: ko.observable(),
 
-      app.trigger("server:account:sign-up", data, function (res) {
-        app.loading(false);
+      signUp: function () {
+         app.loading(true);
 
-        if (res.success) {
-          res.username = username();
-          app.dialog.close("panel");
-          app.trigger('account:login', res);
-          router.navigate("newGame");
-          app.dialog.show("notice", { model: {}, view: "dialogs/pages/welcome" });
-        } else {
-          errorMessage(res.message);
-        }
-      });
-    },
+         var data = {
+            username: this.username(),
+            email: this.email(),
+            password: CryptoJS.SHA3(constants.salt + this.username() + this.password()).toString()
+         };
 
-    login: function () {
-      app.trigger('account:view:change', 'account/login');
-    }
-};
+         var base = this;
+         app.trigger("server:account:sign-up", data, function (res) {
+            app.loading(false);
+
+            if (res.success) {
+               res.username = data.username;
+               app.dialog.close("panel");
+               app.trigger('account:login', res);
+               app.navigate("newGame");
+               app.dialog.show("notice", { model: {}, view: "dialogs/pages/welcome" });
+            } else {
+               base.errorMessage(res.message);
+            }
+         });
+      },
+
+      login: function () {
+         app.trigger('account:view:change', 'account/login');
+      }
+   };
 });

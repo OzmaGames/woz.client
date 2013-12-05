@@ -7,7 +7,7 @@
       this.experience = 0;
 
       this.gotoLobby = function () {
-         //app.dialog.close("notice");
+         app.dialog.close("notice");
          if (data.target) {
             app.navigate(data.target);
          } else {
@@ -20,12 +20,12 @@
       WON: {
          heading: "Congratulations!",
          content: "You won the game.",
-         btnText: "back to lobby"
+         btnText: "Great!"
       },
       LOST: {
          heading: "Good luck next time!",
          content: "You lost the game.",
-         btnText: "back to lobby"
+         btnText: "Dismiss!"
       },
       SOLO: {
          heading: "Well done!",
@@ -36,7 +36,7 @@
       RESIGNED: {
          heading: "Meh, Good luck next time!",
          content: "You resigned the game.",
-         btnText: "back to lobby"
+         btnText: "Dismiss"
       }
    }
 
