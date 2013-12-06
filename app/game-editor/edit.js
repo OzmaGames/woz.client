@@ -11,7 +11,7 @@
         var base = this;
 
         base.id = id;
-        base.level = ko.observable(1);
+        base.level = ko.observable(0);
         base.draft = ko.observable(true);
 
         lastID = 0;

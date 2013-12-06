@@ -1,5 +1,6 @@
 ﻿<div>
    <div class="logo page"></div>
+   <br />
    <div class="grid page">
       <!--<button class="orange sm" style="position:absolute; top: -2em; right:0;z-index:1">Buy Collection</button>-->
       <div class="container">
@@ -15,7 +16,7 @@
             <h1>choose friend</h1>
             <div class="container group">
                <div class="input-box">
-                  <input type="search" data-bind="value: query, valueUpdate: 'afterkeydown'" />
+                  <input type="search" data-bind="value: query, valueUpdate: 'afterkeydown', search: queryChanged" />
                   <i class="command find" data-bind1="click: search"></i>
                   <i class="icon-spinner icon-spin" data-bind="css: {hidden: !searchLoading()}"></i>
                </div>
@@ -100,7 +101,7 @@
                </select>
             </div>-->
             <div class="container group">
-               <button data-bind="click: $root.start" class="blue" style="position:absolute;right:0;bottom:0">Start Game</button>
+               <button data-bind="click: $root.start" class="blue" style="position:absolute;right:1em;bottom:0">Start Game</button>
             </div>
          </article>
       </div>

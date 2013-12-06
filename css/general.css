@@ -93,15 +93,20 @@ h5 {
 
 .loader {
     color: #713b00;
-    margin: 6px 8px 4px 8px;
-    display: none;
+    margin: 6px 8px 4px 8px;    
+    opacity: 0;
+    display:none;
     position: relative;
     z-index: 2;
+    -moz-transition: opacity .2s;
+    -o-transition: opacity .2s;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
 }
 
     .loader.active {
-        display: block;
-        visibility: visible;
+        display:block;
+        opacity: 1;
     }
 
     .loader.page {
@@ -299,6 +304,7 @@ a.small {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding-right: 50px;
+    padding-left: 50px;
 }
 
     .grid.page {
@@ -417,7 +423,7 @@ a.small {
             right: -1em;
             font-size: 1em;
             line-height: 1.5em;
-            z-index:1;
+            z-index: 1;
             color: #986B31;
         }
 
@@ -427,6 +433,14 @@ a.small {
         -o-animation: none;
         -webkit-animation: none;
         animation: none;
+    }
+
+    .grid .message {
+        font-family: Cambria;
+        color: #986B31;
+        font-size: 18px;
+        margin-left: 1em;
+        font-style: italic;
     }
 
 .scroll {
@@ -471,7 +485,8 @@ a.small {
 .grid .table {
     display: table;
     border-collapse: separate;
-    border-spacing: 1em;
+    border-spacing: .8em;
+    min-width:700px;    
 }
 
     .grid .table.compact {
@@ -503,6 +518,7 @@ a.small {
         background: #f9f8f4;
         width: 22em;
         cursor: pointer;
+        vertical-align:top;
         -moz-transition: .4s box-shadow, .4s border-color, .4s background-color;
         -o-transition: .4s box-shadow, .4s border-color, .4s background-color;
         -webkit-transition: .4s box-shadow, .4s border-color, .4s background-color;
@@ -528,18 +544,33 @@ a.small {
         visibility: visible;
     }
 
+    .game-item .cell .wrapper{
+        position:relative;
+        width:100%;
+    }
+    .game-item .cell .subCell{
+        position:relative;
+        display:inline-block;
+        vertical-align:middle;
+    }
+
     .game-item .cell.left {
         width: 60em;
+        min-width: 400px;
+        vertical-align:middle;
     }
 
     .game-item .cell.right {
-        width: 15em;
+        /*width: 15em;*/
+        width: 160px;
+        min-width: 160px;        
     }
 
     .game-item .pic {
         position: absolute;
-        top: -.75em;
+        top: 0;
         height: 7em;
+        margin-top: -3.5em;
         width: 8em;
         -moz-background-size: auto 100%;
         -o-background-size: auto 100%;
@@ -548,8 +579,9 @@ a.small {
         background-repeat: no-repeat;
     }
 
-        .game-item .pic + div {
+        .game-item .flow {
             margin-left: 9em;
+            /*float:left;*/
         }
 
     .game-item .name {
@@ -585,11 +617,11 @@ a.small {
         font-style: italic;
     }
 
-    .game-item .icons {
+    .game-item .box {
         position: relative;
     }
 
-        .game-item .icons .time {
+        .game-item .box .time {
             border: 1px solid #d7bea2;
             border-radius: 3px;
             box-shadow: 0 0 2px #d7bea2;
@@ -599,7 +631,7 @@ a.small {
             margin-right: 25px;
         }
 
-        .game-item .icons .chat {
+        .game-item .box .chat {
             position: absolute;
             top: -.25em;
             display: inline-block;
@@ -613,17 +645,17 @@ a.small {
             background-size: 100% 100%;
         }
 
-            .game-item .icons .chat > div {
+            .game-item .box .chat > div {
                 padding: .4em 0 0 .8em;
                 font-size: .8em;
             }
 
     .game-item .players {
-        position: absolute;
-        bottom: .5em;
-        left: 0;
+        position:absolute;
+        top:2.5em;
+        left:-.5em;
         line-height: 1em;
-        width: 10.5em;
+        width: 11.5em;        
     }
 
         .game-item .players .player {
@@ -631,6 +663,10 @@ a.small {
             float: left;
             margin-left: 1em;
             width: 8em;
+        }
+
+        .game-item .players > div:only-child{
+            margin-top: 1em;
         }
 
         .game-item .players .score {
@@ -656,7 +692,7 @@ a.small {
     margin: .2em;
     font-family: Cambria;
     font-size: .7em;
-    z-index: 2;
+    z-index: 0;
     cursor: default;
 }
 
@@ -690,3 +726,137 @@ a.small {
     .status-box .bad {
         color: rgb(190, 63, 63);
     }
+
+
+.loader-bar {
+    font-size: 10px;
+    display: inline-block;
+    position: relative;
+    width: 5em;
+    height: 1em;
+    overflow: visible;
+    margin-left: 10em;
+}
+
+    .loader-bar.center {
+        margin: 0 auto;
+    }
+
+    .loader-bar i {
+        display: block;
+        position: absolute;
+        height: 1em;
+        width: 1em;
+        background-color: #986B31;
+        border-radius: 50%;
+        left: -5em;
+        opacity: 0;
+        -moz-animation: 2s slidein infinite linear;
+        -o-animation: 2s slidein infinite linear;
+        -webkit-animation: 2s slidein infinite linear;
+        animation: 2s slidein infinite linear;
+    }
+
+        .loader-bar i:nth-child(2) {
+            -moz-animation-delay: .3s;
+            -o-animation-delay: .3s;
+            -webkit-animation-delay: .3s;
+            animation-delay: .3s;
+        }
+
+        .loader-bar i:nth-child(3) {
+            -moz-animation-delay: .6s;
+            -o-animation-delay: .6s;
+            -webkit-animation-delay: .6s;
+            animation-delay: .6s;
+        }
+
+@-webkit-keyframes slidein {
+    from {
+        left: -5em;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    35% {
+        opacity: 1;
+        left: 1.5em;
+    }
+
+    65% {
+        opacity: 1;
+        left: 3.5em;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    to {
+        left: 10em;
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes slidein {
+    from {
+        left: -5em;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    35% {
+        opacity: 1;
+        left: 1.5em;
+    }
+
+    65% {
+        opacity: 1;
+        left: 3.5em;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    to {
+        left: 10em;
+        opacity: 0;
+    }
+}
+
+@keyframes slidein {
+    from {
+        left: -5em;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    35% {
+        opacity: 1;
+        left: 1.5em;
+    }
+
+    65% {
+        opacity: 1;
+        left: 3.5em;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    to {
+        left: 10em;
+        opacity: 0;
+    }
+}

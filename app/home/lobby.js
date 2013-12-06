@@ -15,18 +15,21 @@
    }
 
    return {
+      loading: ko.observable(true),
+
       activate: function () {
+         var base = this;
          app.trigger("server:game:lobby", { username: ctx.username }, function (data) {
-            if (!data || !data.success) {
-               return;
+            if (data.success) {
+               games(data.games);
+               base.loading(false);
             }
-            games(data.games);
-            app.loading(false);
          });
 
          app.dialog.close("all");
          $('#menu').remove();
       },
+
       lobby: [
         {
            title: 'My Turn',

@@ -41,6 +41,9 @@
       friendSelected: function (friend) {
          this.activeFriend(friend);
       },
+      queryChanged: function (e) {
+         this.query(e.target.value);
+      },
       activate: function () {
          this.activeFriend(null);                  
          app.dialog.close("all");

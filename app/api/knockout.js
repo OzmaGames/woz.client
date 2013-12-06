@@ -131,6 +131,13 @@
       }
    };
 
+   ko.bindingHandlers["search"] = {
+      init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+         element.addEventListener("search", function (e) {
+            valueAccessor().call(viewModel, e);
+         });
+      }
+   };
 
    ko.bindingHandlers["verifiableValue"] = {
       init: function (element, valueAccessor, allBindingsAccessor) {
