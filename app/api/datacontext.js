@@ -173,8 +173,7 @@
                  }
               }
 
-              if (json.path) {
-                 //debugger;
+              if (json.path) {                 
                  var path = ko.utils.arrayFirst(model.paths(), function (path) { return path.id == json.path.id });
                  path.phrase.update(json.path.phrase);
               }

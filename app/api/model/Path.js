@@ -23,8 +23,9 @@
 
       base.phrase.update = function (words) {
          base.completeSub.dispose();
+         if (base.phrase.complete()) return;
          ko.utils.arrayForEach(words, function (word) {
-            base.addWord(word);
+            base.addWord(word, undefined, true);
          })
       }
 
@@ -77,8 +78,8 @@
          });
       }
 
-      base.addWord = function (word, index) {
-         if (!model.player.active()) {
+      base.addWord = function (word, index, force) {
+         if (!model.player.active() && force !== true) {
             return false;
          }
 
