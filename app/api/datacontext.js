@@ -52,83 +52,83 @@
         app.dialog.show("loading");
 
         id = isNaN(id * 1) ? 0 : id * 1;
-        
+
         app.on("game:start", function (json) {
 
-              model.loadingStatus("Starting The Game...");
+           model.loadingStatus("Starting The Game...");
 
-              model.gameID = json.id;
+           model.gameID = json.id;
 
-              model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
-              model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
+           model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
+           model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
 
-              ko.utils.arrayForEach(json.players, function (player) {
-                 if (player.username === model.username) {
-                    model.player.active(player.active);
-                    player.active = model.player.active;
-                 } else {
-                    player.active = ko.observable(player.active);
-                 }
-                 player.resigned = ko.observable(player.resigned || false);
-                 player.score = ko.observable(player.score);
-              });
-
-              if (model.playerCount > 1) {
-                 if (model.player.active())
-                    app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
-                 else
-                    app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
-
+           ko.utils.arrayForEach(json.players, function (player) {
+              if (player.username === model.username) {
+                 model.player.active(player.active);
+                 player.active = model.player.active;
+              } else {
+                 player.active = ko.observable(player.active);
               }
+              player.resigned = ko.observable(player.resigned || false);
+              player.score = ko.observable(player.score);
+           });
 
-              model.player = find(json.players, { username: model.username });
-              model.players(json.players);
+           if (model.playerCount > 1) {
+              if (model.player.active())
+                 app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
+              else
+                 app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
 
-              ko.utils.arrayForEach(json.words, function (word) {
-                 word.isSelected = ko.observable(false);
-                 if (ko.utils.arrayFilter(json.words, function (w) { return word.id === w.id }).length > 1) {
-                    word.isPlayed = true;
-                 }
-              });
-              model.words(json.words);
+           }
 
-              for (var i = 0; i < json.tiles.length; i++) {
-                 json.tiles[i].imageId = json.tiles[i].imageID || json.tiles[i].id;
-                 json.tiles[i].imageName = consts.bigImageURL(model.collection.name(), json.tiles[i].imageId);
-                 json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
-                 json.tiles[i].active = ko.observable(false);
+           model.player = find(json.players, { username: model.username });
+           model.players(json.players);
+
+           ko.utils.arrayForEach(json.words, function (word) {
+              word.isSelected = ko.observable(false);
+              if (ko.utils.arrayFilter(json.words, function (w) { return word.id === w.id }).length > 1) {
+                 word.isPlayed = true;
               }
-              model.tiles(json.tiles);
+           });
+           model.words(json.words);
 
-              json.paths = ko.utils.arrayMap(json.paths, function (p) {
-                 return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
-              });
-              model.paths(json.paths);
+           for (var i = 0; i < json.tiles.length; i++) {
+              json.tiles[i].imageId = json.tiles[i].imageID || json.tiles[i].id;
+              json.tiles[i].imageName = consts.bigImageURL(model.collection.name(), json.tiles[i].imageId);
+              json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
+              json.tiles[i].active = ko.observable(false);
+           }
+           model.tiles(json.tiles);
 
-              model._gameOver(json.gameOver);
+           json.paths = ko.utils.arrayMap(json.paths, function (p) {
+              return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
+           });
+           model.paths(json.paths);
 
-              model.winner = function () {
-                 if (model.gameOver()) {
-                    var maxScore = -1, winner = null;
-                    ko.utils.arrayForEach(model.players(), function (player) {
-                       if (maxScore < player.score() && !player.resigned()) {
-                          winner = player;
-                          maxScore = player.score();
-                       }
-                    });
-                    return winner;
-                 }
-                 return null;
-              };
+           model._gameOver(json.gameOver);
 
-              model.loadingStatus("Ready");
+           model.winner = function () {
+              if (model.gameOver()) {
+                 var maxScore = -1, winner = null;
+                 ko.utils.arrayForEach(model.players(), function (player) {
+                    if (maxScore < player.score() && !player.resigned()) {
+                       winner = player;
+                       maxScore = player.score();
+                    }
+                 });
+                 return winner;
+              }
+              return null;
+           };
 
-              setTimeout(function () {
-                 app.dialog.close("loading");
-                 model.loading(false);
-                 app.trigger("game:started");
-              }, 100);
-        });        
+           model.loadingStatus("Ready");
+
+           setTimeout(function () {
+              app.dialog.close("loading");
+              model.loading(false);
+              app.trigger("game:started");
+           }, 100);
+        });
 
         app.on("game:update", function (json) {
            app.loading(false);
@@ -173,6 +173,12 @@
                  }
               }
 
+              if (json.path) {
+                 debugger;
+                 var path = ko.utils.arrayFirst(model.paths(), function (path) { return path.id == json.path.id });
+                 path.phrase.update(json.path.phrase);
+              }
+
               if (json.words) {
                  for (var j = 0; j < json.words.length; j++) {
                     json.words[j].isSelected = ko.observable(false);
@@ -212,7 +218,7 @@
            if (id > 0) {
               model.loadingStatus("Waiting for awesomeness...");
               app.trigger("server:game:resume", { username: model.username, id: id }, function () {
-                 
+
               });
            } else {
               app.trigger("server:game:queue", { username: model.username, password: 12345, playerCount: model.playerCount }, function () {

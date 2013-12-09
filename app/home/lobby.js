@@ -8,9 +8,9 @@
       return players[1];
    }
 
-   function getOpponent(playes) {
-      if (playes.length == 1) return null;
-      if (playes[0].username !== ctx.username) return players[0];
+   function getOpponent(players) {
+      if (players.length == 1) return null;
+      if (players[0].username !== ctx.username) return players[0];
       return players[1];
    }
 
@@ -21,6 +21,12 @@
          var base = this;
          app.trigger("server:game:lobby", { username: ctx.username }, function (data) {
             if (data.success) {
+               data.games.sort(function (a, b) { return b.lastMod - a.lastMod; });
+               ko.utils.arrayForEach(data.games, function (game) {
+                  if (game.lastPhrase.username == ctx.username) {
+                     game.lastPhrase.username = "You";
+                  }
+               })
                games(data.games);
                base.loading(false);
             }

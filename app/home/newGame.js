@@ -56,7 +56,7 @@
       addFriend: function (friend) {
          var base = this;         
          app.trigger("server:friends", {
-            username: ctx.username, command: 'add', friend: friend.username
+            username: ctx.username, command: 'add', friendUsername: friend.username
          }, function () {
             base.query('');
          });
@@ -64,7 +64,7 @@
       removeFriend: function (friend) {
          var base = this;
          app.trigger("server:friends", {
-            username: ctx.username, command: 'delete', friend: friend.username
+            username: ctx.username, command: 'delete', friendUsername: friend.username
          }, function () {
             if (!base.query()) {
                base.query.valueHasMutated();
@@ -100,7 +100,7 @@
       } else {
          vm.searchLoading(true);
          app.trigger("server:friends", {
-            username: ctx.username, command: 'search', friend: vm.query()
+            username: ctx.username, command: 'search', friendUsername: vm.query()
          }, function (data) {
             vm.friendListMode(mode.search);
             vm.searchLoading(false);
