@@ -47,7 +47,8 @@
       activate: function () {
          this.activeFriend(null);                  
          app.dialog.close("all");
-         $('#menu').remove();
+
+         app.palette.dispose();
       },
       binding: function () {
          return { cacheViews: false };

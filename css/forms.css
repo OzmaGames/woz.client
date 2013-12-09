@@ -224,6 +224,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
     font-size: 1em;
     background: white;
     border: 1px solid #BE9967;
+    border-radius: 2px;
     padding: .5em 1em;
     color: #986B31;
     -webkit-box-sizing: border-box;
@@ -321,6 +322,9 @@ button {
     }
 
     button:disabled {
+        border-color: lightgray !important;
+        box-shadow: 0 .1em .5em .4em rgba(128, 128, 128, .4) inset,0 -.9em 1em .01em rgba(1, 1, 1, .2) inset, 0 .7em .3em .1em rgba(255, 255, 255, .5) inset !important;
+        background-position-x: 1410px;
         -webkit-filter: grayscale(100%);
         -moz-filter: grayscale(100%);
         -o-filter: grayscale(100%);
@@ -330,6 +334,7 @@ button {
 
     button.orange {
         border-color: white;
+        background-color: #ECB661;
         box-shadow: 0 -.9em 1em .01em rgba(192, 157, 108, .5) inset, 0 .2em .5em .2em rgba(230, 157, 95, .7) inset, 0 .8em .5em .1em rgba(255, 255, 255, .5) inset;
     }
 
@@ -344,6 +349,7 @@ button {
 
     button.blue {
         border-color: #b7dbe7;
+        background-color: #62B6CC;
         background-position-y: -156px;
         box-shadow: 0 -.9em 1em .01em rgba(183, 219, 231, .5) inset, 0 .2em .5em .2em #54A8C0 inset, 0 .8em .5em .1em rgba(255, 255, 255, .5) inset;
     }

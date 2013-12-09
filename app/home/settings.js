@@ -2,7 +2,7 @@
 
    return {
       activate: function () {
-         $('#menu').remove();
+         app.palette.dispose();
       },
       binding: function () {
          return { cacheViews: false };

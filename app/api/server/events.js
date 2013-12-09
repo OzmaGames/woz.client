@@ -26,7 +26,7 @@
       /// res = {success: true|false, errorMessage: ''}
       "game:skip-turn",
       "game:resign",
-      "game:lobby",
+      "game:lobby",      
       "friends"
     ],
     custom: {
@@ -38,6 +38,17 @@
           app.trigger("game:swap-words", res);
           if (callback) callback(res);
         });
+      },
+      "game:resume": function (data, callback, socket) {
+         //socket.once("game:start", function (data) {
+         //   console.log('%cgame:start', 'background: #222; color: #bada55', data);
+         //   app.trigger("game:start", data);
+         //});
+
+         socket.emit("game:resume", data, function (sdata) {
+            callback(sdata);
+            app.trigger("game:start", sdata);
+         });
       },
       /// data = {username: ''}
       /// res = {success: true|false, errorMessage: ''}

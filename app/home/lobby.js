@@ -27,7 +27,7 @@
          });
 
          app.dialog.close("all");
-         $('#menu').remove();
+         app.palette.dispose();
       },
 
       lobby: [
@@ -52,8 +52,12 @@
       start: function () {
          app.navigate("newGame");
       },
+      loadGame: function (game) {
+         app.navigate("game/" + game.gameID);
+      },
       select: function (game, e) {
          activeGame(game);
+         app.navigate("game/" + game.gameID);
       },
       activeGame: activeGame,
       binding: function () {

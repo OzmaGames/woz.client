@@ -17,9 +17,6 @@
    <div class="loader page" data-bind="css: { active: loading }">
       <i class="icon-spinner icon-2x icon-spin"></i>
    </div>
-
-   <div class="palette right fixed" data-bind="visible: menuVisibility">
-      <i class="command menu" data-bind="click: openMenu"></i>
-   </div>
+   <!--ko compose: "palette"--><!--/ko-->
    <!--ko router: { transition: 'entrance', cacheViews: true }--><!--/ko-->
 </div>

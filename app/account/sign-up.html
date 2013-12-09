@@ -3,7 +3,7 @@
 <i class="command close" data-bind="click:login"></i>
 
 <form data-bind="verifiableSubmit: signUp">
-   <input type="text" placeholder="Username" data-bind="verifiableValue: username" />
+   <input type="text" placeholder="Username" data-bind="verifiableValue: username" autofocus />
    <span class="error" data-bind="text: username.validationMessage"></span>
    <input type="text" placeholder="E-mail" data-bind="verifiableValue: email">
    <span class="error" data-bind="text: email.validationMessage"></span>

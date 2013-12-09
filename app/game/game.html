@@ -8,17 +8,5 @@
       <!--ko compose: 'game/tiles'--><!--/ko-->
       <hr data-bind="visible: !loading()" />
       <!--ko compose: 'game/words'--><!--/ko-->
-   </div>
-
-   <div id="menu" data-bind="visible: !loading()">
-      <div class="palette left">
-         <div class="actions">
-            <i class="action swapWords" data-bind="click: swapWords, css: { cancel: (mode() === 'swapWords'), disabled: !allowSwap()}"></i>
-            <i class="action circleWords" data-bind="click: circleWords, css: { cancel: (mode() === 'circleWords'), disabled: !allowCircle() }"></i>
-         </div>
-      </div>
-      <div class="palette right">
-         <i class="command quit" data-bind="click: resign, css: { disabled: !allowResign() }"></i>
-      </div>
-   </div>
+   </div>   
 </div>

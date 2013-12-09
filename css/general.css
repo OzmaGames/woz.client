@@ -198,13 +198,17 @@ h5 {
         }
 
 .palette {
-    top: 100px;
     position: fixed;
     z-index: 99;
-    -moz-transition: top .3s ease-in-out;
-    -o-transition: top .3s ease-in-out;
-    -webkit-transition: top .3s ease-in-out;
-    transition: top .3s ease-in-out;
+    -moz-transition: -moz-transform .3s ease-in-out;
+    -o-transition: -o-transform .3s ease-in-out;
+    -webkit-transition: -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out;
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    -webkit-transform: translateY(100px);
+    transform: translateY(100px);
 }
 
     .palette.left {
@@ -271,7 +275,7 @@ a.small {
 .container.y {
     max-height: 11.8em;
     border: 2px solid #d7bea2;
-    border-radius: 10px;
+    border-radius: 7px;
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
@@ -349,9 +353,11 @@ a.small {
 
     .grid ul {
         list-style: none;
+        overflow:hidden;
+        border-radius:5px;
     }
 
-        .grid ul li {
+        .grid li {
             display: block;
             width: 100%;
             height: 1em;
@@ -365,11 +371,12 @@ a.small {
             overflow: hidden;
         }
 
-            .grid ul li:last-child {
+            .grid li:last-child {
                 border-bottom: none;
+                
             }
 
-            .grid ul li.header {
+            .grid li.header {
                 color: white;
                 background-color: #cfa972;
                 padding: .4em;
@@ -377,11 +384,11 @@ a.small {
                 cursor: default;
             }
 
-            .grid ul li:hover:not(.header) {
+            .grid li:hover:not(.header) {
                 background-color: #f1ebe2;
             }
 
-            .grid ul li:active:not(.header), .grid ul li.active:not(.header) {
+            .grid li:active:not(.header), .grid li.active:not(.header) {
                 background-color: #d9cfc0 !important;
                 font-weight: bold;
                 cursor: default;
@@ -404,6 +411,8 @@ a.small {
         box-shadow: none;
         width: 100%;
         padding-right: 2em;
+        -webkit-appearance:none;
+        outline:none;
     }
 
         .grid input[type="search"] ~ i {
@@ -444,7 +453,7 @@ a.small {
     }
 
 .scroll {
-    position: relative;
+    /*position: relative;*/
     -webkit-overflow-scrolling: touch;
 }
 
@@ -757,18 +766,18 @@ a.small {
         animation: 2s slidein infinite linear;
     }
 
-        .loader-bar i:nth-child(2) {
-            -moz-animation-delay: .3s;
-            -o-animation-delay: .3s;
-            -webkit-animation-delay: .3s;
-            animation-delay: .3s;
+        .loader-bar i:nth-child(2), .loader-bar i.second  {
+            -moz-animation-delay: .3s !important;
+            -o-animation-delay: .3s !important;
+            -webkit-animation-delay: .3s !important;
+            animation-delay: .3s !important;
         }
 
-        .loader-bar i:nth-child(3) {
-            -moz-animation-delay: .6s;
-            -o-animation-delay: .6s;
-            -webkit-animation-delay: .6s;
-            animation-delay: .6s;
+        .loader-bar i:nth-child(3), .loader-bar i.third {
+            -moz-animation-delay: .6s !important;
+            -o-animation-delay: .6s !important;
+            -webkit-animation-delay: .6s !important;
+            animation-delay: .6s !important;
         }
 
 @-webkit-keyframes slidein {

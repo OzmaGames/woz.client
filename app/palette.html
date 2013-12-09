@@ -1,0 +1,16 @@
+﻿<!--ko with: menu-->
+<div class="palette right fixed" data-bind="foreach: fixedItems, fadeVisible: visible">
+   <i data-bind="click: click, css: css, visible: visible"></i>
+</div>
+
+<div class="palette left">
+   <div class="actions" data-bind="foreach: leftItems, fadeVisible: visible">
+      <div class="btn" data-bind="click: click">
+         <i data-bind="css: css, visible: visible"></i>
+      </div>      
+   </div>
+</div>
+<div class="palette right" data-bind="foreach: rightItems, fadeVisible: visible">
+   <i data-bind="click: click, css: css, visible: visible"></i>
+</div>
+<!--/ko-->

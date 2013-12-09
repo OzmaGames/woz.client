@@ -1,10 +1,11 @@
-﻿define(['durandal/app', 'durandal/activator', 'api/datacontext', 'dialogs/templates/panel'],
-  function (app, activator, ctx, panel) {
-
+﻿define(['durandal/app', 'durandal/activator', 'palette', 'api/datacontext', 'dialogs/templates/panel'],
+  function (app, activator, palette, ctx, panel) {
+     
      var viewChanger = app.on('account:view:change').then(function (viewModel) {
         app.loading(true);
         app.dialog.show("panel", viewModel, {
            compositionComplete: function () {
+              $('input[autofocus]').focus();
               app.loading(false);
            }
         });
@@ -12,7 +13,7 @@
 
      return {        
         activate: function () {
-           app.commandMenuVisibility(false);           
+           palette.get("menu").visible(false);
         },
 
         binding: function () {
@@ -26,7 +27,7 @@
         detached: function (view) {
            viewChanger.off();
            app.dialog.close("panel");
-           app.commandMenuVisibility(true);
+           palette.get("menu").visible(true);
         },
 
         playSolo: function () {

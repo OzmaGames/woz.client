@@ -8,7 +8,11 @@
          var value = valueAccessor(), fadeIn, fadeOut;
          others = allBindingsAccessor();
 
-         if (others.duration) {
+         if (others.duration === undefined) {
+            others.duration = value.duration;
+         }
+
+         if (others.duration !== undefined) {
             if (typeof others.duration == "number") {
                fadeIn = fadeOut = others.duration;
             } else {
@@ -75,7 +79,7 @@
          var time = new Date(valueAccessor()), str = "";
 
          str += ko.bindingHandlers.date.months[time.getMonth()] + ' ';
-         str += time.getDay() + ' ';
+         str += time.getDate() + ' ';
          str += time.getHours() + ':' + time.getUTCMinutes();
 
          $(element).text(str);

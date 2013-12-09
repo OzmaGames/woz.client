@@ -23,7 +23,7 @@
             marginTop: $el.css('marginTop')
          }).css({ position: "fixed", left: $el.offset().left, top: topPadding, marginLeft: 0, marginTop: 0 })
         .addClass("fixed")
-        .appendTo('body');
+        .appendTo('#app');
       }
    }
 

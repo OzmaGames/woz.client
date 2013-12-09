@@ -13,7 +13,7 @@
                <div class="cell left">
                   <div class="subCell">
                      <div class="pic" data-bind="css: collection"></div>
-                  </div><div class="subCell">
+                  </div><div class="subCell" style="width:100%">
                      <div class="flow">
                         <!-- ko if: players.length == 2 -->
                         <div>
@@ -43,6 +43,9 @@
                            <span>has not been played yet</span>
                            <!-- /ko -->
                         </div>
+                        <!--<div class="visibleOnActive" style="position:absolute;top:0;right:0;">
+                           <button class="blue" data-bind="click:$root.loadGame">Continue</button>
+                        </div>-->
                      </div>
                   </div>
                </div>

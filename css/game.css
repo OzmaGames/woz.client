@@ -107,7 +107,7 @@ hr {
         left: 0;
         bottom: 0;
         right: 0;
-        z-index: 99;
+        z-index: 98;
         box-shadow: 5px 5px 10px 0 #976b2c;
         display: none;
     }

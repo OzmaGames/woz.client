@@ -45,88 +45,90 @@
      model.mode = ko.observable(''); //swap;
      model.words.immovable = ko.computed(function () { return model.mode() === 'swapWords'; });
 
-     model.load = function (playerCount) {
-
+     model.load = function (id) {
+        console.log("loading game..");
         app.off("game:start game:update game:swap-words");
         model.loading(true);
         app.dialog.show("loading");
 
+        id = isNaN(id * 1) ? 0 : id * 1;
+        
         app.on("game:start", function (json) {
 
-           model.loadingStatus("Starting The Game...");
+              model.loadingStatus("Starting The Game...");
 
-           model.gameID = json.id;
+              model.gameID = json.id;
 
-           model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
-           model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
+              model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
+              model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
 
-           ko.utils.arrayForEach(json.players, function (player) {
-              if (player.username === model.username) {
-                 model.player.active(player.active);
-                 player.active = model.player.active;
-              } else {
-                 player.active = ko.observable(player.active);
+              ko.utils.arrayForEach(json.players, function (player) {
+                 if (player.username === model.username) {
+                    model.player.active(player.active);
+                    player.active = model.player.active;
+                 } else {
+                    player.active = ko.observable(player.active);
+                 }
+                 player.resigned = ko.observable(player.resigned || false);
+                 player.score = ko.observable(player.score);
+              });
+
+              if (model.playerCount > 1) {
+                 if (model.player.active())
+                    app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
+                 else
+                    app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
+
               }
-              player.resigned = ko.observable(player.resigned || false);
-              player.score = ko.observable(player.score);
-           });
 
-           if (model.playerCount > 1) {
-              if (model.player.active())
-                 app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
-              else
-                 app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
+              model.player = find(json.players, { username: model.username });
+              model.players(json.players);
 
-           }
+              ko.utils.arrayForEach(json.words, function (word) {
+                 word.isSelected = ko.observable(false);
+                 if (ko.utils.arrayFilter(json.words, function (w) { return word.id === w.id }).length > 1) {
+                    word.isPlayed = true;
+                 }
+              });
+              model.words(json.words);
 
-           model.player = find(json.players, { username: model.username });
-           model.players(json.players);
-
-           ko.utils.arrayForEach(json.words, function (word) {
-              word.isSelected = ko.observable(false);
-              if (ko.utils.arrayFilter(json.words, function (w) { return word.id === w.id }).length > 1) {
-                 word.isPlayed = true;
+              for (var i = 0; i < json.tiles.length; i++) {
+                 json.tiles[i].imageId = json.tiles[i].imageID || json.tiles[i].id;
+                 json.tiles[i].imageName = consts.bigImageURL(model.collection.name(), json.tiles[i].imageId);
+                 json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
+                 json.tiles[i].active = ko.observable(false);
               }
-           });
-           model.words(json.words);
+              model.tiles(json.tiles);
 
-           for (var i = 0; i < json.tiles.length; i++) {
-              json.tiles[i].imageId = json.tiles[i].imageID || json.tiles[i].id;
-              json.tiles[i].imageName = consts.bigImageURL(model.collection.name(), json.tiles[i].imageId);
-              json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
-              json.tiles[i].active = ko.observable(false);
-           }
-           model.tiles(json.tiles);
+              json.paths = ko.utils.arrayMap(json.paths, function (p) {
+                 return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
+              });
+              model.paths(json.paths);
 
-           json.paths = ko.utils.arrayMap(json.paths, function (p) {
-              return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
-           });
-           model.paths(json.paths);
+              model._gameOver(json.gameOver);
 
-           model._gameOver(json.gameOver);
+              model.winner = function () {
+                 if (model.gameOver()) {
+                    var maxScore = -1, winner = null;
+                    ko.utils.arrayForEach(model.players(), function (player) {
+                       if (maxScore < player.score() && !player.resigned()) {
+                          winner = player;
+                          maxScore = player.score();
+                       }
+                    });
+                    return winner;
+                 }
+                 return null;
+              };
 
-           model.winner = function () {
-              if (model.gameOver()) {
-                 var maxScore = -1, winner = null;
-                 ko.utils.arrayForEach(model.players(), function (player) {
-                    if (maxScore < player.score() && !player.resigned()) {
-                       winner = player;
-                       maxScore = player.score();
-                    }
-                 });
-                 return winner;
-              }
-              return null;
-           };
+              model.loadingStatus("Ready");
 
-           model.loadingStatus("Ready");
-
-           setTimeout(function () {
-              app.dialog.close("loading");
-              model.loading(false);
-              app.trigger("game:started");
-           }, 100);
-        });
+              setTimeout(function () {
+                 app.dialog.close("loading");
+                 model.loading(false);
+                 app.trigger("game:started");
+              }, 100);
+        });        
 
         app.on("game:update", function (json) {
            app.loading(false);
@@ -207,9 +209,16 @@
         model.loadingStatus("Waiting for the server...");
 
         setTimeout(function () {
-           app.trigger("server:game:queue", { username: model.username, password: 12345, playerCount: playerCount }, function () {
+           if (id > 0) {
               model.loadingStatus("Waiting for awesomeness...");
-           });
+              app.trigger("server:game:resume", { username: model.username, id: id }, function () {
+                 
+              });
+           } else {
+              app.trigger("server:game:queue", { username: model.username, password: 12345, playerCount: model.playerCount }, function () {
+                 model.loadingStatus("Waiting for awesomeness...");
+              });
+           }
            //app.trigger("game:start", entity);
         }, 500);
 
