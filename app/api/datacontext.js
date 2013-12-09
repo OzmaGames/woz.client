@@ -174,7 +174,7 @@
               }
 
               if (json.path) {
-                 debugger;
+                 //debugger;
                  var path = ko.utils.arrayFirst(model.paths(), function (path) { return path.id == json.path.id });
                  path.phrase.update(json.path.phrase);
               }
