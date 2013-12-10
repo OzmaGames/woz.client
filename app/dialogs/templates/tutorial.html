@@ -1,6 +1,10 @@
-﻿<div class="dialog bottom-center modal">
-    <div class="overlay visible"></div>
-    <div class="tutorial">
-        <p data-bind="text:content, visible:content"></p>
-    </div>
+﻿<div class="dialog absolute low top-left">
+   <div class="tutorial" data-bind="css: css, click: onClose">
+      <div class="content">
+         <h1 data-bind="text: heading"></h1>
+         <div data-bind="html: content"></div>
+      </div>
+      <h1 data-bind="text: heading"></h1>
+      <div data-bind="html: content"></div>
+   </div>
 </div>

@@ -1,56 +1,39 @@
-﻿define(['durandal/app'], function (app) {
+﻿define(['durandal/app', 'api/draggable'], function (app) {
 
-  /*
-  app.dialog.show("tutorial", {content: '', expose: $('.magnet-placeholder')})
-  app.dialog.show("tutorial", {content: '', expose: $('.tile')})
-  */
-  function Tutorial() {
-    this.content = '';
+   function Tutorial() {
+      this.heading = '';
+      this.content = '';
+      this.css = '';
 
-    this.close = function (command) {
-      base.el.transition({ y: 0 }, 300)
-        .transition({ y: 100, opacity: 0 }).promise().then(function () {
-          base.el.hide().css({ opacity: '' });
-        });
-      base.el.parent().fadeOut();
-      base.expose.removeClass('tutorial-expose');
-      base.overlay.fadeOut();
-      base.onClose(command);
-    }
-
-    this.onClose = function () { };
-  }
-
-  Tutorial.prototype.activate = function (data) {
-    this.content = data.content;
-    this.expose = data.expose;
-  }
-
-  Tutorial.prototype.compositionComplete = function (el) {
-    this.el = $('.tutorial', el);
-    this.overlay = $('.overlay', el);
-
-    this.el.css({ y: 100, opacity: 0 })
-     .transition({ y: 0, opacity: 1 }, 300, 'ease')
-     .transition({ y: 10 }, 200);
-    
-    var parent = this.expose.parent(), element = this.expose;
-    do {
-      if (parent.css('position') == 'relative') {
-        element.addClass('tutorial-expose');
-        element = parent;
+      var base = this;
+      this.close = function () {
+         return $.Deferred(function (dfd) { dfd.resolve(); });
       }
-      parent = parent.parent();
-    } while (parent[0].tagName != 'BODY');
-    parent.append(this.overlay);    
-  }
 
-  Tutorial.prototype.canDeactivate = function () {
-    var base = this;
-    return $.Deferred(function (dfd) {
-      base.el.promise().then(function () { dfd.resolve(true); });
-    }).promise();
-  }
+      this.onClose = function () { }
+   }
 
-  return Tutorial;
+   Tutorial.prototype.activate = function (data) {
+      this.heading = data.heading;
+      this.content = data.content;
+      this.left = data.left || 0;
+      this.top = data.top || 0;
+      this.css = data.css || '';
+   }
+
+   Tutorial.prototype.attached = function (el) {
+      this.el = $('.tutorial', el);
+
+      this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left })
+        .transition({ x: -10, opacity: 1 }, 500, 'ease')
+        .transition({ x: 0 }, 300).promise().then(function () {
+           this.css({ x: 0 });
+        });
+   }
+
+   Tutorial.prototype.canDeactivate = function () {
+      return this.close();
+   }
+
+   return Tutorial;
 });

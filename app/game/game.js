@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/system', 'api/datacontext', 'dialogs/_constants'], function (app, system, ctx, DIALOGS) {
+﻿define(['durandal/app', 'durandal/system', 'api/datacontext', 'dialogs/_constants', './tutorial'], function (app, system, ctx, DIALOGS, tutorial) {
 
    ctx.canSwap = ko.observable(false);
 
@@ -7,6 +7,7 @@
          app.loading(false);
       } else if (loading === false) {
          app.palette.show();
+         tutorial.show();
       }
    });
 
@@ -193,7 +194,7 @@
       },
 
       compositionComplete: function (view) {
-          
+         
       },
 
       detached: function () {

@@ -112,7 +112,7 @@ h5 {
     .loader.page {
         position: fixed;
         top: 0;
-        right: 0;
+        left: 0;
     }
 
 .loadingIndicator {
