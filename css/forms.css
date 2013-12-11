@@ -172,9 +172,10 @@ label.sm{
 
     label .description {
         display: block;
+        font-family: Cambria;
         font-size: .8em;
-        -webkit-text-shadow: 0 0 0px #986B31;
-        text-shadow: 0 0 0px #986B31;
+        /*-webkit-text-shadow: 0 0 0px #986B31;
+        text-shadow: 0 0 0px #986B31;*/
         text-transform: none;
         -webkit-font-smoothing: antialiased;
         font-weight:normal;

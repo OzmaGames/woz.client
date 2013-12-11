@@ -51,13 +51,15 @@
         model.loading(true);
         app.dialog.show("loading");
 
-        id = isNaN(id * 1) ? 0 : id * 1;
+        if (id === "") id = -1;
+        id = isNaN(id * 1) ? -1 : id * 1;
 
         app.on("game:start", function (json) {
 
            model.loadingStatus("Starting The Game...");
 
            model.gameID = json.id;
+           model.playerCount = json.players.length;
 
            model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
            model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
@@ -214,7 +216,7 @@
         model.loadingStatus("Waiting for the server...");
 
         setTimeout(function () {
-           if (id > 0) {
+           if (id >= 0) {
               model.loadingStatus("Waiting for awesomeness...");
               app.trigger("server:game:resume", { username: model.username, id: id }, function () {
 

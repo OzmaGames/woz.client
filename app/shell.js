@@ -64,6 +64,9 @@
       ]).buildNavigationModel()
         .mapUnknownRoutes('home/index', 'not-found')
         .activate();
+    },
+    compositionComplete: function () {
+       $('#fixed').prependTo('body');
     }
   };
 });

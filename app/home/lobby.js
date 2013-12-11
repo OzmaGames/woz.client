@@ -15,8 +15,7 @@
    }
 
    return {
-      loading: ko.observable(true),
-
+      loading: ko.observable(true),      
       activate: function () {
          var base = this;
          app.trigger("server:game:lobby", { username: ctx.username }, function (data) {
@@ -32,6 +31,7 @@
             }
          });
 
+         activeGame(null);
          app.dialog.close("all");
          app.palette.dispose();
       },

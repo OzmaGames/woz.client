@@ -18,7 +18,7 @@
                         <!-- ko if: players.length == 2 -->
                         <div>
                            Playing with
-                           <span class="name" data-bind="text: $root.getOpponent.bind($data).username"></span>
+                           <span class="name" data-bind="text: $root.getOpponent($data).username"></span>
                            - Using
                            <span class="collection" data-bind="text: collection"></span> collection
                         </div>
@@ -32,7 +32,7 @@
                         <div>Game started <span class="date" data-bind="date: startDate"></span></div>
                         <div>
                            <!-- ko if: lastPhrase.username -->
-                           <span data-bind="text: lastPhrase.username"></span>
+                           <span data-bind="text: lastPhrase.username, css: {bold: lastPhrase.username != 'You'}"></span>
                            placed:
                            <span class="phrase" data-bind="text: lastPhrase.phrase"></span>
                            for

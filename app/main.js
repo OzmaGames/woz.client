@@ -84,59 +84,79 @@ define([
      }
 
      //TODO: loads only in IPAD
-     var topScroll = 0, touches = [], appEl = document.getElementById('app');
-     //$('#app').bind('scroll', function (e) {
-     //   if (e.target.id == 'app') {
-     //      topScroll = e.target.scrollTop;
+     //var touches = [], appEl = document.getElementById('app');
+     ////$('#app').bind('scroll', function (e) {
+     ////   //if (e.target.id == 'app') {
+     ////   if (document.getElementById('debug'))
+     ////      document.getElementById('debug').innerHTML += e.target.id + e.target.scrollTop;
+     ////   //}
+     ////});
+
+     //$('#app').bind('touchstart', function (e) {
+     //   for (var i = 0; i < e.originalEvent.touches.length; i++) {
+     //      touches[e.originalEvent.touches[i].identifier] = e.originalEvent.touches[i].pageY;
+     //   }
+     //   if ($(e.target).parents('.scroll').length > 1) {
+     //      touches.skip = true;
+     //      console.log('skipped');
+     //   } else {
+     //      touches.skip = false;
      //   }
      //});
 
-     $('#app').bind('touchstart', function (e) {
-        for (var i = 0; i < e.originalEvent.changedTouches.length; i++) {
-           touches[e.originalEvent.changedTouches[i].identifier] = e.originalEvent.changedTouches[i];
-        }
-        if ($(e.target).parents('.scroll').length > 1) {
-           touches.skip = true;
-           console.log('skipped');
-        } else {
-           touches.skip = false;
-        }
-     });
+     ////manual touch;
+     ////$('#app').bind('touchmove', function (e) {
+     ////   if (e.originalEvent.changedTouches.length) {
+     ////      var curTouch = e.originalEvent.changedTouches[0];
+     ////      var scrollAmount = touches[curTouch.identifier].pageY - curTouch.pageY;
+     ////      appEl.scrollTop += scrollAmount;
 
-     //manual touch;
+     ////      touches[curTouch.identifier] = curTouch;
+     ////      console.log(scrollAmount, touches[curTouch.identifier].pageY, curTouch.pageY);
+
+     ////      e.preventDefault();
+     ////   }
+     ////});
+     //$('body').bind('touchmove', function (e) {
+     //   //e.preventDefault();
+
+     //   //if (document.getElementById('debug'))
+     //   //   document.getElementById('debug').innerHTML += 'prevented';
+     //});
+
      //$('#app').bind('touchmove', function (e) {
-     //   if (e.originalEvent.changedTouches.length) {
-     //      var curTouch = e.originalEvent.changedTouches[0];
-     //      var scrollAmount = touches[curTouch.identifier].pageY - curTouch.pageY;
-     //      appEl.scrollTop += scrollAmount;
+     //   //if (touches.skip) return;
 
-     //      touches[curTouch.identifier] = curTouch;
-     //      console.log(scrollAmount, touches[curTouch.identifier].pageY, curTouch.pageY);
+     //   if (document.getElementById('debug'))
+     //      document.getElementById('debug').innerHTML = appEl.scrollTop + ' ' + appEl.scrollHeight + ' ' + appEl.clientHeight;
+
+     //   if (appEl.scrollTop < 0 || appEl.scrollTop > appEl.scrollHeight - appEl.clientHeight) {
+     //      e.preventDefault();
+     //      e.stopPropagation();
+     //      if (document.getElementById('debug'))
+     //         document.getElementById('debug').innerHTML += 'prevented';
+     //      return false;
+     //   }
+        
+     //   var curTouch = e.originalEvent.changedTouches[0];
+     //   var scrollAmount = touches[curTouch.identifier] - curTouch.pageY;
+     //   //var endScroll = appEl.scrollTop + scrollAmount;
+     //   touches[curTouch.identifier] = curTouch.pageY;
+
+     //   if (
+     //      (scrollAmount < 0 && appEl.scrollTop <= 0) ||
+     //      (scrollAmount > 0 && appEl.scrollTop > appEl.scrollHeight - appEl.clientHeight)) {
 
      //      e.preventDefault();
+     //      e.stopPropagation();
+     //      if (document.getElementById('debug'))
+     //         document.getElementById('debug').innerHTML += 'prevented';
+     //      return false;
      //   }
+
+     //   //console.log(endScroll);           
+     //   //e.preventDefault();
      //});
-
-     $('#app').bind('touchmove', function (e) {
-        if (e.originalEvent.changedTouches.length) {
-           if (touches.skip) return;
-           var curTouch = e.originalEvent.changedTouches[0];
-           var scrollAmount = touches[curTouch.identifier].pageY - curTouch.pageY;
-           //var endScroll = appEl.scrollTop + scrollAmount;
-
-           if (
-              (scrollAmount < 0 && appEl.scrollTop <= 0) ||
-              (scrollAmount > 0 && appEl.scrollTop >= appEl.scrollHeight - appEl.clientHeight)) {
-
-              e.preventDefault();
-           }
-
-           touches[curTouch.identifier] = curTouch;
-           //console.log(endScroll);           
-           //document.getElementById('debug').innerHTML = scrollAmount;
-           //e.preventDefault();
-        }
-     });
 
      window.app = app;
   });

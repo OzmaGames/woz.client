@@ -37,7 +37,7 @@
       query: ko.observable(''),
       friendListMode: ko.observable(mode.list),
       searchLoading: ko.observable(false),
-      activeFriend: ko.observable(),
+      activeFriend: ko.observable(),     
       friendSelected: function (friend) {
          this.activeFriend(friend);
       },

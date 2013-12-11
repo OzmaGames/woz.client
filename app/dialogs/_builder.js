@@ -5,7 +5,7 @@
      var dialogs = {};
 
      function createBaseHost() {        
-        var body = $('#app'), host = body.children('.' + className).get(0);
+        var body = $('body'), host = body.children('.' + className).get(0);
         if (host === undefined) {
            return $('<div/>', { 'class': className }).appendTo(body).get(0);
         }

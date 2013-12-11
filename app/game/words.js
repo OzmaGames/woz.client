@@ -78,6 +78,16 @@
                if (!word.isPlayed) {
                   word.originalX = word.x;
                   word.originalY = word.y;
+
+                  app.trigger("server:game:move-word", {
+                     username: ctx.username,
+                     gameID: ctx.gameID,
+                     word: {
+                        id: word.id,
+                        x: word.x,
+                        y: word.y
+                     }
+                  });
                }
             }
          }).hide();

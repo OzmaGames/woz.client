@@ -7,7 +7,7 @@
          app.loading(false);
       } else if (loading === false) {
          app.palette.show();
-         tutorial.show();
+         //tutorial.show();
       }
    });
 

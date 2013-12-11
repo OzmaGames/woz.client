@@ -1,22 +1,24 @@
 ﻿<div>
-   <div class="status-box">
-      <div class="switch">
-         <span>Server status:</span>
+   <div id="fixed">
+      <!--ko compose: "palette"--><!--/ko-->
+      <div class="loader page" data-bind="css: { active: loading }">
+         <i class="icon-spinner icon-2x icon-spin"></i>
       </div>
-      <div class="switch" data-bind="css: { b: status.cnn }">
-         <span class="bad">Offline</span>
-         <span class="good">Online</span>
-      </div>
-      <div class="switch" data-bind="css: { b: errors().length }">
-         <span class="good"></span>
-         <span class="bad" data-bind="attr:{title: $root.summary}, click: $root.showSummary">
-            Errors on the page: <span data-bind="text: errors().length"></span>
-         </span>
+      <div class="status-box">
+         <div class="switch">
+            <span>Server status:</span>
+         </div>
+         <div class="switch" data-bind="css: { b: status.cnn }">
+            <span class="bad">Offline</span>
+            <span class="good">Online</span>
+         </div>
+         <div class="switch" data-bind="css: { b: errors().length }">
+            <span class="good"></span>
+            <span class="bad" data-bind="attr:{title: $root.summary}, click: $root.showSummary">
+               Errors on the page: <span data-bind="text: errors().length"></span>
+            </span>
+         </div>
       </div>
    </div>
-   <div class="loader page" data-bind="css: { active: loading }">
-      <i class="icon-spinner icon-2x icon-spin"></i>
-   </div>
-   <!--ko compose: "palette"--><!--/ko-->
    <!--ko router: { transition: 'entrance', cacheViews: true }--><!--/ko-->
 </div>

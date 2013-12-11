@@ -14,7 +14,7 @@
       /// data = {username: ''}
       /// res = {success: true|false, errorMessage: ''}
       "account:logout",
-      /// data = {gameId: #, username: '', word: {id: #, x: #.#, y: #.#}}
+      /// data = {gameId: #, username: '', word: {id: #, x: #.#, y: #.#} }
       "game:move-word",
       /// data = {gameId: #, username: '', phrase: { words: [#, #, #, ..] }, path: #}
       /// res = {success: true|false, errorMessage: ''}
