@@ -48,7 +48,7 @@
       return router.map([
           { route: ['', 'home'],      moduleId: 'home/index',       title: '',                     nav: true },
           { route: 'test',            moduleId: 'home/test',        title: 'Test',                 nav: true },
-          { route: 'lobby',           moduleId: 'home/lobby',       title: 'Lobby',                nav: true },
+          { route: 'lobby',           moduleId: 'home/lobby/index', title: 'My Games',             nav: true },
           { route: 'settings',        moduleId: 'home/settings',    title: 'Settings',             nav: true },
           { route: 'newGame',         moduleId: 'home/newGame',     title: 'New Game',             nav: true },
           { route: 'singlePlayer',    moduleId: 'home/singlePlayer',title: 'Loading the game',     nav: true },

@@ -26,7 +26,8 @@
       /// res = {success: true|false, errorMessage: ''}
       "game:skip-turn",
       "game:resign",
-      "game:lobby",      
+      "game:lobby",
+      "game:archive",
       "friends"
     ],
     custom: {

@@ -14,10 +14,8 @@
       return players[1];
    }
 
-   return {
-      loading: ko.observable(true),      
-      activate: function () {
-         var base = this;
+   function loadActiveGames() {
+      return $.Deferred(function (dfd) {
          app.trigger("server:game:lobby", { username: ctx.username }, function (data) {
             if (data.success) {
                data.games.sort(function (a, b) { return b.lastMod - a.lastMod; });
@@ -27,18 +25,25 @@
                   }
                })
                games(data.games);
-               base.loading(false);
+               dfd.resolve();
             }
          });
+      });      
+   }
 
-         activeGame(null);
+   return {
+      loading: ko.observable(true),
+      activate: function () {
          app.dialog.close("all");
          app.palette.dispose();
-      },
 
+         activeGame(null);
+      },
+      tabName: ko.observable('lobbyGames'),
       lobby: [
         {
            title: 'My Turn',
+           empty: 'You have no ongoing games where it\'s your turn.',
            games: ko.computed(function () {
               return ko.utils.arrayFilter(games(), function (g) {
                  return getPlayer(g.players).active;
@@ -46,6 +51,7 @@
            })
         }, {
            title: 'Their Turn',
+           empty: 'You have no ongoing games where it\'s your opponents turn.',
            games: ko.computed(function () {
               return ko.utils.arrayFilter(games(), function (g) {
                  return !getPlayer(g.players).active;
@@ -64,6 +70,28 @@
       select: function (game, e) {
          activeGame(game);
          app.navigate("game/" + game.gameID);
+      },
+      navigate: function (tabIndex, dfd) {
+         var base = this;
+         base.loading(true);
+
+         dfd.then(function () {
+            base.tabName(tabIndex == 0 ? 'lobbyGames' : tabIndex == 1 ? 'lobbyNotifications' : 'lobbyArchive');
+         });
+
+         switch (tabIndex) {
+            case 0:
+               return loadActiveGames().then(function () {
+                  base.loading(false)
+               });
+               break;
+            case 1:
+               break;
+            case 2:
+               break;
+         }
+
+         return dfd;
       },
       activeGame: activeGame,
       binding: function () {

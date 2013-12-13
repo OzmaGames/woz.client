@@ -22,13 +22,15 @@
                </div>
             </div>
             <div class="container y scroll compact" style="margin-left: .5em; width: auto;">
-               <ul>
+               <ul class="list">
                   <li class="header" data-bind="text: friendListMode().title"></li>
                   <!-- ko if: $root.friendListMode().mode == 'list' -->
                   <!-- ko foreach: friends -->
                   <li data-bind="css:{ active: $root.activeFriend() == $data }, click: $root.friendSelected.bind($root, $data)">
                      <span data-bind="text: username"></span>
-                     <i class="command delete xxsm pull-right" style="margin-right:2em; margin-top: .2em" data-bind="click: $root.removeFriend.bind($root, $data)"></i>
+                     <div class="btn" data-bind="click: $root.removeFriend.bind($root, $data)">
+                        <i class="command delete xxsm"></i>
+                     </div>
                   </li>
                   <!-- /ko -->
                   <!-- ko if: friends().length == 0 -->
@@ -41,9 +43,16 @@
                   <!-- /ko -->
                   <!-- ko if: $root.friendListMode().mode == 'search' -->
                   <!-- ko foreach: friends -->
-                  <li>
+                  <li data-bind="css:{ active: $root.activeFriend() == $data }, click: $root.friendSelected.bind($root, $data)">
                      <span data-bind="text: username"></span>
-                     <i class="command addFriend sm pull-right" style="margin-right:1em" data-bind="click: $root.addFriend.bind($root, $data)"></i>
+                     <!-- ko ifnot: isFriend -->
+                     <div class="btn" data-bind="click: $root.addFriend.bind($root, $data)">
+                        <i class="command addFriend sm"></i>
+                     </div>                     
+                     <!-- /ko -->
+                     <!-- ko if: isFriend -->
+                     <span class="grayed pull-right">friend</span>
+                     <!-- /ko -->
                   </li>
                   <!-- /ko -->
                   <!-- ko if: friends().length == 0 -->

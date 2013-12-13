@@ -39,7 +39,7 @@
                res.username = data.username;
                app.dialog.close("panel");
                app.trigger('account:login', res);
-               app.navigate("newGame");
+               app.navigate("lobby");
             } else {
                base.errorMessage(res.message);
             }
