@@ -18,7 +18,9 @@
          </div>
          <div class="cell right">
             <div class="wrapper">
-               <i class="command close compact" title="Resign the game"></i>
+               <div class="btn" data-bind="click: $root.resign.bind($root, $data), clickBubble: false, visible: $root.type() == 'ongoing'">
+                  <i class="command close compact" title="Resign the game"></i>
+               </div>
                <div class="box">
                   <div class="time" title="" data-bind="timeAgo: lastMod"></div>
                   <div class="chat" title="Number of unread messages">

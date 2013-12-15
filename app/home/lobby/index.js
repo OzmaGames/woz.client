@@ -5,6 +5,8 @@
 
       module: ko.observable(),
 
+      activeTab: 0,
+
       games: Games,
 
       navigate: function (tabIndex, dfd) {
@@ -20,13 +22,16 @@
 
          switch (tabIndex) {
             case 0:
+               sessionStorage.setItem("lobby", 0);
                return Games.loadGames().then(function () {
                   base.loading(false)
                });
                break;
             case 1:
+               sessionStorage.setItem("lobby", 1);
                break;
             case 2:
+               sessionStorage.setItem("lobby", 2);
                return Games.loadArchive().then(function () {
                   base.loading(false)
                });
@@ -39,6 +44,12 @@
       activate: function () {
          app.dialog.close("all");
          app.palette.dispose();
+
+         if (!sessionStorage.getItem("lobby")) {
+            sessionStorage.setItem("lobby", 0);
+         } else {
+            this.activeTab = sessionStorage.getItem("lobby");
+         }
       },
 
       start: function () {

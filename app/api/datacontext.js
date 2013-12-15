@@ -75,7 +75,7 @@
               player.score = ko.observable(player.score);
            });
 
-           if (model.playerCount > 1) {
+           if (model.playerCount > 1 && !json.gameOver) {
               if (model.player.active())
                  app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
               else

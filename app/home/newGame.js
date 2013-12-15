@@ -102,6 +102,7 @@
             vm.activeFriend(null);
             vm.friendListMode(mode.list);
             if (data.success) {
+               data.friends.sort(function (a, b) { return a.username > b.username })
                ko.utils.arrayForEach(data.friends, function (f) {
                   f.isFriend = true;
                });

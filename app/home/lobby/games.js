@@ -99,6 +99,7 @@
    function Games() {
       this.games = ko.observableArray();
       this.activeGame = ko.observable();
+      this.type = ko.observable();
 
       this.loadGames = function () {
          var base = this;
@@ -106,6 +107,7 @@
             base.games(games)
             base.message("You can have up to 10 ongoing games at the time. <a>Get more space</a>!");
             base.list(base.ongoing);
+            base.type("ongoing");
          });
       }
 
@@ -115,6 +117,7 @@
             base.games(games);
             base.message("Your archive have room for 10 games right now. <a>Get more space</a>!");
             base.list(base.archive);
+            base.type("archive");
          });
       }
 
@@ -164,6 +167,25 @@
       this.selectGame = function (game) {
          base.activeGame(game);
          app.navigate("game/" + game.gameID);
+      }
+
+      this.resign = function (game) {
+         var base = this;
+         app.dialog.show("confirm", {
+            content: "Are you sure you want to delete this game?", modal: true,
+            doneText: 'YES', cancelText: 'NO'
+         }).then(function (res) {
+            if (res != "cancel") {               
+               base.games.remove(game);
+
+               app.trigger("server:game:resign", {
+                  username: ctx.username,
+                  gameID: game.gameID,
+               }, function () {
+                  //base.games.remove(game);
+               });
+            }
+         });
       }
 
       this.message = ko.observable();

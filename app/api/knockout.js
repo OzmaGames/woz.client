@@ -147,24 +147,24 @@
       init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
          var obj = valueAccessor();
 
-         var activeIndex = ko.observable(0),
+         var activeIndex = ko.observable(obj.activeTab || 0),
             items = $(element).find('nav li:not(:last)').each(function (index, el) {
                $(el).data('index', index);
             });
-         
+
          ko.computed({
             disposeWhenNodeIsRemoved: element,
             read: function () {
                var index = activeIndex();
                for (var i = 0; i < items.length; i++) {
                   items[i].classList.remove('active');
-               }               
+               }
                items[index].classList.add('active');
 
-               if (typeof obj.nav == "function") {                  
+               if (typeof obj.nav == "function") {
                   var dfd = $('.content', element).slideUp().promise();
                   var result = obj.nav.call(viewModel, index, dfd);
-                  
+
                   if (result && result.then) {
                      result.then(function () {
                         $('.content', element).slideDown();
@@ -174,91 +174,91 @@
             }
          });
 
-   $(element).find('li:not(:last)').click(function () {            
-      activeIndex($(this).data('index'));
-   });
-}
-};
-
-ko.bindingHandlers["verifiableValue"] = {
-   init: function (element, valueAccessor, allBindingsAccessor) {
-      ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor);
-   },
-   update: function (element, valueAccessor) {
-      ko.bindingHandlers.value.update(element, valueAccessor);
-
-      element.setCustomValidity(valueAccessor().validationMessage());
-   }
-};
-
-ko.bindingHandlers["verifiableSubmit"] = {
-   init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-      ko.utils.registerEventHandler(element, "submit", function (event) {
-         for (var name in viewModel) {
-            var item = viewModel[name];
-            if (ko.isObservable(item) && item.validate) {
-               item.validate();
-            }
-         }
-
-         if (!element.checkValidity() || valueAccessor().call(viewModel, element) !== true) {
-            event.preventDefault();
-         }
-      });
-   }
-};
-
-ko.extenders["required"] = function (target, data) {
-   SetupValidation("required", target, function (target, newValue, overrideMessage) {
-      return newValue ? "" : overrideMessage || "This field is required";
-   }, data);
-
-   return target;
-};
-
-ko.extenders["stringLength"] = function (target, data) {
-   SetupValidation("stringLength", target, function (target, newValue, rule) {
-      return newValue.length >= rule.minLength ? "" : rule.message || "min length is " + rule.minLength;
-   }, data);
-
-   return target;
-};
-
-ko.extenders["customValidation"] = function (target, data) {
-   SetupValidation("stringLength", target, function (target, newValue, customFunc) {
-      return customFunc(newValue);
-   }, data);
-
-   return target;
-};
-
-function SetupValidation(ruleName, target, validateFunc, data) {
-   if (!target.hasOwnProperty("validate")) {
-      target.rules = {};
-      target.hasError = ko.observable();
-      target.validationMessage = ko.observable();
-      target.validate = function () { validate(target()); };
-      target.subscribe(validate);
-   }
-
-   target.rules[ruleName] = {
-      validate: validateFunc,
-      data: data
+         $(element).find('li:not(:last)').click(function () {
+            activeIndex($(this).data('index'));
+         });
+      }
    };
 
-   function validate(newValue) {
-      for (var ruleName in target.rules) {
-         var rule = target.rules[ruleName];
-         var validationMessage = rule.validate(target, newValue, rule.data);
+   ko.bindingHandlers["verifiableValue"] = {
+      init: function (element, valueAccessor, allBindingsAccessor) {
+         ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor);
+      },
+      update: function (element, valueAccessor) {
+         ko.bindingHandlers.value.update(element, valueAccessor);
 
-         if (validationMessage) {
-            target.hasError(true);
-            target.validationMessage(validationMessage);
-            return;
-         }
+         element.setCustomValidity(valueAccessor().validationMessage());
       }
-      target.hasError(false);
-      target.validationMessage('');
+   };
+
+   ko.bindingHandlers["verifiableSubmit"] = {
+      init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+         ko.utils.registerEventHandler(element, "submit", function (event) {
+            for (var name in viewModel) {
+               var item = viewModel[name];
+               if (ko.isObservable(item) && item.validate) {
+                  item.validate();
+               }
+            }
+
+            if (!element.checkValidity() || valueAccessor().call(viewModel, element) !== true) {
+               event.preventDefault();
+            }
+         });
+      }
+   };
+
+   ko.extenders["required"] = function (target, data) {
+      SetupValidation("required", target, function (target, newValue, overrideMessage) {
+         return newValue ? "" : overrideMessage || "This field is required";
+      }, data);
+
+      return target;
+   };
+
+   ko.extenders["stringLength"] = function (target, data) {
+      SetupValidation("stringLength", target, function (target, newValue, rule) {
+         return newValue.length >= rule.minLength ? "" : rule.message || "min length is " + rule.minLength;
+      }, data);
+
+      return target;
+   };
+
+   ko.extenders["customValidation"] = function (target, data) {
+      SetupValidation("stringLength", target, function (target, newValue, customFunc) {
+         return customFunc(newValue);
+      }, data);
+
+      return target;
+   };
+
+   function SetupValidation(ruleName, target, validateFunc, data) {
+      if (!target.hasOwnProperty("validate")) {
+         target.rules = {};
+         target.hasError = ko.observable();
+         target.validationMessage = ko.observable();
+         target.validate = function () { validate(target()); };
+         target.subscribe(validate);
+      }
+
+      target.rules[ruleName] = {
+         validate: validateFunc,
+         data: data
+      };
+
+      function validate(newValue) {
+         for (var ruleName in target.rules) {
+            var rule = target.rules[ruleName];
+            var validationMessage = rule.validate(target, newValue, rule.data);
+
+            if (validationMessage) {
+               target.hasError(true);
+               target.validationMessage(validationMessage);
+               return;
+            }
+         }
+         target.hasError(false);
+         target.validationMessage('');
+      }
    }
-}
 });
