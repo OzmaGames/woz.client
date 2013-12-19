@@ -89,7 +89,7 @@
          clearInterval(this._hoverHandler);
          this._hoverHandler = setTimeout(function (base) {
             base._guiRect.addClass("hover");
-            if (!base.isCircle) base._guiRect.children(".box").text(word.lemma);
+            //if (!base.isCircle) base._guiRect.children(".box").text(word.lemma);
          }, 1, this);
 
          return this;

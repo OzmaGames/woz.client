@@ -28,9 +28,7 @@ define([
      app.title = 'Words of Oz';
 
      app.configurePlugins({
-        router: true,
-        dialog: true,
-        http: true
+        router: true        
      });
 
      app.inlineLoading = ko.observable(false);
@@ -47,12 +45,12 @@ define([
 
      app.scrollUp = function () {
         console.log("scrollUP");
-        $('body, #app').animate({ scrollTop: 0 }, "slow", "swing");
+        $('#app').animate({ scrollTop: 0 }, "slow", "swing");
      };
 
      app.scrollDown = function () {
         console.log("scrollDown");
-        $('body, #app').animate({ scrollTop: 1000 }, "slow", "swing");
+        $('#app').animate({ scrollTop: 1000 }, "slow", "swing");
      }
      app.navigate = function (hash, options) {
         router.navigate(hash, options);

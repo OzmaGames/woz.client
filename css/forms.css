@@ -28,7 +28,7 @@
         transition-property: padding, width, background-position, text-indent, box-shadow;
         box-shadow: 0 .1em .1em rgba(0,0,0,.2) inset, 0 .3em 0 .1em rgba(0,0,0,.05) inset;
         float: right;
-        text-align:left;
+        text-align: left;
     }
 
     input[type="checkbox"]:checked + span {
@@ -97,7 +97,7 @@
 
     input[type="radio"]:checked + span {
         background-color: white;
-        box-shadow: 0 0 10px 3px #986B31;        
+        box-shadow: 0 0 10px 3px #986B31;
     }
 
 label {
@@ -124,23 +124,28 @@ label {
     z-index: 1;
     cursor: pointer;
 }
-label.sm{
-    width:15em;
-}
+
+    label.sm {
+        width: 15em;
+    }
 
     label.radio {
         padding-top: .55em;
         padding-bottom: .55em;
-        overflow: visible;        
+        overflow: visible;
     }
 
     label .text {
         margin-left: 80px;
         display: inline-block;
-        font-weight:normal;
+        font-weight: normal;
     }
 
-    label .title{    font-weight:bold;}
+    label .title {
+        font-weight: bold;
+        font-family: Cambria;
+        font-size: 1.05em;
+    }
 
     label .pic {
         position: absolute;
@@ -178,7 +183,7 @@ label.sm{
         text-shadow: 0 0 0px #986B31;*/
         text-transform: none;
         -webkit-font-smoothing: antialiased;
-        font-weight:normal;
+        font-weight: normal;
     }
 
     label.select {
@@ -198,19 +203,22 @@ label.sm{
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding:0;
+    padding: 0;
     border-width: 1px;
-    text-align:center;
+    text-align: center;
 }
-.actions label input[type="number"]{
-    position:static!important;
-    display:block;
-    margin:0;
-    border:0!important;
-}
-.actions label input[type="checkbox"] + span{
-    margin:2px;    
-}
+
+    .actions label input[type="number"] {
+        position: static !important;
+        display: block;
+        margin: 0;
+        border: 0 !important;
+    }
+
+    .actions label input[type="checkbox"] + span {
+        margin: 2px;
+    }
+
 select.woz {
     border: 2px solid #d7bea2;
     padding: .8em;
@@ -295,10 +303,11 @@ button {
         border-radius: 0.2em;
     }
 
-    button.sm{
+    button.sm {
         font-size: 1em;
     }
-    button.xsm{
+
+    button.xsm {
         font-size: .8em;
     }
 
@@ -311,7 +320,7 @@ button {
         box-shadow: none !important;
         -webkit-text-shadow: none !important;
         text-shadow: none !important;
-        letter-spacing:.08em;
+        letter-spacing: .08em;
     }
 
     button:hover:not(:disabled) {
@@ -370,6 +379,7 @@ button {
         background-color: rgba(255, 255, 255, .5);
         background-image: none;
         border: 0;
+        border-radius: 4px;
         margin: .5em 0;
         padding: .5em 1em;
         width: 15em;

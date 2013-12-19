@@ -44,8 +44,8 @@
     },
 
     activate: function () {
-      window.router = router;
-      return router.map([
+              
+       window.router = router.map([
           { route: ['', 'home'],      moduleId: 'home/index',       title: '',                     nav: true },
           { route: 'test',            moduleId: 'home/test',        title: 'Test',                 nav: true },
           { route: 'lobby',           moduleId: 'home/lobby/index', title: 'My Games',             nav: true },
@@ -64,6 +64,12 @@
       ]).buildNavigationModel()
         .mapUnknownRoutes('home/index', 'not-found')
         .activate();
+
+       //if (!sessionStorage.getItem("username")) {
+       //   router.navigate("");
+       //}
+
+       return window.router;
     },
     compositionComplete: function () {
        $('#fixed').prependTo('body');

@@ -2,7 +2,7 @@
   function (app, activator, palette, ctx, panel) {
      
      var viewChanger = app.on('account:view:change').then(function (viewModel) {
-        app.loading(true);
+        app.loading(true);        
         app.dialog.show("panel", viewModel, {
            compositionComplete: function () {
               $('input[autofocus]').focus();

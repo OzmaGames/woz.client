@@ -28,6 +28,11 @@
       this.onClose = function () { }
    }
 
+   Slipper.prototype.attributes = {
+      fixed: false,
+      singleton: true
+   };
+
    Slipper.prototype.activate = function (data) {
       this.heading = data.heading;
       this.content = data.content;

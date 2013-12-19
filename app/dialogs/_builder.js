@@ -4,26 +4,35 @@
      var className = 'dialogs';
      var dialogs = {};
 
-     function createBaseHost() {        
-        var body = $('body'), host = body.children('.' + className).get(0);
-        if (host === undefined) {
-           return $('<div/>', { 'class': className }).appendTo(body).get(0);
+     function createRoot(fixed) {
+        var container = document.getElementById(fixed ? 'fixed' : 'app'),
+            root = container.querySelector('.' + className);
+
+        if (!root) {
+           root = document.createElement('div');
+           root.className = className;
+           container.appendChild(root);
         }
-        return host;
+
+        return root;
      }
 
-     function getHost(moduleId, singleton) {
-        var baseHost = createBaseHost();
+     function getHost(instance) {
+        var root = createRoot(instance.attributes.fixed);
 
         return system.defer(function (dfd) {
-           if (singleton) {
-              close(moduleId, { msg: 'queue' }).then(createHost);
+           if (instance.attributes.singleton) {
+              var z = close(instance.__moduleId__, { msg: 'queue' })
+                 .then(createHost);
            } else {
               createHost();
            }
 
            function createHost() {
-              var host = $('<div/>', { 'module': moduleId }).appendTo(baseHost).get(0);
+              var host = $('<div/>', { 'module': instance.__moduleId__ }).appendTo(root).get(0);
+              dialogs[instance.__moduleId__] = {
+                 ready: system.defer()
+              };
               dfd.resolve(host);
            }
         }).promise();
@@ -33,24 +42,30 @@
         return system.defer(function (dfd) {
            if (system.isString(objOrModuleId)) {
               system.acquire(objOrModuleId).then(function (module) {
-                 dfd.resolve(system.resolveObject(module));
+                 setup(system.resolveObject(module));
               });
            } else {
-              dfd.resolve(objOrModuleId);
+              setup(objOrModuleId);
+           }
+
+           function setup(instance) {
+              instance.attributes = instance.attributes || { fixed: false, singleton: true };
+              dfd.resolve(instance);
            }
         }).promise();
      }
 
-     function createCompositionSettings(moduleId, dialogContext) {
+     function createSettings(moduleId, context) {
         var settings = {
            model: moduleId,
            activate: false
         };
 
-        if (dialogContext) {
-           if (dialogContext.compositionComplete)
-              settings.compositionComplete = dialogContext.compositionComplete;          
+        if (context) {
+           if (context.compositionComplete)
+              settings.compositionComplete = context.compositionComplete;
         }
+
         settings.bindingComplete = function () {
            var base = this.model;
            if (base.images) {
@@ -61,94 +76,87 @@
               img.src = base.el.css('background-image').replace(/url|[\'\"\(\)]/g, '');
            }
         }
-        
-        return settings;
-     }
 
-     function setup(key) {
-        return close(key, { msg: 'new' }).pipe(function () {
-           dialogs[key] = {
-              ready: system.defer()
-           };
-        });
+        return settings;
      }
 
      function show(obj, activationData, context) {
         return system.defer(function (dfd) {
-           $.when(ensureInstance(obj), getHost(obj, true), setup(obj))
-             .then(function (instance, host) {
-                var dialogActivator = activator.create();
-                dialogActivator.activateItem(instance, activationData).then(function (success) {
-                   if (success) {
-                      var theDialog = instance.__dialog__ = {
-                         owner: instance,
-                         context: context,
-                         activator: dialogActivator,
-                         close: function () {
-                            var args = arguments, last = args.length ? args[args.length - 1] : {};
+           ensureInstance(obj).then(function (instance) {
+              getHost(instance).then(function (host) {
+                 var dialogActivator = activator.create();
+                 dialogActivator.activateItem(instance, activationData).then(function (success) {
+                    if (!success) { dfd.reject(); }
+                 }).then(function () {
+                    var theDialog = instance.__dialog__ = {
+                       owner: instance,
+                       context: context,
+                       activator: dialogActivator,
+                       host: host,
+                       settings: createSettings(instance, context),
+                    };
 
-                            delete dialogs[obj];
+                    theDialog.close = function () {
+                       var args = arguments, last = args.length ? args[args.length - 1] : {};
 
-                            if (last && last.forced) {
-                               dfd.resolve.apply(dfd, args);
-                            }
-                            return dialogActivator.deactivateItem(instance, true).then(function () {
-                               ko.removeNode(theDialog.host);
-                               delete instance.__dialog__;
-                               if (!last || !last.forced) {
-                                  dfd.resolve.apply(dfd, args);
-                               }
-                            });
-                         }
-                      };
+                       delete dialogs[obj];
 
-                      instance.onClose = function () {
-                         var args = [];
-                         for (var i = 0; i < arguments.length; i++) {
-                            args.push(arguments[i]);
-                         }
-                         args.push({ forced: true });
-                         theDialog.close.apply(this, args);
-                      };
+                       if (last && last.forced) {
+                          dfd.resolve.apply(dfd, args);
+                       }
 
-                      theDialog.settings = createCompositionSettings(instance, context);
-                      theDialog.host = host;
-                      composition.compose(theDialog.host, theDialog.settings);
+                       return dialogActivator.deactivateItem(theDialog.owner, true).then(function () {
+                          ko.removeNode(theDialog.host);
+                          delete theDialog.owner.__dialog__;
+                          if (!last || !last.forced) {
+                             dfd.resolve.apply(dfd, args);
+                          }
+                       });
+                    }
 
-                      if (dialogs[obj] && dialogs[obj].ready) {
-                         dialogs[obj].ready.resolve(theDialog);
-                      } else {
-                         theDialog.close();
-                      }
-                   } else {
-                      dfd.resolve(false);
-                   }
-                });
-             });
-        }).promise();
+                    instance.onClose = instance.forceClose = function () {
+                       var args = [];
+                       for (var i = 0; i < arguments.length; i++) {
+                          args.push(arguments[i]);
+                       }
+                       args.push({ forced: true });
+                       theDialog.close.apply(this, args);
+                    };
+
+                    dialogs[obj].ready.resolve(theDialog);
+
+                    composition.compose(theDialog.host, theDialog.settings);
+                 })
+              })
+           }).promise();
+        })
      }
 
      function close(key, deactivationData) {
         return system.defer(function (dfd) {
-           if (key == 'all') {
-              for (var name in dialogs) {
-                 dialogs[name].ready.then(function (dialog) {
-                    dialog.close(deactivationData).then(function () {
-                       dfd.resolve();
-                    });
+           if (key in dialogs) {
+              dialogs[key].ready.then(function (dialog) {
+                 dialog.close(deactivationData).then(function () {
+                    dfd.resolve();
                  });
-              }
-           } else {
-              if (dialogs.hasOwnProperty(key)) {
-                 dialogs[key].ready.then(function (dialog) {
-                    dialog.close(deactivationData).then(function () {
-                       dfd.resolve();
-                    });
-                 });
-              } else {
+              }, function () {
                  dfd.resolve();
-              }
+              });
+           } else {
+              dfd.resolve();
            }
+        }).promise();
+     }
+
+     function closeAll() {
+        return system.defer(function (dfd) {
+           var all = [];
+           for (var name in dialogs) {
+              all.push(close(name));
+           }
+           $.when.apply(this, all).always(function () {
+              dfd.resolve();
+           });
         }).promise();
      }
 
@@ -158,8 +166,8 @@
            return show('dialogs/templates/' + type, activationData, context);
         },
         close: function (type, deactivationData) {
-           if (type == "all") return close("all", deactivationData);
            return close('dialogs/templates/' + type, deactivationData);
-        }
+        },
+        closeAll: closeAll
      };
   });

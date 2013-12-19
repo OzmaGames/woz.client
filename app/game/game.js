@@ -200,7 +200,7 @@
       detached: function () {
          ctx.unload();
 
-         app.dialog.close("all");
+         app.dialog.closeAll();
 
          var paths = ctx.paths();
          for (var i = 0; i < paths.length; i++) {

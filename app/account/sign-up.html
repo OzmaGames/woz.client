@@ -3,9 +3,9 @@
 <i class="command close" data-bind="click:login"></i>
 
 <form data-bind="verifiableSubmit: signUp">
-   <input type="text" placeholder="Username" data-bind="verifiableValue: username" autofocus />
+   <input type="text" placeholder="Username" data-bind="verifiableValue: username" autofocus autocorrect="off" autocapitalize="off" />
    <span class="error" data-bind="text: username.validationMessage"></span>
-   <input type="text" placeholder="E-mail" data-bind="verifiableValue: email">
+   <input type="email" placeholder="E-mail" data-bind="verifiableValue: email" autocorrect="off" autocapitalize="off" />
    <span class="error" data-bind="text: email.validationMessage"></span>
    <input type="password" placeholder="Password" data-bind="verifiableValue: password">
    <span class="error" data-bind="text: password.validationMessage"></span>

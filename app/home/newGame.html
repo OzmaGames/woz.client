@@ -14,14 +14,14 @@
                </label>
             </div>
             <h1>choose friend</h1>
-            <div class="container group">
+            <div class="container group ">
                <div class="input-box">
-                  <input type="search" data-bind="value: query, valueUpdate: 'afterkeydown', search: queryChanged" />
+                  <input type="search" data-bind="value: query, valueUpdate: 'afterkeydown', search: queryChanged" autocorrect="off" autocapitalize="off" />
                   <i class="command find" data-bind1="click: search"></i>
                   <i class="icon-spinner icon-spin" data-bind="css: {hidden: !searchLoading()}"></i>
                </div>
             </div>
-            <div class="container y scroll compact" style="margin-left: .5em; width: auto;">
+            <div class="container y scroll compact friends" style="margin-left: .5em; width: auto;">
                <ul class="list">
                   <li class="header" data-bind="text: friendListMode().title"></li>
                   <!-- ko if: $root.friendListMode().mode == 'list' -->
@@ -48,7 +48,7 @@
                      <!-- ko ifnot: isFriend -->
                      <div class="btn" data-bind="click: $root.addFriend.bind($root, $data)">
                         <i class="command addFriend sm"></i>
-                     </div>                     
+                     </div>
                      <!-- /ko -->
                      <!-- ko if: isFriend -->
                      <span class="grayed pull-right">friend</span>
@@ -69,7 +69,7 @@
                <label class="radio">
                   <span class="pic woz"></span>
                   <span class="text">
-                     <span class="title">Starter</span>
+                     <span class="title">Words of Oz</span>
                      <span class="description">50/50 tiles - 150/150 words</span>
                   </span>
                   <input type="radio" name="c" checked /><span></span>
@@ -110,7 +110,7 @@
                </select>
             </div>-->
             <div class="container group">
-               <button data-bind="click: $root.start" class="blue" style="position:absolute;right:1em;bottom:0">Start Game</button>
+               <button data-bind="click: $root.start" class="blue" style="position:absolute;right:1em;bottom:.5em">Start Game</button>
             </div>
          </article>
       </div>

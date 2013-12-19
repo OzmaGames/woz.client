@@ -50,7 +50,7 @@
       },
       activate: function () {
          this.activeFriend(null);
-         app.dialog.close("all");
+         app.dialog.closeAll();
 
          app.palette.dispose();
       },
@@ -80,6 +80,10 @@
             var gameOptionId = this.gameOptionId();
 
             ctx.playerCount = gameOptions[gameOptionId].playerCount;
+
+            if (gameOptionId == 0) {
+               ctx.friendUsername = this.activeFriend().username;
+            }
 
             app.navigate("game")
          } else {

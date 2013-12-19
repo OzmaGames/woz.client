@@ -52,6 +52,7 @@
 
    function load(event, gameMode) {
       return $.Deferred(function (dfd) {
+         console.log(app.callbacks);
          app.trigger(event, { username: ctx.username }, function (data) {
             if (data.success) {
                data.games.sort(function (a, b) { return b.lastMod - a.lastMod; });

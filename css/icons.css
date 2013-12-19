@@ -18,7 +18,7 @@
         }
 
     .actions .btn {
-        position:relative;
+        position: relative;
         display: block;
         border-radius: 3px;
         width: 40px;
@@ -225,9 +225,12 @@ i.command.addFriend {
 i.command.find {
     background-image: url('../images/game/find.png');
     background-position: 0 0 !important;
+    -moz-background-size: 2em auto!important;
+    -o-background-size: 2em auto!important;
+    -webkit-background-size: 2em auto!important;
+    background-size: 2em auto!important;
 }
 
     i.command.find:active, i.command.find:hover {
-        background-image: url('../images/game/find-active.png');
-        background-position: 0 0 !important;
+        background-position: -1em 0 !important;
     }

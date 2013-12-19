@@ -12,6 +12,8 @@
       navigate: function (tabIndex, dfd) {
          var base = this;
          base.loading(true);
+         
+         tabIndex *= 1;
 
          dfd.then(function () {
             base.module(
@@ -42,7 +44,8 @@
       },
 
       activate: function () {
-         app.dialog.close("all");
+         
+         app.dialog.closeAll();
          app.palette.dispose();
 
          if (!sessionStorage.getItem("lobby")) {

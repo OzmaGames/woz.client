@@ -34,7 +34,7 @@
    return {
       loading: ko.observable(true),
       activate: function () {
-         app.dialog.close("all");
+         app.dialog.closeAll();
          app.palette.dispose();
 
          activeGame(null);

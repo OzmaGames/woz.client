@@ -1,36 +1,37 @@
 ﻿
 <div class="note pull-right" data-bind="html: message()"></div>
-<br /><br />
 
-<div data-bind="foreach: list">
-   <h1 data-bind="text: title"></h1>
+<div data-bind="foreach: list" style="padding-bottom:20px;">
+   <h1 data-bind="text: title" class="archive"></h1>
    <!-- ko if: games().length -->
-   <div class="table" data-bind="foreach: games">
-      <div class="game-item" data-bind="click: $root.selectGame, css: {active: $root.activeGame() == $data}">
-         <div class="cell left">
-            <div class="subCell">
-               <div class="pic" data-bind="css: collection"></div>
-            </div><div class="subCell" style="width:100%">
-               <div class="flow" data-bind="foreach: summary">
-                  <div data-bind="html: $data"></div>
-               </div>
-            </div>
-         </div>
-         <div class="cell right">
-            <div class="wrapper">
-               <div class="btn" data-bind="click: $root.resign.bind($root, $data), clickBubble: false, visible: $root.type() == 'ongoing'">
-                  <i class="command close compact" title="Resign the game"></i>
-               </div>
-               <div class="box">
-                  <div class="time" title="" data-bind="timeAgo: lastMod"></div>
-                  <div class="chat" title="Number of unread messages">
-                     <div data-bin1d="text: unreads"></div>
+   <div class="" data-bind="css: {'container y scroll games': $root.type() == 'archive'}">
+      <div class="table" data-bind="foreach: games">
+         <div class="game-item" data-bind="click: $root.selectGame, css: {active: $root.activeGame() == $data}">
+            <div class="cell left">
+               <div class="subCell">
+                  <div class="pic" data-bind="css: collection"></div>
+               </div><div class="subCell" style="width:100%">
+                  <div class="flow" data-bind="foreach: summary">
+                     <div data-bind="html: $data"></div>
                   </div>
                </div>
-               <div class="players" data-bind="foreach: players">
-                  <div>
-                     <span class="player" data-bind="text: username"></span>
-                     <span class="score" data-bind="text: score"></span>
+            </div>
+            <div class="cell right">
+               <div class="wrapper">
+                  <div class="btn" data-bind="click: $root.resign.bind($root, $data), clickBubble: false, visible: $root.type() == 'ongoing'">
+                     <i class="command close compact" title="Resign the game"></i>
+                  </div>
+                  <div class="box">
+                     <div class="time" title="" data-bind="timeAgo: lastMod"></div>
+                     <div class="chat" title="Number of unread messages">
+                        <div data-bin1d="text: unreads"></div>
+                     </div>
+                  </div>
+                  <div class="players" data-bind="foreach: players">
+                     <div>
+                        <span class="player" data-bind="text: username"></span>
+                        <span class="score" data-bind="text: score"></span>
+                     </div>
                   </div>
                </div>
             </div>

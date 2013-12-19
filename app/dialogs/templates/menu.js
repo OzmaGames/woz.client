@@ -40,6 +40,11 @@
       };
    }
 
+   Menu.prototype.attributes = {
+      fixed: true,
+      singleton: true
+   };
+
    Menu.prototype.activate = function (data) {
 
    };
