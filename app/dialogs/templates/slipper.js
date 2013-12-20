@@ -29,7 +29,7 @@
    }
 
    Slipper.prototype.attributes = {
-      fixed: false,
+      fixed: true,
       singleton: true
    };
 

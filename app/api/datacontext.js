@@ -220,24 +220,21 @@
 
         model.loadingStatus("Waiting for the server...");
 
-        setTimeout(function () {
-           if (id >= 0) {
+        if (id >= 0) {
+           model.loadingStatus("Waiting for awesomeness...");
+           app.trigger("server:game:resume", { username: model.username, id: id }, function () {
+
+           });
+        } else {
+           app.trigger("server:game:queue", {
+              username: model.username, password: 12345,
+              playerCount: model.playerCount,
+              friendUsername: model.friendUsername
+           }, function () {
               model.loadingStatus("Waiting for awesomeness...");
-              app.trigger("server:game:resume", { username: model.username, id: id }, function () {
-
-              });
-           } else {
-              app.trigger("server:game:queue", {
-                 username: model.username, password: 12345,
-                 playerCount: model.playerCount,
-                 friendUsername: model.friendUsername
-              }, function () {
-                 model.loadingStatus("Waiting for awesomeness...");
-              });
-           }
-           //app.trigger("game:start", entity);
-        }, 500);
-
+           });
+        }
+        //app.trigger("game:start", entity);        
      };
 
      model.unload = function () {

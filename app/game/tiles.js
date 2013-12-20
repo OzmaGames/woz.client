@@ -1,6 +1,8 @@
 ﻿define(['durandal/app', 'api/datacontext', 'api/draggable'], function (app, ctx) {
 
    var instructionDoms = [], topPadding = 15;
+   var RADIUS = 90;
+   var containerSize = { w: 0, h: 0 };
 
    function attachInstruction($el, top) {
       var elTop = $el.data('topOffset');
@@ -9,7 +11,7 @@
          .appendTo($el.data('parent')).removeClass("fixed")
               .data('topOffset', undefined);
       }
-   }      
+   }
 
    function floatInstruction($el, top) {
       var elTop = $el.offset().top;
@@ -43,52 +45,62 @@
       }
    }
 
-   var animationQueue = [];
-   var RADIUS = 85;
-
-   function showTiles() {
-      for (var i = 0; i < animationQueue.length; i++) {
-         var $el = animationQueue[i].$el;
-         var tile = animationQueue[i].tile;
-         $el.css({
-            left: tile.x * 100 + '%',
-            top: tile.y * 100 + '%'
-         });
-
-         tile.ruleOffset = { x: 0, y: 0 };
-
-         UpdateTileInstruction(tile, true);
+   function resize() {
+      updateContainerSize();
+      
+      var tiles = ctx.tiles();
+      for (var i = 0; i < tiles.length; i++) {
+         if (!tiles[i].active()) reposTile(tiles[i]);
       }
-      animationQueue = [];
+   }
+   function updateContainerSize() {
+      containerSize.w = $('#tiles').innerWidth();
+      containerSize.h = $('#tiles').innerHeight();
    }
 
-   function UpdateTileInstruction(tile, animate) {
+   function reposTile(tile, centered) {
+      if (centered) {
+         tile.$el.css({
+            x: 0,
+            y: 0
+         });
+      } else {
+         tile.$el.css({
+            x: tile.x * containerSize.w - containerSize.w / 2,
+            y: tile.y * containerSize.h - containerSize.h / 2
+         });
+      }
+   }
+
+   function UpdateTileInstruction(tile) {
       var angle = tile.angle;
 
       tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS + 10;
-      tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS + 5;
+      tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS + 20;
 
       var diff = {
          rotate: (angle > 90 || angle < -90) ? angle + 180 : angle,
-         marginLeft: tile.ruleOffset.x,
-         marginTop: RADIUS - tile.ruleOffset.y
+         x: tile.ruleOffset.x,
+         y: RADIUS - tile.ruleOffset.y
       };
 
-      if (animate)
-         tile.$inst.stop().transition(diff, 1000);
-      else
-         tile.$inst.stop().css(diff);
-
+      tile.$inst.css(diff);
    }
+
+   var resizeHelperID = null;
+   var resizeDelay = 100;
+
+   $(window).resize(function () {
+      clearTimeout(resizeHelperID);
+      resizeHelperID = setTimeout(resize, resizeDelay);
+   });
 
    return {
       tiles: ctx.tiles,
       gameOver: ctx.gameOver,
       collection: ctx.collection,
       carryingWords: ko.computed(function () {
-         words = ctx.activeWords();
-         word = ctx.activeWord();
-         return words || word;
+         return ctx.activeWords() || ctx.activeWord();
       }),
 
       disabled: ko.computed(function () {
@@ -104,22 +116,25 @@
          return { cacheViews: false };
       },
 
-      compositionComplete: function (view, parent) {
-
+      compositionComplete: function (view, parent) {         
+         resize();
       },
 
       toggleTile: function (tile) {
          var active = this.active();
          if (!active) {
-            var h = $('#tiles').height();
-            tile.$el.css({ 'font-size': h });
+            tile.$el.css({ 'font-size': containerSize.h });
+            //tile.$el.find('.mask').css({ scale: 3 });
             if (tile.$inst.hasClass('fixed')) {
                attachInstruction(tile.$inst, 0);
             }
+            reposTile(tile, true);            
             app.scrollUp();
          } else {
             tile.$el.css({ 'font-size': '' });
+            //tile.$el.find('.mask').css({ scale: 1 });
             setTimeout(scroll, 500);
+            reposTile(tile);            
          }
          tile.active(!active);
       },
@@ -146,10 +161,11 @@
 
          tile.$el = $el;
          tile.$inst = $el.find('.instruction');
+         tile.ruleOffset = { x: 0, y: 0 };
+         
+         reposTile(tile);
+         UpdateTileInstruction(tile);
          instructionDoms.push(tile);
-
-         if (animationQueue.length == 0) setTimeout(showTiles, 100);
-         animationQueue.push({ $el: $el, tile: tile });
       },
 
       detached: function () {

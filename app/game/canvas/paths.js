@@ -1,18 +1,15 @@
 ﻿define(['api/datacontext', 'game/canvas/vm/Path', 'game/canvas/vm/DynamicPath', 'paper'],
   function (ctx, Path, DynamicPath) {
+     var canvasDOM;
 
      //when the user resize the screen, wait for a couple of ms before rendering
      var resizeHelperID = null;
-     var resizeDelay = 100;
-
-     var canvasDOM;
-
-     paper.dfd = $.Deferred();
+     var resizeDelay = 100;     
 
      $(window).resize(function () {
         clearTimeout(resizeHelperID);
         resizeHelperID = setTimeout(resize, resizeDelay);
-     });
+     });     
 
      ctx.tiles.subscribe(function (tiles) {
         updateModel(tiles);
@@ -24,6 +21,15 @@
         }
      });
 
+     paper.dfd = $.Deferred();
+
+     if (ctx.tiles().length) {
+        ctx.tiles.notifySubscribers(ctx.tiles());
+     }
+     if (ctx.paths().length) {
+        ctx.paths.notifySubscribers(ctx.paths());
+     }
+     
      function updateModel(tiles) {
         paper.dfd.promise().then(function () {
            console.log("UpdateModel")

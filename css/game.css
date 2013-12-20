@@ -236,6 +236,9 @@ hr {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
     }
 
         .tile .mask .big {
@@ -252,6 +255,10 @@ hr {
             border-radius: 100%;
         }
 
+        .tile .mask, .tile.mask .big {
+            image-rendering: optimizeQuality;            
+        }
+
 body .instruction {
     z-index: 3;
 }
@@ -259,10 +266,10 @@ body .instruction {
 .tile .instruction {
     z-index: 1;
     font-size: 1em;
-    -moz-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
-    -o-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
-    -webkit-transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
-    transition: left .5s ease-in-out, top .5s ease-in-out, opacity .2s .3s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
 }
 
     .tile .instruction .help, .instruction .help {
@@ -375,6 +382,8 @@ body .instruction {
 
 .magnet {
     position: absolute !important;
+    left: 0;
+    top: 0;
     z-index: 2;
     padding: 2px 4px;
     border: 1px solid #e8e0d3;
@@ -454,12 +463,14 @@ body .instruction {
 
 .magnet-placeholder {
     position: absolute;
+    left: 0;
+    top: 0;
     width: 43px;
     height: 23px;
-    -moz-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
-    -o-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
-    -webkit-transition: all .4s ease, top .5s ease-out, left .5s ease-out;
-    transition: all .4s ease, top .5s ease-out, left .5s ease-out;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
 }
 
     .magnet-placeholder .circle {

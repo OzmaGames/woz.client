@@ -131,8 +131,8 @@
 
    Box.prototype.updateBtn = function () {
       var values = {
-         left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
-         top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2
+         x: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
+         y: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2
       },
         btn = this._guiElem.find('.button');
 
@@ -155,8 +155,8 @@
           $('<div/>', { 'class': 'tooltip' + cw, text: 'Click me when you are done!' }).delay(4000).fadeOut(1000)));
 
       div.css({
-         left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-         top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top
+         x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
+         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top
       });
       div.appendTo('#tiles');
 
@@ -182,12 +182,12 @@
          this._guiElem.addClass("placed");
          this._guiElem.off('click');
       }
-
-      this._guiElem.text(this.wordModel.lemma);
+      
+      this._guiElem.find('.magnet').text(this.wordModel.lemma);
 
       var values = {
-         left: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
-         top: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2,
+         x: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
+         y: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2,
          rotate: this.angle + 'deg'
       };
 
@@ -196,13 +196,16 @@
       this._guiElem.transition(values, 500, 'ease');
    }
 
-   Box.prototype.createElem = function () {
-      var div = $('<div/>', { 'class': 'magnet', text: this.wordModel.lemma });
+   Box.prototype.createElem = function () {      
+      var div = $('<div/>', { 'class': 'magnet-placeholder' }), 
+         magnet = $('<div/>', { 'class': 'magnet', text: this.wordModel.lemma });
 
-      if (this.wordModel.isRelated) div.addClass("related");
+      div.append(magnet);
+
+      if (this.wordModel.isRelated) magnet.addClass("related");
       div.css({
-         left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-         top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
+         x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
+         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
          zIndex: 2,
          scale: .8
       });
@@ -221,8 +224,8 @@
 
    Box.prototype.updateRect = function () {
       this._guiRect.css({
-         left: this.cPoint.x - Box.pathOptions.container.left - this._guiRect.outerWidth() / 2,
-         top: this.cPoint.y - Box.pathOptions.container.top - this._guiRect.outerHeight() / 2,
+         x: this.cPoint.x - Box.pathOptions.container.left - this._guiRect.outerWidth() / 2,
+         y: this.cPoint.y - Box.pathOptions.container.top - this._guiRect.outerHeight() / 2,
          rotate: this.angle,
          scale: this.scale
       });
@@ -235,8 +238,8 @@
       div.append($('<div/>', { 'class': cls }));
 
       div.css({
-         left: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-         top: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
+         x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
+         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
          zIndex: 0
       });
       div.appendTo('#tiles');
