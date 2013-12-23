@@ -143,8 +143,8 @@ label {
 
     label .title {
         font-weight: bold;
-        font-family: Cambria;
-        font-size: 1.05em;
+        font-family: CopseRegular;
+        font-size: 1em;
     }
 
     label .pic {
@@ -178,11 +178,10 @@ label {
     label .description {
         display: block;
         font-family: Cambria;
-        font-size: .8em;
+        font-size: .85em;
         /*-webkit-text-shadow: 0 0 0px #986B31;
         text-shadow: 0 0 0px #986B31;*/
-        text-transform: none;
-        -webkit-font-smoothing: antialiased;
+        text-transform: none;        
         font-weight: normal;
     }
 
@@ -276,7 +275,7 @@ input:invalid + span.error, p.error {
 /*#region buttons */
 button {
     cursor: pointer;
-    font-family: Cambria;
+    font-family: CopseRegular;
     border: 2px solid #fff;
     text-align: center;
     background-image: url('../images/app/buttons.png');
@@ -293,7 +292,7 @@ button {
     }
 
     button.orange, button.blue {
-        font-size: 1.5em;
+        font-size: 1.4em;
         padding: .3em 1em;
         -webkit-text-shadow: 0 0 2px white;
         text-shadow: 0 0 2px white;

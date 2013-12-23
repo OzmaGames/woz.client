@@ -2,7 +2,7 @@
 
    var instructionDoms = [], topPadding = 15;
    var RADIUS = 90;
-   var containerSize = { w: 0, h: 0 };
+   var containerSize = { w: 0, h: 0, ww: 0, hh:0 };
 
    function attachInstruction($el, top) {
       var elTop = $el.data('topOffset');
@@ -47,18 +47,54 @@
 
    function resize() {
       updateContainerSize();
-      
+
       var tiles = ctx.tiles();
       for (var i = 0; i < tiles.length; i++) {
-         if (!tiles[i].active()) reposTile(tiles[i]);
+         if (!tiles[i].active()) {
+            reposTile(tiles[i]);
+            scaleTile(tiles[i], false);
+         }
       }
    }
    function updateContainerSize() {
       containerSize.w = $('#tiles').innerWidth();
       containerSize.h = $('#tiles').innerHeight();
+      containerSize.ww = $('#tiles-max').innerWidth();
+      containerSize.hh = $('#tiles-max').innerHeight();
+   }
+
+   function scaleTile(tile, animateScale) {
+      if (containerSize.h == 0) return;
+
+      if (!animateScale) {
+         tile.$mask.addClass('noTransition');
+      }
+
+      tile.origin = tile.origin || { scale: 1, h: tile.$mask.outerHeight() };
+
+      if (!tile.active()) {
+         tile.origin.scale = tile.origin.h / containerSize.hh;
+
+         tile.$mask.css({
+            scale: tile.origin.scale,
+            fontSize: 1 / tile.origin.scale + 'em'
+         });
+      } else {
+         tile.origin.scale = tile.origin.h / containerSize.hh;
+
+         tile.$mask.css({            
+            fontSize: 1 / tile.origin.scale + 'em'
+         });
+      }
+
+      if (!animateScale) {
+         setTimeout(function () { tile.$mask.removeClass('noTransition'); }, 1);
+      }
    }
 
    function reposTile(tile, centered) {
+      if (containerSize.h == 0) return;
+
       if (centered) {
          tile.$el.css({
             x: 0,
@@ -116,26 +152,29 @@
          return { cacheViews: false };
       },
 
-      compositionComplete: function (view, parent) {         
+      compositionComplete: function (view, parent) {
          resize();
       },
 
       toggleTile: function (tile) {
          var active = this.active();
+
          if (!active) {
-            tile.$el.css({ 'font-size': containerSize.h });
-            //tile.$el.find('.mask').css({ scale: 3 });
+            //tile.$el.animate({ 'font-size': containerSize.h });            
             if (tile.$inst.hasClass('fixed')) {
                attachInstruction(tile.$inst, 0);
             }
-            reposTile(tile, true);            
+            reposTile(tile, true);
+            tile.$mask.css({ scale: 1 });
+
             app.scrollUp();
          } else {
-            tile.$el.css({ 'font-size': '' });
-            //tile.$el.find('.mask').css({ scale: 1 });
+            //tile.$el.animate({ 'font-size': '' });
             setTimeout(scroll, 500);
-            reposTile(tile);            
+            reposTile(tile, false);
+            tile.$mask.css({ scale: tile.origin.scale });
          }
+
          tile.active(!active);
       },
 
@@ -161,9 +200,12 @@
 
          tile.$el = $el;
          tile.$inst = $el.find('.instruction');
+         tile.$mask = $el.find('.mask');
          tile.ruleOffset = { x: 0, y: 0 };
-         
+
          reposTile(tile);
+         scaleTile(tile, false);
+
          UpdateTileInstruction(tile);
          instructionDoms.push(tile);
       },
@@ -176,7 +218,6 @@
                ko.removeNode($el[0]);
             }
          }
-         animationQueue.splice(0, animationQueue.length);
          instructionDoms.splice(0, instructionDoms.length);
       }
    };

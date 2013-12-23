@@ -55,9 +55,11 @@
       var base = this;
       this.el.show().css({ y: -100, display: 'block', opacity: 0 })
         .transition({ y: 10, opacity: 1 }, 500, 'ease')
-        .transition({ y: 0 }, 300).delay(5000).promise().then(function () {
-           base.el.toggleClass('minimized');
-        });
+        .transition({ y: 0 }, 300);
+
+      setTimeout(function () {
+         base.el.toggleClass('minimized');
+      }, 5000);
    }
 
    Slipper.prototype.canDeactivate = function (a, s, d) {

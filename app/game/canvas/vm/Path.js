@@ -150,7 +150,7 @@
             pm.guiBoxes.push(box);
             this._displayItems.push(box);
          }
-      }
+      }      
    }
 
    Path.prototype.show = function () {

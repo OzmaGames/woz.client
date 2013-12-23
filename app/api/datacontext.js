@@ -57,12 +57,14 @@
         app.dialog.show("loading");
 
         if (id === "") id = -1;
-        id = isNaN(id * 1) ? -1 : id * 1;
+        id = isNaN(id) ? -1 : id * 1;
 
         app.on("game:start", function (json) {
 
+           router.navigate('game/' + json.id, { trigger: false, replace: true });
+           //window.location.hash = 'game/' + json.id;
            model.loadingStatus("Starting The Game...");
-
+                                 
            model.gameID = json.id;
            model.playerCount = json.players.length;
 

@@ -38,6 +38,7 @@ html {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-family: Cambria, CopseRegular;
 }
 
 html, body {
@@ -48,7 +49,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: cambria !important;
+    font-family: CopseRegular;
     font-weight: normal;
     color: #986B31;
     -webkit-text-shadow: 0px 0px 1px #986B31;
@@ -61,7 +62,7 @@ p {
 }
 
 h1 {
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 h2 {
@@ -70,14 +71,6 @@ h2 {
 
 h3 {
     font-size: .9em;
-}
-
-h4 {
-    font-size: .8em;
-}
-
-h5 {
-    font-size: .7em;
 }
 
 #app {
@@ -92,6 +85,17 @@ h5 {
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+#shell {
+}
+
+.transition {
+    position: relative;
+    -moz-transition: -moz-transform .8s cubic-bezier(.87,.03,.19,.38);
+    -o-transition: -o-transform .8s cubic-bezier(.87,.03,.19,.38);
+    -webkit-transition: -webkit-transform .8s cubic-bezier(.87,.03,.19,.38);
+    transition: transform .8s cubic-bezier(.87,.03,.19,.38);
 }
 
 #fixed {
@@ -179,6 +183,10 @@ h5 {
         -moz-backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
+        -moz-perspective: 1000;
+        -ms-perspective: 1000;
+        -webkit-perspective:  1000;
+        perspective: 1000;
     }
 
     .logo.loading {
@@ -258,6 +266,7 @@ h5 {
 
 .link {
     cursor: pointer;
+    font-family: CopseRegular;
 }
 
 .space {
@@ -353,7 +362,7 @@ a.small {
     }
 
     .grid.page {
-        margin-top: 80px;
+        padding-top: 80px;
     }
 
     .grid > .container {
@@ -578,6 +587,7 @@ a.small {
 
     .grid .table.compact {
         border-spacing: .2em;
+        min-width: initial;
     }
 
     .grid .table .btn {

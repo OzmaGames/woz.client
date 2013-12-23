@@ -1,8 +1,7 @@
 
 .dialog {
     position: fixed;
-    z-index: 100;
-    font-family: CopseRegular;
+    z-index: 100;    
 }
 
     .dialog.low {
@@ -153,7 +152,7 @@
     }
 
     .dialog .slipper h1 {
-        font-family: cambria !important;
+        /*font-family: cambria !important;*/
         font-size: 1.2em;
         font-weight: bold;
         margin-bottom: 10px;
@@ -290,8 +289,7 @@
 }
 
     .dialog .window h1 {
-        font-size: 1em;
-        font-family: CopseRegular;
+        font-size: 1em;        
         margin-bottom: 5px;
     }
 
@@ -317,7 +315,7 @@
 }
 
     .dialog .notice h1 {
-        font-family: cambria;
+        /*font-family: Cambria !important;*/
         font-size: 1.5em;
         margin-bottom: 20px;
     }

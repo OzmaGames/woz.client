@@ -40,11 +40,15 @@
           if (callback) callback(res);
         });
       },
-      "game:resume": function (data, callback, socket) {
-         //socket.once("game:start", function (data) {
-         //   console.log('%cgame:start', 'background: #222; color: #bada55', data);
-         //   app.trigger("game:start", data);
-         //});
+      "game:resume": function (data, callback, socket) {         
+
+         socket.removeAllListeners("game:update");
+
+         /// res = {players: [{id: #, score: #},..], phrases: [{id: #, words:[]},..]}
+         socket.on("game:update", function (data) {
+            console.log('%cgame:update', 'background: #222; color: #bada55', data);
+            app.trigger("game:update", data);
+         });
 
          socket.emit("game:resume", data, function (sdata) {
             callback(sdata);
@@ -69,7 +73,11 @@
           app.trigger("game:start", data);
         });
 
-        socket.emit("game:queue", data, callback);
+        if (data.friendUsername) {
+           socket.emit("game:friend", data, callback);
+        } else {
+           socket.emit("game:queue", data, callback);
+        }
       }
     }
   }

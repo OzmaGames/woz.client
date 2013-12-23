@@ -53,7 +53,13 @@
       this.hasData = this.wordModel != null;
       this.isCircle = pathModel.nWords == 0;
 
-      if (this.hasData) this.show();
+      
+      if (this.hasData) {
+         if (!this.pathModel.canvas.cPoint) {
+            return;
+         }
+         this.show();
+      }
    }
 
    Box.prototype.show = function () {
@@ -74,6 +80,10 @@
 
    Box.prototype.width = function () {
       if (this.hasData) {
+         if (!this._guiElem) {          
+            return 62;
+         }
+         console.log(this._guiElem.text(), this._guiElem.outerWidth());
          return this._guiElem.outerWidth();
       }
       if (this.isCircle) return Box.options.circle.radius;
@@ -197,7 +207,7 @@
    }
 
    Box.prototype.createElem = function () {      
-      var div = $('<div/>', { 'class': 'magnet-placeholder' }), 
+      var div = $('<div/>', { 'class': 'magnet-placeholder elem' }), 
          magnet = $('<div/>', { 'class': 'magnet', text: this.wordModel.lemma });
 
       div.append(magnet);

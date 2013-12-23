@@ -7,7 +7,6 @@ requirejs.config({
       'paper': '../lib/paper/paper',
       'socket': '../lib/socket.io',
       'crypto.sha3': '../lib/crypto.sha3',
-
       'transitions/slidedown': 'api/transitions/slidedown'
    },
    urlArgs: 't' + (new Date).getTime()
@@ -17,10 +16,8 @@ define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
 define([
-   'durandal/system', 'durandal/app', 'durandal/plugins/router',
-   'durandal/viewLocator', 'api/server/setup', 'api/datacontext', 'dialogs/_builder', './palette',
-  '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout'],
-  function (system, app, router, viewLocator, server, ctx, Dialog, palette) {
+   'durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocator', 'common'],
+  function (system, app, router, viewLocator) {
      //>>excludeStart("build", true);
      system.debug(true);
      //>>excludeEnd("build");    
@@ -28,37 +25,8 @@ define([
      app.title = 'Words of Oz';
 
      app.configurePlugins({
-        router: true        
+        router: true
      });
-
-     app.inlineLoading = ko.observable(false);
-     app._loading = ko.observable(false);
-     app.loading = ko.computed({
-        read: function () {
-           return app._loading() || (ctx.loading() === true);
-        },
-        write: function (value) {
-           app._loading(value);
-        },
-        owner: this
-     });
-
-     app.scrollUp = function () {
-        console.log("scrollUP");
-        $('#app').animate({ scrollTop: 0 }, "slow", "swing");
-     };
-
-     app.scrollDown = function () {
-        console.log("scrollDown");
-        $('#app').animate({ scrollTop: 1000 }, "slow", "swing");
-     }
-     app.navigate = function (hash, options) {
-        router.navigate(hash, options);
-     }
-
-     app.dialog = Dialog;
-     app.palette = palette;
-     app.palette.get("menu").click(function () { app.dialog.show("menu"); });
 
      app.start().then(function () {
         viewLocator.useConvention();
@@ -66,14 +34,14 @@ define([
      });
 
      if (document.body.style.backgroundPositionX === undefined) {
-        loadCss('_sprites');
+        loadCSS('_sprites');
      }
 
      if (document.body.style.MozAppearance !== undefined) {
-        loadCss('_firefox');
+        loadCSS('_firefox');
      }
 
-     function loadCss(css) {
+     function loadCSS(css) {
         var link = document.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
@@ -135,7 +103,7 @@ define([
      //         document.getElementById('debug').innerHTML += 'prevented';
      //      return false;
      //   }
-        
+
      //   var curTouch = e.originalEvent.changedTouches[0];
      //   var scrollAmount = touches[curTouch.identifier] - curTouch.pageY;
      //   //var endScroll = appEl.scrollTop + scrollAmount;
