@@ -17,7 +17,7 @@
       },
 
       CIRCLE_WORDS: {
-         heading: "SELECT A PHRASE!",
+         heading: "SELECT A PHRASE",
          content: "Place a whole phrase on the game board, by circling it and then choose a path to place it."
       },
 

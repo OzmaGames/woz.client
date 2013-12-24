@@ -1,46 +1,50 @@
 ﻿define(['durandal/app', 'api/datacontext', 'api/draggable'], function (app, ctx) {
 
    var instructionDoms = [], topPadding = 15;
-   var RADIUS = 90;
-   var containerSize = { w: 0, h: 0, ww: 0, hh:0 };
+   var RADIUS = 75;
+   var containerSize = { w: 0, h: 0, ww: 0, hh: 0 };
 
-   function attachInstruction($el, top) {
-      var elTop = $el.data('topOffset');
-      if (elTop - top > -topPadding) {
-         $el.css({ position: '', left: $el.data('left'), top: $el.data('top'), marginLeft: $el.data('marginLeft'), marginTop: $el.data('marginTop') })
-         .appendTo($el.data('parent')).removeClass("fixed")
-              .data('topOffset', undefined);
+   function attachInstruction(tile, top) {
+      var $el = tile.$inst, elTop = tile.topOffset;
+      if (elTop - top > 0) {
+         $el.appendTo(tile.$parent)
+            .removeClass("fixed").css({ left: 0, top: 0 });
+         delete tile.isFixed;
       }
    }
 
-   function floatInstruction($el, top) {
-      var elTop = $el.offset().top;
-      if (elTop < 0) {
-         $el.data({
-            parent: $el.parent(),
-            topOffset: top + elTop - topPadding,
-            top: $el.css('top'),
-            left: $el.css('left'),
-            marginLeft: $el.css('marginLeft'),
-            marginTop: $el.css('marginTop')
-         }).css({ position: "fixed", left: $el.offset().left, top: topPadding, marginLeft: 0, marginTop: 0 })
-        .addClass("fixed")
-        .appendTo('body');
+   function floatInstruction(tile, scrollTop) {
+      var $el = tile.$inst, $cloud = $el.find('.rule');
+      elTop = $cloud.offset().top;
+
+      if (elTop <= 0) {
+         var top = 0, left = $cloud.offset().left;
+         
+         tile.topOffset = scrollTop + elTop;
+         tile.$parent = $el.parent();
+         tile.isFixed = true;
+
+         $el.offset({
+            left: left,
+            top: top
+         }).addClass("fixed").appendTo('body');
+
+         $el.offset({ left: left, top: top });
       }
    }
 
    function scroll() {
-      var top = $('#app').scrollTop();
+      var top = document.getElementById('app').scrollTop;
 
       for (var i = 0; i < instructionDoms.length; i++) {
-         if (instructionDoms[i].$el.hasClass("active")) continue;
+         if (instructionDoms[i].active()) continue;         
+
          var $el = instructionDoms[i].$inst;
 
-         if ($el.css('opacity') == '0') continue;
-         if ($el.hasClass('fixed')) {
-            attachInstruction($el, top);
+         if (instructionDoms[i].isFixed) {
+            attachInstruction(instructionDoms[i], top);
          } else {
-            floatInstruction($el, top);
+            floatInstruction(instructionDoms[i], top);
          }
       }
    }
@@ -82,7 +86,7 @@
       } else {
          tile.origin.scale = tile.origin.h / containerSize.hh;
 
-         tile.$mask.css({            
+         tile.$mask.css({
             fontSize: 1 / tile.origin.scale + 'em'
          });
       }
@@ -111,13 +115,20 @@
    function UpdateTileInstruction(tile) {
       var angle = tile.angle;
 
-      tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS + 10;
-      tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS + 20;
+      tile.$inst.css({ rotate: angle });
+      if (angle > 90 || angle < -90) {
+         tile.$inst.find('.rule').css({ rotate: 180 });
+      }
+
+      return;
+
+      tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS;
+      tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS;
 
       var diff = {
          rotate: (angle > 90 || angle < -90) ? angle + 180 : angle,
          x: tile.ruleOffset.x,
-         y: RADIUS - tile.ruleOffset.y
+         y: tile.ruleOffset.y - RADIUS
       };
 
       tile.$inst.css(diff);
@@ -162,7 +173,7 @@
          if (!active) {
             //tile.$el.animate({ 'font-size': containerSize.h });            
             if (tile.$inst.hasClass('fixed')) {
-               attachInstruction(tile.$inst, 0);
+               attachInstruction(tile, 0);
             }
             reposTile(tile, true);
             tile.$mask.css({ scale: 1 });
@@ -179,6 +190,10 @@
       },
 
       help: function (tile, e) {
+         if (tile.active()) {
+            e.stopPropagation = false;
+            return true;
+         }
          var offset = tile.$inst.offset(),
            left = offset.left,
            top = offset.top + 200 - $('#app').scrollTop();
@@ -199,7 +214,7 @@
          var $el = $(el).filter('.tile:first');
 
          tile.$el = $el;
-         tile.$inst = $el.find('.instruction');
+         tile.$inst = $el.find('.cloud');
          tile.$mask = $el.find('.mask');
          tile.ruleOffset = { x: 0, y: 0 };
 

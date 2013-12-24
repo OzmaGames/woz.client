@@ -8,3 +8,11 @@
     -webkit-text-shadow: 0px 0px 1px rgba(152, 107, 49, 0.3);
     text-shadow: 0px 0px 1px rgba(152, 107, 49, 0.3);
 }
+
+.game-item .btn{
+    font-size: 16px;
+}
+
+.game-item .players{
+    
+}

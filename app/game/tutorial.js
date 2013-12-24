@@ -47,7 +47,7 @@
       }
 
       this.bonus = function () {
-         var item = $('.instruction:first');
+         var item = $('.cloud:first');
 
          var data = TUT.BONUS;
          data.css = "bottom left";

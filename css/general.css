@@ -762,17 +762,19 @@ a.small {
 
     .game-item .players {
         position: absolute;
-        top: 2.5em;
-        left: -.5em;
+        top: 2em;
         line-height: 1em;
-        width: 11.5em;
+        width: 100%;
+        padding-right: .5em;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
 
         .game-item .players .player {
             font-size: .8em;
-            float: left;
-            margin-left: 1em;
-            width: 8em;
+            float: none;       
+            margin-left:0;     
         }
 
         .game-item .players > div:only-child {

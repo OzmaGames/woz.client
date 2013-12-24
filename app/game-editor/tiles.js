@@ -9,7 +9,7 @@
          var tile = animationQueue[i].tile;
          $el.css({
             left: tile.x * 100 + '%',
-            top: tile.y * 100 + '%'            
+            top: tile.y * 100 + '%'
          });
 
          $el.find('.mask').css({
@@ -27,6 +27,14 @@
    function UpdateTileInstruction(tile, animate) {
       var angle = tile.angle();
 
+      tile.$inst.css({ rotate: angle });
+      if (angle > 90 || angle < -90) {
+         tile.$inst.find('.rule').css({ rotate: 180 });
+      } else {
+         tile.$inst.find('.rule').css({ rotate: 0 });
+      }
+
+      return;
       tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS + 10;
       tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS + 5;
 
@@ -83,7 +91,7 @@
          var $el = $(el).filter('.tile:first');
 
          tile.$el = $el;
-         tile.$inst = $el.find('.instruction');
+         tile.$inst = $el.find('.cloud');
 
          tile.$el.draggable({
             withinEl: $el.parent(),
@@ -121,7 +129,7 @@
             }
          });
 
-         tile.$inst.draggable({
+         tile.$inst.find('.rule').draggable({
             withinEl: $(document),
             centerBased: true,
             usePercentage: false,

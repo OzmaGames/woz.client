@@ -185,9 +185,8 @@
          ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor);
       },
       update: function (element, valueAccessor) {
-         ko.bindingHandlers.value.update(element, valueAccessor);
-
-         element.setCustomValidity(valueAccessor().validationMessage());
+         ko.bindingHandlers.value.update(element, valueAccessor);         
+         element.setCustomValidity(valueAccessor().validationMessage() || '');
       }
    };
 

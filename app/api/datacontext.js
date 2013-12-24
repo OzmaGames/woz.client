@@ -130,13 +130,10 @@
               return null;
            };
 
+           model.loading(false);
            model.loadingStatus("Ready");
-
-           setTimeout(function () {
-              app.dialog.close("loading");
-              model.loading(false);
-              app.trigger("game:started");
-           }, 100);
+           app.dialog.close("loading");
+           app.trigger("game:started");           
         });
 
         app.on("game:update", function (json) {

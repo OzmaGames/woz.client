@@ -4,28 +4,32 @@
          <div id="tiles" data-bind="css: collection.name" style="border: 1px solid orange">
             <div class="container" style="border: 1px solid blue" data-bind="foreach: { data: tiles, afterRender: afterRender }">
                <div class="tile">
-                  <div class="mask" data-bind="style: { backgroundPosition: ((100 / 29) * imageId).toFixed(2) + '% 0' }"></div>
-                  <div class="instruction">
-                     <span data-bind="text: instruction"></span>
-                     <div class="info" data-bind="text: info"></div>
-                     <div class="help"></div>
-                  </div>
-                  <div class="rest" data-bind="foreach: rest">
-                     <div class="thumbnail"
-                        data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }, click: $parent.addPath.bind($parent)">
+                  <div style="position:relative; width: 100%; height:100%">
+                     <div class="cloud drag">
+                        <div class="rule">
+                           <span data-bind="text: instruction"></span>
+                           <div class="info" data-bind="text: info"></div>
+                           <div class="help"></div>
+                        </div>
                      </div>
-                  </div>
-                  <div class="control">
-                     <div style="width: 30px; position: relative; top: 10px;">
-                        <div class="up" data-bind="click: $parent.tileAngleUp, clickBubble: false"></div>
-                        <div class="number" data-bind="text: angle"></div>
-                        <div class="down" data-bind="click: $parent.tileAngleDown, clickBubble: false"></div>
-                        <div style="clear: both"></div>
+                     <div class="mask norm" data-bind="style: { backgroundPosition: ((100 / 29) * imageId).toFixed(2) + '% 0' }"></div>
+                     <div class="rest" data-bind="foreach: rest">
+                        <div class="thumbnail"
+                             data-bind="style: { backgroundImage: 'url(\'' + imageName + '\')' }, click: $parent.addPath.bind($parent)">
+                        </div>
                      </div>
-                     <div style="width: 20px; position: absolute; top: 20px; right: 0">
-                        <div class="btnDel" data-bind="click: $parent.del">X</div>
+                     <div class="control">
+                        <div style="width: 30px; position: relative; top: 10px;">
+                           <div class="up" data-bind="click: $parent.tileAngleUp, clickBubble: false"></div>
+                           <div class="number" data-bind="text: angle"></div>
+                           <div class="down" data-bind="click: $parent.tileAngleDown, clickBubble: false"></div>
+                           <div style="clear: both"></div>
+                        </div>
+                        <div style="width: 20px; position: absolute; top: 20px; right: 0">
+                           <div class="btnDel" data-bind="click: $parent.del">X</div>
+                        </div>
                      </div>
-                  </div>
+                  </div>                  
                </div>
             </div>
          </div>

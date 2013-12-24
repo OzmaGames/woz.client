@@ -46,9 +46,9 @@
          word.y = word.originalY;
 
          $el.css({
-            left: 100 * word.x + '%',
-            top: 100 * word.y + '%'
-         }).transition({ rotate: word.angle + 'deg' });
+            left: (100 * word.x).toFixed(2) + '%',
+            top: (100 * word.y).toFixed(2) + '%'
+         });
 
          $el.data("immovable", ctx.words.immovable);
 
@@ -72,10 +72,10 @@
             dropped: function (e, data) {
                ctx.activeWord(null);
 
-               word.x = data.hasMoved ? data.left / 100 : word.x;
-               word.y = data.hasMoved ? data.top / 100 : word.y;
+               word.x = (data.hasMoved ? data.left / 100 : word.x).toFixed(4) * 1;
+               word.y = (data.hasMoved ? data.top / 100 : word.y).toFixed(4) * 1;
 
-               if (!word.isPlayed) {
+               if (!word.isPlayed && data.hasMoved) {
                   word.originalX = word.x;
                   word.originalY = word.y;
 
@@ -90,11 +90,17 @@
                   });
                }
             }
-         }).hide();
+         });
 
          if (animationQueue.length == 0) setTimeout(showWords, 100);
 
-         animationQueue.push(function (cb) { return $el.show(200, cb); });
+         animationQueue.push(function (cb) {
+            $el.css({
+               rotate: word.angle,
+               scale: 1,
+               opacity: 1
+            }).delay(100).promise().then(cb);
+         });
 
          word.$el = $el;
       }

@@ -8,6 +8,9 @@
     background-size: 100% 100%;
     min-height: 100%;
     width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
     #game-main canvas {
@@ -187,7 +190,7 @@ hr {
         z-index: 4;
     }
 
-        .tile.active .instruction, .carry .instruction:hover {
+        .tile.active .cloud, .carry .cloud:hover {
             /*left: 100px;*/
             /*top: 50%;*/
             opacity: 0;
@@ -197,9 +200,14 @@ hr {
             transition: all .5s ease-in-out, opacity .2s ease-in-out;
         }
 
-        .tile.active .mask {
-            /*border-width: 10px;*/
+        .tile.active .mask, .tile .mask.norm {
+            border-width: 12px;
+            box-shadow: 5px 5px 10px 0 #333;
         }
+
+    .tile .mask.norm {
+        border-width: 5px;
+    }
 
     .tile.drag {
         -moz-transition: none !important;
@@ -209,9 +217,10 @@ hr {
     }
 
     .tile .mask {
-        position: relative;
+        position: absolute;
         border-radius: 50%;
-        box-shadow: 5px 5px 10px 0 #333;
+        /*box-shadow: 5px 5px 10px 0 #333;*/
+        box-shadow: 15px 15px 40px 5px #333;
         border: .03em solid #fff;
         width: 1em;
         height: 1em;
@@ -221,10 +230,10 @@ hr {
         -o-background-size: auto 100%;
         -webkit-background-size: auto 100%;
         background-size: auto 100%;
-        -moz-transition: -moz-transform .5s ease-in-out, border-width .5s;
-        -o-transition: -o-transform .5s ease-in-out, border-width .5s;
-        -webkit-transition: -webkit-transform .5s ease-in-out, border-width .5s;
-        transition: transform .5s ease-in-out, border-width .5s;
+        -moz-transition: all .5s ease-in-out;
+        -o-transition: all .5s ease-in-out;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
@@ -242,6 +251,7 @@ hr {
         top: -.5em;
         margin-left: 50%;
         margin-top: 50%;
+        z-index: -1;
     }
 
         .tile .mask.noTransition {
@@ -272,52 +282,79 @@ hr {
             /*image-rendering: optimizeQuality;*/
         }
 
-body .instruction {
+body > .cloud.fixed {
+    width: 120px;
+    height: 60px;
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+    -o-transform-origin: center center;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
     z-index: 3;
+    position: absolute;
 }
 
-.tile .instruction {
-    z-index: 1;
-    font-size: 1em;
-    -moz-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+    body > .cloud.fixed .rule {
+        top: 0;
+        right: 0;
+        left: auto;
+    }
+
+.cloud {
+    width: 100%;
+    height: 100%;
+    -moz-transition: -moz-transform .5s ease-in-out;
+    -o-transition: -o-transform .5s ease-in-out;
+    -webkit-transition: -webkit-transform .5s ease-in-out, opacity .5s .4s;
+    transition: transform .5s ease-in-out;
 }
 
-    .tile .instruction .help, .instruction .help {
+    .cloud .rule {
+        z-index: 2;
+        -moz-transform-origin: center center;
+        -ms-transform-origin: center center;
+        -o-transform-origin: center center;
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        position: absolute;
+        top: -30px;
+        left: 20px;
+        width: 80px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px 0 20px;
+        border-radius: 50%;
+        box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
+        text-align: center;
+        line-height: 100%;
+        font-family: CopseRegular;
+        font-size: medium;
+        color: #296e8b;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-text-shadow: 0px 0px 1px #bad7e4;
+        text-shadow: 0px 0px 1px #bad7e4;
+    }
+
+    .cloud .help {
         position: absolute;
         top: 12px;
         right: 0px;
     }
 
-.tile .instruction, body .instruction {
-    position: absolute;
-    top: -30px;
-    left: 10px;
-    width: 80px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 10px 20px 0 20px;
-    border-radius: 50%;
-    box-shadow: 0 0 5px 5px rgba(255, 255, 255, 1);
-    text-align: center;
-    line-height: 100%;
-    font-family: CopseRegular;
-    font-size: medium;
-    color: #296e8b;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-text-shadow: 0px 0px 1px #bad7e4;
-    text-shadow: 0px 0px 1px #bad7e4;
-}
-
-    .tile .instruction .info, body .instruction .info {
+    .cloud .info {
         margin-top: 5px;
         font-family: GreatVibesRegular;
         font-weight: bold;
         font-size: large;
+    }
+
+    .cloud.drag {
+        -moz-transition: none;
+        -o-transition: none;
+        -webkit-transition: none;
+        transition: none;
     }
 
 .tile .rest {
@@ -406,14 +443,20 @@ body .instruction {
     font-size: 22px;
     font-family: CopseRegular;
     cursor: pointer;
-    -moz-transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
-    -o-transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
-    -webkit-transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
-    transition: all .2s ease-in-out, box-shadow .2s ease-in-out, opacity 0, width 0, height 0;
+    -moz-transition: all .2s ease-in-out, box-shadow .2s ease-in-out;
+    -o-transition: all .2s ease-in-out, box-shadow .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out, box-shadow .2s ease-in-out;
+    transition: all .2s ease-in-out, box-shadow .2s ease-in-out;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
     white-space: nowrap;
+    -moz-transform: scale(0.1) rotate(0deg);
+    -ms-transform: scale(0.1) rotate(0deg);
+    -o-transform: scale(0.1) rotate(0deg);
+    -webkit-transform: scale(0.1) rotate(0deg);
+    transform: scale(0.1) rotate(0deg);
+    opacity: 0;
 }
 
     .magnet.related {
@@ -492,6 +535,12 @@ body .instruction {
 
     .magnet-placeholder .magnet {
         position: relative;
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
     }
 
     .magnet-placeholder .circle {
