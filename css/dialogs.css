@@ -375,6 +375,9 @@
         text-transform: uppercase;
         margin-bottom: .7em;
     }
+    .dialog .panel p{
+        margin-bottom:1em;
+    }
 
 .dialog .tutorial {
     position: relative;

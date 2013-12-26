@@ -224,7 +224,7 @@
            app.trigger("server:game:resume", { username: model.username, id: id }, function () {
 
            });
-        } else {
+        } else {           
            app.trigger("server:game:queue", {
               username: model.username, password: 12345,
               playerCount: model.playerCount,

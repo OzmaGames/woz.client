@@ -1,16 +1,25 @@
-﻿<h1>Join The Game!</h1>
+﻿<!--<h1>Join The Game!</h1>-->
+<div style="position:relative; overflow:hidden;">
+   <button class="facebook" data-bind="click: facebook, disable: loading">login with facebook</button>
+   <div class="facebook profile" data-bind="if: facebookProfile">
+      <div class="avatar btn"></div>
+      <div class="avatar" data-bind="style: {backgroundImage: 'url(\'https://graph.facebook.com/'+ facebookProfile().id +'/picture?width=100&height=100\')'}"></div>
+      <div class="name" data-bind="text: facebookProfile().name">Ali Arafati</div>
+   </div>
+</div>
+<p>or</p>
 
 <form data-bind="verifiableSubmit: login">
-   <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username" autofocus autocorrect="off" autocapitalize="off" />
+   <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username, disable: loading" autofocus autocorrect="off" autocapitalize="off" />
    <span class="error" data-bind="text: username.validationMessage"></span>
-   <input type="password" placeholder="Password" data-bind="verifiableValue: password" />
+   <input type="password" placeholder="Password" data-bind="verifiableValue: password, disable: loading" />
    <span class="error" data-bind="text: password.validationMessage"></span>
 
    <p class="error" data-bind="text: errorMessage"></p>
 
-   <button class="blue" type="submit" data-bind="disable: loading()">
+   <button class="blue" type="submit" data-bind="disable: loading">
       <span>LOG IN</span>
-      <i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>
+      <!--<i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>-->
    </button>
 </form>
 

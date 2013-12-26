@@ -1,4 +1,9 @@
-﻿define(['durandal/app', 'api/constants'], function (app, constants) {
+﻿define(['durandal/app', 'api/constants', 'app/account/oAuth/FB.js'], function (app, constants, FB) {
+
+   function updateProfile() {
+      $('button.facebook').transition({ y: -50 });
+      $('.facebook.profile').delay(500).transition({ y: 60 });
+   }
 
    return window.page = {
       loading: app.loading,
@@ -22,12 +27,31 @@
          app.trigger('account:view:change', 'account/recovery');
       },
 
+      facebookProfile: ko.observable(undefined),
+
+      facebook: function () {
+         app.loading(true);
+         FB.login().then(function (facebook) {
+            if (facebook.status != 2) {
+               app.loading(false);
+               page.errorMessage("Something went wrong!");
+            } else {
+               facebook.getProfile().then(function (profile) {
+                  page.facebookProfile(profile);
+                  page.username('@' + profile.username);
+                  page.password(facebook.authResponse.signedRequest);
+                  updateProfile();
+               });
+            }
+         });
+      },
+
       login: function (el) {
          app.loading(true);
 
          var data = {
             username: this.username(),
-            password: CryptoJS.SHA3(constants.salt + this.username() + this.password()).toString()            
+            password: CryptoJS.SHA3(constants.salt + this.username() + this.password()).toString()
          };
 
          var base = this;

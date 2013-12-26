@@ -35,7 +35,7 @@
 
    function scroll() {
       var top = document.getElementById('app').scrollTop;
-
+      console.log('scrolled');
       for (var i = 0; i < instructionDoms.length; i++) {
          if (instructionDoms[i].active()) continue;         
 

@@ -52,22 +52,25 @@
           { route: 'settings',        moduleId: 'home/settings',    title: 'Settings',             nav: true },
           { route: 'newGame',         moduleId: 'home/newGame',     title: 'New Game',             nav: true },
           { route: 'singlePlayer',    moduleId: 'home/singlePlayer',title: 'Loading the game',     nav: true },
-          { route: 'not-found',       moduleId: 'error/not-found',  title: 'Error 404: Not Found', nav: true },
+          { route: 'not-found',       moduleId: 'error/not-found',  title: 'Not Found',            nav: true },
           { route: 'game',            moduleId: 'game/game',        title: 'Play',                 nav: true },
           { route: 'game/:id',        moduleId: 'game/game',        title: 'Play',                 nav: true },
           { route: 'game-editor',     moduleId: 'game-editor/menu', title: 'Game Editor',          nav: true },
           {
+            title: 'Game Editor - Edit',
             route: 'game-editor/edit/:id',
-            moduleId: 'game-editor/edit', title: 'Game Editor - Edit'
+            moduleId: 'game-editor/edit'
           },
-          { route: 'account',         moduleId: 'account/index',    title: 'Account Settings',     nav: true, hash: '#account' }
+          {
+             route: 'account*details',
+             moduleId: 'account/index',
+             title: 'Account Settings',
+             hash: '#account', nav: true
+          },
+          { route: 'facebook', moduleId: 'account/oAuth/facebook', title: 'Words of Oz'}
       ]).buildNavigationModel()
-        .mapUnknownRoutes('home/index', 'not-found')
+        .mapUnknownRoutes('error/not-found', 'not-found')
         .activate();
-
-       //if (!sessionStorage.getItem("username")) {
-       //   router.navigate("");
-       //}
 
        return window.router;
     },

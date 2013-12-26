@@ -88,14 +88,24 @@ h3 {
 }
 
 #shell {
+    position:relative;
+    width:100%;
+    height:100%;
 }
 
 .transition {
     position: relative;
-    -moz-transition: -moz-transform .8s cubic-bezier(.87,.03,.19,.38);
-    -o-transition: -o-transform .8s cubic-bezier(.87,.03,.19,.38);
-    -webkit-transition: -webkit-transform .8s cubic-bezier(.87,.03,.19,.38);
-    transition: transform .8s cubic-bezier(.87,.03,.19,.38);
+    -moz-transition: -moz-transform .5s ease-in-out;
+    -o-transition: -o-transform .5s ease-in-out;
+    -webkit-transition: -webkit-transform .5s ease-in-out;
+    transition: transform .5s ease-in-out;
+}
+.noTransform {
+    -moz-transform: none !important;
+    -ms-transform: none !important;
+    -o-transform: none !important;
+    -webkit-transform: none !important;
+    transform: none !important;
 }
 
 #fixed {
@@ -270,7 +280,7 @@ h3 {
 }
 
 .space {
-    margin: 1em;
+    margin: .8em;
 }
 
 .agreement {

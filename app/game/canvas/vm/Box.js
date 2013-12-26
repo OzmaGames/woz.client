@@ -83,7 +83,6 @@
          if (!this._guiElem) {          
             return 62;
          }
-         console.log(this._guiElem.text(), this._guiElem.outerWidth());
          return this._guiElem.outerWidth();
       }
       if (this.isCircle) return Box.options.circle.radius;

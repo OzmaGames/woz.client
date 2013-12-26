@@ -34,14 +34,13 @@ define('common',
 
          $(SHELL).css({
             y: -APP.scrollTop
-         });
+         }).removeClass('noTransform');
          APP.scrollTop = 0;
 
          $(SHELL).delay(1).promise().then(function () {
-            $(SHELL).addClass('transition').transition({
-               y: 0
-            }).delay(600).promise().then(function () {
+            $(SHELL).addClass('transition').addClass('noTransform').delay(500).promise().then(function () {
                $(SHELL).removeClass("transition");
+               $('#app').trigger("scroll");
             })
          });
          
@@ -57,14 +56,13 @@ define('common',
          var pos = APP.scrollHeight - APP.clientHeight;
          $(SHELL).css({
             y: pos - APP.scrollTop
-         });
+         }).removeClass('noTransform');
          APP.scrollTop = pos;
                   
          $(SHELL).delay(1).promise().then(function () {
-            $(SHELL).addClass('transition').transition({
-               y: 0
-            }).delay(600).promise().then(function () {
+            $(SHELL).addClass('transition').addClass('noTransform').delay(500).promise().then(function () {
                $(SHELL).removeClass("transition");
+               $('#app').trigger("scroll");
             })
          });
 

@@ -181,7 +181,7 @@ label {
         font-size: .85em;
         /*-webkit-text-shadow: 0 0 0px #986B31;
         text-shadow: 0 0 0px #986B31;*/
-        text-transform: none;        
+        text-transform: none;
         font-weight: normal;
     }
 
@@ -271,6 +271,10 @@ input:invalid + span.error, p.error {
     visibility: visible;
 }
 
+p.error {
+    margin-bottom: 0 !important;
+}
+
 
 /*#region buttons */
 button {
@@ -281,6 +285,7 @@ button {
     background-image: url('../images/app/buttons.png');
     color: white;
     outline: none;
+    white-space: nowrap;
 }
 
     button.ol {
@@ -384,5 +389,74 @@ button {
         width: 15em;
         text-align: left;
     }
+
+    button.facebook {
+        background-image: url('../images/app/facebook-button.png');
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        -webkit-background-size: contain;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        background-position: center center;
+        /*border:1px solid gray;*/
+        font-size: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 1em;
+        padding-left: 3em;
+        color: #4B5EA2;
+        -webkit-text-shadow: 0 0 3px rgba(44, 119, 186,.2);
+        text-shadow: 0 0 3px rgba(44, 119, 186,.2);
+    }
+
+        button.facebook:hover, button.facebook:active {
+            background-position: center center;
+            box-shadow: none;
+        }
+
+        button.facebook:disabled {
+            box-shadow: none !important;
+            border: 0;
+        }
+
+    button.facebook, .facebook.profile {
+        -moz-transition: -moz-transform .2s;
+        -o-transition: -o-transform .2s;
+        -webkit-transition: -webkit-transform .2s;
+        transition: transform .2s;
+    }
+
+.facebook.profile {
+    display: block;
+    width: 320px;
+    height: 50px;
+    position: absolute;
+    top: -60px;
+    text-align: center;
+}
+
+.facebook .avatar {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    margin: 0 1em;
+    float: right;
+}
+
+    .facebook .avatar.btn {
+        background-image: url('../images/app/facebook-button-small.png');
+        float: left;
+    }
+
+.facebook .name {
+    display: inline-block;
+    line-height: 50px;
+    vertical-align: top;
+}
 
 /*#endregion */
