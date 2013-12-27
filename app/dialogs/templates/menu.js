@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/plugins/router'], function (app, router) {
+﻿define(['durandal/app', 'plugins/router'], function (app, router) {
 
    var items = [
      { text: "New Game", hash: 'newGame' },

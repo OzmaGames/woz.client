@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/system', 'durandal/plugins/router', 'api/datacontext', './Tile', './_server', 'game/canvas'],
+﻿define(['durandal/app', 'durandal/system', 'plugins/router', 'api/datacontext', './Tile', './_server', 'game/canvas'],
   function (app, system, router, ctx, Tile) {
 
      var lastID = 0;

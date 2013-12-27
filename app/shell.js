@@ -1,12 +1,12 @@
-﻿define(['plugins/router', 'durandal/app', 'api/server/connection'], function (router, app, cnn) {
+﻿define(['plugins/router', 'durandal/app'], function (router, app) {
 
   var connected = ko.observable(false);
   var online = ko.observable(false);
   var errors = ko.observableArray();  
 
-  cnn.connected
-    .then(function () { connected(true); })
-    .fail(function () { connected(false); });
+  //cnn.connected
+  //  .then(function () { connected(true); })
+  //  .fail(function () { connected(false); });
 
   app.on("socket:status").then(function (status) {
     connected(status == "connect");

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/constants', 'app/account/oAuth/FB.js'], function (app, constants, FB) {
+﻿define(['durandal/app', 'api/constants', './oAuth/FB'], function (app, constants, FB) {
 
    function updateProfile() {
       $('button.facebook').transition({ y: -50 });

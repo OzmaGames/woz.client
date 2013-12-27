@@ -1,13 +1,12 @@
 requirejs.config({
    paths: {
       'text': '../lib/requirejs-text/text',
-      'durandal': '../lib/durandal/',
+      'durandal': '../lib/durandal',
       'plugins': '../lib/durandal/plugins',
       'transitions': '../lib/durandal/transitions',
-      'paper': '../lib/paper/paper',
-      'socket': '../lib/socket.io',
+      //'paper': '../lib/paper/paper',
+      //'socket': '../lib/socket.io',
       'crypto.sha3': '../lib/crypto.sha3',
-      'transitions/slidedown': 'api/transitions/slidedown',
       'facebook': '//connect.facebook.net/en_US/all'
    },
    urlArgs: 't' + (new Date).getTime(),
@@ -15,12 +14,13 @@ requirejs.config({
       'facebook': {
          'export': 'FB'
       }
-   }   
+   }
 });
 
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
-
+define('socket', io);
+define('paper', paper);
 
 define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocator', 'common'],
   function (system, app, router, viewLocator) {

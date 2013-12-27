@@ -17,16 +17,21 @@ exports.config = function (weyland) {
           baseUrl: 'app',
           wrap: true, //not needed for require
           paths: {
-            'text': '../lib/requirejs-text/text',
-            'durandal': '../lib/durandal',
-            'plugins': '../lib/durandal/plugins',
-            'transitions': '../lib/durandal/transitions',
-            'paper': '../lib/paper/paper',
-            'socket': '../lib/socket.io',
-            'crypto.sha3': '../lib/crypto.sha3',
-            'transitions/slidedown': 'api/transitions/slidedown',
-            'knockout': 'empty:',
-            'jquery': 'empty:'
+             'text':     '../lib/requirejs-text/text',
+             'durandal': '../lib/durandal',
+             'plugins':  '../lib/durandal/plugins',
+             'transitions': '../lib/durandal/transitions',
+             'crypto.sha3': '../lib/crypto.sha3',
+             'facebook': '//connect.facebook.net/en_US/all',
+             'knockout': 'empty:',
+             'socket': 'empty:',
+             'jquery': 'empty:',
+             'paper': 'empty:'
+          },
+          shim: {
+             'facebook': {
+                'export': 'FB'
+             }
           },
           inlineText: true,
           optimize: 'none',
@@ -35,7 +40,7 @@ exports.config = function (weyland) {
           },
           stubModules: ['text'],
           keepBuildDir: true,
-          out: 'app/main-built.js'
+          out: 'build/main-built.js'
         }
       });
 }
