@@ -177,27 +177,26 @@ hr {
     top: 50%;
     margin-left: -.5em;
     margin-top: -.5em;
-    -moz-transition: -moz-transform .5s ease-in-out;
-    -o-transition: -o-transform .5s ease-in-out;
-    -webkit-transition: -webkit-transform .5s ease-in-out;
-    transition: transform .5s ease-in-out;
+    -moz-transition: -moz-transform .5s ease-in-out, z-index 0s .5s;
+    -o-transition: -o-transform .5s ease-in-out, z-index 0s .5s;
+    -webkit-transition: -webkit-transform .5s ease-in-out, z-index 0s .5s;
+    transition: transform .5s ease-in-out, z-index 0s .5s;
 }
 
     .tile.active {
-        /*top: 50% !important;
-        left: 50% !important;*/
-        /*font-size: 320px;*/
-        z-index: 4;
+        z-index: 11;
+        -moz-transition: -moz-transform .5s ease-in-out, z-index 0s 0s;
+        -o-transition: -o-transform .5s ease-in-out, z-index 0s 0s;
+        -webkit-transition: -webkit-transform .5s ease-in-out, z-index 0s 0s;
+        transition: transform .5s ease-in-out, z-index 0s 0s;
     }
 
-        .tile.active .cloud, .carry .cloud:hover {
-            /*left: 100px;*/
-            /*top: 50%;*/
+        .tile.active .cloud /*, .carry .cloud:hover*/ {
             opacity: 0;
-            -moz-transition: all .5s ease-in-out, opacity .2s ease-in-out;
-            -o-transition: all .5s ease-in-out, opacity .2s ease-in-out;
-            -webkit-transition: all .5s ease-in-out, opacity .2s ease-in-out;
-            transition: all .5s ease-in-out, opacity .2s ease-in-out;
+            -moz-transition: all .5s ease-in-out, opacity 0s ease-in-out;
+            -o-transition: all .5s ease-in-out, opacity 0s ease-in-out;
+            -webkit-transition: all .5s ease-in-out, opacity 0s ease-in-out;
+            transition: all .5s ease-in-out, opacity 0s ease-in-out;
         }
 
         .tile.active .mask, .tile .mask.norm {

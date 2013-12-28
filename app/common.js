@@ -32,6 +32,8 @@ define('common',
          var APP = document.getElementById('app'),
             SHELL = document.getElementById("shell");
 
+         if (APP.scrollTop == 0) return;
+
          $(SHELL).css({
             y: -APP.scrollTop
          }).removeClass('noTransform');

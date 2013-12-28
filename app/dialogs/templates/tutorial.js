@@ -35,5 +35,10 @@
       return this.close();
    }
 
+   Tutorial.prototype.attributes = {
+      fixed: false,
+      singleton: true
+   };
+
    return Tutorial;
 });

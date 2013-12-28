@@ -1,15 +1,16 @@
 
 .dialog {
     position: fixed;
-    z-index: 100;    
+    z-index: 100;
 }
-
-    .dialog.low {
-        z-index: 99;
-    }
 
     .dialog.absolute {
         position: absolute;
+        z-index: 10;
+    }
+
+    .dialog.low {
+        z-index: 99;
     }
 
     .dialog.bottom-center {
@@ -289,7 +290,7 @@
 }
 
     .dialog .window h1 {
-        font-size: 1em;        
+        font-size: 1em;
         margin-bottom: 5px;
     }
 
@@ -375,8 +376,9 @@
         text-transform: uppercase;
         margin-bottom: .7em;
     }
-    .dialog .panel p{
-        margin-bottom:1em;
+
+    .dialog .panel p {
+        margin-bottom: 1em;
     }
 
 .dialog .tutorial {
@@ -397,7 +399,7 @@
         margin-bottom: .5em;
         -webkit-text-shadow: none;
         text-shadow: none;
-        font-weight:bold;
+        font-weight: bold;
     }
 
     .dialog .tutorial .content {
@@ -424,11 +426,15 @@
         border-left: 1px solid #986b31;
         border-bottom: 1px solid #986b31;
         box-shadow: 0px 4px 3px -2px rgba(87, 70, 47, 0.3);
-        border-radius: 8px;
+        border-radius: 5px;
+    }
+
+    .dialog .tutorial.none::before {
+        display: none;
     }
 
     .dialog .tutorial.bottom::before {
-        bottom: -10px;
+        bottom: -6px;
     }
 
     .dialog .tutorial.bottom.left::before {
@@ -456,6 +462,7 @@
         -webkit-transform: rotate( 25deg ) skew( -50deg );
         transform: rotate( 25deg ) skew( -50deg );
         left: -17px;
+        top: 16px;
     }
 
     .dialog .tutorial.right:not(.bottom)::before {

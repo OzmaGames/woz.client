@@ -124,6 +124,8 @@
         paper.view.draw();
      }
 
+     app.on("app:force-resize").then(redraw);
+
      function resize() {
         var cSize = { w: $(canvasDOM).width(), h: $(canvasDOM).height() };
         

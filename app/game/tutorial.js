@@ -1,13 +1,15 @@
 ﻿define(['durandal/app', 'api/datacontext', 'dialogs/_constants'], function (app, ctx, consts) {
    TUT = consts.TUT;
 
+   var APP = document.getElementById("app");
+
    function Tutorial() {
       this.swapWords = function () {
          var item = $('.palette.left .btn:first');
 
          var data = TUT.SWAP_WORDS;
          data.css = "left";
-         data.top = item.offset().top - 40;
+         data.top = item.offset().top + APP.scrollTop;
          data.left = item.offset().left + 60;
 
          return app.dialog.show("tutorial", data);
@@ -18,7 +20,7 @@
 
          var data = TUT.SELECT_PHRASE;
          data.css = "left";
-         data.top = item.offset().top;
+         data.top = item.offset().top + APP.scrollTop;
          data.left = item.offset().left + 60;
 
          return app.dialog.show("tutorial", data);
@@ -29,29 +31,29 @@
 
          var data = TUT.WORKSPACE;
          data.css = "bottom right";
-         data.top = item.offset().top - 150;
+         data.top = item.offset().top - 150 + APP.scrollTop;
          data.left = 200;
 
          return app.dialog.show("tutorial", data);
       }
 
       this.gameboard = function () {
-         var item = $('#gameboard');
+         var item = $('.magnet-placeholder:first');
 
          var data = TUT.GAMEBOARD;
          data.css = "bottom left";
-         data.top = item.offset().top + 200;
-         data.left = 300;
+         data.top = item.offset().top - 130 + APP.scrollTop;
+         data.left = item.offset().left;
 
          return app.dialog.show("tutorial", data);
       }
 
       this.bonus = function () {
-         var item = $('.cloud:first');
+         var item = $('.cloud:first .info');
 
          var data = TUT.BONUS;
          data.css = "bottom left";
-         data.top = item.offset().top - 110;
+         data.top = item.offset().top - 130 + APP.scrollTop;
          data.left = item.offset().left + 20;
 
          return app.dialog.show("tutorial", data);
@@ -59,10 +61,13 @@
 
       this.relatedWords = function () {
          var item = $('.magnet.related:first');
+         if (item.length == 0) {
+            return $.Deferred(function (dfd) { dfd.resolve(); })
+         }
 
          var data = TUT.RELATED;
          data.css = "bottom right";
-         data.top = item.offset().top - 160;
+         data.top = item.offset().top - 160 + APP.scrollTop;
          data.left = item.offset().left - 120;
 
          return app.dialog.show("tutorial", data);
@@ -73,7 +78,7 @@
       var base = this;
       base.swapWords().then(function () {
          base.circleWords().then(function () {
-            base.workspace().then(function () {
+            base.workspace().then(function () {               
                base.relatedWords().then(function () {
                   base.gameboard().then(function () {
                      base.bonus().then(function () {
@@ -82,13 +87,12 @@
                   });
                });
             });
-            var h;
-            $('#app').one("scroll", function () {
-               clearTimeout(h);
-               h = setTimeout(function () {
+            $('#app').one("scroll", close);
+            function close() {
+               setTimeout(function () {
                   app.dialog.close("tutorial");
-               }, 100);
-            });
+               }, 500);
+            }
          });
       });
    }

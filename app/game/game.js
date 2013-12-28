@@ -6,8 +6,14 @@
       if (loading === true) {
          app.loading(false);
       } else if (loading === false) {
-         app.palette.show();
-         //tutorial.show();
+         app.palette.show();         
+      }
+   });
+
+   $(document).keydown(function (e) {      
+      if (e.keyCode == 84) {
+         if(location.hash.match(/game/gi))
+            tutorial.show();
       }
    });
 
@@ -132,8 +138,8 @@
             load: function () {
                app.dialog.show("slipper", DIALOGS.CIRCLE_WORDS);
                app.scrollDown();
-               $(window).resize();
-
+               //$(window).resize();
+               
                system.acquire("game/canvas/circleWords").then(function (m) {
                   m.load().then(function (words) {
                      app.scrollUp();

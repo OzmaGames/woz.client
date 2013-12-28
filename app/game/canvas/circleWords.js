@@ -7,6 +7,8 @@
          dfd = system.defer();
          //paper.setup($('canvas').get(0));
          draw();
+         app.trigger("app:force-resize");
+         
          return dfd.promise();
       },
       unload: unload
@@ -56,6 +58,7 @@
             dfd.resolve(selection);
          }
          path.remove();
+         app.trigger("app:force-resize");
       };
 
       addStarAt = function (point) {
