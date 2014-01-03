@@ -13,14 +13,14 @@
             e.stopPropagation();
 
             if (opt.withinEl) {
-               var height = opt.withinEl.innerHeight(), width = opt.withinEl.innerWidth();
+               var height = opt.withinEl[0].scrollHeight, width = opt.withinEl.innerWidth();
                var padLeft = parseInt(opt.withinEl.css('padding-left')),
                    padTop = parseInt(opt.withinEl.css('padding-top')),
                    padRight = parseInt(opt.withinEl.css('padding-right')),
                    padBottom = parseInt(opt.withinEl.css('padding-bottom'));
                opt.within = { l: padLeft, t: padTop, r: width - padLeft - padRight, b: height - padTop - padBottom };
             }
-
+            
             var startPoint = {
                h: $el.outerHeight(),
                w: $el.outerWidth(),
@@ -94,8 +94,8 @@
             
             if (opt.topLimit && newTop < opt.within.t) newTop = opt.within.t;
             if (newLeft < opt.within.l) newLeft = opt.within.l;
-            if (newTop + e.data.h > opt.within.b) newTop = opt.within.b - e.data.h;
-            if (newLeft + e.data.w > opt.within.r) newLeft = opt.within.r - e.data.w;
+            if (newTop + e.data.h > opt.within.b)  newTop = opt.within.b - e.data.h;
+            if (newLeft + e.data.w > opt.within.r) newLeft = opt.within.r - e.data.w;            
 
             if (opt.move(e, { top: newTop, left: newLeft })) {
                $el.css({ top: newTop, left: newLeft });
@@ -126,8 +126,9 @@
               newTop < opt.within.t ||
               newTop + e.data.h > opt.within.b ||
               newLeft < opt.within.l ||
-              newLeft + e.data.w > opt.within.r)
+              newLeft + e.data.w > opt.within.r) {               
                return false;
+            }
 
             return true;
          }
@@ -153,7 +154,7 @@
       dragStart: function () { },
       dropped: function () { },
       move: function () { return true },
-      parent: $(document.body),
+      parent: $('#app'),
       dragable: true,
       usePercentage: true,
       cursor: "pointer",

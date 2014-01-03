@@ -4,7 +4,7 @@
       this.heading = data.heading;
       this.content = data.content;
       this.btnText = data.btnText;
-      this.experience = 0;
+      this.experience = data.experience || 0;
 
       this.gotoLobby = function () {
          app.dialog.close("notice");

@@ -87,10 +87,20 @@ h3 {
     overflow-y: auto;
 }
 
+.noScroll::-webkit-scrollbar, .noScroll::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+}
+
+.noScroll::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+
 #shell {
-    position:relative;
-    width:100%;
-    height:100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .transition {
@@ -100,6 +110,7 @@ h3 {
     -webkit-transition: -webkit-transform .5s ease-in-out;
     transition: transform .5s ease-in-out;
 }
+
 .noTransform {
     -moz-transform: none !important;
     -ms-transform: none !important;
@@ -195,7 +206,7 @@ h3 {
         backface-visibility: hidden;
         -moz-perspective: 1000;
         -ms-perspective: 1000;
-        -webkit-perspective:  1000;
+        -webkit-perspective: 1000;
         perspective: 1000;
     }
 
@@ -203,6 +214,12 @@ h3 {
         top: 100px;
         height: 200px;
     }
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo.page {
+        background-image: url('../images/app/logo.png');
+    }
+}
 
 #login-page {
     margin: 0 auto;
@@ -783,8 +800,8 @@ a.small {
 
         .game-item .players .player {
             font-size: .8em;
-            float: none;       
-            margin-left:0;     
+            float: none;
+            margin-left: 0;
         }
 
         .game-item .players > div:only-child {

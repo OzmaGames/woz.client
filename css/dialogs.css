@@ -384,12 +384,12 @@
 .dialog .tutorial {
     position: relative;
     background: #fff;
-    border: 1px solid #986b31;
+    /*border: 1px solid #986b31;*/
     box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.3);
     border-radius: 5px;
     text-align: center;
     padding: .5em;
-    color: #986b31;
+    color: #39270d;
     margin: 0 auto;
     line-height: 1.4em;
 }
@@ -416,6 +416,26 @@
         cursor: default;
     }
 
+    .dialog .tutorial button {
+        position:absolute;
+        top: -7px;
+        right: -7px;
+        z-index: 10;
+        background-color: white;
+        border-radius: 50%;       
+        background-image: none;
+        /*border: 1px solid rgba(152, 107, 49, .5);*/
+        box-shadow: 0 0 2px rgba(152, 107, 49,.5);        
+        padding: 2px;        
+    }
+    .dialog .tutorial button:hover {
+        box-shadow: 0 0 4px #986B31;
+    }
+
+        .dialog .tutorial button i {
+            position: static;
+        }
+
     .dialog .tutorial::before {
         background-color: #fff;
         content: "\00a0";
@@ -423,10 +443,10 @@
         height: 17px;
         position: absolute;
         width: 35px;
-        border-left: 1px solid #986b31;
-        border-bottom: 1px solid #986b31;
+        /*border-left: 1px solid #986b31;*/
+        /*border-bottom: 1px solid #986b31;*/
         box-shadow: 0px 4px 3px -2px rgba(87, 70, 47, 0.3);
-        border-radius: 5px;
+        /*border-radius: 5px;*/
     }
 
     .dialog .tutorial.none::before {
@@ -434,7 +454,8 @@
     }
 
     .dialog .tutorial.bottom::before {
-        bottom: -6px;
+        /*bottom: -6px;*/
+        bottom: 0;
     }
 
     .dialog .tutorial.bottom.left::before {
@@ -461,7 +482,8 @@
         -o-transform: rotate( 25deg ) skew( -50deg );
         -webkit-transform: rotate( 25deg ) skew( -50deg );
         transform: rotate( 25deg ) skew( -50deg );
-        left: -17px;
+        /*left: -17px;*/
+        left: -10px;
         top: 16px;
     }
 

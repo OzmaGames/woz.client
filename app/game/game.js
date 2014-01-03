@@ -6,14 +6,18 @@
       if (loading === true) {
          app.loading(false);
       } else if (loading === false) {
-         app.palette.show();         
+         app.palette.show();
       }
    });
 
-   $(document).keydown(function (e) {      
-      if (e.keyCode == 84) {
-         if(location.hash.match(/game/gi))
+   $(document).keydown(function (e) {
+      if (location.hash.match(/game/gi)) {
+         if (e.keyCode == 84) {
             tutorial.show();
+         } else if (e.keyCode == 83) {
+            app.scrollDown(100);
+            setTimeout(app.scrollUp, 800);
+         }
       }
    });
 
@@ -23,6 +27,14 @@
 
    app.on("game:started").then(function () {
       ctx.canSwap(ctx.player.active());
+      document.getElementById('app').classList.add('noScroll');
+      setTimeout(function () {         
+         app.scrollDown(100, true);
+         setTimeout(app.scrollUp, 800, true);
+         setTimeout(function () {
+            document.getElementById('app').classList.remove('noScroll');
+         }, 1400);
+      }, 500);     
    });
 
    var cancel = function () {
@@ -118,8 +130,10 @@
             return;
          }
 
+         var content = ctx.playerCount == 1 ? "Would you like to delete this game?" : "Are you sure you want to resign?";
          app.dialog.show("confirm", {
-            content: "Are you sure you want to resign?", modal: true,
+            content: content,
+            modal: true,
             doneText: 'YES', cancelText: 'NO'
          }).then(function (res) {
             if (res != "cancel") {
@@ -139,7 +153,7 @@
                app.dialog.show("slipper", DIALOGS.CIRCLE_WORDS);
                app.scrollDown();
                //$(window).resize();
-               
+
                system.acquire("game/canvas/circleWords").then(function (m) {
                   m.load().then(function (words) {
                      app.scrollUp();
@@ -170,8 +184,10 @@
       noTransite: true,
       activate: function (id) {
          app.loading(true);
-         
-         ctx.load(id);
+
+         app.trigger("game:dispose");
+         app.palette.dispose();
+         app.dialog.closeAll();
 
          app.palette.hide({ duration: 0 });
          app.palette.add("quit", "command", "right")
@@ -193,6 +209,8 @@
                cancel: ko.computed(function () { return game.mode() === 'circleWords' }),
                disabled: ko.computed(function () { return !game.allowCircle() })
             });
+
+         ctx.load(id);
       },
 
       binding: function () {
@@ -200,7 +218,7 @@
       },
 
       compositionComplete: function (view) {
-         
+
       },
 
       detached: function () {

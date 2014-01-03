@@ -7,5 +7,6 @@
   for (var event in events.custom) {
     cnn.addEvent(event, events.custom[event]);
   }
-
+  
+  events.init(cnn.socket);
 });

@@ -44,7 +44,7 @@
       },
 
       activate: function () {
-         
+         app.trigger("game:dispose");
          app.dialog.closeAll();
          app.palette.dispose();
 

@@ -138,12 +138,12 @@
 
         app.on("game:update", function (json) {
            app.loading(false);
-           if (json.success) {
+           
+           if (json.success && json.gameID == model.gameID) {
 
               model._gameOver(json.gameOver || false);
               if (model.gameOver()) {
-                 app.dialog.closeAll();
-
+                 app.dialog.closeAll();                 
                  system.acquire("dialogs/pages/GameOver").then(function (module) {
                     var winner = model.winner(), data;
                     if (winner === model.player) {

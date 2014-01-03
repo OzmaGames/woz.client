@@ -188,10 +188,10 @@
 
    Box.prototype.updateElem = function () {
       if (this.pathModel.phrase.complete()) {
-         this._guiElem.addClass("placed");
+         this._guiElem.find('.magnet').addClass("placed");
          this._guiElem.off('click');
-      }
-      
+      }           
+
       this._guiElem.find('.magnet').text(this.wordModel.lemma);
 
       var values = {

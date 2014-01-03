@@ -33,6 +33,8 @@
     //var height = this.el.height();
     //this.el.css({ top: ($(window).height() - height) / 2 });
 
+    this.top += document.getElementById('app').scrollTop;
+
     this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left})
       .transition({ x: -10, opacity: 1 }, 500, 'ease')
       .transition({ x: 0 }, 300).promise().then(function () {
@@ -40,7 +42,11 @@
       });
     
     if(this.draggable)
-      this.el.draggable({ usePercentage: false, topLimit:true });
+       this.el.draggable({
+          usePercentage: false,
+          topLimit: true,
+          withinEl: $('#app')
+       });
   }
 
   Window.prototype.canDeactivate = function (a, s, d) {

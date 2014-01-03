@@ -17,9 +17,20 @@
       base.phrase = {
          _complete: ko.observable(false),
          playerId: 0,
-         score: 0,
+         score: 0,         
          words: ko.observableArray()
       };
+
+      base.phrase.toString = function () {         
+         var str = "", len = base.phrase.words().length;
+         for (var i = 0; i < len; i++) {
+            str += i + (i == len - 1 ? '' : ' ');
+         }
+         for (var i = 0; i < len; i++) {
+            str = str.replace(base.phrase.words()[i].index, base.phrase.words()[i].word.lemma)
+         }
+         return str;
+      }
 
       base.phrase.update = function (words) {
          base.completeSub.dispose();
@@ -35,7 +46,12 @@
       
       base.completeSub = base.phrase.complete.subscribe(function (complete) {
          if (complete) {
-            app.dialog.show("confirm", { modal: true }).then(function (result) {
+            app.dialog.show("confirm", {
+               modal: true,
+               content: 'Do you want to place <br/><b>"' + base.phrase.toString() + '"</b>?',
+               doneText: 'YES',
+               cancelText: 'NO'
+            }).then(function (result) {
                model.activeWords(null);
                paper.tool.remove();
                if (result == "cancel") {
@@ -45,6 +61,9 @@
                else {
                   app.loading(true);
                   model.player.active(false);
+                  base.phrase.words().sort(function (a, b) { return a.index - b.index });
+                  //console.log(ko.utils.arrayMap(base.phrase.words(), function (word) { return word.word.lemma; }));
+                  
                   var data = {
                      gameID: model.gameID,
                      pathID: base.id,

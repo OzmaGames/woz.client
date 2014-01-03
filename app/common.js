@@ -6,13 +6,32 @@ define('common',
    function (system, app, router, Dialog, server, ctx, palette) {
       var resizeHelperId = null;
       var resizeDelay = 100;
+      var scrollable = true;
+      var APP = document.getElementById('app');
 
       window.addEventListener("resize", function (e) {
          clearTimeout(resizeHelperId);
          resizeHelperId = setTimeout(function (event) {
             app.trigger("app:resized", event);
-         }, resizeDelay, e);
+         }, resizeDelay, e);         
       }, false);
+      
+      //document.addEventListener("touchmove", function (e) {
+      //   app.console.log("prevented ");
+      //   e.preventDefault();
+      //}, false);
+
+      //APP.addEventListener('touchstart', function (e) {
+      //   if (e.currentTarget.scrollTop === 0) {
+      //      e.currentTarget.scrollTop = 1;
+      //   } else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
+      //      e.currentTarget.scrollTop -= 1;
+      //   }
+      //}, false);
+
+      //APP.addEventListener("touchmove", function (e) {         
+      //   e.stopPropagation();
+      //}, false);
 
       var loading = ko.observable(false);
       app.inlineLoading = ko.observable(false);
@@ -26,14 +45,12 @@ define('common',
          owner: this
       });
 
-      app.scrollUp = function () {
+      app.scrollUp = function (showScroll) {
          console.log("Scrolling UP");
-
-         var APP = document.getElementById('app'),
-            SHELL = document.getElementById("shell");
-
          if (APP.scrollTop == 0) return;
-
+         
+         if (!showScroll) APP.classList.add('noScroll');
+         var SHELL = document.getElementById("shell");
          $(SHELL).css({
             y: -APP.scrollTop
          }).removeClass('noTransform');
@@ -42,6 +59,7 @@ define('common',
          $(SHELL).delay(1).promise().then(function () {
             $(SHELL).addClass('transition').addClass('noTransform').delay(500).promise().then(function () {
                $(SHELL).removeClass("transition");
+               if (!showScroll) APP.classList.remove('noScroll');
                $('#app').trigger("scroll");
             })
          });
@@ -49,21 +67,23 @@ define('common',
          //$('#app').animate({ scrollTop: 0 }, "slow", "swing");
       };
 
-      app.scrollDown = function () {
+      app.scrollDown = function (proportion, showScroll) {
          console.log("Scrolling Down");
+         if (!showScroll) APP.classList.add('noScroll');
 
-         var APP = document.getElementById('app'),
-            SHELL = document.getElementById("shell");
-
+         var SHELL = document.getElementById("shell");
          var pos = APP.scrollHeight - APP.clientHeight;
+
+         proportion = proportion || pos - APP.scrollTop;
          $(SHELL).css({
-            y: pos - APP.scrollTop
+            y: proportion
          }).removeClass('noTransform');
-         APP.scrollTop = pos;
+         APP.scrollTop = proportion + APP.scrollTop;
                   
          $(SHELL).delay(1).promise().then(function () {
             $(SHELL).addClass('transition').addClass('noTransform').delay(500).promise().then(function () {
                $(SHELL).removeClass("transition");
+               if (!showScroll) APP.classList.remove('noScroll');
                $('#app').trigger("scroll");
             })
          });
@@ -78,4 +98,11 @@ define('common',
       app.dialog = Dialog;
       app.palette = palette;
       app.palette.get("menu").click(function () { app.dialog.show("menu"); });
+
+
+      app.console = {
+         log: function (str) {
+            $('#console').html(str);
+         }
+      }      
    });

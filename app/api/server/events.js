@@ -1,84 +1,57 @@
-﻿define(['socket', 'durandal/app'], function (socket, app) {
-
-  return {
-    emission: [
-      /// data = {playerID: '', password: ''}
-      /// res = {success: true|false, errorMessage: ''}
-      "account:login",
-      /// data = {username: '', password: '', email: ''}
-      /// res = {success: true|false, errorMessage: ''}
-      "account:sign-up",
-      /// data = {username: '', email: ''}
-      /// res = {success: true|false, errorMessage: ''}
-      "account:recover-password",
-      /// data = {username: ''}
-      /// res = {success: true|false, errorMessage: ''}
-      "account:logout",
-      /// data = {gameId: #, username: '', word: {id: #, x: #.#, y: #.#} }
-      "game:move-word",
-      /// data = {gameId: #, username: '', phrase: { words: [#, #, #, ..] }, path: #}
-      /// res = {success: true|false, errorMessage: ''}
-      "game:place-phrase",
-      /// data = { gameId: #, username: '' }
-      /// res = { words: [#, #, #, ..] }
-      "game:more-words",
-      /// data = {gameId: #, username: ''}
-      /// res = {success: true|false, errorMessage: ''}
-      "game:skip-turn",
-      "game:resign",
-      "game:lobby",
-      "game:archive",
-      "friends"
-    ],
-    custom: {
-      /// data = {gameId: #, username: '', words: [#, #, #, ..]}
-      /// res = {success: true|false, errorMessage: '', newWords: [#, #, #, ..]}
-      "game:swap-words": function (data, callback, socket) {
-        socket.emit("game:swap-words", data, function (res) {
-          res.oldWords = data.words;
-          app.trigger("game:swap-words", res);
-          if (callback) callback(res);
-        });
-      },
-      "game:resume": function (data, callback, socket) {         
-
-         socket.removeAllListeners("game:update");
-
-         /// res = {players: [{id: #, score: #},..], phrases: [{id: #, words:[]},..]}
+﻿define(['durandal/app'], function (app) {
+   
+   return {
+      emission: [
+        "account:login",
+        "account:sign-up",
+        "account:recover-password",
+        "account:logout",
+        "game:move-word",
+        "game:place-phrase",
+        "game:more-words",
+        "game:skip-turn",
+        "game:resign",
+        "game:lobby",
+        "game:archive",
+        "friends"
+      ],
+      init: function(socket){
          socket.on("game:update", function (data) {
             console.log('%cgame:update', 'background: #222; color: #bada55', data);
             app.trigger("game:update", data);
          });
+      },         
+      custom: {
+         "game:swap-words": function (data, callback, socket) {
+            socket.emit("game:swap-words", data, function (res) {
+               res.oldWords = data.words;
+               app.trigger("game:swap-words", res);
+               if (callback) callback(res);
+            });
+         },
+         "game:resume": function (data, callback, socket) {
+            //socket.removeAllListeners("game:update");
+            //socket.removeListener("game:update", update)
 
-         socket.emit("game:resume", data, function (sdata) {
-            callback(sdata);
-            app.trigger("game:start", sdata);
-         });
-      },
-      /// data = {username: ''}
-      /// res = {success: true|false, errorMessage: ''}
-      "game:queue": function (data, callback, socket) {
+            socket.emit("game:resume", data, function (data) {
+               callback(data);
+               app.trigger("game:start", data);
+            });
+         },
+         "game:queue": function (data, callback, socket) {         
+            socket.once("game:start", function (data) {
+               console.log('%cgame:start', 'background: #222; color: #bada55', data);
+               app.trigger("game:start", data);
+            });
 
-        socket.removeAllListeners("game:update");
-
-        /// res = {players: [{id: #, score: #},..], phrases: [{id: #, words:[]},..]}
-        socket.on("game:update", function (data) {
-          console.log('%cgame:update', 'background: #222; color: #bada55', data);
-          app.trigger("game:update", data);
-        });
-
-        /// res = game object, the big bad ass object
-        socket.once("game:start", function (data) {
-          console.log('%cgame:start', 'background: #222; color: #bada55', data);          
-          app.trigger("game:start", data);
-        });
-
-        if (data.friendUsername) {
-           socket.emit("game:friend", data, callback);
-        } else {
-           socket.emit("game:queue", data, callback);
-        }
+            if (data.friendUsername) {
+               socket.emit("game:friend", data, callback);
+            } else {
+               delete data.friendUsername;
+               socket.emit("game:queue", data, callback);
+            }
+         }
       }
-    }
-  }
+   }
+
 });

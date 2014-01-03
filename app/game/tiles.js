@@ -34,8 +34,8 @@
    }
 
    function scroll() {
-      var top = document.getElementById('app').scrollTop;
-      console.log('scrolled');
+      var top = document.getElementById('app').scrollTop;      
+
       for (var i = 0; i < instructionDoms.length; i++) {
          if (instructionDoms[i].active()) continue;         
 
@@ -49,7 +49,7 @@
       }
    }
 
-   function resize() {
+   function resize() {        
       updateContainerSize();
 
       var tiles = ctx.tiles();
@@ -65,6 +65,10 @@
       containerSize.h = $('#tiles').innerHeight();
       containerSize.ww = $('#tiles-max').innerWidth();
       containerSize.hh = $('#tiles-max').innerHeight();
+
+      if (document.getElementById('app').clientWidth < 900) {
+         containerSize.hh += 100;
+      }
    }
 
    function scaleTile(tile, animateScale) {
@@ -133,14 +137,21 @@
 
       tile.$inst.css(diff);
    }
+   
+   app.on("app:resized").then(resize)
+   
+   function dispose() {
+      $('#app').unbind("scroll", scroll);
+      for (var i = 0; i < instructionDoms.length; i++) {
+         var $el = instructionDoms[i].$inst;
+         if (instructionDoms[i].isFixed) {            
+            ko.removeNode($el[0]);
+         }
+      }
+      instructionDoms.splice(0, instructionDoms.length);
+   }
 
-   var resizeHelperID = null;
-   var resizeDelay = 100;
-
-   $(window).resize(function () {
-      clearTimeout(resizeHelperID);
-      resizeHelperID = setTimeout(resize, resizeDelay);
-   });
+   app.on("game:dispose").then(dispose);
 
    return {
       tiles: ctx.tiles,
@@ -172,7 +183,7 @@
 
          if (!active) {
             //tile.$el.animate({ 'font-size': containerSize.h });            
-            if (tile.$inst.hasClass('fixed')) {
+            if (tile.isFixed) {
                attachInstruction(tile, 0);
             }
             reposTile(tile, true);
@@ -198,7 +209,7 @@
            left = offset.left,
            top = offset.top + 200 - $('#app').scrollTop();
 
-         if (tile.$inst.hasClass("fixed")) {
+         if (tile.isFixed) {
             top -= 120;
          }
          top = 150;
@@ -225,15 +236,8 @@
          instructionDoms.push(tile);
       },
 
-      detached: function () {
-         $('#app').unbind("scroll", scroll);
-         for (var i = 0; i < instructionDoms.length; i++) {
-            var $el = instructionDoms[i].$inst;
-            if ($el.hasClass("fixed")) {
-               ko.removeNode($el[0]);
-            }
-         }
-         instructionDoms.splice(0, instructionDoms.length);
-      }
+      detached: dispose
    };
+
+   
 });

@@ -183,6 +183,10 @@ i.command.close {
         top: 0;
         right: 0;
     }
+    .notice i.command.close {
+        top:15px;
+        right:15px;
+    }    
 
 i.command.delete {
     background-image: url('../images/game/Close_Btn.png');

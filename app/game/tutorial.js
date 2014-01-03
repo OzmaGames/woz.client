@@ -76,23 +76,28 @@
 
    Tutorial.prototype.show = function () {
       var base = this;
-      base.swapWords().then(function () {
-         base.circleWords().then(function () {
-            base.workspace().then(function () {               
-               base.relatedWords().then(function () {
-                  base.gameboard().then(function () {
-                     base.bonus().then(function () {
+      base.swapWords().then(function (obj) {
+         if (obj && obj.force) return;
+         base.circleWords().then(function (obj) {
+            if (obj && obj.force) return;
+            //base.workspace().then(function (obj) {
+            // if (obj && obj.force) return;
+            base.relatedWords().then(function (obj) {
+               if (obj && obj.force) return;
+               //base.gameboard().then(function (obj) {
+               //   if (obj && obj.force) return;
+               //   base.bonus().then(function (obj) {
 
-                     });
-                  });
-               });
+               //   });
+               //});
             });
-            $('#app').one("scroll", close);
-            function close() {
-               setTimeout(function () {
-                  app.dialog.close("tutorial");
-               }, 500);
-            }
+            //});
+            //$('#app').one("scroll", close);
+            //function close() {
+            //   setTimeout(function () {
+            //      app.dialog.close("tutorial");
+            //   }, 500);
+            //}
          });
       });
    }

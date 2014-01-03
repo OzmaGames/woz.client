@@ -145,7 +145,7 @@ hr {
         }
 
     #gameboard {
-        /*padding-bottom: 40px;*/
+        padding-bottom: 40px;
     }
 }
 
@@ -414,6 +414,15 @@ body > .cloud.fixed {
     background-image: url('../images/tiles/nf.jpg');
 }
 
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+    #tiles.woz .mask{
+        background-image: url('../images/tiles/woz-b.jpg');
+    }
+    
+    #tiles.nf .mask{
+        background-image: url('../images/tiles/nf-b.jpg');
+    }
+}
 
 #workspace {
     position: relative;
@@ -541,6 +550,10 @@ body > .cloud.fixed {
         transform: scale(1);
         opacity: 1;
     }
+
+        .magnet-placeholder .magnet:hover {
+
+        }
 
     .magnet-placeholder .circle {
         margin: 0 auto;

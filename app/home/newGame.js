@@ -51,6 +51,7 @@
       activate: function () {
          this.activeFriend(null);
          app.dialog.closeAll();
+         app.trigger("game:dispose");
 
          app.palette.dispose();
       },

@@ -80,7 +80,7 @@
 
          str += ko.bindingHandlers.date.months[time.getMonth()] + ' ';
          str += time.getDate() + ' ';
-         str += time.getHours() + ':' + time.getUTCMinutes();
+         str += time.getHours() + ':' + ('0' + time.getUTCMinutes()).substr(-2);
 
          $(element).text(str);
       },
@@ -180,12 +180,21 @@
       }
    };
 
+   var clickInit = ko.bindingHandlers.click.init;
+
+   ko.bindingHandlers["click"].init = function (element) {
+      clickInit.apply(this, arguments);
+      element.onlyClick = true;
+      if ($.support.touch)
+         $(element).touchPunch();
+   };
+
    ko.bindingHandlers["verifiableValue"] = {
       init: function (element, valueAccessor, allBindingsAccessor) {
          ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor);
       },
       update: function (element, valueAccessor) {
-         ko.bindingHandlers.value.update(element, valueAccessor);         
+         ko.bindingHandlers.value.update(element, valueAccessor);
          element.setCustomValidity(valueAccessor().validationMessage() || '');
       }
    };

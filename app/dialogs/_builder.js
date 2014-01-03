@@ -152,7 +152,7 @@
         return system.defer(function (dfd) {
            var all = [];
            for (var name in dialogs) {
-              all.push(close(name));
+              all.push(close(name, { force: true }));
            }
            $.when.apply(this, all).always(function () {
               dfd.resolve();
