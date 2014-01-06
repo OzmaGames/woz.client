@@ -115,7 +115,7 @@ i.command.quit {
 }
 
 i.action:not(:empty),
-i.command:not(:empty) {
+i.command:not(:empty):not(.currency) {
     background-color: #bad7e4;
     background-image: none;
     border-radius: 3px;
@@ -125,7 +125,7 @@ i.command:not(:empty) {
 }
 
     i.action:not(:empty) span,
-    i.command:not(:empty) span {
+    i.command:not(:empty):not(.currency) span {
         display: table-cell;
         height: 40px;
         width: 40px;
@@ -134,12 +134,12 @@ i.command:not(:empty) {
     }
 
 i.action:hover:not(:empty),
-i.command:hover:not(:empty) {
+i.command:hover:not(:empty):not(.currency) {
     -webkit-filter: brightness(105%);
 }
 
 i.action:active:not(:empty),
-i.command:active:not(:empty) {
+i.command:active:not(:empty):not(.currency) {
     -webkit-filter: brightness(95%);
 }
 
@@ -183,10 +183,11 @@ i.command.close {
         top: 0;
         right: 0;
     }
-    .notice i.command.close {
-        top:15px;
-        right:15px;
-    }    
+
+.notice i.command.close {
+    top: 15px;
+    right: 15px;
+}
 
 i.command.delete {
     background-image: url('../images/game/Close_Btn.png');
@@ -229,12 +230,38 @@ i.command.addFriend {
 i.command.find {
     background-image: url('../images/game/find.png');
     background-position: 0 0 !important;
-    -moz-background-size: 2em auto!important;
-    -o-background-size: 2em auto!important;
-    -webkit-background-size: 2em auto!important;
-    background-size: 2em auto!important;
+    -moz-background-size: 2em auto !important;
+    -o-background-size: 2em auto !important;
+    -webkit-background-size: 2em auto !important;
+    background-size: 2em auto !important;
 }
 
     i.command.find:active, i.command.find:hover {
         background-position: -1em 0 !important;
     }
+
+i.command.currency {
+    background-image: url('../images/game/currency.png');
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    margin-left: -20px;
+    background-position: 0 0;
+    color: #986B31;
+    font-size: 13px;
+    -webkit-text-shadow: 0 0 1px #986B31;
+    text-shadow: 0 0 1px #986B31;
+    line-height: 53px;
+    text-align:center;
+}
+
+    i.command.currency:hover, i.command.currency:active {
+        background-position: 0 0!important;        
+    }
+
+    i.command.currency:active, i.command.currency.active {
+        background-image: url('../images/game/currency-active.png');
+    }    

@@ -13,11 +13,13 @@
    }
 
    ctor.prototype.activate =function () {
-      app.palette.get("menu").visible(false);
+      palette.get("menu").visible(false);
+      palette.get("currency").visible(false);
    }
 
    ctor.prototype.detached = function () {
-      app.palette.get("menu").visible(true);
+      palette.get("menu").visible(true);
+      palette.get("currency").visible(true);
    }
 
    return ctor;

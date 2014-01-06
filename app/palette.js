@@ -3,7 +3,10 @@
    function Palette() {
       var base = this;
 
-      this.items = ko.observableArray([new Palette.Icon("menu")]);
+      this.items = ko.observableArray([
+         new Palette.Icon("currency", "command", "fixed", 123),
+         new Palette.Icon("menu")
+      ]);
 
       this.fixedItems = ko.computed(function () {
          return ko.utils.arrayFilter(base.items(), function (item) { return item.place == "fixed"; });
@@ -35,14 +38,14 @@
       };
 
       this.add = function () {
-         var icon = new Palette.Icon(arguments[0], arguments[1], arguments[2]);
+         var icon = new Palette.Icon(arguments[0], arguments[1], arguments[2], arguments[3]);
          base.items.push(icon);
          base.adjustPalettes();
          return icon;
       }
 
       this.dispose = function () {
-         this.items.splice(1);
+         this.items.splice(2);
       }
    }
 
@@ -61,20 +64,16 @@
       var base = this;
 
       base.adjustPalettes();
-
-      var handler;
-      $(window).bind("resize", function (e) {
-         if (handler) clearTimeout(handler);
-         handler = setTimeout(base.adjustPalettes, 100);         
-      });
+      app.on("app:resized").then(base.adjustPalettes);      
    }
 
-   Palette.Icon = function (name, type, place) {
+   Palette.Icon = function (name, type, place, content) {
       var base = this;
 
       this.name = name;
       this.type = type || "command";
       this.place = place || "fixed";
+      this.content = ko.observable(content || "");
 
       var clickEvent, visible = ko.observable(true),
          css = ko.observable(this.type + ' ' + this.name);
@@ -85,7 +84,9 @@
             clickEvent.owner = this;
             return base;
          }
-         clickEvent.apply(clickEvent.owner, arguments);
+         if (clickEvent) {
+            clickEvent.apply(clickEvent.owner, arguments);
+         }
       };
 
       this.visible = ko.computed({

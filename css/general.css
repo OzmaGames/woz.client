@@ -266,6 +266,10 @@ h3 {
     transform: translateY(100px);
 }
 
+.palette.fixed{
+    right: 10px !important;
+}
+
     .palette.left {
         left: 20px;
     }

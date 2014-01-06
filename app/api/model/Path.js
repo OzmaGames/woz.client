@@ -59,7 +59,7 @@
                   base.removeAll();
                }
                else {
-                  app.loading(true);
+                  app.loading(true);                  
                   model.player.active(false);
                   base.phrase.words().sort(function (a, b) { return a.index - b.index });
                   //console.log(ko.utils.arrayMap(base.phrase.words(), function (word) { return word.word.lemma; }));
@@ -71,6 +71,7 @@
                      words: ko.utils.arrayMap(base.phrase.words(), function (word) { return word.word.id; })
                   };
                   base.completeSub.dispose();
+                  model.lastPath = base;
                   app.trigger("server:game:place-phrase", data);
                   app.scrollUp();
                }

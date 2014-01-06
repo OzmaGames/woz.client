@@ -12,29 +12,94 @@
 
    $(document).keydown(function (e) {
       if (location.hash.match(/game/gi)) {
-         if (e.keyCode == 84) {
+         if (e.keyCode == 84) {     //t
             tutorial.show();
-         } else if (e.keyCode == 83) {
-            app.scrollDown(100);
-            setTimeout(app.scrollUp, 800);
+         } else if (e.keyCode == 83) {  //s
+            showScroll();
+         } else if (e.keyCode == 85) { //u  
+            if (ctx.player.scored)
+               showStars(ctx.player, ctx.lastPath);
+            else {
+               var p = ko.utils.arrayFirst(ctx.paths(), function (p) { return p.phrase.complete() });
+               if (p) showStars(ctx.player, p);
+            }
          }
       }
    });
 
-   app.on("game:updated").then(function () {
-      ctx.canSwap(ctx.player.active());
-   });
+   function showStars(player, path) {
+      var playerEl, boxes;
+      $('.player').each(function (i, el) {
+         if (ko.dataFor(el) == player) {
+            playerEl = $(el);
+            return;
+         }
+      });
 
-   app.on("game:started").then(function () {
-      ctx.canSwap(ctx.player.active());
+      boxes = ko.utils.arrayMap(path.guiBoxes, function (box) { return box._guiElem; });
+
+      var x = playerEl.offset().left + 20, y = playerEl.offset().top;
+      for (var i = 0; i < 20; i++) {
+         var star = $('<div/>', { 'class': 'star' });
+         var scale = ((Math.random() * 5) + 3) / 10;
+         var box = $(boxes[i % boxes.length]);
+         var offset = box.offset();
+
+         star.css({
+            scale: scale,
+            x: offset.left * (1 / scale),
+            y: offset.top * (1 / scale)
+         });
+
+         $('#app').append(star);
+
+         setTimeout(function (o) {
+            o[0].css({
+               x: x * (2 / o[1]),
+               y: y * (2 / o[1]),
+               scale: o[1] / 2,
+               opacity: 0
+            });
+            var el = o[0][0];
+            el.addEventListener($.support.transitionEnd, function () {
+               if (el.parentNode || el.parentElement) {
+                  el.removeEventListener($.support.transitionEnd);
+                  if (el.remove) {
+                     el.remove();
+                  } else {
+                     if (el.parentElement) el.parentElement.removeChild(el);
+                     else el.parentNode.removeChild(el);
+                     console.log('second attempt');
+                  }
+               }
+            });
+         }, Math.random() * 700, [star, scale]);
+      }
+   }
+
+   function showScroll() {
       document.getElementById('app').classList.add('noScroll');
-      setTimeout(function () {         
+      setTimeout(function () {
          app.scrollDown(100, true);
          setTimeout(app.scrollUp, 800, true);
          setTimeout(function () {
             document.getElementById('app').classList.remove('noScroll');
          }, 1400);
-      }, 500);     
+      }, 500);
+   }
+
+   app.on("game:updated").then(function () {
+      ctx.canSwap(ctx.player.active());
+
+      if (ctx.player.scored)
+         showStars(ctx.player, ctx.lastPath);
+   });
+
+   app.on("game:started").then(function () {
+      ctx.canSwap(ctx.player.active());
+      if (!ctx.gameOver()) {
+         showScroll();
+      }
    });
 
    var cancel = function () {

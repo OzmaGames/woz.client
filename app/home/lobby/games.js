@@ -51,26 +51,29 @@
    }
 
    function load(event, gameMode) {
-      return $.Deferred(function (dfd) {
-         console.log(app.callbacks);
+      return $.Deferred(function (dfd) {         
          app.trigger(event, { username: ctx.username }, function (data) {
             if (data.success) {
                data.games.sort(function (a, b) { return b.lastMod - a.lastMod; });
                ko.utils.arrayForEach(data.games, function (g) {
                   g.gameOver = gameMode == "archive";
 
-                  g.summary = [
-                     g.players.length > 1 ? resolveRes(res.playedWith, g) : resolveRes(res.playedSolo, g),
-                     g.gameOver ? resolveRes(res.gameEnded, g) : resolveRes(res.gameStarted, g),
-                     g.gameOver ?
-                        g.players.length > 1 ? resolveRes(res.playerWon, g) : resolveRes(res.playerScored, g) :
-                        g.lastPhrase.username ? resolveRes(res.phrasePlaced, g) : resolveRes(res.noPhrase, g)
-                  ];
+                  addMetadata(g);                  
                });
                dfd.resolve(data.games);
             }
          });
       });
+   }
+
+   function addMetadata(g) {
+      g.summary = [
+                     g.players.length > 1 ? resolveRes(res.playedWith, g) : resolveRes(res.playedSolo, g),
+                     g.gameOver ? resolveRes(res.gameEnded, g) : resolveRes(res.gameStarted, g),
+                     g.gameOver ?
+                        g.players.length > 1 ? resolveRes(res.playerWon, g) : resolveRes(res.playerScored, g) :
+                        g.lastPhrase.username ? resolveRes(res.phrasePlaced, g) : resolveRes(res.noPhrase, g)
+      ];
    }
 
    function getPlayer(game) {
@@ -97,13 +100,66 @@
       });
    }
 
+   var _sh1 = { "gameID": 2, "gameOver": false, "playerInfo": [{ "username": "ali", "score": 19, "active": false, "resigned": false }, { "username": "ozma", "score": 0, "active": true, "resigned": false }], "success": true, "path": { "id": 1, "phrase": [{ "id": 3, "lemma": "someone", "points": 5, "isRelated": false, "x": 0.45000000000000007, "y": -0.003395597068592906, "angle": -2.3578363307751715 }, { "id": 4, "lemma": "any", "points": 2, "isRelated": false, "x": 0.55, "y": -0.005719725571107119, "angle": 0.05013423506170511 }, { "id": 5, "lemma": "after", "points": 2, "isRelated": false, "x": 0.65, "y": -0.004432368031702936, "angle": 0.15674688620492816 }] } };
+
    function Games() {
       this.games = ko.observableArray();
       this.activeGame = ko.observable();
       this.type = ko.observable();
 
+      var base = this;
+      app.on("game:update1").then(function (json) {
+         /// <param name="json" value="_sh1"></param>
+         if (!location.hash.match(/lobby/gi)) return;
+         console.log("lobby games being updated");
+
+         var type = base.type();
+
+         var game = ko.utils.arrayFirst(base.games(), function (g) { return g.gameID == json.gameID });
+         var dfd = $.Deferred();
+
+         if (!game) {
+            //if game does not exist
+            load("server:game:lobby", type).then(function (games) {
+               game = ko.utils.arrayFirst(games, function (g) { return g.gameID == json.gameID });
+               if (game) base.games().unshift(game);
+               dfd.resolve();
+            });
+         } else {            
+            var phrase = "";
+            for (var i = 0; i < json.path.phrase.length; i++) {
+               phrase += json.path.phrase[i].lemma + ' ';
+            }
+            game.lastMod = new Date().getTime();
+            game.lastPhrase.phrase = phrase.substr(0, phrase.length - 1);
+            game.lastPhrase.username = ko.utils.arrayFirst(json.playerInfo, function (p) { return !p.active; }).username;
+                        
+            var playedWithOld = ko.utils.arrayFirst(game.players, function (p) { return p.username == game.lastPhrase.username; });
+            var playedWithNew = ko.utils.arrayFirst(json.playerInfo, function (p) { return p.username == game.lastPhrase.username; });
+            game.lastPhrase.score = playedWithNew.score - playedWithOld.score;
+            playedWithOld.score = playedWithNew.score;
+
+            addMetadata(game);
+            dfd.resolve();
+         }
+
+         dfd.then(function () {
+            var pos = base.games.indexOf(game);
+            if (pos != 0) {
+               base.games().splice(pos, 1);
+               base.games().unshift(game);
+            }
+
+            if (type == "ongoing" && json.gameOver) {
+               base.games().splice(0, 1);
+            }
+
+            base.games.valueHasMutated();
+            base.list.valueHasMutated();
+         });         
+      });
+
       this.loadGames = function () {
-         var base = this;
          return load("server:game:lobby", "ongoing").then(function (games) {
             base.games(games)
             base.message("You can have up to 10 ongoing games at the time. <a>Get more space</a>!");
@@ -113,7 +169,6 @@
       }
 
       this.loadArchive = function () {
-         var base = this;
          return load("server:game:archive", "archive").then(function (games) {
             base.games(games);
             base.message("Your archive have room for 10 games right now. <a>Get more space</a>!");
@@ -122,14 +177,12 @@
          });
       }
 
-      var base = this;
-
       this.list = ko.observableArray();
       this.ongoing = [
            {
               title: 'My Turn',
               empty: 'You have no ongoing games where it\'s your turn.',
-              games: ko.computed(function () {
+              games: ko.computed(function () {                 
                  return ko.utils.arrayFilter(base.games(), function (g) {
                     return getPlayer(g).active;
                  })
@@ -176,7 +229,7 @@
             content: "Are you sure you want to delete this game?", modal: true,
             doneText: 'YES', cancelText: 'NO'
          }).then(function (res) {
-            if (res != "cancel") {               
+            if (res != "cancel") {
                base.games.remove(game);
 
                app.trigger("server:game:resign", {

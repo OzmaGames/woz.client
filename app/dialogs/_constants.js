@@ -33,7 +33,7 @@
          },
          RELATED: {
             heading: "Related words",
-            content: "marked words will<br>score 15 extra points<br>when put in a phrase<br>connected to the<br>right image."
+            content: "Marked words will<br>score 15 extra points<br>when put in a phrase<br>connected to the<br>right image."
          },
          ACTIONS: {
             heading: "Actions",

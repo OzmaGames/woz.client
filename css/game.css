@@ -64,6 +64,8 @@ hr {
     position: absolute;
     top: 10px;
     right: 20px;
+    -webkit-text-shadow: 0 0 1px rgba(152, 107, 49,.5);
+    text-shadow: 0 0 1px rgba(152, 107, 49,.5);
 }
 
 .player {
@@ -414,12 +416,12 @@ body > .cloud.fixed {
     background-image: url('../images/tiles/nf.jpg');
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
-    #tiles.woz .mask{
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #tiles.woz .mask {
         background-image: url('../images/tiles/woz-b.jpg');
     }
-    
-    #tiles.nf .mask{
+
+    #tiles.nf .mask {
         background-image: url('../images/tiles/nf-b.jpg');
     }
 }
@@ -552,7 +554,6 @@ body > .cloud.fixed {
     }
 
         .magnet-placeholder .magnet:hover {
-
         }
 
     .magnet-placeholder .circle {
@@ -639,3 +640,24 @@ body > .cloud.fixed {
         .confirm-box .tooltip.cw {
             top: 100px !important;
         }
+
+
+.star {
+    display: block;
+    width: 1em;
+    height: 1em;
+    font-size: 38px;
+    background-image: url('../images/game/start-red.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+    -moz-transform-origin: center;
+    -ms-transform-origin: center;
+    -o-transform-origin: center;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}

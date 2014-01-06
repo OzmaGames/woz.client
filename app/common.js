@@ -16,6 +16,9 @@ define('common',
          }, resizeDelay, e);         
       }, false);
       
+      //app.on("app:resized").then(function () {
+      //   app.console.log("resized");
+      //});
       //document.addEventListener("touchmove", function (e) {
       //   app.console.log("prevented ");
       //   e.preventDefault();

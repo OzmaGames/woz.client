@@ -170,6 +170,7 @@
                  var cplayer = find(model.players(), { username: jplayer.username });
                  var scored = jplayer.score - cplayer.score();
 
+                 cplayer.scored = scored;
                  cplayer.score(jplayer.score);
                  cplayer.active(jplayer.active);
                  cplayer.resigned(jplayer.resigned || false);
@@ -200,7 +201,7 @@
 
               model.players.valueHasMutated();
 
-              app.trigger("game:updated");
+              app.trigger("game:updated", json);
            }
         });
 

@@ -34,6 +34,7 @@
             //socket.removeListener("game:update", update)
 
             socket.emit("game:resume", data, function (data) {
+               data.resumed = true;
                callback(data);
                app.trigger("game:start", data);
             });

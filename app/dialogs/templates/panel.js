@@ -1,5 +1,21 @@
 ﻿define(['durandal/app'], function (app) {
 
+   var dialog;
+   app.on("app:resized").then(adjust);
+
+   function adjust() {
+      if (!dialog) return;
+      var height = $(window).innerHeight();
+      var top = (height - dialog.outerHeight()) / 2;
+      dialog.css({ y: top });
+
+      //var input = $(':focus');
+      //if (input.length) {
+      //   input.blur();
+      //   input.focus();
+      //}
+   }
+
    return {
       activate: function (moduleName) {
          if (!moduleName) return;
@@ -12,11 +28,11 @@
       },
 
       compositionComplete: function (view) {
-         var dialog = this.el = $('.panel', view);
+         dialog = this.el = $('.panel', view);
          var height = $(window).innerHeight();
          var top = (height - dialog.outerHeight()) / 2;
-         dialog.css({ y: -top }).show();
-         dialog.css({ y: -top - 100, opacity: 0 }).transition({ y: -top + 10, opacity: 1 }).transition({ y: -top });
+         dialog.css({ y: top }).show();
+         dialog.css({ y: top - 100, opacity: 0 }).transition({ y: top + 10, opacity: 1 }).transition({ y: top });
       },
 
       canDeactivate: function () {

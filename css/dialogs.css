@@ -290,7 +290,7 @@
 }
 
     .dialog .window h1 {
-        font-size: 1em;
+        font-size: 1.2em;
         margin-bottom: 5px;
     }
 
@@ -397,9 +397,9 @@
     .dialog .tutorial h1 {
         font-size: 1.2em;
         margin-bottom: .5em;
-        -webkit-text-shadow: none;
-        text-shadow: none;
-        font-weight: bold;
+        /*-webkit-text-shadow: none;*/
+        /*text-shadow: none;*/
+        /*font-weight: bold;*/
     }
 
     .dialog .tutorial .content {

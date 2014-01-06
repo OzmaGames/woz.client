@@ -18,9 +18,9 @@
            .transition({ y: -100, opacity: 0 }, duration).promise().then(function () {
               base.el.css({ y: 0, display: 'none' });
            });
-
-         if (this.model && this.model.onClose) {
-            this.model.onClose();
+                  
+         if (this.onClose) {
+            this.onClose();
          }
 
          return dfd;
@@ -30,7 +30,7 @@
    Notice.prototype.activate = function (data) {
       this.modal = data.modal || this.modal;
       this.view = data.view;
-      this.model = data.model;
+      this.model = data.model;      
 
       if (!this.model.close) {
          this.model.close = this.close;

@@ -14,6 +14,7 @@
      return {        
         activate: function () {
            palette.get("menu").visible(false);
+           palette.get("currency").visible(false);
         },
 
         binding: function () {
@@ -27,7 +28,8 @@
         detached: function (view) {
            viewChanger.off();
            app.dialog.close("panel");
-           palette.get("menu").visible(true);
+           palette.get("menu").visible(false);
+           palette.get("currency").visible(false);
         },
 
         playSolo: function () {
