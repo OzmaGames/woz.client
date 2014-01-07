@@ -12,11 +12,14 @@
 
    $(document).keydown(function (e) {
       if (location.hash.match(/game/gi)) {
-         if (e.keyCode == 84) {     //t
+         if (e.keyCode == 84) {
+            //t
             tutorial.show();
-         } else if (e.keyCode == 83) {  //s
+         } else if (e.keyCode == 83) {
+            //s
             showScroll();
-         } else if (e.keyCode == 85) { //u  
+         } else if (e.keyCode == 85) {
+            //u  
             if (ctx.player.scored)
                showStars(ctx.player, ctx.lastPath);
             else {
@@ -38,8 +41,10 @@
 
       boxes = ko.utils.arrayMap(path.guiBoxes, function (box) { return box._guiElem; });
 
-      var x = playerEl.offset().left + 20, y = playerEl.offset().top;
-      for (var i = 0; i < 20; i++) {
+      var x = playerEl.offset().left + 20, y = playerEl.offset().top,
+         num = (ctx.player.scored || ctx.player.score());
+
+      for (var i = 0; i < num; i++) {
          var star = $('<div/>', { 'class': 'star' });
          var scale = ((Math.random() * 5) + 3) / 10;
          var box = $(boxes[i % boxes.length]);
@@ -48,44 +53,52 @@
          star.css({
             scale: scale,
             x: offset.left * (1 / scale),
-            y: offset.top * (1 / scale)
+            y: offset.top * (1 / scale),
+            backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
          });
-
-         $('#app').append(star);
-
+         
          setTimeout(function (o) {
-            o[0].css({
-               x: x * (2 / o[1]),
-               y: y * (2 / o[1]),
-               scale: o[1] / 2,
-               opacity: 0
-            });
-            var el = o[0][0];
-            el.addEventListener($.support.transitionEnd, function () {
-               if (el.parentNode || el.parentElement) {
-                  el.removeEventListener($.support.transitionEnd);
-                  if (el.remove) {
-                     el.remove();
-                  } else {
-                     if (el.parentElement) el.parentElement.removeChild(el);
-                     else el.parentNode.removeChild(el);
-                     console.log('second attempt');
+            $('#app').append(o[0]);
+
+            setTimeout(function (o) {
+               var mul = Math.random() * 1.3 + .4;
+
+               o[0].css({
+                  x: x * (mul / o[1]),
+                  y: y * (mul / o[1]),
+                  scale: o[1] / mul,
+                  opacity: 0
+               });
+               var el = o[0][0];
+               el.addEventListener($.support.transitionEnd, function () {
+                  if (el.parentNode || el.parentElement) {
+                     el.removeEventListener($.support.transitionEnd);
+                     if (el.remove) {
+                        el.remove();
+                     } else {
+                        if (el.parentElement) el.parentElement.removeChild(el);
+                        else el.parentNode.removeChild(el);
+                        console.log('second attempt');
+                     }
                   }
-               }
-            });
+               });
+            }, 0, o);            
          }, Math.random() * 700, [star, scale]);
       }
    }
 
    function showScroll() {
+      //if(app.el.scroll)      
       document.getElementById('app').classList.add('noScroll');
       setTimeout(function () {
+         if (app.el.clientHeight / app.el.scrollHeight > .7) return;
+         
          app.scrollDown(100, true);
          setTimeout(app.scrollUp, 800, true);
          setTimeout(function () {
             document.getElementById('app').classList.remove('noScroll');
          }, 1400);
-      }, 500);
+      }, 800);
    }
 
    app.on("game:updated").then(function () {
@@ -96,7 +109,7 @@
    });
 
    app.on("game:started").then(function () {
-      ctx.canSwap(ctx.player.active());
+      ctx.canSwap(ctx.player.active() && !ctx.actionDone);
       if (!ctx.gameOver()) {
          showScroll();
       }

@@ -504,10 +504,10 @@ body > .cloud.fixed {
         -o-transform: scale(1.1) !important;
         -webkit-transform: scale(1.1) !important;
         transform: scale(1.1) !important;
-        -moz-transition: all 0;
-        -o-transition: all 0;
-        -webkit-transition: all 0;
-        transition: all 0;
+        -moz-transition: all 0s;
+        -o-transition: all 0s;
+        -webkit-transition: all 0s;
+        transition: all 0s;
     }
 
     .magnet:hover:not(.drag):not(:active):not(.placed) {
@@ -655,6 +655,30 @@ body > .cloud.fixed {
     -o-transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     transition: all 1s ease-in-out;
+    -moz-transform-origin: center;
+    -ms-transform-origin: center;
+    -o-transform-origin: center;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    background-color: transparent!important;
+}
+
+
+.starB{
+    display: block;
+    width: 1em;
+    height: 1em;
+    font-size: 38px;
+    /*background-image: url('../images/game/start-red.png');*/
+    -webkit-mask-image: url('../images/game/start-red.png');
+    -moz-mask-image: url('../images/game/start-red.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    -moz-transition: all 2s ease-in-out;
+    -o-transition: all 2s ease-in-out;
+    -webkit-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
     -moz-transform-origin: center;
     -ms-transform-origin: center;
     -o-transform-origin: center;

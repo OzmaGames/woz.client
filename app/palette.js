@@ -49,7 +49,7 @@
       }
    }
 
-   Palette.prototype.adjustPalettes = function (value) {
+   Palette.prototype.adjustPalettes = function (value) {      
       $('.palette:not(.fixed)').each(function (i, el) {
          var $el = $(el);
          if (value === undefined) {
@@ -64,7 +64,7 @@
       var base = this;
 
       base.adjustPalettes();
-      app.on("app:resized").then(base.adjustPalettes);      
+      app.on("app:resized").then(function () { base.adjustPalettes() });
    }
 
    Palette.Icon = function (name, type, place, content) {

@@ -60,16 +60,15 @@
         id = isNaN(id) ? -1 : id * 1;
 
         app.on("game:start", function (json) {
-
            router.navigate('game/' + json.id, { trigger: false, replace: true });
-           //window.location.hash = 'game/' + json.id;
            model.loadingStatus("Starting The Game...");
-                                 
+
            model.gameID = json.id;
            model.playerCount = json.players.length;
-
            model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
            model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
+
+           model.actionDone = json.actionDone;
 
            ko.utils.arrayForEach(json.players, function (player) {
               if (player.username === model.username) {
@@ -83,11 +82,15 @@
            });
 
            if (model.playerCount > 1 && !json.gameOver) {
+              var dialogData;
               if (model.player.active())
-                 app.dialog.show("slipper-fixed", DIALOGS.YOUR_TURN_FIRST_ROUND);
+                 dialogData = DIALOGS.YOUR_TURN_FIRST_ROUND;
               else
-                 app.dialog.show("slipper-fixed", DIALOGS.THEIR_TURN);
+                 dialogData = DIALOGS.THEIR_TURN;
 
+              setTimeout(function () {
+                 app.dialog.show("slipper-fixed", dialogData);
+              }, 2500)              
            }
 
            model.player = find(json.players, { username: model.username });
@@ -133,17 +136,17 @@
            model.loading(false);
            model.loadingStatus("Ready");
            app.dialog.close("loading");
-           app.trigger("game:started");           
+           app.trigger("game:started");
         });
 
         app.on("game:update", function (json) {
            app.loading(false);
-           
+
            if (json.success && json.gameID == model.gameID) {
 
               model._gameOver(json.gameOver || false);
               if (model.gameOver()) {
-                 app.dialog.closeAll();                 
+                 app.dialog.closeAll();
                  system.acquire("dialogs/pages/GameOver").then(function (module) {
                     var winner = model.winner(), data;
                     if (winner === model.player) {
@@ -225,7 +228,7 @@
            app.trigger("server:game:resume", { username: model.username, id: id }, function () {
 
            });
-        } else {           
+        } else {
            app.trigger("server:game:queue", {
               username: model.username, password: 12345,
               playerCount: model.playerCount,

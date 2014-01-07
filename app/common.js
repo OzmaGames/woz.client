@@ -9,6 +9,8 @@ define('common',
       var scrollable = true;
       var APP = document.getElementById('app');
 
+      app.el = APP;
+
       window.addEventListener("resize", function (e) {
          clearTimeout(resizeHelperId);
          resizeHelperId = setTimeout(function (event) {
@@ -46,7 +48,7 @@ define('common',
             loading(value);
          },
          owner: this
-      });
+      });    
 
       app.scrollUp = function (showScroll) {
          console.log("Scrolling UP");

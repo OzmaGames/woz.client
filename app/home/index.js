@@ -28,8 +28,8 @@
         detached: function (view) {
            viewChanger.off();
            app.dialog.close("panel");
-           palette.get("menu").visible(false);
-           palette.get("currency").visible(false);
+           palette.get("menu").visible(true);
+           palette.get("currency").visible(true);
         },
 
         playSolo: function () {
