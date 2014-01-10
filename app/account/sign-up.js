@@ -41,10 +41,13 @@
 
             if (res.success) {
                res.username = data.username;
+               sessionStorage.setItem("newUser", true);
                app.dialog.close("panel");
                app.trigger('account:login', res);
                app.navigate("newGame");
-               app.dialog.show("notice", { model: {}, view: "dialogs/pages/welcome" });
+               setTimeout(function () {
+                  app.dialog.show("notice", { model: {}, view: "dialogs/pages/welcome", modal: true });
+               }, 200);               
             } else {
                base.errorMessage(res.message);
             }

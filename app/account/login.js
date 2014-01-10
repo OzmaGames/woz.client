@@ -7,6 +7,7 @@
 
    return window.page = {
       loading: app.loading,
+      facebookLogin: false,
 
       username: ko.observable().extend({
          required: "You need to enter you username or e-mail",

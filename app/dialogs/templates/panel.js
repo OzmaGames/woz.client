@@ -1,25 +1,22 @@
 ﻿define(['durandal/app'], function (app) {
 
-   var dialog;
-   app.on("app:resized").then(adjust);
+   var dialog, sub;
 
    function adjust() {
+      
       if (!dialog) return;
-      var height = $(window).innerHeight();
-      var top = (height - dialog.outerHeight()) / 2;
-      dialog.css({ y: top });
+      var height = app.el.clientHeight;
+      var top = (height - dialog.outerHeight()) / 2;      
 
-      //var input = $(':focus');
-      //if (input.length) {
-      //   input.blur();
-      //   input.focus();
-      //}
+      dialog.transition({ top: top });
+
    }
 
    return {
       activate: function (moduleName) {
          if (!moduleName) return;
          this.modelName(moduleName);
+         sub = app.on("app:resized:instant").then(adjust);
       },
 
       bindingComplete: function (view) {
@@ -29,13 +26,16 @@
 
       compositionComplete: function (view) {
          dialog = this.el = $('.panel', view);
-         var height = $(window).innerHeight();
+         var height = app.el.clientHeight;
          var top = (height - dialog.outerHeight()) / 2;
          dialog.css({ y: top }).show();
-         dialog.css({ y: top - 100, opacity: 0 }).transition({ y: top + 10, opacity: 1 }).transition({ y: top });
+         dialog.css({ y: top - 100, opacity: 0 }).transition({ y: top + 10, opacity: 1 }).transition({ y: top }).promise().then(function () {
+            dialog.css({ y: 0, top: top });
+         });
       },
 
       canDeactivate: function () {
+         sub.off();
          return this.el.fadeOut("fast").promise()
       },
 

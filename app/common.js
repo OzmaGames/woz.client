@@ -12,6 +12,10 @@ define('common',
       app.el = APP;
 
       window.addEventListener("resize", function (e) {
+         app.trigger("app:resized:hook", event);
+         setTimeout(function () {
+            app.trigger("app:resized:instant", event);
+         }, 0);
          clearTimeout(resizeHelperId);
          resizeHelperId = setTimeout(function (event) {
             app.trigger("app:resized", event);
@@ -79,7 +83,7 @@ define('common',
          var SHELL = document.getElementById("shell");
          var pos = APP.scrollHeight - APP.clientHeight;
 
-         proportion = proportion || pos - APP.scrollTop;
+         proportion = proportion || (pos - APP.scrollTop);
          $(SHELL).css({
             y: proportion
          }).removeClass('noTransform');

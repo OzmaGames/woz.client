@@ -11,7 +11,8 @@
          data.css = "left";
          data.top = item.offset().top + APP.scrollTop;
          data.left = item.offset().left + 60;
-
+         data.fixed = true;
+         
          return app.dialog.show("tutorial", data);
       }
 
@@ -22,6 +23,35 @@
          data.css = "left";
          data.top = item.offset().top + APP.scrollTop;
          data.left = item.offset().left + 60;
+         data.fixed = true;
+
+         return app.dialog.show("tutorial", data);
+      }
+
+      this.placePhrase = function () {
+         var item = $('.magnet-placeholder').filter(function (i) {
+            if ($(this).offset().top > 200) return true;
+            return false;
+         });
+
+         var data = TUT.PLACE_PHRASE;
+         data.css = "bottom left";
+         data.top = item.offset().top - 150 + APP.scrollTop;
+         data.left = item.offset().left;
+
+         return app.dialog.show("tutorial", data);
+      }
+
+      this.fillPath = function () {
+         var item = $('.magnet-placeholder').filter(function (i) {
+            if ($(this).offset().top > 200) return true;
+            return false;
+         });
+
+         var data = TUT.FILL_PATH;
+         data.css = "bottom left";
+         data.top = item.offset().top - 90 + APP.scrollTop;
+         data.left = item.offset().left;
 
          return app.dialog.show("tutorial", data);
       }
@@ -67,15 +97,38 @@
 
          var data = TUT.RELATED;
          data.css = "bottom right";
-         data.top = item.offset().top - 160 + APP.scrollTop;
+         data.top = item.offset().top - 170 + APP.scrollTop;
          data.left = item.offset().left - 120;
 
          return app.dialog.show("tutorial", data);
       }
    }
 
+   Tutorial.prototype.getNext = function () {
+      this.qIndex = this.qIndex || 0;
+      var queue = [this.placePhrase, this.fillPath, this.swapWords, this.circleWords, this.relatedWords];
+      return queue[this.qIndex++];
+   }
+      
+   Tutorial.prototype.showNext = function() {
+      var func = this.getNext();
+
+      if (!func) return $.Deferred();
+
+      var base = this;
+      return func().then(function (obj) {
+         if (obj && obj.force) return $.Deferred();
+         return base.showNext();
+      });
+   }
+
    Tutorial.prototype.show = function () {
       var base = this;
+      this.qIndex = 0;
+
+      this.showNext();
+
+      return;
       base.swapWords().then(function (obj) {
          if (obj && obj.force) return;
          base.circleWords().then(function (obj) {

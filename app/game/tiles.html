@@ -4,8 +4,8 @@
          <div id="tiles" data-bind="css: collection.name">
             <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }">
                <div class="tile" data-bind="css: { active: active }, click: $root.toggleTile">
-                  <div class="cloud" data-bind="fadeVisible: !$root.gameOver()">
-                     <div class="rule" data-bind="click: $root.help, clickBubble: false">
+                  <div class="cloud" data-bind="">
+                     <div class="rule" data-bind="click: $root.help, clickBubble: false, fadeVisible: !$root.gameOver() || $root.forceVisible()">
                         <span data-bind="text: instruction"></span>
                         <div class="info" data-bind="text: info"></div>
                         <i class="command help sm"></i>

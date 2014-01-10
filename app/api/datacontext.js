@@ -69,6 +69,7 @@
            model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
 
            model.actionDone = json.actionDone;
+           model.resumedGame = json.resumedGame || false;
 
            ko.utils.arrayForEach(json.players, function (player) {
               if (player.username === model.username) {
@@ -88,9 +89,11 @@
               else
                  dialogData = DIALOGS.THEIR_TURN;
 
-              setTimeout(function () {
+              var tmp = app.on("game:started:ready").then(function () {
                  app.dialog.show("slipper-fixed", dialogData);
-              }, 2500)              
+                 tmp.off();
+              });
+              
            }
 
            model.player = find(json.players, { username: model.username });
@@ -166,10 +169,14 @@
                        app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' });
                     }, 2000);
                  });
+
+                 setTimeout(function () {
+                    app.trigger("game:tiles:visible", false);
+                 }, 2000)                 
               }
 
-              for (var i = 0; i < json.playerInfo.length; i++) {
-                 var jplayer = json.playerInfo[i];
+              for (var i = 0; i < json.players.length; i++) {
+                 var jplayer = json.players[i];
                  var cplayer = find(model.players(), { username: jplayer.username });
                  var scored = jplayer.score - cplayer.score();
 

@@ -17,9 +17,10 @@
         return root;
      }
 
-     function getHost(instance) {
-        var root = createRoot(instance.attributes.fixed);
-
+     function getHost(instance, mData) {
+        var isFixed = typeof(mData) == 'object' ? mData.fixed : instance.attributes.fixed;
+        var root = createRoot(isFixed);
+        
         return system.defer(function (dfd) {
            if (instance.attributes.singleton) {
               var z = close(instance.__moduleId__, { msg: 'queue' })
@@ -83,7 +84,7 @@
      function show(obj, activationData, context) {
         return system.defer(function (dfd) {
            ensureInstance(obj).then(function (instance) {
-              getHost(instance).then(function (host) {
+              getHost(instance, activationData).then(function (host) {
                  var dialogActivator = activator.create();
                  dialogActivator.activateItem(instance, activationData).then(function (success) {
                     if (!success) { dfd.reject(); }

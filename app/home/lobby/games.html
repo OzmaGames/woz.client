@@ -1,7 +1,7 @@
 ﻿
 <div class="note pull-right" data-bind="html: message()"></div>
 
-<div data-bind="foreach: list" style="padding-bottom:20px;">
+<div data-bind="foreach: list" style="margin-bottom:20px;">
    <h1 data-bind="text: title" class="archive"></h1>
    <!-- ko if: games().length -->
    <div class="" data-bind="css: {'container y scroll games': $root.type() == 'archive'}">

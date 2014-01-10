@@ -81,9 +81,12 @@
             var gameOptionId = this.gameOptionId();
 
             ctx.playerCount = gameOptions[gameOptionId].playerCount;
-
+            
             if (gameOptionId == 0) {
                ctx.friendUsername = this.activeFriend().username;
+            } else {
+               ctx.friendUsername = "";
+               delete ctx.friendUsername;
             }
 
             app.navigate("game")

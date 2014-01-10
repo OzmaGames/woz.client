@@ -20,17 +20,24 @@
             showScroll();
          } else if (e.keyCode == 85) {
             //u  
-            if (ctx.player.scored)
-               showStars(ctx.player, ctx.lastPath);
-            else {
-               var p = ko.utils.arrayFirst(ctx.paths(), function (p) { return p.phrase.complete() });
-               if (p) showStars(ctx.player, p);
-            }
+            //if (ctx.player.scored)
+            //   showStars(ctx.player, ctx.lastPath);
+            //else {
+            //   var p = ko.utils.arrayFirst(ctx.paths(), function (p) { return p.phrase.complete() });
+            //   if (p) showStars(ctx.player, p);
+            //}
+         } else if (e.keyCode == 86) {
+            //v
+            app.trigger("game:rule:toggle");
+         } else if (e.keyCode == 87) {
+            //w
+            showGlowing(ctx.tiles()[0]);
+            showGlowing(ctx.tiles()[1]);
          }
       }
    });
 
-   function showStars(player, path) {
+   function showStars(player, path, scoreObj) {
       var playerEl, boxes;
       $('.player').each(function (i, el) {
          if (ko.dataFor(el) == player) {
@@ -39,35 +46,140 @@
          }
       });
 
-      boxes = ko.utils.arrayMap(path.guiBoxes, function (box) { return box._guiElem; });
+      boxes = ko.utils.arrayMap(path.guiBoxes, function (box) { return box; });
 
-      var x = playerEl.offset().left + 20, y = playerEl.offset().top,
-         num = (ctx.player.scored || ctx.player.score());
+      var x = playerEl.offset().left + 20, y = playerEl.offset().top;
+
+      for (var j = 0; j < boxes.length; j++) {
+         var box = $(boxes[j]._guiElem);
+         var boxLemma = boxes[j].wordModel.lemma;
+         var boxScore = ko.utils.arrayFirst(scoreObj.words, function (w) { return w.lemma == boxLemma; }).points;
+
+         console.log(boxScore);
+
+         for (var i = 0; i < boxScore * 3; i++) {
+            var star = $('<div/>', { 'class': 'star' });
+            var scale = ((Math.random() * 5) + 3) / 10;
+            var offset = box.offset();
+
+            star.css({
+               scale: scale,
+               x: offset.left * (1 / scale),
+               y: offset.top * (1 / scale),
+               backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
+            });
+
+            setTimeout(function (o) {
+               $('#app').append(o[0]);
+
+               setTimeout(function (o) {
+                  var mul = Math.random() * 1.3 + .4;
+
+                  o[0].css({
+                     x: x * (mul / o[1]),
+                     y: y * (mul / o[1]),
+                     scale: o[1] / mul,
+                     opacity: 0
+                  });
+                  var el = o[0][0];
+                  el.addEventListener($.support.transitionEnd, function () {
+                     if (el.parentNode || el.parentElement) {
+                        el.removeEventListener($.support.transitionEnd);
+                        if (el.remove) {
+                           el.remove();
+                        } else {
+                           if (el.parentElement) el.parentElement.removeChild(el);
+                           else el.parentNode.removeChild(el);
+                           console.log('second attempt');
+                        }
+                     }
+                  });
+               }, 0, o);
+            }, Math.random() * 700, [star, scale]);
+         }
+      }
+   }
+
+   var glowingC = 0;
+   function showGlowing(tile) {
+
+      var cloud, rule, num;
+      $('.rule').each(function (i, el) {
+         if (ko.dataFor(el) == tile) {
+            cloud = $(el);
+            rule = cloud.parent();
+            num = 2 * (tile.bonus || (ctx.player.scored || ctx.player.score()) * tile.mul || 20);
+            return;
+         }
+      });
+
+      
+      if (glowingC++ % 2 == 0) {
+         cloud
+            .transition({ scale: 1.2 }, { easing: 'ease-in-out' })
+            .transition({ scale: .9 }, { easing: 'ease-in-out' })
+            .transition({ scale: 1 }, { easing: 'ease-in-out' });
+      } else {
+         cloud
+            .transition({ rotate: '+=15' }, { easing: 'ease-in-out' })
+            .transition({ rotate: '-=30' }, { easing: 'ease-in-out' })
+            .transition({ rotate: '+=15' }, { easing: 'ease-in-out' });
+      }
+      
+      //cloud.addClass('glow');
+      //setTimeout(function () {
+      //   cloud.removeClass('glow');
+      //}, 500);
+
+      //var r = Math.random();
+      //if (r < .2) {
+      //   cloud.transition({ scale: 1.2 }).transition({ scale: .9 }).transition({ scale: 1 });
+      //} else if (r < .4) {
+      //   $('.cloud:first').transition({ rotate: '+=360' }, 1500);
+      //} else if (r < .6) {
+      //   cloud.addClass('glow');
+      //   setTimeout(function () {
+      //      cloud.removeClass('glow');
+      //   }, 500);
+      //} else if (r < .8) {
+      //   cloud
+      //      .transition({ rotate: '+=15' })
+      //      .transition({ rotate: '-=30' })
+      //      .transition({ rotate: '+=15' });
+      //} else {
+      //   $('.cloud:first')
+      //      .transition({ rotate: '+=15' })
+      //      .transition({ rotate: '-=30' })
+      //      .transition({ rotate: '+=15' });
+      //}
 
       for (var i = 0; i < num; i++) {
          var star = $('<div/>', { 'class': 'star' });
          var scale = ((Math.random() * 5) + 3) / 10;
-         var box = $(boxes[i % boxes.length]);
-         var offset = box.offset();
+         var position = cloud.position();
+         var offset = cloud.offset();
 
          star.css({
             scale: scale,
-            x: offset.left * (1 / scale),
-            y: offset.top * (1 / scale),
-            backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
+            left: 60,
+            top: -20
          });
-         
-         setTimeout(function (o) {
-            $('#app').append(o[0]);
 
+         var distance = 200;
+         setTimeout(function (o) {
+            rule.append(o[0]);            
             setTimeout(function (o) {
-               var mul = Math.random() * 1.3 + .4;
+               var
+                  mul = Math.random() * 1.3 + .4,
+                  deg = Math.random() * 360,
+                  x = distance * Math.cos(deg * Math.PI / 180),
+                  y = distance * Math.sin(deg * Math.PI / 180);
 
                o[0].css({
                   x: x * (mul / o[1]),
                   y: y * (mul / o[1]),
                   scale: o[1] / mul,
-                  opacity: 0
+                  opacity: .1
                });
                var el = o[0][0];
                el.addEventListener($.support.transitionEnd, function () {
@@ -82,37 +194,62 @@
                      }
                   }
                });
-            }, 0, o);            
+            }, 0, o);
          }, Math.random() * 700, [star, scale]);
       }
    }
 
    function showScroll() {
-      //if(app.el.scroll)      
+      if (ctx.gameOver() || ctx.resumedGame) {
+         app.trigger("game:started:ready");
+         return;
+      }
+
       document.getElementById('app').classList.add('noScroll');
       setTimeout(function () {
-         if (app.el.clientHeight / app.el.scrollHeight > .7) return;
-         
-         app.scrollDown(100, true);
+         //if (app.el.clientHeight / app.el.scrollHeight > .7) {
+         //   document.getElementById('app').classList.remove('noScroll');
+         //   app.trigger("game:started:ready");
+         //   return;
+         //}
+
+         app.scrollDown(0, true);
          setTimeout(app.scrollUp, 800, true);
          setTimeout(function () {
             document.getElementById('app').classList.remove('noScroll');
-         }, 1400);
+            //$(window).resize();
+            app.trigger("game:started:ready");
+         }, 1500);
       }, 800);
    }
 
-   app.on("game:updated").then(function () {
+   app.on("game:updated").then(function (json) {
       ctx.canSwap(ctx.player.active());
 
-      if (ctx.player.scored)
-         showStars(ctx.player, ctx.lastPath);
+      console.log(json);
+      if (ctx.player.scored) {
+         showStars(ctx.player, ctx.lastPath, json.path.score);
+         if(json.path.score.startTile.satisfied)
+            showGlowing(ctx.lastPath.startTile);
+         if (json.path.score.endTile.satisfied)
+            showGlowing(ctx.lastPath.endTile);         
+      }
    });
 
    app.on("game:started").then(function () {
       ctx.canSwap(ctx.player.active() && !ctx.actionDone);
-      if (!ctx.gameOver()) {
+      setTimeout(function () {
          showScroll();
-      }
+      }, 100);
+   });
+
+   app.on("game:started:ready").then(function () {
+      setTimeout(function () {
+         if (sessionStorage.getItem("newUser")) {
+            sessionStorage.removeItem("newUser");
+            tutorial.show();
+         }         
+      }, 500);      
    });
 
    var cancel = function () {

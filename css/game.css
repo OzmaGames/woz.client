@@ -170,7 +170,7 @@ hr {
 
 .tile {
     position: absolute;
-    z-index: 3;
+    z-index: 5;
     font-size: 160px;
     width: 1em;
     height: 1em;
@@ -291,7 +291,7 @@ body > .cloud.fixed {
     -o-transform-origin: center center;
     -webkit-transform-origin: center center;
     transform-origin: center center;
-    z-index: 3;
+    z-index: 6;
     position: absolute;
 }
 
@@ -311,7 +311,7 @@ body > .cloud.fixed {
 }
 
     .cloud .rule {
-        z-index: 2;
+        z-index: 3;
         -moz-transform-origin: center center;
         -ms-transform-origin: center center;
         -o-transform-origin: center center;
@@ -336,7 +336,14 @@ body > .cloud.fixed {
         backface-visibility: hidden;
         -webkit-text-shadow: 0px 0px 1px #bad7e4;
         text-shadow: 0px 0px 1px #bad7e4;
+        -moz-transition: all .5s;
+        -o-transition: all .5s;
+        -webkit-transition: all .5s;
+        transition: all .5s;
     }
+        .cloud .rule.glow {
+            box-shadow: 0 0 4px 10px rgba(255, 255, 255,.5);
+        }
 
     .cloud .help {
         position: absolute;
@@ -398,7 +405,7 @@ body > .cloud.fixed {
     left: 0px;
     width: 60px;
     height: 70px;
-    z-index: 2;
+    z-index: 6;
     background-color: white;
     border-radius: 100%;
     color: #976b2c;
@@ -643,6 +650,7 @@ body > .cloud.fixed {
 
 
 .star {
+    z-index: 2;
     display: block;
     width: 1em;
     height: 1em;

@@ -107,6 +107,13 @@
       this.activeGame = ko.observable();
       this.type = ko.observable();
 
+      this.binding = function () {
+         return { cacheViews: false };
+      }
+      this.detached = function () {
+         console.log('detached');
+      }
+
       var base = this;
       app.on("game:update1").then(function (json) {
          /// <param name="json" value="_sh1"></param>
@@ -132,10 +139,10 @@
             }
             game.lastMod = new Date().getTime();
             game.lastPhrase.phrase = phrase.substr(0, phrase.length - 1);
-            game.lastPhrase.username = ko.utils.arrayFirst(json.playerInfo, function (p) { return !p.active; }).username;
+            game.lastPhrase.username = ko.utils.arrayFirst(json.players, function (p) { return !p.active; }).username;
                         
             var playedWithOld = ko.utils.arrayFirst(game.players, function (p) { return p.username == game.lastPhrase.username; });
-            var playedWithNew = ko.utils.arrayFirst(json.playerInfo, function (p) { return p.username == game.lastPhrase.username; });
+            var playedWithNew = ko.utils.arrayFirst(json.players, function (p) { return p.username == game.lastPhrase.username; });
             game.lastPhrase.score = playedWithNew.score - playedWithOld.score;
             playedWithOld.score = playedWithNew.score;
 

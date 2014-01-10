@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'durandal/activator', 'palette', 'api/datacontext', 'dialogs/templates/panel'],
   function (app, activator, palette, ctx, panel) {
-     
+
      var viewChanger = app.on('account:view:change').then(function (viewModel) {
-        app.loading(true);        
+        app.loading(true);
         app.dialog.show("panel", viewModel, {
            compositionComplete: function () {
               $('input[autofocus]').focus();
@@ -11,11 +11,21 @@
         });
      });
 
-     return {        
+     return {
         activate: function () {
            palette.get("menu").visible(false);
            palette.get("currency").visible(false);
-        },
+
+           var base = this;
+           this.sub = app.on("app:resized:hook").then(function () {
+              
+              if (app.el.clientHeight - document.getElementById('bKey').clientHeight < document.getElementById('fKey').clientHeight) {                 
+                 document.getElementById('fKey').classList.remove("footer");
+              } else {                 
+                 document.getElementById('fKey').classList.add("footer");
+              }
+           });
+        },        
 
         binding: function () {
            return { cacheViews: false };
@@ -39,7 +49,7 @@
 
         playMulti: function () {
            ctx.playerCount = 2;
-           router.navigate('game')
+           router.navigate('game');
         }
      }
   });

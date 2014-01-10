@@ -19,6 +19,7 @@
       this.left = data.left || 0;
       this.top = data.top || 0;
       this.css = data.css || '';
+      this.attributes.fixed = data.fixed || false;
    }
 
    Tutorial.prototype.attached = function (el) {

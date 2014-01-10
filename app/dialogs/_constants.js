@@ -41,7 +41,7 @@
          },
          SWAP_WORDS: {
             heading: "Swap words",
-            content: "Swap any number<br>of words for<br>random new ones."
+            content: "Use this function to<br> swap any number of words<br> for random new ones."
          },
          ADD_WORDS: {
             heading: "Add word",
@@ -53,7 +53,7 @@
          },
          SELECT_PHRASE: {
             heading: "Select phrase",
-            content: "Circle a phrase to<br>select it and place it<br>on the game board."
+            content: "Use this function to <br> circle a whole phrase <br> to place it all at once. <br> Words can also be placed <br> one by one."
          },
          WORKSPACE: {
             heading: "Workspace",
@@ -62,6 +62,14 @@
          GAMEBOARD: {
             heading: "Game board",
             content: "Place a phrase on<br>the game board to<br>score."
+         },
+         PLACE_PHRASE: {
+            heading: "Place a phrase",
+            content: "To score in this game<br>you need to <br>fill the paths <br>on the game board, <br> one at the time."
+         },
+         FILL_PATH: {
+            heading: "Fill in the path",
+            content: "Once the path is full,<br>the phrase will be accepted."
          }
       }
    }

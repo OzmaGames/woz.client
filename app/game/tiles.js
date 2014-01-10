@@ -4,6 +4,17 @@
    var RADIUS = 75;
    var containerSize = { w: 0, h: 0, ww: 0, hh: 0 };
 
+   var dynamicCloud = false;
+
+   app.on("game:rule:toggle").then(function () {
+      dynamicCloud = !dynamicCloud;
+      if (!dynamicCloud) {
+         for (var i = 0; i < instructionDoms.length; i++) {
+            attachInstruction(instructionDoms[i], 0);
+         }
+      }
+   });
+
    function attachInstruction(tile, top) {
       var $el = tile.$inst, elTop = tile.topOffset;
       if (elTop - top > 0) {
@@ -31,9 +42,10 @@
 
          $el.offset({ left: left, top: top });
       }
-   }
+   }   
 
    function scroll() {
+      if (!dynamicCloud) return;
       var top = document.getElementById('app').scrollTop;      
 
       for (var i = 0; i < instructionDoms.length; i++) {
@@ -153,9 +165,21 @@
 
    app.on("game:dispose").then(dispose);
 
+   var forceVisible = ko.observable(true);
+   app.on("game:started").then(function () {
+      if (ctx.gameOver() && ctx.resumedGame) {
+         forceVisible(false);
+      }
+   });
+
+   app.on("game:tiles:visible", function (visible) {
+      forceVisible(visible);
+   });
+
    return {
       tiles: ctx.tiles,
       gameOver: ctx.gameOver,
+      forceVisible: forceVisible,
       collection: ctx.collection,
       carryingWords: ko.computed(function () {
          return ctx.activeWords() || ctx.activeWord();
