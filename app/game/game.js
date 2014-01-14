@@ -245,10 +245,7 @@
 
    app.on("game:started:ready").then(function () {
       setTimeout(function () {
-         if (sessionStorage.getItem("newUser")) {
-            sessionStorage.removeItem("newUser");
-            tutorial.show();
-         }         
+         tutorial.show();
       }, 500);      
    });
 

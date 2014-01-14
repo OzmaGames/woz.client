@@ -1,4 +1,4 @@
-﻿define(["durandal/app", "facebook"], function (app) {
+﻿define(["durandal/app"/*,"facebook"*/], function (app) {
 
    app.facebook = app.facebook || {
       authResponse: undefined,
@@ -20,15 +20,15 @@
       },
       status: 0
    };
+   
+   //FB.init({
+   //   appId: '447561982032834',
+   //   status: false, // check login status
+   //   cookie: true,  // enable cookies to allow the server to access the session
+   //   xfbml: false   // parse XFBML
+   //});
 
-   FB.init({
-      appId: '447561982032834',
-      status: false, // check login status
-      cookie: true,  // enable cookies to allow the server to access the session
-      xfbml: false   // parse XFBML
-   });
-
-   FB.Event.subscribe('auth.authResponseChange', check);   
+   //FB.Event.subscribe('auth.authResponseChange', check);   
 
    return {
       getStatus: function (force) {

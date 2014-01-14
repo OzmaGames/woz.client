@@ -12,7 +12,7 @@
          data.top = item.offset().top + APP.scrollTop;
          data.left = item.offset().left + 60;
          data.fixed = true;
-         
+
          return app.dialog.show("tutorial", data);
       }
 
@@ -89,10 +89,11 @@
          return app.dialog.show("tutorial", data);
       }
 
+      var base = this;
       this.relatedWords = function () {
          var item = $('.magnet.related:first');
          if (item.length == 0) {
-            return $.Deferred(function (dfd) { dfd.resolve(); })
+            return $.Deferred(function (dfd) { dfd.reject(); })
          }
 
          var data = TUT.RELATED;
@@ -106,19 +107,24 @@
 
    Tutorial.prototype.getNext = function () {
       this.qIndex = this.qIndex || 0;
-      var queue = [this.placePhrase, this.fillPath, this.swapWords, this.circleWords, this.relatedWords];
-      return queue[this.qIndex++];
+
+      return[this.placePhrase, this.fillPath, this.swapWords, this.circleWords, this.relatedWords][this.qIndex++];      
    }
-      
-   Tutorial.prototype.showNext = function() {
+
+   Tutorial.prototype.showNext = function () {
       var func = this.getNext();
 
-      if (!func) return $.Deferred();
+      if (!func) {
+         localStorage.removeItem("tutorial");
+         return $.Deferred();
+      }
 
       var base = this;
       return func().then(function (obj) {
-         if (obj && obj.force) return $.Deferred();
+         if (obj && obj.force) return $.Deferred();      
          return base.showNext();
+      }, function () {
+         localStorage.setItem("tutorial", "related");
       });
    }
 
@@ -126,7 +132,16 @@
       var base = this;
       this.qIndex = 0;
 
+      if (!localStorage.getItem("tutorial")) {
+         return;
+      }
+
+      if (localStorage.getItem("tutorial") == "related") {
+         this.qIndex = 4;
+      }
+      
       this.showNext();
+
 
       return;
       base.swapWords().then(function (obj) {
