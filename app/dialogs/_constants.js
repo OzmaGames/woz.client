@@ -29,7 +29,7 @@
       TUT: {
          BONUS: {
             heading: "Bonus points",
-            content: "Get bonus points<br>by including<br>certain words."
+            content: "Each phrase can<br>receive up to<br>two bonuses<br>by fulfilling the<br>bonus rules linked<br>to the images<br>it is placed in between."
          },
          RELATED: {
             heading: "Related words",

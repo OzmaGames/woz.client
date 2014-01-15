@@ -79,11 +79,14 @@
       }
 
       this.bonus = function () {
-         var item = $('.cloud:first .info');
+         var item = $('.cloud .info').filter(function (i) {
+            if ($(this).offset().top > 220) return true;
+            return false;
+         });
 
          var data = TUT.BONUS;
          data.css = "bottom left";
-         data.top = item.offset().top - 130 + APP.scrollTop;
+         data.top = item.offset().top - 220 + APP.scrollTop;
          data.left = item.offset().left + 20;
 
          return app.dialog.show("tutorial", data);
@@ -108,7 +111,7 @@
    Tutorial.prototype.getNext = function () {
       this.qIndex = this.qIndex || 0;
 
-      return[this.placePhrase, this.fillPath, this.swapWords, this.circleWords, this.relatedWords][this.qIndex++];      
+      return [this.placePhrase, this.fillPath, this.bonus, this.swapWords, this.circleWords, this.relatedWords][this.qIndex++];
    }
 
    Tutorial.prototype.showNext = function () {
@@ -137,7 +140,7 @@
       }
 
       if (localStorage.getItem("tutorial") == "related") {
-         this.qIndex = 4;
+         this.qIndex = 5;
       }
       
       this.showNext();

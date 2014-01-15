@@ -14,6 +14,7 @@
       if (location.hash.match(/game/gi)) {
          if (e.keyCode == 84) {
             //t
+            localStorage.setItem("tutorial", true);
             tutorial.show();
          } else if (e.keyCode == 83) {
             //s
