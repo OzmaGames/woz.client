@@ -6,16 +6,17 @@
 
    var dynamicCloud = false;
 
-   app.on("game:rule:toggle").then(function () {
-      dynamicCloud = !dynamicCloud;
-      if (!dynamicCloud) {
+   app.on("game:rule:toggle").then(function () {      
+      if (dynamicCloud) {
          for (var i = 0; i < instructionDoms.length; i++) {
             attachInstruction(instructionDoms[i], 0);
          }
       }
+      dynamicCloud = !dynamicCloud;
    });
 
    function attachInstruction(tile, top) {
+      if (!dynamicCloud) return;
       var $el = tile.$inst, elTop = tile.topOffset;
       if (elTop - top > 0) {
          $el.appendTo(tile.$parent)
@@ -25,6 +26,7 @@
    }
 
    function floatInstruction(tile, scrollTop) {
+      if (!dynamicCloud) return;
       var $el = tile.$inst, $cloud = $el.find('.rule');
       elTop = $cloud.offset().top;
 
@@ -46,6 +48,7 @@
 
    function scroll() {
       if (!dynamicCloud) return;
+
       var top = document.getElementById('app').scrollTop;      
 
       for (var i = 0; i < instructionDoms.length; i++) {
@@ -191,7 +194,7 @@
       }),
 
       activate: function () {
-         $('#app').bind("scroll", scroll);
+         $('#app, body').bind("scroll", scroll);
       },
 
       binding: function () {

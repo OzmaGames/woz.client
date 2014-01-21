@@ -64,6 +64,10 @@ hr {
     position: absolute;
     top: 10px;
     right: 20px;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;    /*should be the same as paletes*/
     -webkit-text-shadow: 0 0 1px rgba(152, 107, 49,.5);
     text-shadow: 0 0 1px rgba(152, 107, 49,.5);
 }
@@ -129,7 +133,7 @@ hr {
 }
 
     #tiles-max > #tiles-aspect {
-        min-width: 600px;
+        min-width: 400px;
         position: relative;
         padding-bottom: 75%;
         width: 100%;
@@ -193,12 +197,12 @@ hr {
         transition: transform .5s ease-in-out, z-index 0s 0s;
     }
 
-        .tile.active .cloud /*, .carry .cloud:hover*/ {
+        .tile.active .cloud {
             opacity: 0;
-            -moz-transition: all .5s ease-in-out, opacity 0s ease-in-out;
-            -o-transition: all .5s ease-in-out, opacity 0s ease-in-out;
-            -webkit-transition: all .5s ease-in-out, opacity 0s ease-in-out;
-            transition: all .5s ease-in-out, opacity 0s ease-in-out;
+            -moz-transition: all .5s ease-in-out, opacity 0s 0s ease-in-out;
+            -o-transition: all .5s ease-in-out, opacity 0s 0s ease-in-out;
+            -webkit-transition: all .5s ease-in-out, opacity 0s 0s ease-in-out;
+            transition: all .5s ease-in-out, opacity 0s 0s ease-in-out;
         }
 
         .tile.active .mask, .tile .mask.norm {
@@ -353,7 +357,7 @@ body > .cloud.fixed {
 
     .cloud .info {
         margin-top: 5px;
-        font-family: GreatVibesRegular;
+        font-family: 'GreatVibesRegular' !important;
         font-weight: bold;
         font-size: large;
     }
@@ -416,7 +420,7 @@ body > .cloud.fixed {
 }
 
 #tiles.woz .mask {
-    background-image: url('../images/tiles/woz.jpg');
+    background-image: url('../images/tiles/woz-320.jpg');
 }
 
 #tiles.nf .mask {

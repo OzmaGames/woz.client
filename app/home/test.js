@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'durandal/app', 'api/datacontext'], function (router, app, ctx) {
+﻿define(['durandal/app', 'api/datacontext'], function (app, ctx) {
 
    return {
       binding: function () {
@@ -35,6 +35,10 @@
             setTimeout(function (l) { l.css({ opacity: 0 }) }, i * 200 + 2000, line);
          }
 
+         setTimeout(function () {
+            app.scrollDown();
+            app.scrollUp();
+         }, 1000);
 
          //for (var i = 0; i < 20; i++) {
          //   var star = $('<div/>', { 'class': 'starB' });

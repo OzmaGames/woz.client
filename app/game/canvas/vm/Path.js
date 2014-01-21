@@ -80,11 +80,13 @@
    Path.prototype.put = function () {
       if (activeWords() != null) {
          var words = activeWords(), pm = this.pathModel;
+         activeWords(null);
          if (words.length != pm.nWords) {
             if (words.length > pm.nWords)
                app.dialog.show("alert", { content: "too many words" });
             else
                app.dialog.show("alert", { content: "need more words" });
+            activeWords(words);
             return;
          }
 

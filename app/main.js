@@ -47,6 +47,10 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
         loadCSS('_firefox');
      }
 
+     if (!app.browser.android) {
+        loadCSS('_ipad');
+     }
+
      function loadCSS(css) {
         var link = document.createElement("link");
         link.type = "text/css";

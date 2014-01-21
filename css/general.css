@@ -30,7 +30,6 @@
 
 html {
     text-rendering: optimizeLegibility;
-    cursor: default;
     -webkit-font-smoothing: antialiased;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -38,15 +37,26 @@ html {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    font-family: Cambria, CopseRegular;
+    font-family: 'Cambria', 'CopseRegular', 'GreatVibesRegular';
+    cursor: default;
+    
+    background: url('../images/app/background.jpg') no-repeat fixed #f1e8d5 center center;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
 }
 
 html, body {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #f1e8d5;
+    height: 100%;    
 }
+
+body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 
 h1, h2, h3, h4, h5, h6 {
     font-family: CopseRegular;
@@ -56,36 +66,8 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0px 0px 1px #986B31;
     cursor: default;
 }
+h1{font-size:1.3em}h2{font-size:2em}h3{font-size:.9em}
 
-p {
-    cursor: default;
-}
-
-h1 {
-    font-size: 1.3em;
-}
-
-h2 {
-    font-size: 2em;
-}
-
-h3 {
-    font-size: .9em;
-}
-
-#app {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('../images/app/background.jpg') no-repeat;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
 
 .noScroll::-webkit-scrollbar, .noScroll::-webkit-scrollbar-thumb {
     background-color: transparent !important;
@@ -96,9 +78,8 @@ h3 {
     box-shadow: none !important;
 }
 
-
 #shell {
-    /*position: relative;*/
+       
     width: 100%;
     height: 100%;
 }
@@ -120,7 +101,7 @@ h3 {
 }
 
 #fixed {
-    position: fixed;
+    /*position: fixed;*/
     /*top: 0;
     left: 0;
     right: 0;
@@ -284,6 +265,26 @@ h3 {
     .palette.right {
         right: 20px;
     }
+
+@media screen and (max-height: 600px) {
+    .palette.fixed {
+        -moz-transform: translateY(5px);
+        -ms-transform: translateY(5px);
+        -o-transform: translateY(5px);
+        -webkit-transform: translateY(5px);
+        transform: translateY(5px);
+    }
+    #players {
+        -moz-transform: translateX(-70px);
+        -ms-transform: translateX(-70px);
+        -o-transform: translateX(-70px);
+        -webkit-transform: translateX(-70px);
+        transform: translateX(-70px);
+    }
+    .dialog .menu {        
+        top:80px !important;
+    }
+}
 
 .ui-overlay {
     background: #666;
@@ -834,7 +835,7 @@ a.small {
     margin: .2em;
     font-family: Cambria;
     font-size: .7em;
-    z-index: 0;
+    z-index: 1;
     cursor: default;
 }
 

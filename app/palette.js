@@ -5,8 +5,11 @@
 
       this.items = ko.observableArray([
          new Palette.Icon("currency", "command", "fixed", 123),
-         new Palette.Icon("menu")
+         new Palette.Icon("menu"),
+         new Palette.Icon("fullscreen", "command", "fixed")
       ]);
+
+      this.fixedItemsCount = 3;
 
       this.fixedItems = ko.computed(function () {
          return ko.utils.arrayFilter(base.items(), function (item) { return item.place == "fixed"; });
@@ -45,7 +48,7 @@
       }
 
       this.dispose = function () {
-         this.items.splice(2);
+         this.items.splice(this.fixedItemsCount);
       }
    }
 
@@ -122,5 +125,11 @@
       this.show = function () { base.visible(true); };
    }
 
-   return new Palette();   //singliton
+   var p = new Palette();
+
+   p.get("fullscreen").click(function () {
+      app.trigger("app:fullscreen");
+   });
+
+   return p;
 });

@@ -4,11 +4,11 @@
 
    circleWords = {
       load: function () {
-         dfd = system.defer();
-         //paper.setup($('canvas').get(0));
-         draw();
+         dfd = system.defer();         
          app.trigger("app:force-resize");
-         
+         unload();
+         draw();
+
          return dfd.promise();
       },
       unload: unload
@@ -17,6 +17,7 @@
    return circleWords;
 
    function unload() {
+      $('canvas').unbind('mouseup');
       paper.tool.remove();
    }
 
@@ -27,6 +28,8 @@
       tool.maxDistance = 32;
 
       tool.onMouseDown = function (event) {
+         event.event.preventDefault();
+
          path = new paper.Path();
          path.add(event.point);
          //path.strokeColor = 'red';
@@ -35,11 +38,14 @@
       };
 
       tool.onMouseDrag = function (event) {
+         event.event.preventDefault();
+
          path.add(event.point);
          addStarAt(event.point);         
       };
+      
+      tool.onMouseUp = function (event) {         
 
-      tool.onMouseUp = function (event) {
          if (path.length == 0) return;
          path.closePath();
 
@@ -60,6 +66,8 @@
          path.remove();
          app.trigger("app:force-resize");
       };
+
+      //$('canvas').bind('mouseup', tool.onMouseUp);
 
       addStarAt = function (point) {
          star = new paper.Raster("star");

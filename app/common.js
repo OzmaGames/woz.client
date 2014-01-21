@@ -9,6 +9,18 @@ define('common',
       var scrollable = true;
       var APP = document.getElementById('app');
 
+      app.browser = {};
+      app.browser.iPad = navigator.userAgent.match(/iPad/i);
+      app.browser.kindle = navigator.vendor.match(/amazon\.com/i);      
+      app.browser.android = navigator.userAgent.match(/android/i) || app.browser.kindle;
+      app.browser.tablet = app.browser.iPad || app.browser.kindle || app.browser.android;
+
+      if (app.browser.android) {
+         APP = document.body;         
+      } else {
+
+      }
+
       app.el = APP;
 
       window.addEventListener("resize", function (e) {
@@ -19,9 +31,9 @@ define('common',
          clearTimeout(resizeHelperId);
          resizeHelperId = setTimeout(function (event) {
             app.trigger("app:resized", event);
-         }, resizeDelay, e);         
+         }, resizeDelay, e);
       }, false);
-      
+
       //app.on("app:resized").then(function () {
       //   app.console.log("resized");
       //});
@@ -52,52 +64,67 @@ define('common',
             loading(value);
          },
          owner: this
-      });    
+      });
+
+      function resetScroll() {
+
+         var SHELL = document.getElementById("shell");
+         if (app.browser.tablet && !app.browser.iPad) SHELL = APP;         
+
+         $(SHELL).delay(1).promise().then(function () {
+            $(SHELL).css({
+               y: 0,
+               transition: 'all .5s ease-in-out'
+            }).delay(500).promise().then(function () {
+               $(SHELL).css({ transition: 'none', transform: 'none' });
+               $('#app, body').trigger("scroll");
+            });
+         });
+      }
 
       app.scrollUp = function (showScroll) {
          console.log("Scrolling UP");
-         if (APP.scrollTop == 0) return;
-         
-         if (!showScroll) APP.classList.add('noScroll');
-         var SHELL = document.getElementById("shell");
-         $(SHELL).css({
-            y: -APP.scrollTop
-         }).removeClass('noTransform');
-         APP.scrollTop = 0;
 
-         $(SHELL).delay(1).promise().then(function () {
-            $(SHELL).addClass('transition').addClass('noTransform').delay(500).promise().then(function () {
-               $(SHELL).removeClass("transition");
-               if (!showScroll) APP.classList.remove('noScroll');
-               $('#app').trigger("scroll");
-            })
-         });
-         
-         //$('#app').animate({ scrollTop: 0 }, "slow", "swing");
+         var SHELL = document.getElementById("shell");
+         if (app.browser.android) SHELL = APP;
+
+         if (APP.scrollTop != 0) {
+
+            $(SHELL).css({
+               y: -APP.scrollTop,
+            });
+            APP.scrollTop = 0;
+
+            resetScroll();
+         }
+         //$(APP).animate({ scrollTop: 0 }, "slow", "swing");
       };
 
       app.scrollDown = function (proportion, showScroll) {
-         console.log("Scrolling Down");
-         if (!showScroll) APP.classList.add('noScroll');
+         console.log("Scrolling Down");         
 
          var SHELL = document.getElementById("shell");
+         if (app.browser.android) SHELL = APP;     
+
          var pos = APP.scrollHeight - APP.clientHeight;
-
+         if ($('#gameboard').length) {
+            var maxPos = $('#gameboard').outerHeight() - 100;            
+            if (maxPos < pos) pos = maxPos;
+         }
          proportion = proportion || (pos - APP.scrollTop);
-         $(SHELL).css({
-            y: proportion
-         }).removeClass('noTransform');
-         APP.scrollTop = proportion + APP.scrollTop;
-                  
-         $(SHELL).delay(1).promise().then(function () {
-            $(SHELL).addClass('transition').addClass('noTransform').delay(500).promise().then(function () {
-               $(SHELL).removeClass("transition");
-               if (!showScroll) APP.classList.remove('noScroll');
-               $('#app').trigger("scroll");
-            })
-         });
 
-         //$('#app').animate({ scrollTop: 1000 }, "slow", "swing");
+         if (proportion != 0) {
+            if (app.browser.android) {
+               $(APP).animate({ scrollTop: proportion + APP.scrollTop }, "slow", "swing");
+            } else {
+               $(SHELL).css({
+                  y: proportion,
+               });
+               APP.scrollTop = proportion + APP.scrollTop;
+
+               resetScroll();
+            }
+         }
       }
 
       app.navigate = function (hash, options) {
@@ -107,11 +134,32 @@ define('common',
       app.dialog = Dialog;
       app.palette = palette;
       app.palette.get("menu").click(function () { app.dialog.show("menu"); });
-
+      app.palette.fixedItemsCount = app.browser.tablet ? 2 : 3;
 
       app.console = {
          log: function (str) {
             $('#console').html(str);
          }
-      }      
+      }
+
+      var isFullscreen = false;
+      app.on("app:fullscreen").then(function () {
+         var html = $('html')[0];
+
+         if (isFullscreen) {
+            html.webkitCancelFullscreen();
+         } else {
+            if (html.webkitRequestFullscreen)
+               html.webkitRequestFullscreen();
+            else if (html.webkitEnterFullScreen)
+               html.webkitEnterFullscreen();
+         }
+      });
+
+      //alert(navigator.userAgent);
+      //alert(navigator.platform);
+      //alert(navigator.appName);
+      //alert(navigator.connectionSpeed);
+      //alert(navigator.vendor);
+
    });

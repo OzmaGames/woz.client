@@ -27,6 +27,39 @@
       }
    };
 
+   ko.bindingHandlers["dVisible"] = {
+      init: function (element, valueAccessor, allBindingsAccessor) {
+         var value = valueAccessor();
+         $(element).toggle(ko.utils.unwrapObservable(value));
+      },
+      update: function (element, valueAccessor, allBindingsAccessor) {
+         var value = valueAccessor(), fadeIn, fadeOut;
+         others = allBindingsAccessor();
+
+         if (others.duration === undefined) {
+            others.duration = value.duration;
+         }
+
+         if (others.duration !== undefined) {
+            if (typeof others.duration == "number") {
+               fadeIn = fadeOut = others.duration;
+            } else {
+               fadeIn = others.duration.fadeIn || 0;
+               fadeOut = others.duration.fadeOut || 500;
+            }
+         } else {
+            fadeIn = fadeOut = 0;
+         }
+         
+         var isActive = ko.utils.unwrapObservable(value);
+
+         setTimeout(function () {
+            $(element).toggle(isActive);
+         }, isActive ? fadeIn : fadeOut);
+
+      }
+   };
+
    ko.bindingHandlers["timeAgo"] = {
       init: function (element, valueAccessor, allBindingsAccessor) {
 

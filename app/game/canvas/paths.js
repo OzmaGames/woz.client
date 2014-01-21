@@ -1,16 +1,9 @@
-﻿define(['api/datacontext', 'game/canvas/vm/Path', 'game/canvas/vm/DynamicPath', 'paper'],
-  function (ctx, Path, DynamicPath) {
+﻿define(['durandal/app', 'api/datacontext', 'game/canvas/vm/Path', 'game/canvas/vm/DynamicPath', 'paper'],
+  function (app, ctx, Path, DynamicPath) {
      var canvasDOM;
 
-     //when the user resize the screen, wait for a couple of ms before rendering
-     var resizeHelperID = null;
-     var resizeDelay = 100;     
-
-     $(window).resize(function () {
-        clearTimeout(resizeHelperID);
-        resizeHelperID = setTimeout(resize, resizeDelay);
-     });     
-
+     app.on("app:resized").then(resize);
+     
      ctx.tiles.subscribe(function (tiles) {
         updateModel(tiles);
      });
@@ -110,6 +103,7 @@
      }
 
      function redraw() {
+        
         var context = canvasDOM.getContext("2d");
         context.canvas.width = $(canvasDOM).width();
         context.canvas.height = $(canvasDOM).height();

@@ -40,7 +40,7 @@
       return str;
     }),
     showSummary: function () {
-       app.dialog.show("alert", { content: this.summary() });
+       app.dialog.show("alert", { content: $('<div/>').css({ fontSize: '12px' }).html(this.summary())[0].outerHTML });
     },
 
     activate: function () {
