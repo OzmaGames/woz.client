@@ -136,7 +136,7 @@ label {
     }
 
     label .text {
-        margin-left: 80px;
+        margin-left: 70px;
         display: inline-block;
         font-weight: normal;
     }
@@ -153,10 +153,10 @@ label {
         left: -10px;
         bottom: -10px;
         width: 90px;
-        -moz-background-size: 100% 100%;
-        -o-background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        -webkit-background-size: contain;
+        background-size: contain;
     }
 
         label .pic span {
@@ -176,13 +176,13 @@ label {
     }
 
     label .description {
-        display: block;
-        font-family: Cambria;
+        display: inline-block;
+        font-family: 'Cambria', CopseRegular;
         font-size: .85em;
-        /*-webkit-text-shadow: 0 0 0px #986B31;
-        text-shadow: 0 0 0px #986B31;*/
         text-transform: none;
         font-weight: normal;
+        width: 100%;
+        white-space: nowrap;
     }
 
     label.select {
@@ -227,12 +227,11 @@ select.woz {
 }
 
 input[type="text"], input[type="password"], input[type="email"], input[type="search"] {
-    font-family: Cambria;
+    font-family: Cambria, CopseRegular;
     font-weight: bold;
     font-size: 1em;
     background: white;
     border: 1px solid #BE9967;
-    border-radius: 2px;
     padding: .5em 1em;
     color: #986B31;
     -webkit-box-sizing: border-box;
@@ -249,6 +248,10 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
         box-shadow: 0 0 5px red;
     }
 
+input[type="search"] {
+    font-weight: normal;
+}
+
 span + input {
     margin-top: 0 !important;
 }
@@ -262,7 +265,7 @@ input + span.error {
 }
 
 input:invalid + span.error, p.error {
-    font-family: Cambria;
+    font-family: Cambria, CopseRegular;
     font-style: italic;
     font-size: 1em;
     color: #f0323f;

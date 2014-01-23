@@ -1,0 +1,25 @@
+﻿html{
+    -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+}
+
+html, body, .scroll{
+    -webkit-overflow-scrolling: touch;
+}
+
+#app::-webkit-scrollbar, #app::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+}
+
+#app::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+#game-main{
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}

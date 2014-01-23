@@ -16,7 +16,7 @@
       activate: function (moduleName) {
          if (!moduleName) return;
          this.modelName(moduleName);
-         sub = app.on("app:resized:instant").then(adjust);
+         sub = app.on("app:resized:hook").then(adjust);
       },
 
       bindingComplete: function (view) {

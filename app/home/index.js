@@ -17,8 +17,7 @@
            palette.get("currency").visible(false);
 
            var base = this;
-           this.sub = app.on("app:resized:hook").then(function () {
-              
+           this.sub = app.on("app:resized:hook").then(function () {              
               if (app.el.clientHeight - document.getElementById('bKey').clientHeight < document.getElementById('fKey').clientHeight) {                 
                  document.getElementById('fKey').classList.remove("footer");
               } else {                 

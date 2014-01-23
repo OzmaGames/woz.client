@@ -47,7 +47,7 @@
 
          $el.css({
             left: (100 * word.x).toFixed(2) + '%',
-            top: (100 * word.y).toFixed(2) + '%'
+            top: (100 * word.y).toFixed(2) + '%'            
          });
 
          $el.data("immovable", ctx.words.immovable);

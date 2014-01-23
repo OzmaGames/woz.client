@@ -4,36 +4,47 @@ define('common',
     'dialogs/_builder', 'api/server/setup', 'api/datacontext', './palette',
     '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout'],
    function (system, app, router, Dialog, server, ctx, palette) {
-      var resizeHelperId = null;
-      var resizeDelay = 100;
       var scrollable = true;
-      var APP = document.getElementById('app');
+      
+      (function (app) {
+         app.browser = {};
+         app.browser.iPad = navigator.userAgent.match(/iPad/i);
+         app.browser.kindle = navigator.vendor.match(/amazon\.com/i);
+         app.browser.android = navigator.userAgent.match(/android/i) || app.browser.kindle;
+         app.browser.tablet = app.browser.iPad || app.browser.android;
 
-      app.browser = {};
-      app.browser.iPad = navigator.userAgent.match(/iPad/i);
-      app.browser.kindle = navigator.vendor.match(/amazon\.com/i);      
-      app.browser.android = navigator.userAgent.match(/android/i) || app.browser.kindle;
-      app.browser.tablet = app.browser.iPad || app.browser.kindle || app.browser.android;
+         app.el = document.getElementById('app');
+         if (app.browser.android) {
+            app.el = document.body;
+         }         
+      })(app);
 
-      if (app.browser.android) {
-         APP = document.body;         
-      } else {
+      (function (app) {
+         var resizeHelperId = null;
+         var resizeDelay = 100;
+         window.addEventListener("resize", function (e) {
+            app.trigger("app:resized:hook", event);
+            clearTimeout(resizeHelperId);
+            resizeHelperId = setTimeout(function (event) {
+               app.trigger("app:resized", event);
+            }, resizeDelay, e);
+         }, false);
 
-      }
+         var loading = ko.observable(false);
+         app.inlineLoading = ko.observable(false);
+         app.loading = ko.computed({
+            read: function () {
+               return loading() || ctx.loading() === true;
+            },
+            write: function (value) {
+               loading(value);
+            },
+            owner: this
+         });
 
-      app.el = APP;
-
-      window.addEventListener("resize", function (e) {
-         app.trigger("app:resized:hook", event);
-         setTimeout(function () {
-            app.trigger("app:resized:instant", event);
-         }, 0);
-         clearTimeout(resizeHelperId);
-         resizeHelperId = setTimeout(function (event) {
-            app.trigger("app:resized", event);
-         }, resizeDelay, e);
-      }, false);
-
+      })(app);
+      
+      var APP = app.el;
       //app.on("app:resized").then(function () {
       //   app.console.log("resized");
       //});
@@ -53,19 +64,7 @@ define('common',
       //APP.addEventListener("touchmove", function (e) {         
       //   e.stopPropagation();
       //}, false);
-
-      var loading = ko.observable(false);
-      app.inlineLoading = ko.observable(false);
-      app.loading = ko.computed({
-         read: function () {
-            return loading() || ctx.loading() === true;
-         },
-         write: function (value) {
-            loading(value);
-         },
-         owner: this
-      });
-
+      
       function resetScroll() {
 
          var SHELL = document.getElementById("shell");
@@ -134,7 +133,10 @@ define('common',
       app.dialog = Dialog;
       app.palette = palette;
       app.palette.get("menu").click(function () { app.dialog.show("menu"); });
-      app.palette.fixedItemsCount = app.browser.tablet ? 2 : 3;
+      if (app.browser.tablet) {
+         app.palette.get("fullscreen").hide()
+      }      
+
 
       app.console = {
          log: function (str) {
@@ -156,10 +158,14 @@ define('common',
          }
       });
 
-      //alert(navigator.userAgent);
-      //alert(navigator.platform);
-      //alert(navigator.appName);
-      //alert(navigator.connectionSpeed);
-      //alert(navigator.vendor);
+      //alert(
+      //   'user agent: ' + navigator.userAgent +
+      //   '\nplatform: ' + navigator.platform +
+      //   '\nappName: ' + navigator.appName +
+      //   '\nappVersion: ' + navigator.appVersion +
+      //   '\nvendor: ' + navigator.vendor +
+      //   '\nvendorSub: ' + navigator.vendorSub +
+      //   '\nproduct: ' + navigator.product
+      //   );
 
    });

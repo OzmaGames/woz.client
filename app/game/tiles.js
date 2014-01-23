@@ -17,6 +17,7 @@
 
    function attachInstruction(tile, top) {
       if (!dynamicCloud) return;
+
       var $el = tile.$inst, elTop = tile.topOffset;
       if (elTop - top > 0) {
          $el.appendTo(tile.$parent)
@@ -27,6 +28,7 @@
 
    function floatInstruction(tile, scrollTop) {
       if (!dynamicCloud) return;
+
       var $el = tile.$inst, $cloud = $el.find('.rule');
       elTop = $cloud.offset().top;
 
@@ -81,7 +83,7 @@
       containerSize.ww = $('#tiles-max').innerWidth();
       containerSize.hh = $('#tiles-max').innerHeight();
 
-      if (document.getElementById('app').clientWidth < 900) {
+      if (app.el.clientWidth < 900) {
          containerSize.hh += 100;
       }
    }
@@ -99,7 +101,7 @@
          tile.origin.scale = tile.origin.h / containerSize.hh;
 
          tile.$mask.css({
-            scale: tile.origin.scale,
+            scale: tile.origin.scale,            
             fontSize: 1 / tile.origin.scale + 'em'
          });
       } else {
@@ -119,11 +121,8 @@
       if (containerSize.h == 0) return;
 
       if (centered) {
-         tile.$el.css({
-            x: 0,
-            y: 0
-         });
-      } else {
+         tile.$el.css({ transform: '' });
+      } else {         
          tile.$el.css({
             x: tile.x * containerSize.w - containerSize.w / 2,
             y: tile.y * containerSize.h - containerSize.h / 2

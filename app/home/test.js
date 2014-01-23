@@ -35,10 +35,10 @@
             setTimeout(function (l) { l.css({ opacity: 0 }) }, i * 200 + 2000, line);
          }
 
-         setTimeout(function () {
-            app.scrollDown();
-            app.scrollUp();
-         }, 1000);
+         //setTimeout(function () {
+         //   app.scrollDown();
+         //   app.scrollUp();
+         //}, 1000);
 
          //for (var i = 0; i < 20; i++) {
          //   var star = $('<div/>', { 'class': 'starB' });

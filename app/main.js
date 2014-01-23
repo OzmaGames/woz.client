@@ -3,9 +3,7 @@ requirejs.config({
       'text': '../lib/requirejs-text/text',
       'durandal': '../lib/durandal',
       'plugins': '../lib/durandal/plugins',
-      'transitions': '../lib/durandal/transitions',
-      //'paper': '../lib/paper/paper',
-      //'socket': '../lib/socket.io',
+      'transitions': '../lib/durandal/transitions',      
       'crypto.sha3': '../lib/crypto.sha3',
       'facebook': '//connect.facebook.net/en_US/all'
    },
@@ -49,6 +47,10 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
 
      if (!app.browser.android) {
         loadCSS('_ipad');
+     }
+
+     if ($.support.touch) {
+        loadCSS('_touch');
      }
 
      function loadCSS(css) {
