@@ -53,7 +53,7 @@
          app.dialog.closeAll();
          app.trigger("game:dispose");
 
-         app.palette.dispose();
+         app.palette.dispose();         
       },
       binding: function () {
          return { cacheViews: false };

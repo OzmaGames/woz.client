@@ -40,7 +40,7 @@ exports.config = function (weyland) {
           },
           stubModules: ['text'],
           keepBuildDir: true,
-          out: 'app.js'
+          out: 'build/app.js'
         }
       });
 }

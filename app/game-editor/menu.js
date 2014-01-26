@@ -33,7 +33,7 @@
             content: "Are you sure you want to remove this game board?", modal: true,
             doneText: 'YES', cancelText: 'NO'
          }).then(function (res) {
-            if (res != "cancel") {
+            if (res == "done") {
                app.trigger("server:manager:boards", {
                   id: gameObject.id,
                   command: 'delete'

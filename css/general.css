@@ -118,8 +118,8 @@ h3 {
 }
 
 #shell {
-    width: 100%;
-    height: 100%;
+    /*width: 100%;
+    height: 100%;*/
 }
 
 #fixed {
@@ -1059,7 +1059,7 @@ a.small {
     display: block;
     position: relative;
     font-size: 20px;
-    min-height: 40em;
+    min-height: 18em;
     max-width: 900px;
     font-family: Cambria, CopseRegular;
     background-image: url('../images/app/tabs/main.png');

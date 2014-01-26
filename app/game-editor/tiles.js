@@ -70,7 +70,7 @@
             content: "Delete tile?", modal: true,
             doneText: 'YES', cancelText: 'NO'
          }).then(function (res) {
-            if (res != "cancel") {
+            if (res == "done") {
 
                var paths = ctx.paths();
                for (var i = 0; i < paths.length; i++) {

@@ -5,13 +5,32 @@
 
       var $el = $(this), hasMoved = false;
 
-      if ($.support.touch) $el.touchPunch();
+      //if ($.support.touch) $el.touchPunch();
+      
+      function immovable(){
+         return $el.data("immovable") && $el.data("immovable")();
+      }
+
+      this.immovable = immovable;
+
+      function convertEventForTouch(e) {
+         if ($.support.touch) {
+            var touch = e.originalEvent.changedTouches[0];
+
+            e.clientX = e.pageX = touch.pageX;
+            e.clientY = e.pageY = touch.pageY;
+
+            e.preventDefault();
+         }
+      }
 
       var events = {
          mousedown: function (e) {
-            e.preventDefault(); // disable selection
-            e.stopPropagation();
+            e.preventDefault(); // disable selection            
+            e.stopPropagation();            
+            $el.addClass('drag');
 
+            convertEventForTouch(e);
             if (opt.withinEl) {
                var height = opt.withinEl[0].scrollHeight, width = opt.withinEl.innerWidth();
                var padLeft = parseInt(opt.withinEl.css('padding-left')),
@@ -40,24 +59,27 @@
             }
 
             //$el.css({ left: $el.offset().left, top: $el.offset().top });
-            $el.addClass('drag');
-
             opt.dragStart.call(e);
-            if (!$el.data("immovable") || $el.data("immovable")() !== true) { //false or null
-               opt.parent.bind("mousemove", startPoint, events.mousemove);
+            
+            if (!immovable()) {
+               var pointerMove = $.support.touch ? "touchmove" : "mousemove";
+               opt.parent.bind(pointerMove, startPoint, events.mousemove);
                opt.parent.bind("scroll", startPoint, events.scroll);
             }
-            opt.parent.one("mouseup", startPoint, events.mouseup);
+            var pointerUp = $.support.touch ? "touchend" : "mouseup";
+            opt.parent.one(pointerUp, startPoint, events.mouseup);
             return startPoint;
          },
 
          mouseup: function (e) {
             if (!$el.hasClass('drag')) return;
+            convertEventForTouch(e);
 
-            opt.parent.unbind("mousemove", events.mousemove)
+            opt.parent.unbind("mousemove touchmove", events.mousemove)
             opt.parent.unbind("scroll", events.scroll)
             $el.removeClass('drag');
 
+            
             var isWithin = events.isWithinBoundaries(e);
             var top = isWithin ? (e.data.t + e.pageY + e.data.scrollTopChange) : ($el.position().top),
                 left = isWithin ? (e.data.l + e.pageX) : ($el.position().left);
@@ -87,6 +109,8 @@
          },
 
          mousemove: function (e) {
+            convertEventForTouch(e);
+
             var newTop = e.pageY + e.data.t + e.data.scrollTopChange,
                 newLeft = e.pageX + e.data.l;            
             
@@ -134,9 +158,8 @@
          }
       };
 
-      $el.bind({
-         mousedown: events.mousedown
-      });
+      var pointerDown = $.support.touch ? "touchstart" : "mousedown";
+      $el.bind(pointerDown, events.mousedown);      
 
       $el.data('draggable', this);
 

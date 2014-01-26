@@ -61,5 +61,10 @@
       }).promise();
    }
 
+   Confirm.prototype.attributes = {
+      fixed: true,
+      singleton: true
+   };
+
    return Confirm;
 });

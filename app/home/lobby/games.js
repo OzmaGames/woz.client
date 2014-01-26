@@ -236,7 +236,7 @@
             content: "Are you sure you want to delete this game?", modal: true,
             doneText: 'YES', cancelText: 'NO'
          }).then(function (res) {
-            if (res != "cancel") {
+            if (res == "done") {
                base.games.remove(game);
 
                app.trigger("server:game:resign", {

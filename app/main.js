@@ -35,6 +35,8 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
      app.start().then(function () {
         viewLocator.useConvention();
         app.setRoot('shell', null, 'app');
+
+        
      });
 
      if (document.body.style.backgroundPositionX === undefined) {

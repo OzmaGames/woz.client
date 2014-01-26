@@ -88,7 +88,7 @@
       }
    }
 
-   function scaleTile(tile, animateScale) {
+   function scaleTile(tile, animateScale) {      
       if (containerSize.h == 0) return;
 
       if (!animateScale) {
@@ -118,6 +118,7 @@
    }
 
    function reposTile(tile, centered) {
+      
       if (containerSize.h == 0) return;
 
       if (centered) {

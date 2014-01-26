@@ -5,7 +5,7 @@ define('common',
     '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout'],
    function (system, app, router, Dialog, server, ctx, palette) {
       var scrollable = true;
-      
+
       (function (app) {
          app.browser = {};
          app.browser.iPad = navigator.userAgent.match(/iPad/i);
@@ -14,9 +14,9 @@ define('common',
          app.browser.tablet = app.browser.iPad || app.browser.android;
 
          app.el = document.getElementById('app');
-         if (app.browser.android) {
-            app.el = document.body;
-         }         
+         //if (app.browser.android) {
+         //   app.el = document.body;
+         //}         
       })(app);
 
       (function (app) {
@@ -43,7 +43,7 @@ define('common',
          });
 
       })(app);
-      
+
       var APP = app.el;
       //app.on("app:resized").then(function () {
       //   app.console.log("resized");
@@ -64,11 +64,11 @@ define('common',
       //APP.addEventListener("touchmove", function (e) {         
       //   e.stopPropagation();
       //}, false);
-      
+
       function resetScroll() {
 
          var SHELL = document.getElementById("shell");
-         if (app.browser.tablet && !app.browser.iPad) SHELL = APP;         
+         //if (app.browser.tablet && !app.browser.iPad) SHELL = APP;         
 
          $(SHELL).delay(1).promise().then(function () {
             $(SHELL).css({
@@ -85,7 +85,6 @@ define('common',
          console.log("Scrolling UP");
 
          var SHELL = document.getElementById("shell");
-         if (app.browser.android) SHELL = APP;
 
          if (APP.scrollTop != 0) {
 
@@ -100,30 +99,27 @@ define('common',
       };
 
       app.scrollDown = function (proportion, showScroll) {
-         console.log("Scrolling Down");         
+         console.log("Scrolling Down");
 
          var SHELL = document.getElementById("shell");
-         if (app.browser.android) SHELL = APP;     
 
          var pos = APP.scrollHeight - APP.clientHeight;
          if ($('#gameboard').length) {
-            var maxPos = $('#gameboard').outerHeight() - 100;            
+            var maxPos = $('#gameboard').outerHeight() - 100;
             if (maxPos < pos) pos = maxPos;
          }
          proportion = proportion || (pos - APP.scrollTop);
 
          if (proportion != 0) {
-            if (app.browser.android) {
-               $(APP).animate({ scrollTop: proportion + APP.scrollTop }, "slow", "swing");
-            } else {
-               $(SHELL).css({
-                  y: proportion,
-               });
-               APP.scrollTop = proportion + APP.scrollTop;
+            $(SHELL).css({
+               y: proportion,
+            });
+            APP.scrollTop = proportion + APP.scrollTop;
 
-               resetScroll();
-            }
+            resetScroll();
+
          }
+         //$(APP).animate({ scrollTop: proportion + APP.scrollTop }, "slow", "swing");
       }
 
       app.navigate = function (hash, options) {
@@ -135,7 +131,7 @@ define('common',
       app.palette.get("menu").click(function () { app.dialog.show("menu"); });
       if (app.browser.tablet) {
          app.palette.get("fullscreen").hide()
-      }      
+      }
 
 
       app.console = {

@@ -423,6 +423,13 @@
                disabled: ko.computed(function () { return !game.allowCircle() })
             });
 
+         //app.dialog.show("confirm", {
+         //   modal: true,
+         //   content: 'Do you want to place <br/><b>"test"</b>?',
+         //   doneText: 'YES',
+         //   cancelText: 'NO'
+         //});
+
          ctx.load(id);
       },
 

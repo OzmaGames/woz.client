@@ -215,11 +215,23 @@
 
    var clickInit = ko.bindingHandlers.click.init;
 
-   ko.bindingHandlers["click"].init = function (element) {
-      clickInit.apply(this, arguments);
-      element.onlyClick = true;
-      if ($.support.touch)
+   ko.bindingHandlers["click"].init = function (element, valueAccessor, allBindingsAccessor, viewModel) {      
+      if ($.support.touch) {
          $(element).touchPunch();
+
+         //if (element.tagName.toLowerCase() == "button") {
+         //   clickInit.apply(this, arguments);
+         //} else {
+            element.onlyClick = function (event) {
+               if (valueAccessor().apply(viewModel, [viewModel, event]) !== true) {
+                  event.preventDefault();
+               }
+            }
+         //}
+      }
+      else {
+         clickInit.apply(this, arguments);
+      }
    };
 
    ko.bindingHandlers["verifiableValue"] = {

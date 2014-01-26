@@ -1,64 +1,40 @@
 ﻿#game-main {
-    position: absolute;
     background-image: url('../images/app/background.jpg');
     background-repeat: no-repeat;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
+    position: absolute;
     min-height: 100%;
     width: 100%;
     top: 0;
     left: 0;
-    right: 0;    
+    right: 0;        
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
     #game-main canvas {
         position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        min-height: 100%;
         width: 100%;
-        height: 100%;
-        margin: 0px;
-        top: 0px;
         z-index: 1;
     }
 
 hr {
-    margin: 5px;
+    width:90%;
+    margin: 5px auto;    
     border: 0;
     border-radius: 50%;
     box-shadow: 0 0 15px 2px rgba(152,107,49,.3);
     background-color: rgba(152,107,49,.3);
-    height: 2px;
+    height: 2px;    
 }
-
-/*#game-main hr {
-        border: 0;
-        height: 5px;
-        position: relative;
-        margin: 5px 0;
-    }
-
-        #game-main hr:before {
-            top: -0.5em;            
-        }
-
-        #game-main hr:after {
-            top: 1px;
-        }
-
-        #game-main hr:before, #game-main hr:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-        }
-
-        #game-main hr, #game-main hr:before {
-            background: -moz-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%, rgba(152, 107, 49,0) 75%);
-            background: -webkit-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
-            background: -o-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
-            background: -ms-radial-gradient(center, ellipse cover, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
-            background: radial-gradient(ellipse at center, rgba(152, 107, 49,0.3) 0%,rgba(152, 107, 49,0) 75%);
-        }*/
 
 #players {
     position: absolute;
@@ -69,12 +45,7 @@ hr {
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out; /*should be the same as for paletes*/
     -webkit-text-shadow: 0 0 1px rgba(152, 107, 49,.5);
-    text-shadow: 0 0 1px rgba(152, 107, 49,.5);
-    -moz-transform: translateZ(1);
-    -ms-transform: translateZ(1);
-    -o-transform: translateZ(1);
-    -webkit-transform: translateZ(1);
-    transform: translateZ(1);
+    text-shadow: 0 0 1px rgba(152, 107, 49,.5);        
 }
 
 .player {
@@ -174,7 +145,7 @@ hr {
 #tiles .container {
     position: relative;
     width: 100%;
-    height: 100%;    
+    height: 100%;
 }
 
 .tile {
@@ -191,7 +162,7 @@ hr {
     -moz-transition: -moz-transform .5s ease-in-out, z-index 0s .5s;
     -o-transition: -o-transform .5s ease-in-out, z-index 0s .5s;
     -webkit-transition: -webkit-transform .5s ease-in-out, z-index 0s .5s;
-    transition: transform .5s ease-in-out, z-index 0s .5s;    
+    transition: transform .5s ease-in-out, z-index 0s .5s;
 }
 
     .tile.active {
@@ -210,13 +181,12 @@ hr {
             transition: all .5s ease-in-out, opacity 0s 0s ease-in-out;
         }
 
-        .tile.active .mask, .tile .mask.norm {
-            border-width: 12px;
+        .tile.active .mask, .tile .mask.norm {            
             box-shadow: 5px 5px 10px 0 #333;
         }
 
     .tile .mask.norm {
-        border-width: 5px;
+        /*border-width: 5px;*/
     }
 
     .tile.drag {
@@ -240,10 +210,10 @@ hr {
         -o-background-size: auto 100%;
         -webkit-background-size: auto 100%;
         background-size: auto 100%;
-        -moz-transition: all .5s ease-in-out;
-        -o-transition: all .5s ease-in-out;
-        -webkit-transition: all .5s ease-in-out;
-        transition: all .5s ease-in-out;
+        -moz-transition: -moz-transform .5s ease-in-out;
+        -o-transition: -o-transform .5s ease-in-out;
+        -webkit-transition: -webkit-transform .5s ease-in-out;
+        transition: transform .5s ease-in-out;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
@@ -289,7 +259,6 @@ hr {
             -webkit-backface-visibility: hidden;
             -moz-backface-visibility: hidden;
             backface-visibility: hidden;
-            /*image-rendering: optimizeQuality;*/
         }
 
 body > .cloud.fixed {
@@ -350,6 +319,7 @@ body > .cloud.fixed {
         -webkit-transition: all .5s;
         transition: all .5s;
     }
+
         .cloud .rule.glow {
             box-shadow: 0 0 4px 10px rgba(255, 255, 255,.5);
         }
@@ -453,7 +423,7 @@ body > .cloud.fixed {
 }
 
 .loading #workspace {
-    height: 0px;
+    height: 0;
 }
 
 .magnet {
@@ -677,11 +647,11 @@ body > .cloud.fixed {
     -o-transform-origin: center;
     -webkit-transform-origin: center;
     transform-origin: center;
-    background-color: transparent!important;
+    background-color: transparent !important;
 }
 
 
-.starB{
+.starB {
     display: block;
     width: 1em;
     height: 1em;

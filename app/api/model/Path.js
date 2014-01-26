@@ -54,16 +54,12 @@
             }).then(function (result) {
                model.activeWords(null);
                paper.tool.remove();
-               if (result == "cancel") {
-                  base.phrase._complete(false);
-                  base.removeAll();
-               }
-               else {
-                  app.loading(true);                  
+               if (result == "done") {
+                  app.loading(true);
                   model.player.active(false);
                   base.phrase.words().sort(function (a, b) { return a.index - b.index });
                   //console.log(ko.utils.arrayMap(base.phrase.words(), function (word) { return word.word.lemma; }));
-                  
+
                   var data = {
                      gameID: model.gameID,
                      pathID: base.id,
@@ -73,7 +69,10 @@
                   base.completeSub.dispose();
                   model.lastPath = base;
                   app.trigger("server:game:place-phrase", data);
-                  app.scrollUp();
+                  app.scrollUp(); 
+               } else {
+                  base.phrase._complete(false);
+                  base.removeAll();
                }
             });
          }
