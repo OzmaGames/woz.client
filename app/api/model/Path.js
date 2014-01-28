@@ -42,10 +42,11 @@
 
       base.phrase.complete = ko.computed(function () {
          return this.phrase._complete() === true || this.phrase.words().length == 6 || (this.nWords != 0 && this.phrase.words().length == this.nWords);
-      }, base);
+      }, base).extend({ throttle: 1 }); //let exchange happends if any
       
       base.completeSub = base.phrase.complete.subscribe(function (complete) {
          if (complete) {
+            app.dialog.close("slipper");
             app.dialog.show("confirm", {
                modal: true,
                content: 'Do you want to place <br/><b>"' + base.phrase.toString() + '"</b>?',
@@ -136,18 +137,22 @@
          model.words.valueHasMutated();
       }
 
-      base._removeEntity = function (entity) {
+      base._removeEntity = function (entity, opt) {
          if (entity == null) return false;
 
-         entity.word.isPlayed = 0;
+         opt = opt || {};
+
+         if (!opt.keepUnplayed) {
+            entity.word.isPlayed = 0;
+         }
          base.phrase.words.remove(entity);
 
          model.words.valueHasMutated();
       }
 
-      base.removeWordAt = function (index) {
+      base.removeWordAt = function (index, opt) {
          var entity = base._getEntityAt(index);
-         base._removeEntity(entity);
+         base._removeEntity(entity, opt);
          if (base.nWords == 0) {
             for (var i = entity.index + 1; i < 10; i++) {
                if ((entity = base._getEntityAt(i)) == null) break;

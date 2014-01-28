@@ -18,7 +18,11 @@
      }
 
      function getHost(instance, mData) {
-        var isFixed = typeof(mData) == 'object' ? mData.fixed : instance.attributes.fixed;
+        
+        var isFixed = instance.attributes.fixed;
+        if (typeof (mData) == 'object') {
+           isFixed = mData.fixed === undefined ? isFixed : mData.fixed;
+        } 
         var root = createRoot(isFixed);
         
         return system.defer(function (dfd) {

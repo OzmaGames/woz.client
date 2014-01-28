@@ -180,6 +180,7 @@
    });
 
    return {
+      loading: ctx.loading,
       tiles: ctx.tiles,
       gameOver: ctx.gameOver,
       forceVisible: forceVisible,
@@ -256,11 +257,15 @@
          tile.$mask = $el.find('.mask');
          tile.ruleOffset = { x: 0, y: 0 };
 
-         reposTile(tile);
+         $el.hide();
          scaleTile(tile, false);
+         $el.show();
 
-         UpdateTileInstruction(tile);
-         instructionDoms.push(tile);
+         setTimeout(function () {
+            UpdateTileInstruction(tile);
+            reposTile(tile);
+            instructionDoms.push(tile);
+         }, 1)         
       },
 
       detached: dispose

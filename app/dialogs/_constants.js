@@ -18,7 +18,12 @@
 
       CIRCLE_WORDS: {
          heading: "SELECT A PHRASE",
-         content: "Place a whole phrase on the game board, by circling it and then choose a path to place it."
+         content: "Place a whole phrase on the game board, by circling it and then choose a path to place it. <div class=\"select-pic\"></div>"
+      },
+
+      CHOOSE_PATH: {
+         heading: "CHOOSE A PATH",
+         content: "Choose a path to place your phrase."
       },
 
       SWAP_WORDS: {

@@ -21,7 +21,7 @@ define('common',
 
       (function (app) {
          var resizeHelperId = null;
-         var resizeDelay = 100;
+         var resizeDelay = 200;
          window.addEventListener("resize", function (e) {
             app.trigger("app:resized:hook", event);
             clearTimeout(resizeHelperId);

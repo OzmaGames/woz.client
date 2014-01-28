@@ -13,8 +13,10 @@
    Loading.prototype.binding = function (el) {
       this.el = $('.loading', el);
    }
-   Loading.prototype.bindingComplete = function () {
+   Loading.prototype.bindingComplete = function (el) {
+      this.el = $('.loading', el);
 
+      $('.block', this.el).css({ scale: .2, opacity: .2 });
    }
 
    Loading.prototype.compositionComplete = function (el) {
@@ -25,20 +27,14 @@
          top: ($(window).innerHeight() - this.el.outerHeight()) / 2
       });
 
-      this.el.css({ y: -100, display: 'block', opacity: 0 })
-        .transition({ y: 20, opacity: .8 }, this.duration, 'ease')
-        .transition({ y: 0, opacity: 1 }, this.duration / 2, 'ease');
+      $('.block', this.el).css({ opacity: 1, scale: 1 });
    }
 
    Loading.prototype.canDeactivate = function (a, s, d) {
       var base = this;      
       return $.Deferred(function (dfd) {
          app.inlineLoading(false);
-         if (base.el) {
-            base.el.promise().then(function () { dfd.resolve(true); });
-         } else {
-            dfd.resolve(true);
-         }         
+         dfd.resolve(true);         
       }).promise();
    }
 

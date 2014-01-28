@@ -10,6 +10,23 @@
       }
    });
 
+   var lastActiveWords = null;
+   ctx.activeWords.subscribe(function (words) {
+      if (words) {
+         for (var i = 0; i < words.length; i++) {
+            words[i].isSelected(true);
+         }
+      } else {
+         words = lastActiveWords;
+         for (var i = 0; i < words.length; i++) {
+            words[i].isSelected(false);
+         }
+         words = null;
+      }      
+      lastActiveWords = words;
+   });
+
+
    $(document).keydown(function (e) {
       if (location.hash.match(/game/gi)) {
          if (e.keyCode == 84) {
@@ -372,6 +389,8 @@
                      app.scrollUp();
                      ctx.activeWords(words);
                      module.unload();
+
+                     app.dialog.show("slipper", DIALOGS.CHOOSE_PATH);
                   });
                });
                ctx.activeWords(null);
@@ -380,11 +399,11 @@
             unload: function () {
                app.dialog.close("slipper");
                ctx.mode('');
-               paper.tool.remove();
+               paper.tool.remove();               
             }
          };
 
-         if (ctx.mode() == 'circleWords') {
+         if (ctx.mode() == 'circleWords') {            
             module.unload();
          } else {
             ctx.mode('circleWords');

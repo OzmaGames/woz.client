@@ -525,6 +525,13 @@ body > .cloud.fixed {
     transition: all .5s ease;
 }
 
+    .magnet-placeholder.drag {
+        -moz-transition: none;
+        -o-transition: none;
+        -webkit-transition: none;
+        transition: none;
+    }
+
     .magnet-placeholder.elem {
         width: auto;
     }
@@ -540,6 +547,10 @@ body > .cloud.fixed {
     }
 
         .magnet-placeholder .magnet:hover {
+        }
+
+        .magnet-placeholder .magnet .points {
+            visibility:hidden;
         }
 
     .magnet-placeholder .circle {

@@ -57,9 +57,9 @@
                opt.within.l += startPoint.w / 2;
                opt.within.r += startPoint.w / 2;
             }
-
+            
             //$el.css({ left: $el.offset().left, top: $el.offset().top });
-            opt.dragStart.call(e);
+            opt.dragStart.call(this, e, opt.within);
             
             if (!immovable()) {
                var pointerMove = $.support.touch ? "touchmove" : "mousemove";
@@ -98,7 +98,7 @@
                });
             }
 
-            opt.dropped(e, { top: top, left: left, hasMoved: hasMoved });
+            opt.dropped(e, { top: top, left: left, hasMoved: hasMoved, within: opt.within });
 
             hasMoved = false;
          },
@@ -110,7 +110,7 @@
 
          mousemove: function (e) {
             convertEventForTouch(e);
-
+            
             var newTop = e.pageY + e.data.t + e.data.scrollTopChange,
                 newLeft = e.pageX + e.data.l;            
             

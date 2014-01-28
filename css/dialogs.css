@@ -72,6 +72,14 @@
     color: #713b00;
 }
 
+    .dialog .loading .block {
+        -moz-transition: all .5s ease-in-out;
+        -o-transition: all .5s ease-in-out;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+    }
+
+
 .dialog .alert {
     position: relative;
     z-index: 11;
@@ -417,20 +425,21 @@
     }
 
     .dialog .tutorial button {
-        position:absolute;
+        position: absolute;
         top: -7px;
         right: -7px;
         z-index: 10;
         background-color: white;
-        border-radius: 50%;       
+        border-radius: 50%;
         background-image: none;
         /*border: 1px solid rgba(152, 107, 49, .5);*/
-        box-shadow: 0 0 2px rgba(152, 107, 49,.5);        
-        padding: 2px;        
+        box-shadow: 0 0 2px rgba(152, 107, 49,.5);
+        padding: 2px;
     }
-    .dialog .tutorial button:hover {
-        box-shadow: 0 0 4px #986B31;
-    }
+
+        .dialog .tutorial button:hover {
+            box-shadow: 0 0 4px #986B31;
+        }
 
         .dialog .tutorial button i {
             position: static;
@@ -500,6 +509,12 @@
 .tutorial-expose {
     z-index: 1000 !important;
     /*box-shadow:inset 0 0 1px 1px black;*/
+}
+
+.select-pic {
+    background: url('../images/game/select.png') center center no-repeat;
+    width: 100%;
+    height: 210px;
 }
 
 @media (min-resolution: 100dppx) {

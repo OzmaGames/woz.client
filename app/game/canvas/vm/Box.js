@@ -53,11 +53,18 @@
       this.hasData = this.wordModel != null;
       this.isCircle = pathModel.nWords == 0;
 
-      
+
       if (this.hasData) {
          if (!this.pathModel.canvas.cPoint) {
             return;
          }
+
+         var box = this.wordModel.lastBox;
+         if (box && box != this) {
+            box.pathModel.removeWordAt(box.index, { keepUnplayed: true });
+         }
+         this.wordModel.lastBox = this;
+
          this.show();
       }
    }
@@ -80,7 +87,7 @@
 
    Box.prototype.width = function () {
       if (this.hasData) {
-         if (!this._guiElem) {          
+         if (!this._guiElem) {
             return 62;
          }
          return this._guiElem.outerWidth();
@@ -97,7 +104,7 @@
          this.active = true;
          clearInterval(this._hoverHandler);
          this._hoverHandler = setTimeout(function (base) {
-            if(base._guiRect) base._guiRect.addClass("hover");
+            if (base._guiRect) base._guiRect.addClass("hover");
             //if (!base.isCircle) base._guiRect.children(".box").text(word.lemma);
          }, 1, this);
 
@@ -190,9 +197,9 @@
       if (this.pathModel.phrase.complete()) {
          this._guiElem.find('.magnet').addClass("placed");
          this._guiElem.off('click');
-      }           
+      }
 
-      this._guiElem.find('.magnet').text(this.wordModel.lemma);
+      //this._guiElem.find('.magnet').text(this.wordModel.lemma);
 
       var values = {
          x: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
@@ -205,13 +212,103 @@
       this._guiElem.transition(values, 500, 'ease');
    }
 
-   Box.prototype.createElem = function () {      
-      var div = $('<div/>', { 'class': 'magnet-placeholder elem' }), 
+   Box.prototype.createElem = function () {
+      var div = $('<div/>', { 'class': 'magnet-placeholder elem' }), magnet;
+
+      if (this.pathModel.phrase.complete() || !this.wordModel.$el) {
          magnet = $('<div/>', { 'class': 'magnet', text: this.wordModel.lemma });
+         if (this.wordModel.isRelated) magnet.addClass("related");
+         //div.one("click", this, function (e) {
+         //   if (e.data.pathModel.phrase.complete()) return;
+         //   e.data.pathModel.removeWordAt(e.data.index);
+         //});
+      } else {
+         //dragged from words
+         magnet = this.wordModel.$el.clone();
+         magnet.css({
+            left: 0,
+            top: 0
+         });
 
-      div.append(magnet);
+         var word = this.wordModel, pm = this.pathModel, index = this.index, base = this;
 
-      if (this.wordModel.isRelated) magnet.addClass("related");
+         div.data("immovable", function () { return pm.phrase.complete() });
+         div.draggable({
+            usePercentage: false,
+            centerBased: false,
+            topLimit: true,
+            withinEl: $('#app'),
+            dragStart: function (e, within) {
+               if (pm.phrase.complete()) return;
+               ctx.activeWord(word);
+
+               word.tX = div.css("x");
+               word.tY = div.css("y");
+
+               div.css({
+                  rotate: 0, scale: 1,
+                  x: 0, y: 0,
+                  left: word.tX,
+                  top: word.tY,
+               });
+               
+               var lefty = $('#tiles').offset().left, topy = $('#tiles').offset().top;
+               within.l -= lefty;
+               within.r -= lefty;
+               within.t -= topy;
+               within.b -= topy;
+            },
+
+            dropped: function (e, data) {
+               if (pm.phrase.complete()) return;
+               ctx.activeWord(null);
+
+               if (!data.hasMoved) {
+                  delete word.lastBox;
+                  pm.removeWordAt(index);
+               } else {
+                  var workspace = $('#workspace').position();
+
+                  data.top -= data.within.t;
+                  data.left -= data.within.l;
+
+                  if (workspace.top < data.top + 20) {                     
+                     var workspaceWidth = $('#workspace').innerWidth(),
+                        workspaceHeight = $('#workspace').innerHeight();
+                     
+                     word.originalY = ((data.top - workspace.top) / workspaceHeight).toFixed(4) * 1;
+                     word.originalX = ((data.left - workspace.left) / workspaceWidth).toFixed(4) * 1;
+
+                     if (word.originalX < 0) word.originalX = 0;
+                     if (word.originalY < 0) word.originalY = 0;
+
+                     app.trigger("server:game:move-word", {
+                        username: ctx.username,
+                        gameID: ctx.gameID,
+                        word: {
+                           id: word.id,
+                           x: word.originalX,
+                           y: word.originalY
+                        }
+                     });
+                     
+                     delete word.lastBox;
+                     pm.removeWordAt(index);
+                  } else {
+                     div.css({
+                        rotate: base.angle, scale: .8,
+                        left: 0, top: 0,
+                        x: word.tX,
+                        y: word.tY,
+                     });
+                  }
+                  //word.x = (data.hasMoved ? data.left / 100 : word.x).toFixed(4) * 1;
+                  //word.y = (data.hasMoved ? data.top / 100 : word.y).toFixed(4) * 1;
+               }
+            }
+         });
+      }
+
       div.css({
          x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
          y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
@@ -219,11 +316,7 @@
          scale: .8
       });
       div.appendTo('#tiles');
-
-      div.one("click", this, function (e) {
-         if (e.data.pathModel.phrase.complete()) return;
-         e.data.pathModel.removeWordAt(e.data.index);
-      });
+      magnet.appendTo(div);
 
       if (this._guiElem != null) this._guiElem.remove();
       this._guiElem = div;
