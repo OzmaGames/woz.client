@@ -234,7 +234,7 @@
          var base = this;
          app.dialog.show("confirm", {
             content: "Are you sure you want to delete this game?", modal: true,
-            doneText: 'YES', cancelText: 'NO'
+            doneText: 'Delete', cancelText: 'No'
          }).then(function (res) {
             if (res == "done") {
                base.games.remove(game);

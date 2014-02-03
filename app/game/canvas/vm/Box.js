@@ -236,7 +236,6 @@
          div.draggable({
             usePercentage: false,
             centerBased: false,
-            topLimit: true,
             withinEl: $('#app'),
             dragStart: function (e, within) {
                if (pm.phrase.complete()) return;
@@ -263,14 +262,16 @@
                if (pm.phrase.complete()) return;
                ctx.activeWord(null);
 
+
                if (!data.hasMoved) {
                   delete word.lastBox;
                   pm.removeWordAt(index);
                } else {
-                  var workspace = $('#workspace').position();
+                  var workspace = $('#workspace').offset();
 
-                  data.top -= data.within.t;
+                  data.top -= data.within.t + data.scrollTopChange;
                   data.left -= data.within.l;
+                  console.log(data.top, data.left, workspace.top, data.within);
 
                   if (workspace.top < data.top + 20) {                     
                      var workspaceWidth = $('#workspace').innerWidth(),
@@ -311,8 +312,7 @@
 
       div.css({
          x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
-         zIndex: 2,
+         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,         
          scale: .8
       });
       div.appendTo('#tiles');

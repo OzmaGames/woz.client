@@ -97,6 +97,14 @@ h3 {
     box-shadow: none !important;
 }
 
+.drag {
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+
+
 #app {
     position: absolute;
     top: 0;
@@ -921,7 +929,7 @@ a.small {
 
     .loader-bar i {
         display: inline-block;
-        white-space:nowrap;
+        white-space: nowrap;
         position: absolute;
         height: 1em;
         width: 1em;
@@ -954,7 +962,7 @@ a.small {
 
 @-webkit-keyframes slidein {
     from {
-        -webkit-transform: translateX(0em);        
+        -webkit-transform: translateX(0em);
     }
 
     10% {
@@ -966,7 +974,7 @@ a.small {
         -webkit-transform: translateX(6.5em);
     }
 
-    65% {        
+    65% {
         -webkit-transform: translateX(8.5em);
     }
 
@@ -982,7 +990,7 @@ a.small {
 @-moz-keyframes slidein {
     from {
         -moz-transform: translateX(0em);
-        -webkit-transform: translateX(0em);        
+        -webkit-transform: translateX(0em);
     }
 
     10% {
@@ -995,7 +1003,7 @@ a.small {
         -webkit-transform: translateX(6.5em);
     }
 
-    65% {       
+    65% {
         -moz-transform: translateX(8.5em);
         -webkit-transform: translateX(8.5em);
     }
@@ -1006,14 +1014,14 @@ a.small {
 
     to {
         -moz-transform: translateX(15em);
-        -webkit-transform: translateX(15em);        
+        -webkit-transform: translateX(15em);
     }
 }
 
 @keyframes slidein {
     from {
         -webkit-transform: translateX(0em);
-        transform: translateX(0em);        
+        transform: translateX(0em);
     }
 
     10% {
@@ -1037,7 +1045,7 @@ a.small {
 
     to {
         -webkit-transform: translateX(15em);
-        transform: translateX(15em);        
+        transform: translateX(15em);
     }
 }
 
@@ -1185,7 +1193,12 @@ a.small {
                 width: 0;
                 -webkit-text-shadow: none;
                 text-shadow: none;
+                cursor: default;
             }
+
+                .tab nav li.ending span {
+                    visibility: hidden;
+                }
 
             .tab nav li > * {
                 font-size: 15px;

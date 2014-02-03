@@ -172,7 +172,7 @@
 
                  setTimeout(function () {
                     app.trigger("game:tiles:visible", false);
-                 }, 2000)                 
+                 }, 3000)                 
               }
 
               for (var i = 0; i < json.players.length; i++) {

@@ -28,6 +28,18 @@
          return app.dialog.show("tutorial", data);
       }
 
+      window.aa = this.archivedGames = function () {
+         var item = $('.palette.right .menu');
+
+         var data = TUT.ARCHIVE_GAMES;
+         data.css = "right";
+         data.top = item.offset().top + APP.scrollTop- 10;
+         data.left = item.offset().left - 150;
+         data.fixed = true;
+
+         return app.dialog.show("tutorial", data);
+      }
+
       this.placePhrase = function () {
          var item = $('.magnet-placeholder').filter(function (i) {
             if ($(this).offset().top > 200) return true;
@@ -145,33 +157,19 @@
       
       this.showNext();
 
-
-      return;
-      base.swapWords().then(function (obj) {
-         if (obj && obj.force) return;
-         base.circleWords().then(function (obj) {
-            if (obj && obj.force) return;
-            //base.workspace().then(function (obj) {
-            // if (obj && obj.force) return;
-            base.relatedWords().then(function (obj) {
-               if (obj && obj.force) return;
-               //base.gameboard().then(function (obj) {
-               //   if (obj && obj.force) return;
-               //   base.bonus().then(function (obj) {
-
-               //   });
-               //});
-            });
-            //});
-            //$('#app').one("scroll", close);
-            //function close() {
-            //   setTimeout(function () {
-            //      app.dialog.close("tutorial");
-            //   }, 500);
-            //}
-         });
-      });
    }
 
-   return new Tutorial();
+   var t = new Tutorial();
+   
+   ctx.gameOver.subscribe(function (gameOver) {
+      if (!ctx.resumedGame && gameOver && !ctx.player.resigned() && ctx.playerCount == 2) {
+         if (!localStorage.getItem("tutorial-menu")) {
+            
+            t.archivedGames();
+            localStorage.setItem("tutorial-menu", true);
+         }
+      }
+   });
+
+   return t;
 });

@@ -15,9 +15,13 @@ html, body, .scroll {
 #app::-webkit-scrollbar-thumb {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
-    width: 0;
+    width: 0;   
 }
 
-button {    
-
+button {
+    -moz-transform: translateZ(1);
+    -ms-transform: translateZ(1);
+    -o-transform: translateZ(1);
+    -webkit-transform: translateZ(1);
+    transform: translateZ(1);
 }

@@ -22,7 +22,7 @@
             words[i].isSelected(false);
          }
          words = null;
-      }      
+      }
       lastActiveWords = words;
    });
 
@@ -131,7 +131,7 @@
          }
       });
 
-      
+
       if (glowingC++ % 2 == 0) {
          cloud
             .transition({ scale: 1.2 }, { easing: 'ease-in-out' })
@@ -143,7 +143,7 @@
             .transition({ rotate: '-=30' }, { easing: 'ease-in-out' })
             .transition({ rotate: '+=15' }, { easing: 'ease-in-out' });
       }
-      
+
       //cloud.addClass('glow');
       //setTimeout(function () {
       //   cloud.removeClass('glow');
@@ -185,7 +185,7 @@
 
          var distance = 200;
          setTimeout(function (o) {
-            rule.append(o[0]);            
+            rule.append(o[0]);
             setTimeout(function (o) {
                var
                   mul = Math.random() * 1.3 + .4,
@@ -247,10 +247,10 @@
       console.log(json);
       if (ctx.player.scored) {
          showStars(ctx.player, ctx.lastPath, json.path.score);
-         if(json.path.score.startTile.satisfied)
+         if (json.path.score.startTile.satisfied)
             showGlowing(ctx.lastPath.startTile);
          if (json.path.score.endTile.satisfied)
-            showGlowing(ctx.lastPath.endTile);         
+            showGlowing(ctx.lastPath.endTile);
       }
    });
 
@@ -264,7 +264,7 @@
    app.on("game:started:ready").then(function () {
       setTimeout(function () {
          tutorial.show();
-      }, 500);      
+      }, 500);
    });
 
    var cancel = function () {
@@ -318,7 +318,11 @@
             base._wordsSub = ctx.selectedWords.subscribe(function (selectedWords) {
                if (selectedWords.length > 0 && !created) {
                   created = true;
-                  app.dialog.show("confirm").then(function (res) {
+                  app.dialog.show("confirm", {
+                     content: '',
+                     doneText: 'Swap Words',
+                     cancelText: 'Cancel'
+                  }).then(function (res) {
                      base._wordsSub.dispose();
 
                      if (res == "cancel") {
@@ -360,11 +364,12 @@
             return;
          }
 
-         var content = ctx.playerCount == 1 ? "Would you like to delete this game?" : "Are you sure you want to resign?";
+         var content = ctx.playerCount == 1 ? "Are you sure you want to delete this game?" : "Are you sure you want to resign?";
          app.dialog.show("confirm", {
             content: content,
             modal: true,
-            doneText: 'YES', cancelText: 'NO'
+            doneText: ctx.playerCount == 1 ? 'Delete' : 'Resign',
+            cancelText: ctx.playerCount == 1 ? 'Cancel' : 'Cancel'
          }).then(function (res) {
             if (res != "cancel") {
                app.trigger("server:game:resign", {
@@ -377,6 +382,11 @@
 
       circleWords: function () {
          if (!game.allowCircle()) return;
+         if (ctx.activeWords()) {
+            ctx.activeWords(null);
+            app.dialog.close("slipper");
+            return;
+         }
 
          var module = {
             load: function () {
@@ -399,11 +409,11 @@
             unload: function () {
                app.dialog.close("slipper");
                ctx.mode('');
-               paper.tool.remove();               
+               paper.tool.remove();
             }
          };
 
-         if (ctx.mode() == 'circleWords') {            
+         if (ctx.mode() == 'circleWords') {
             module.unload();
          } else {
             ctx.mode('circleWords');
@@ -438,16 +448,9 @@
          app.palette.add("circleWords", "action", "left")
             .click(game.circleWords)
             .css({
-               cancel: ko.computed(function () { return game.mode() === 'circleWords' }),
+               cancel: ko.computed(function () { return game.mode() === 'circleWords' || ctx.activeWords() }),
                disabled: ko.computed(function () { return !game.allowCircle() })
             });
-
-         //app.dialog.show("confirm", {
-         //   modal: true,
-         //   content: 'Do you want to place <br/><b>"test"</b>?',
-         //   doneText: 'YES',
-         //   cancelText: 'NO'
-         //});
 
          ctx.load(id);
       },

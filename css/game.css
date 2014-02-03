@@ -10,7 +10,7 @@
     width: 100%;
     top: 0;
     left: 0;
-    right: 0;        
+    right: 0;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -27,13 +27,13 @@
     }
 
 hr {
-    width:90%;
-    margin: 5px auto;    
+    width: 90%;
+    margin: 5px auto;
     border: 0;
     border-radius: 50%;
     box-shadow: 0 0 15px 2px rgba(152,107,49,.3);
     background-color: rgba(152,107,49,.3);
-    height: 2px;    
+    height: 2px;
 }
 
 #players {
@@ -45,7 +45,7 @@ hr {
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out; /*should be the same as for paletes*/
     -webkit-text-shadow: 0 0 1px rgba(152, 107, 49,.5);
-    text-shadow: 0 0 1px rgba(152, 107, 49,.5);        
+    text-shadow: 0 0 1px rgba(152, 107, 49,.5);
 }
 
 .player {
@@ -136,7 +136,7 @@ hr {
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;    
+    left: 0;
 }
 
 .carry #tiles {
@@ -181,26 +181,39 @@ hr {
             transition: all .5s ease-in-out, opacity 0s 0s ease-in-out;
         }
 
-        .tile.active .mask, .tile .mask.norm {            
+        .tile.active .mask, .tile .mask.norm {
             box-shadow: 5px 5px 10px 0 #333;
         }
 
-    .tile .mask.norm {
-        /*border-width: 5px;*/
+
+    .tile .tile-circle {
+        position: relative;
+        -moz-transform: translateZ(2);
+        -ms-transform: translateZ(2);
+        -o-transform: translateZ(2);
+        -webkit-transform: translateZ(2);
+        transform: translateZ(2);
+        border-radius: 50%;
+        box-shadow: 5px 5px 10px 0 #333;
+        width: 1em;
+        height: 1em;
+        -moz-transition: 1s box-shadow ease-in-out;
+        -o-transition: 1s box-shadow ease-in-out;
+        -webkit-transition: 1s box-shadow ease-in-out;
+        transition: 1s box-shadow ease-in-out;
     }
 
-    .tile.drag {
-        -moz-transition: none !important;
-        -o-transition: none !important;
-        -webkit-transition: none !important;
-        transition: none !important;
+    .tile.active .tile-circle {
+        box-shadow: none;
+        -moz-transition: none;
+        -o-transition: none;
+        -webkit-transition: none;
+        transition: none;
     }
 
     .tile .mask {
         position: absolute;
         border-radius: 50%;
-        /*box-shadow: 5px 5px 10px 0 #333;*/
-        box-shadow: 15px 15px 40px 5px #333;
         border: .03em solid #fff;
         width: 1em;
         height: 1em;
@@ -255,11 +268,11 @@ hr {
             border-radius: 100%;
         }
 
-        .tile, .tile .mask, .tile .mask .big, .tile .rule {
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
+    .tile, .tile .mask11 {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
 
 body > .cloud.fixed {
     width: 120px;
@@ -335,13 +348,6 @@ body > .cloud.fixed {
         font-family: 'GreatVibesRegular' !important;
         font-weight: bold;
         font-size: large;
-    }
-
-    .cloud.drag {
-        -moz-transition: none;
-        -o-transition: none;
-        -webkit-transition: none;
-        transition: none;
     }
 
 .tile .rest {
@@ -490,10 +496,6 @@ body > .cloud.fixed {
         -o-transform: scale(1.1) translateZ(1) !important;
         -webkit-transform: scale(1.1) translateZ(1) !important;
         transform: scale(1.1) translateZ(1) !important;
-        -moz-transition: none !important;
-        -o-transition: none !important;
-        -webkit-transition: none !important;
-        transition: none !important;
     }
 
     .magnet:hover:not(.drag):not(:active):not(.placed) {
@@ -523,14 +525,8 @@ body > .cloud.fixed {
     -o-transition: all .5s ease;
     -webkit-transition: all .5s ease;
     transition: all .5s ease;
+    z-index: 3;
 }
-
-    .magnet-placeholder.drag {
-        -moz-transition: none;
-        -o-transition: none;
-        -webkit-transition: none;
-        transition: none;
-    }
 
     .magnet-placeholder.elem {
         width: auto;
@@ -550,7 +546,7 @@ body > .cloud.fixed {
         }
 
         .magnet-placeholder .magnet .points {
-            visibility:hidden;
+            visibility: hidden;
         }
 
     .magnet-placeholder .circle {

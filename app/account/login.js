@@ -61,7 +61,7 @@
             app.loading(false);
 
             if (res.success) {
-               res.username = data.username;
+               res.username = res.username;
                app.dialog.close("panel");
                app.trigger('account:login', res);
                app.navigate("lobby");

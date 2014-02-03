@@ -98,7 +98,7 @@
                });
             }
 
-            opt.dropped(e, { top: top, left: left, hasMoved: hasMoved, within: opt.within });
+            opt.dropped(e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange });
 
             hasMoved = false;
          },
