@@ -81,7 +81,7 @@
               player.score = ko.observable(player.score);
            });
 
-           if (model.playerCount > 1 && !json.gameOver) {
+           if (model.playerCount > 1 && !json.over) {
               var dialogData;
               if (model.player.active())
                  dialogData = DIALOGS.YOUR_TURN_FIRST_ROUND;
@@ -119,7 +119,7 @@
            });
            model.paths(json.paths);
 
-           model._gameOver(json.gameOver);
+           model._gameOver(json.over);
 
            model.winner = function () {
               if (model.gameOver()) {
@@ -146,7 +146,7 @@
 
            if (json.success && json.gameID == model.gameID) {
 
-              model._gameOver(json.gameOver || false);
+              model._gameOver(json.over || false);
               if (model.gameOver()) {
                  app.dialog.closeAll();
                  system.acquire("dialogs/pages/GameOver").then(function (module) {
