@@ -6,8 +6,16 @@
     
     var base = this;
     this.close = function (duration) {
-      if(this.draggable) base.el.data("draggable").dispose();
-      return base.el.animate({ height: 0, opacity: 0 }, 250).promise().then(function () { $(this).hide(); });
+       return $.Deferred(function (dfd) {
+          if (!base.el) {
+             dfd.resolve();
+             return;
+          }
+          if (base.draggable) base.el.data("draggable").dispose();
+
+          base.el.animate({ height: 0, opacity: 0 }, 250).promise()
+             .then(function () { $(this).hide(); dfd.resolve(); });          
+       });       
     }
 
     this.onClose = function () { }
@@ -26,13 +34,11 @@
     }
   }
 
-  Window.prototype.attached = function (el) {
+  Window.prototype.compositionComplete = function (el) {
     this.el = $('.window', el);
 
     this.left = ($(window).innerWidth() - this.el.outerWidth()) / 2
-    //var height = this.el.height();
-    //this.el.css({ top: ($(window).height() - height) / 2 });
-
+    
     this.top += document.getElementById('app').scrollTop;
 
     this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left})

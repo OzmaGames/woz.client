@@ -6,6 +6,7 @@ define('common',
    function (system, app, router, Dialog, server, ctx, palette) {
       var scrollable = true;
 
+
       (function (app) {
          app.browser = {};
          app.browser.iPad = navigator.userAgent.match(/iPad/i);
@@ -22,13 +23,47 @@ define('common',
       (function (app) {
          var resizeHelperId = null;
          var resizeDelay = 200;
+
+         app.screen = {
+            size: {
+               width: 0,
+               height: 0
+            }
+         }
+
+         updateScreenSize();
+
          window.addEventListener("resize", function (e) {
-            app.trigger("app:resized:hook", event);
-            clearTimeout(resizeHelperId);
-            resizeHelperId = setTimeout(function (event) {
-               app.trigger("app:resized", event);
-            }, resizeDelay, e);
+            if (updateScreenSize()) {
+               app.trigger("app:resized:hook", e);
+               clearTimeout(resizeHelperId);
+               resizeHelperId = setTimeout(function (event) {
+                  app.trigger("app:resized", event);
+               }, resizeDelay, e);
+            }
          }, false);
+
+         window.addEventListener('orientationchange', function (e) {
+            setTimeout(function () {
+               $(app.el).css({ 'minHeight': window.outerHeight + 'px' });
+               //app.console.log(app.el.scrollHeight + ' ' + document.body.scrollHeight);
+               if (updateScreenSize()) {
+                  app.trigger("app:resized:hook", e);
+                  app.trigger("app:resized", e);
+               }
+            }, 600);
+            //500 is important, as in 500ms the new screen size is updated
+         });
+
+         function updateScreenSize() {
+            var w = app.screen.size.width - window.innerWidth;
+            var h = app.screen.size.height - window.innerHeight;
+
+            app.screen.size.width -= w;
+            app.screen.size.height -= h;
+            
+            return w || h;
+         }
 
          var loading = ko.observable(false);
          app.inlineLoading = ko.observable(false);
@@ -64,6 +99,10 @@ define('common',
       //APP.addEventListener("touchmove", function (e) {         
       //   e.stopPropagation();
       //}, false);
+
+      if (app.browser.tablet) {
+         $(app.el).css({ 'minHeight': window.outerHeight + 'px' });         
+      }
 
       function resetScroll() {
 
@@ -109,6 +148,8 @@ define('common',
             if (maxPos < pos) pos = maxPos;
          }
          proportion = proportion || (pos - APP.scrollTop);
+
+         if (proportion > (pos - APP.scrollTop)) proportion = (pos - APP.scrollTop);
 
          if (proportion != 0) {
             $(SHELL).css({

@@ -50,7 +50,8 @@ html {
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
+    background-size: 100% 100%;*/
+    /*
     overflow: hidden;*/
 }
 
@@ -117,7 +118,7 @@ h3 {
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
+    background-size: 100% 100%;    
     -moz-transform: translateZ(0);
     -ms-transform: translateZ(0);
     -o-transform: translateZ(0);
@@ -428,6 +429,7 @@ a.small {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
+
     }
 
     .grid article {
@@ -448,6 +450,7 @@ a.small {
 
         .grid article button {
             bottom: -1em !important;
+            top: auto !important;
         }
 }
 
@@ -483,6 +486,7 @@ a.small {
     list-style: none;
     overflow: hidden;
     border-radius: 5px;
+    background-color: #F9F8F4;
 }
 
     .grid ul.list li {
@@ -494,10 +498,11 @@ a.small {
         font-family: Cambria, CopseRegular;
         font-weight: normal;
         color: #986B31;
-        background-color: #F9F8F4;
         border-bottom: 1px solid #d7bea2;
         cursor: pointer;
         overflow: hidden;
+        -moz-appearance: none;
+        -webkit-appearance: none;
     }
 
         .grid ul.list li:last-child {
@@ -510,13 +515,15 @@ a.small {
             padding: .4em;
             text-transform: capitalize;
             cursor: default;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
         }
 
         .grid ul.list li:hover:not(.header) {
             background-color: #f1ebe2;
         }
 
-        /*.grid ul.list li:active:not(.header),*/ .grid ul.list li.active:not(.header) {
+        .grid ul.list li.active:not(.header) {
             background-color: #d9cfc0 !important;
             font-weight: bold;
         }
@@ -546,6 +553,8 @@ a.small {
             text-align: center;
             background-image: linear-gradient(0deg, #f1ebe2 0%, white 100%);
             border-left: 1px solid #f1ebe2;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
         }
 
             .grid ul.list li .btn i {

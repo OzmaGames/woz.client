@@ -16,7 +16,7 @@
    Loading.prototype.bindingComplete = function (el) {
       this.el = $('.loading', el);
 
-      $('.block', this.el).css({ scale: .2, opacity: .2 });
+      $('.block', this.el).css({ scale: .5, opacity: 0 });
    }
 
    Loading.prototype.compositionComplete = function (el) {

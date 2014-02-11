@@ -3,8 +3,8 @@
    var res = {
       playedWith: 'Played with {{opponent}} - Using {{collection}} collection',
       playedSolo: 'Played solo - Using {{collection}} collection',
-      gameEnded: 'Game ended {{lastMod, date}}',
-      gameStarted: 'Game started {{lastMod, date}}',
+      gameEnded: 'Game ended {{modDate, date}}',
+      gameStarted: 'Game started {{modDate, date}}',
       phrasePlaced: '{{lastPlayer}} placed: {{lastPhrase}} for {{lastScore}} points',
       noPhrase: 'has not been played yet',
       playerScored: '{{winner}} scored {{winnerScore}} points.',
@@ -18,10 +18,10 @@
       opponent: function (g, style) {
          return $("<span/>", { 'class': 'bold', text: getOpponent(g).username }).get(0).outerHTML;
       },
-      lastMod: function (g, style) {
+      modDate: function (g, style) {
          if (style == "date") {
             var el = $("<span/>", { 'class': 'date' });
-            ko.bindingHandlers.date.init(el, function () { return g.lastMod; });
+            ko.bindingHandlers.date.init(el, function () { return g.modDate; });
             return el.get(0).outerHTML;
          }
       },
@@ -54,7 +54,7 @@
       return $.Deferred(function (dfd) {         
          app.trigger(event, { username: ctx.username }, function (data) {
             if (data.success) {
-               data.games.sort(function (a, b) { return b.lastMod - a.lastMod; });
+               data.games.sort(function (a, b) { return b.modDate - a.modDate; });
                ko.utils.arrayForEach(data.games, function (g) {
                   g.gameOver = gameMode == "archive";
 
@@ -137,7 +137,7 @@
             for (var i = 0; i < json.path.phrase.length; i++) {
                phrase += json.path.phrase[i].lemma + ' ';
             }
-            game.lastMod = new Date().getTime();
+            game.modDate = new Date().getTime();
             game.lastPhrase.phrase = phrase.substr(0, phrase.length - 1);
             game.lastPhrase.username = ko.utils.arrayFirst(json.players, function (p) { return !p.active; }).username;
                         

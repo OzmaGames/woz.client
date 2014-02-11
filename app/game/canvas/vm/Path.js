@@ -77,18 +77,22 @@
       }
    }
 
+   Path.prototype._canPut = true;
+
    Path.prototype.put = function () {
-      if (activeWords() != null) {
+      app.console.log(++this._putFlags);
+      if (this._canPut && activeWords() != null) {
+         this._canPut = false;
+         setTimeout(function (base) { base._canPut = true; }, 500, this);
          var words = activeWords(), pm = this.pathModel;
-         activeWords(null);
          if (words.length != pm.nWords) {
             if (words.length > pm.nWords)
                app.dialog.show("alert", { content: "too many words" });
             else
                app.dialog.show("alert", { content: "need more words" });
-            activeWords(words);
             return;
          }
+         activeWords(null);
 
          for (var i = 0; i < pm.guiBoxes.length; i++) {
             pm.addWord(words[i], i);
@@ -145,14 +149,14 @@
             pm.guiBoxes.push(box);
             this._displayItems.push(box);
          }
-      } else {         
+      } else {
          pm.guiBoxes = [];
          for (var i = 0; i < nWords; i++) {
             var box = new Box(i, pm);
             pm.guiBoxes.push(box);
             this._displayItems.push(box);
          }
-      }      
+      }
    }
 
    Path.prototype.show = function () {
@@ -163,8 +167,8 @@
       this._cleanCycle();
 
       var desiredLength = Path.getDesiredLength(pm.guiBoxes);
+
       path = Path.getBestArc(pm.startTile.center, pm.endTile.center, desiredLength, pm.cw, nWords);
-      this.cPoint = Path.cPoint;
 
       this.midPath = path.getPointAt(path.length / 2);
 
@@ -172,7 +176,7 @@
           visibleLength = path.length - 2 * (Path.options.tileMargin + Path.options.tileRadius),
           startPoint = Path.options.tileRadius + Path.options.tileMargin,
           offset = startPoint;
-
+      
       for (var i = 0; i < nWords; i++) {
          var box = pm.guiBoxes[i],
            half = box.width() / 2 + Path.options.rectMargin + delta / (2 * nWords);
@@ -180,11 +184,13 @@
          offset += half;
          var point = path.getPointAt(offset),
            tangent = path.getTangentAt(offset),
+           pushupValue = 0,
+           normalVector = path.getNormalAt(offset).normalize((pm.cw ? 1 : -1) * pushupValue),
            hoverArea = this.createHoverArea(path, offset, box.width() + 2 * Path.options.rectMargin + delta / nWords);
          hoverArea.data = box;
          offset += half;
 
-         box.cPoint = point;
+         box.cPoint = point.add(normalVector);
          box.angle = tangent.angle;
          box.scale = delta >= 0 ? 1 : path.length / desiredLength;
          box.show();
@@ -259,7 +265,6 @@
         cPoint = line.getPointAt(line.length / 2),
         vector = line.getNormalAt(line.length / 2);
       line.remove();
-      Path.cPoint = cPoint;
 
       if (len > 550) {
          maxArc *= 550 / len;

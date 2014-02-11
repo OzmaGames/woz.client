@@ -41,7 +41,7 @@
 
             if (res.success) {
                res.username = data.username;
-               localStorage.setItem("tutorial", true);
+               localStorage.removeItem("tutorial");
                app.dialog.close("panel");
                app.trigger('account:login', res);
                app.navigate("newGame");

@@ -17,24 +17,25 @@
            palette.get("currency").visible(false);
 
            var base = this;
-           this.sub = app.on("app:resized:hook").then(function () {              
-              if (app.el.clientHeight - document.getElementById('bKey').clientHeight < document.getElementById('fKey').clientHeight) {                 
-                 document.getElementById('fKey').classList.remove("footer");
-              } else {                 
-                 document.getElementById('fKey').classList.add("footer");
-              }
-           });
-        },        
+           //this.sub = app.on("app:resized:hook").then(function () {
+           //   if (app.el.clientHeight < 2 * document.getElementById('bKey').clientHeight) {
+           //      document.getElementById('fKey').classList.remove("footer");
+           //   } else {
+           //      document.getElementById('fKey').classList.add("footer");
+           //   }
+           //});
+        },
 
         binding: function () {
            return { cacheViews: false };
         },
 
         compositionComplete: function () {
-           app.trigger("account:view:change", "account/login");
+           app.trigger("account:view:change", "account/login");           
         },
 
         detached: function (view) {
+           //this.sub.off();
            viewChanger.off();
            app.dialog.close("panel");
            palette.get("menu").visible(true);

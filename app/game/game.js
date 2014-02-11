@@ -1,5 +1,4 @@
 ﻿define(['durandal/app', 'durandal/system', 'api/datacontext', 'dialogs/_constants', './tutorial'], function (app, system, ctx, DIALOGS, tutorial) {
-
    ctx.canSwap = ko.observable(false);
 
    ctx.loading.subscribe(function (loading) {
@@ -31,7 +30,7 @@
       if (location.hash.match(/game/gi)) {
          if (e.keyCode == 84) {
             //t
-            localStorage.setItem("tutorial", true);
+            localStorage.removeItem("tutorial");
             tutorial.show();
          } else if (e.keyCode == 83) {
             //s
@@ -100,7 +99,11 @@
                      opacity: 0
                   });
                   var el = o[0][0];
-                  el.addEventListener($.support.transitionEnd, function () {
+                  el.addEventListener($.support.transitionEnd, remove);
+
+                  setTimeout(remove, 1000);
+
+                  function remove() {
                      if (el.parentNode || el.parentElement) {
                         el.removeEventListener($.support.transitionEnd);
                         if (el.remove) {
@@ -111,7 +114,7 @@
                            console.log('second attempt');
                         }
                      }
-                  });
+                  }
                }, 0, o);
             }, Math.random() * 700, [star, scale]);
          }
@@ -224,18 +227,11 @@
       }
 
       document.getElementById('app').classList.add('noScroll');
-      setTimeout(function () {
-         //if (app.el.clientHeight / app.el.scrollHeight > .7) {
-         //   document.getElementById('app').classList.remove('noScroll');
-         //   app.trigger("game:started:ready");
-         //   return;
-         //}
-
-         app.scrollDown(0, true);
+      setTimeout(function () {         
+         app.scrollDown(window.innerHeight, true);
          setTimeout(app.scrollUp, 800, true);
          setTimeout(function () {
             document.getElementById('app').classList.remove('noScroll');
-            //$(window).resize();
             app.trigger("game:started:ready");
          }, 1500);
       }, 800);
@@ -258,7 +254,7 @@
       ctx.canSwap(ctx.player.active() && !ctx.actionDone);
       setTimeout(function () {
          showScroll();
-      }, 100);
+      }, 1000);
    });
 
    app.on("game:started:ready").then(function () {
@@ -309,6 +305,10 @@
       swapWords: function () {
          if (ctx.mode() == 'swapWords') {
             cancel();
+            if (game._wordsSub) {
+               game._wordsSub.dispose();
+               game._wordsSub = null;
+            }
          }
          else if (game.allowSwap()) {
             app.dialog.show("slipper", DIALOGS.SWAP_WORDS);
@@ -316,6 +316,9 @@
             app.scrollDown();
             var created = false, base = game;
             base._wordsSub = ctx.selectedWords.subscribe(function (selectedWords) {
+               if (ctx.mode() != 'swapWords') {
+                  game._wordsSub.dispose();
+               }
                if (selectedWords.length > 0 && !created) {
                   created = true;
                   app.dialog.show("confirm", {

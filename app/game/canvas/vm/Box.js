@@ -55,7 +55,8 @@
 
 
       if (this.hasData) {
-         if (!this.pathModel.canvas.cPoint) {
+         if (!this.pathModel.cPoint) {
+            //should not happen
             return;
          }
 
@@ -86,15 +87,21 @@
    };
 
    Box.prototype.width = function () {
-      if (this.hasData) {
-         if (!this._guiElem) {
-            return 62;
-         }
+      if (this.hasData && this._guiElem) {
          return this._guiElem.outerWidth();
       }
       if (this.isCircle) return Box.options.circle.radius;
 
-      return 62;
+      return 60;
+   };
+
+   Box.prototype.height = function () {
+      if (this.hasData && this._guiElem) {
+         return this._guiElem.outerHeight();
+      }
+      if (this.isCircle) return Box.options.circle.radius;
+
+      return 23;
    };
 
    Box.prototype.enter = function (word) {
@@ -171,8 +178,8 @@
           $('<div/>', { 'class': 'tooltip' + cw, text: 'Click me when you are done!' }).delay(4000).fadeOut(1000)));
 
       div.css({
-         x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top
+         x: this.pathModel.cPoint.x - Box.pathOptions.container.left,
+         y: this.pathModel.cPoint.y - Box.pathOptions.container.top
       });
       div.appendTo('#tiles');
 
@@ -195,7 +202,7 @@
 
    Box.prototype.updateElem = function () {
       if (this.pathModel.phrase.complete()) {
-         this._guiElem.find('.magnet').addClass("placed");
+         this._guiElem.find('.magnet').addClass("complete");
          this._guiElem.off('click');
       }
 
@@ -309,10 +316,11 @@
             }
          });
       }
+      magnet.addClass("placed");
 
       div.css({
-         x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,         
+         x: this.pathModel.cPoint.x - Box.pathOptions.container.left,
+         y: this.pathModel.cPoint.y - Box.pathOptions.container.top,         
          scale: .8
       });
       div.appendTo('#tiles');
@@ -340,8 +348,8 @@
       div.append($('<div/>', { 'class': cls }));
 
       div.css({
-         x: this.pathModel.canvas.cPoint.x - Box.pathOptions.container.left,
-         y: this.pathModel.canvas.cPoint.y - Box.pathOptions.container.top,
+         x: this.pathModel.cPoint.x - Box.pathOptions.container.left,
+         y: this.pathModel.cPoint.y - Box.pathOptions.container.top,
          zIndex: 0
       });
       div.appendTo('#tiles');

@@ -31,12 +31,10 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
      app.configurePlugins({
         router: true
      });
-
+     
      app.start().then(function () {
         viewLocator.useConvention();
-        app.setRoot('shell', null, 'app');
-
-        
+        app.setRoot('shell', null, 'app');        
      });
 
      if (document.body.style.backgroundPositionX === undefined) {
@@ -53,6 +51,11 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
 
      if ($.support.touch) {
         loadCSS('_touch');
+     }
+
+     if ($.support.kindle) {
+        if (screen.lockOrientation)
+           screen.lockOrientation(["landscape-primary", "landscape-secondary"]);
      }
 
      function loadCSS(css) {

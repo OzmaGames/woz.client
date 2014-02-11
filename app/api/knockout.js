@@ -50,7 +50,7 @@
          } else {
             fadeIn = fadeOut = 0;
          }
-         
+
          var isActive = ko.utils.unwrapObservable(value);
 
          setTimeout(function () {
@@ -215,19 +215,20 @@
 
    var clickInit = ko.bindingHandlers.click.init;
 
-   ko.bindingHandlers["click"].init = function (element, valueAccessor, allBindingsAccessor, viewModel) {      
+   ko.bindingHandlers["click"].init = function (element, valueAccessor, allBindingsAccessor, viewModel) {
       if ($.support.touch) {
+         $(element).bind("touchstart", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+         });
+
          $(element).touchPunch();
 
-         //if (element.tagName.toLowerCase() == "button") {
-         //   clickInit.apply(this, arguments);
-         //} else {
-            element.onlyClick = function (event) {
-               if (valueAccessor().apply(viewModel, [viewModel, event]) !== true) {
-                  event.preventDefault();
-               }
+         element.onlyClick = function (event) {
+            if (valueAccessor().apply(viewModel, [viewModel, event]) !== true) {
+               event.preventDefault();
             }
-         //}
+         }
       }
       else {
          clickInit.apply(this, arguments);

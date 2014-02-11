@@ -1,4 +1,32 @@
-﻿define(['durandal/app'], function (app) {
+﻿define(['./_Dialog', 'durandal/app'], function (Dialog, app) {
+
+   //var Confirm = Dialog.Create("confirm", {
+   //   effectStart: 'bottom up',
+   //   effectStartDuration: 400,
+   //   effectStartDone: function ($el) { },
+   //   effectClose: 'down',
+   //   effectCloseDuration: 200,
+   //   effectCloseDone: function($el){ },
+   //   activate: function (data) {
+   //      var base = this;
+
+   //      this.duration = data.duration || this.duration;
+   //      this.content = data.content || this.content;
+   //      this.doneText = data.doneText || 'DONE';
+   //      this.cancelText = data.cancelText || 'CANCEL';
+   //      this.images = true;
+
+   //      this.done = function () {
+   //         base.close("done");
+   //      }
+
+   //      this.cancel = function () {
+   //         base.close("cancel");
+   //      }
+   //   }
+   //});
+
+   //return Confirm;
 
    function Confirm() {
       this.content = '';

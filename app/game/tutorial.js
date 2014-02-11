@@ -9,7 +9,7 @@
 
          var data = TUT.SWAP_WORDS;
          data.css = "left";
-         data.top = item.offset().top + APP.scrollTop;
+         data.top = item.offset().top;
          data.left = item.offset().left + 60;
          data.fixed = true;
 
@@ -21,14 +21,14 @@
 
          var data = TUT.SELECT_PHRASE;
          data.css = "left";
-         data.top = item.offset().top + APP.scrollTop;
+         data.top = item.offset().top;
          data.left = item.offset().left + 60;
          data.fixed = true;
 
          return app.dialog.show("tutorial", data);
       }
 
-      window.aa = this.archivedGames = function () {
+      this.archivedGames = function () {
          var item = $('.palette.right .menu');
 
          var data = TUT.ARCHIVE_GAMES;
@@ -48,7 +48,7 @@
 
          var data = TUT.PLACE_PHRASE;
          data.css = "bottom left";
-         data.top = item.offset().top - 150 + APP.scrollTop;
+         data.top = item.offset().top - 170 + APP.scrollTop;
          data.left = item.offset().left;
 
          return app.dialog.show("tutorial", data);
@@ -62,7 +62,7 @@
 
          var data = TUT.FILL_PATH;
          data.css = "bottom left";
-         data.top = item.offset().top - 90 + APP.scrollTop;
+         data.top = item.offset().top - 110 + APP.scrollTop;
          data.left = item.offset().left;
 
          return app.dialog.show("tutorial", data);
@@ -115,6 +115,7 @@
          data.css = "bottom right";
          data.top = item.offset().top - 170 + APP.scrollTop;
          data.left = item.offset().left - 120;
+         data.fixed = false;
 
          return app.dialog.show("tutorial", data);
       }
@@ -130,7 +131,7 @@
       var func = this.getNext();
 
       if (!func) {
-         localStorage.removeItem("tutorial");
+         localStorage.setItem("tutorial", "end");
          return $.Deferred();
       }
 
@@ -147,16 +148,18 @@
       var base = this;
       this.qIndex = 0;
 
-      if (!localStorage.getItem("tutorial")) {
-         return;
+      var tutorial = localStorage.getItem("tutorial");
+
+      if (!tutorial) {
+         this.showNext();
       }
 
-      if (localStorage.getItem("tutorial") == "related") {
-         this.qIndex = 5;
-      }
-      
-      this.showNext();
-
+      switch (tutorial) {
+         case "related":
+            this.qIndex = 5;
+            this.showNext();
+            break;
+      }      
    }
 
    var t = new Tutorial();

@@ -5,18 +5,18 @@
    function adjust() {
       
       if (!dialog) return;
-      var height = app.el.clientHeight;
+      var height = window.innerHeight;
       var top = (height - dialog.outerHeight()) / 2;      
-
-      dialog.transition({ top: top });
-
+      if (top < 0) return;
+      
+      dialog.css({ y: top });      
    }
 
    return {
       activate: function (moduleName) {
          if (!moduleName) return;
          this.modelName(moduleName);
-         sub = app.on("app:resized:hook").then(adjust);
+         sub = app.on("app:resized").then(adjust);
       },
 
       bindingComplete: function (view) {
@@ -26,12 +26,12 @@
 
       compositionComplete: function (view) {
          dialog = this.el = $('.panel', view);
-         var height = app.el.clientHeight;
+         var height = window.innerHeight;
          var top = (height - dialog.outerHeight()) / 2;
          dialog.css({ y: top }).show();
-         dialog.css({ y: top - 100, opacity: 0 }).transition({ y: top + 10, opacity: 1 }).transition({ y: top }).promise().then(function () {
-            dialog.css({ y: 0, top: top });
-         });
+         dialog.css({ y: top - 100, opacity: 0 })
+            .transition({ y: top + 10, opacity: 1 })
+            .transition({ y: top });
       },
 
       canDeactivate: function () {
@@ -44,7 +44,7 @@
       loading: app.loading,
 
       attributes: {
-         fixed: false,
+         fixed: true,
          singleton: true
       }
    };

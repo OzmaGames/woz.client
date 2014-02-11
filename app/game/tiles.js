@@ -6,7 +6,7 @@
 
    var dynamicCloud = false;
 
-   app.on("game:rule:toggle").then(function () {      
+   app.on("game:rule:toggle").then(function () {
       if (dynamicCloud) {
          for (var i = 0; i < instructionDoms.length; i++) {
             attachInstruction(instructionDoms[i], 0);
@@ -34,7 +34,7 @@
 
       if (elTop <= 0) {
          var top = 0, left = $cloud.offset().left;
-         
+
          tile.topOffset = scrollTop + elTop;
          tile.$parent = $el.parent();
          tile.isFixed = true;
@@ -46,15 +46,15 @@
 
          $el.offset({ left: left, top: top });
       }
-   }   
+   }
 
    function scroll() {
       if (!dynamicCloud) return;
 
-      var top = document.getElementById('app').scrollTop;      
+      var top = document.getElementById('app').scrollTop;
 
       for (var i = 0; i < instructionDoms.length; i++) {
-         if (instructionDoms[i].active()) continue;         
+         if (instructionDoms[i].active()) continue;
 
          var $el = instructionDoms[i].$inst;
 
@@ -66,7 +66,7 @@
       }
    }
 
-   function resize() {        
+   function resize() {
       updateContainerSize();
 
       var tiles = ctx.tiles();
@@ -88,7 +88,7 @@
       }
    }
 
-   function scaleTile(tile, animateScale) {      
+   function scaleTile(tile, animateScale) {
       if (containerSize.h == 0) return;
 
       if (!animateScale) {
@@ -101,7 +101,7 @@
          tile.origin.scale = tile.origin.h / containerSize.hh;
 
          tile.$mask.css({
-            scale: tile.origin.scale,            
+            scale: tile.origin.scale,
             fontSize: 1 / tile.origin.scale + 'em'
          });
       } else {
@@ -118,12 +118,12 @@
    }
 
    function reposTile(tile, centered) {
-      
+
       if (containerSize.h == 0) return;
 
       if (centered) {
          tile.$el.css({ transform: '' });
-      } else {         
+      } else {
          tile.$el.css({
             x: tile.x * containerSize.w - containerSize.w / 2,
             y: tile.y * containerSize.h - containerSize.h / 2
@@ -138,28 +138,16 @@
       if (angle > 90 || angle < -90) {
          tile.$inst.find('.rule').css({ rotate: 180 });
       }
-
-      return;
-
-      tile.ruleOffset.x = Math.sin(angle * (Math.PI / 180)) * RADIUS;
-      tile.ruleOffset.y = Math.cos(angle * (Math.PI / 180)) * RADIUS;
-
-      var diff = {
-         rotate: (angle > 90 || angle < -90) ? angle + 180 : angle,
-         x: tile.ruleOffset.x,
-         y: tile.ruleOffset.y - RADIUS
-      };
-
-      tile.$inst.css(diff);
    }
-   
+
    app.on("app:resized").then(resize)
-   
+
    function dispose() {
       $('#app').unbind("scroll", scroll);
       for (var i = 0; i < instructionDoms.length; i++) {
          var $el = instructionDoms[i].$inst;
-         if (instructionDoms[i].isFixed) {            
+         instructionDoms[i].$mask.unbind($.support.transitionEnd);
+         if (instructionDoms[i].isFixed) {
             ko.removeNode($el[0]);
          }
       }
@@ -210,19 +198,20 @@
          var active = this.active();
 
          if (!active) {
-            //tile.$el.animate({ 'font-size': containerSize.h });            
-            if (tile.isFixed) {
-               attachInstruction(tile, 0);
-            }
-            reposTile(tile, true);
-            tile.$mask.css({ scale: 1 });
+            scaleTile(tile, false);
+            setTimeout(function () {
+               if (tile.isFixed) {
+                  attachInstruction(tile, 0);
+               }
+               reposTile(tile, true);
+               tile.$mask.css({ scale: 1 });
 
-            app.scrollUp();
+               app.scrollUp();
+            }, 0);
          } else {
-            //tile.$el.animate({ 'font-size': '' });
             setTimeout(scroll, 500);
             reposTile(tile, false);
-            tile.$mask.css({ scale: tile.origin.scale });
+            tile.$mask.css({ scale: tile.origin.scale });            
          }
 
          tile.active(!active);
@@ -257,19 +246,25 @@
          tile.$mask = $el.find('.mask');
          tile.ruleOffset = { x: 0, y: 0 };
 
-         $el.hide();
-         scaleTile(tile, false);
-         $el.show();
+         tile.$mask.bind($.support.transitionEnd, function (e) {
+            if (!tile.active()) {
+               tile.$mask.addClass("noTransition");
+               tile.$mask.css({ transform: '', fontSize: '' });
+               setTimeout(function () {
+                  tile.$mask.removeClass("noTransition");
+               }, 0);
+            }
+         });
 
          setTimeout(function () {
             UpdateTileInstruction(tile);
             reposTile(tile);
             instructionDoms.push(tile);
-         }, 1)         
+         }, 0);
       },
 
       detached: dispose
    };
 
-   
+
 });

@@ -9,11 +9,10 @@
         player: { active: ko.observable() },
         players: ko.observableArray(),
 
-        words: ko.observableArray(),
         tiles: ko.observableArray(),
-
         paths: ko.observableArray(),
-
+        words: ko.observableArray(),
+        
         loading: ko.observable(null),
         loadingStatus: ko.observable(''),
 
@@ -93,7 +92,7 @@
                  app.dialog.show("slipper-fixed", dialogData);
                  tmp.off();
               });
-              
+
            }
 
            model.player = find(json.players, { username: model.username });
@@ -172,7 +171,7 @@
 
                  setTimeout(function () {
                     app.trigger("game:tiles:visible", false);
-                 }, 3000)                 
+                 }, 3000)
               }
 
               for (var i = 0; i < json.players.length; i++) {
@@ -186,7 +185,50 @@
                  cplayer.resigned(jplayer.resigned || false);
 
                  if (cplayer.username === model.player.username && scored) {
-                    app.dialog.show("alert", { content: "You scored <b>" + scored + "</b> points!" });
+                    var text = ko.observable('');
+                    app.dialog.show("alert", {
+                       content: text,
+                       delay: 3000
+                    });
+
+                    text("You scored <b>" + scored + "</b> points!");
+
+                    //var wordsScore = 0, relatedScore = 0;
+                    //ko.utils.arrayForEach(json.path.score.words, function (w) {
+                    //   if (!w.related)
+                    //      wordsScore += w.points;
+                    //   else
+                    //      relatedScore += w.points;
+                    //});
+                    //var bonus = json.path.score.total - (wordsScore + relatedScore);
+
+                    //var delay = 1000;
+
+                    //$.Deferred(function (dfd) {
+                    //   if (wordsScore) {
+                    //      text("<b>Words</b>: X points".replace('X', wordsScore));
+                    //      setTimeout(function () { dfd.resolve() }, delay);
+                    //   } else
+                    //      dfd.resolve();
+                    //}).promise().then(function () {
+                    //   return $.Deferred(function (dfd) {
+                    //      if (relatedScore) {
+                    //         text("<b>Related words</b>: X points".replace('X', relatedScore));
+                    //         setTimeout(function () { dfd.resolve() }, delay);
+                    //      } else
+                    //         dfd.resolve();
+                    //   }).promise();
+                    //}).then(function () {
+                    //   return $.Deferred(function (dfd) {
+                    //      if (bonus) {
+                    //         text("<b>Bonuses</b>: X points".replace('X', bonus));
+                    //         setTimeout(function () { dfd.resolve() }, delay);
+                    //      } else
+                    //         dfd.resolve();
+                    //   }).promise()
+                    //}).then(function () {
+                    //   text("You scored <b>" + scored + "</b> points!");
+                    //});
                  }
               }
 

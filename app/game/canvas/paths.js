@@ -5,7 +5,9 @@
      app.on("app:resized").then(resize);
      
      ctx.tiles.subscribe(function (tiles) {
-        updateModel(tiles);
+        if (ctx.paths().length) {
+           updateModel(tiles);
+        }
      });
 
      ctx.paths.subscribe(function (paths) {
@@ -36,6 +38,16 @@
            };
 
            updateTiles(tiles);
+
+           var paths = ctx.paths();
+           for (var i = 0; i < paths.length; i++) {
+              var path = paths[i];
+              var sCenter = path.startTile.center;
+              var eCenter = path.endTile.center;
+              path.cPoint = path.cPoint || new paper.Point();
+              path.cPoint.x = (sCenter.x + eCenter.x) / 2;
+              path.cPoint.y = (sCenter.y + eCenter.y) / 2;
+           }
         })
      }
 
@@ -86,8 +98,11 @@
 
      function redrawThisPath() {
         updateModel();
-        this.canvas.setup();
-        this.canvas.show();
+        var base = this;
+        paper.dfd.promise().then(function () {
+           base.canvas.setup();
+           base.canvas.show();
+        });
      }
 
      function setup(canvas) {

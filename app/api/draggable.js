@@ -29,8 +29,9 @@
             e.preventDefault(); // disable selection            
             e.stopPropagation();            
             $el.addClass('drag');
-
+            
             convertEventForTouch(e);
+
             if (opt.withinEl) {
                var height = opt.withinEl[0].scrollHeight, width = opt.withinEl.innerWidth();
                var padLeft = parseInt(opt.withinEl.css('padding-left')),
@@ -110,7 +111,7 @@
 
          mousemove: function (e) {
             convertEventForTouch(e);
-            
+
             var newTop = e.pageY + e.data.t + e.data.scrollTopChange,
                 newLeft = e.pageX + e.data.l;            
             

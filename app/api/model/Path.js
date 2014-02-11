@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/constants', 'api/utils'], function (app, constants, utils) {
+﻿define(['durandal/app', 'api/constants', 'api/utils', 'paper'], function (app, constants, utils) {
    function Path(model, id, nWords, startTile, endTile, cw, phrase) {
       var base = this;
 
@@ -7,13 +7,7 @@
       base.startTile = utils.find(model.tiles(), { id: startTile });
       base.endTile = utils.find(model.tiles(), { id: endTile });
       base.cw = (cw === undefined ? true : cw);      
-            
-      if (phrase) {
-         setTimeout(function (data) {
-            base.phrase.update(data.words);
-         }, 100, {base: base, words: phrase.words});
-      }
-
+                  
       base.phrase = {
          _complete: ko.observable(false),
          playerId: 0,
@@ -38,7 +32,7 @@
          ko.utils.arrayForEach(words, function (word) {
             base.addWord(word, undefined, true);
          })
-      }
+      }      
 
       base.phrase.complete = ko.computed(function () {
          return this.phrase._complete() === true || this.phrase.words().length == 6 || (this.nWords != 0 && this.phrase.words().length == this.nWords);
@@ -160,6 +154,12 @@
             }
             base.phrase.words.valueHasMutated();
          }
+      }
+
+      if (phrase) {
+         //setTimeout(function (data) {
+         base.phrase.update(phrase.words);
+         //}, 100, { base: base, words: phrase.words });
       }
    }
 
