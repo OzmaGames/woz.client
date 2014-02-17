@@ -52,7 +52,7 @@
       }
    }
 
-   Palette.prototype.adjustPalettes = function (value) {      
+   Palette.prototype.adjustPalettes = function (value) {
       $('.palette:not(.fixed)').each(function (i, el) {
          var $el = $(el);
          if (value === undefined) {

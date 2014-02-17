@@ -41,8 +41,9 @@
       }
 
       this.placePhrase = function () {
+         var maxLeft = window.innerWidth - 300;
          var item = $('.magnet-placeholder').filter(function (i) {
-            if ($(this).offset().top > 200) return true;
+            if ($(this).offset().top > 200 && $(this).offset().left < maxLeft && $(this).offset().left > 70) return true;
             return false;
          });
 
@@ -55,8 +56,9 @@
       }
 
       this.fillPath = function () {
+         var maxLeft = window.innerWidth - 300;
          var item = $('.magnet-placeholder').filter(function (i) {
-            if ($(this).offset().top > 200) return true;
+            if ($(this).offset().top > 200 && $(this).offset().left < maxLeft && $(this).offset().left > 70) return true;
             return false;
          });
 
@@ -91,8 +93,9 @@
       }
 
       this.bonus = function () {
+         var maxLeft = window.innerWidth - 300;
          var item = $('.cloud .info').filter(function (i) {
-            if ($(this).offset().top > 220) return true;
+            if ($(this).offset().top > 220 && $(this).offset().left < maxLeft && $(this).offset().left > 70) return true;
             return false;
          });
 
@@ -165,7 +168,7 @@
    var t = new Tutorial();
    
    ctx.gameOver.subscribe(function (gameOver) {
-      if (!ctx.resumedGame && gameOver && !ctx.player.resigned() && ctx.playerCount == 2) {
+      if (gameOver && !ctx.player.resigned() && ctx.playerCount == 2) {
          if (!localStorage.getItem("tutorial-menu")) {
             
             t.archivedGames();

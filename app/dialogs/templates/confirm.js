@@ -46,6 +46,9 @@
       }
 
       this.close = function (command) {
+         if (this._closing) return;
+
+         this._closing = true;         
          base.el.transition({ y: 0 }, 300)
            .transition({ y: 100, opacity: 0 }).promise().then(function () {
               base.el.hide().css({ opacity: '' });
@@ -68,22 +71,27 @@
    }
 
    Confirm.prototype.bindingComplete = function (el) {
-      this.el = $('.confirm', el).css({ opacity: 0 });
+      this.el = $('.confirm', el).css({ opacity: 0, y: 100 });
       if (this.modal) this.el.parent().addClass('modal');
       this.__dialog__.settings.bindingComplete(el);
    }
 
    Confirm.prototype.load = function () {
       var base = this;
-      base.el.css({ y: 100, opacity: 0 })
-       .transition({ y: 0, opacity: 1 }, 300, 'ease')
-       .transition({ y: 10 }, 200);
+      base.el.addClass('transit0-25').css({ y: 0, opacity: 1 });
+      base.el.one($.support.transitionEnd, function () { 
+         base.el.css({ y: 10 }, 200);
+         base.el.one($.support.transitionEnd, function () {
+            base.el.removeClass('transit0-25');
+         });
+      });
    }
 
    Confirm.prototype.canDeactivate = function () {
-      var base = this;
+      var base = this;   
       return $.Deferred(function (dfd) {
          if (base.el) {
+            base.close()
             base.el.promise().then(function () { dfd.resolve(true); });
          }
       }).promise();

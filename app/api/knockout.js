@@ -223,7 +223,7 @@
          });
 
          $(element).touchPunch();
-
+         
          element.onlyClick = function (event) {
             if (valueAccessor().apply(viewModel, [viewModel, event]) !== true) {
                event.preventDefault();

@@ -115,6 +115,21 @@
         padding: 5px 0;
     }
 
+.dialog .transit0-5 {
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.dialog .transit0-25 {
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+}
+
+
 .dialog .slipper {
     position: relative;
     z-index: 11;
@@ -373,7 +388,7 @@
     padding: 20px 20px 20px 20px;
     color: rgba(152, 107, 49, 1);
     width: 20em;
-    margin: 0 auto;    
+    margin: 0 auto;
 }
 
     .dialog .panel h1 {
@@ -400,6 +415,7 @@
     color: #39270d;
     margin: 0 auto;
     line-height: 1.4em;
+    z-index: 1000;
 }
 
     .dialog .tutorial h1 {
@@ -503,7 +519,7 @@
         -webkit-transform: rotate( 195deg ) skew( -40deg );
         transform: rotate( 195deg ) skew( -40deg );
         right: -10px;
-        top:26px;
+        top: 26px;
     }
 
 

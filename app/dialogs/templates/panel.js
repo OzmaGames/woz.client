@@ -44,7 +44,7 @@
       loading: app.loading,
 
       attributes: {
-         fixed: true,
+         fixed: false,
          singleton: true
       }
    };

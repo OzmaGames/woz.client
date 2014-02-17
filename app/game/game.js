@@ -326,11 +326,13 @@
                      doneText: 'Swap Words',
                      cancelText: 'Cancel'
                   }).then(function (res) {
-                     base._wordsSub.dispose();
-
+                     
+                     
                      if (res == "cancel") {
+                        base._wordsSub.dispose();
                         cancel();
                      } else if (res == "done") {
+                        base._wordsSub.dispose();
                         app.dialog.close("slipper");
                         ctx.loadingStatus("Swapping words");
                         app.loading(true);

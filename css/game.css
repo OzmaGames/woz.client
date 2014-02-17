@@ -194,7 +194,7 @@ hr {
         -webkit-transform: translate3d(0,0,0);
         transform: translate3d(0,0,0);
         border-radius: 50%;
-        box-shadow: 5px 5px 10px 0 #333;
+        box-shadow: 2px 2px 5px 0 #333;
         width: 1em;
         height: 1em;
         -moz-transition: 1s box-shadow ease-in-out;
