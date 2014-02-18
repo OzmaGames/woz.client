@@ -31,7 +31,8 @@
         },
 
         compositionComplete: function () {
-           app.trigger("account:view:change", "account/login");           
+           app.trigger("account:view:change", "account/login");
+           
         },
 
         detached: function (view) {

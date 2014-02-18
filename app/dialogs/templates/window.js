@@ -34,6 +34,11 @@
     }
   }
 
+  Window.prototype.bindingComplete = function (el) {
+     this.el = $('.window', el);
+     this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left });
+  }
+
   Window.prototype.compositionComplete = function (el) {
     this.el = $('.window', el);
 

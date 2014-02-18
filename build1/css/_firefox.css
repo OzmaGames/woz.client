@@ -1,0 +1,23 @@
+﻿html {
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.game-item {
+    font-size: 1em;
+    line-height: 1.4em;
+    -webkit-text-shadow: 0px 0px 1px rgba(152, 107, 49, 0.3);
+    text-shadow: 0px 0px 1px rgba(152, 107, 49, 0.3);
+}
+
+    .game-item .btn {
+        font-size: 16px;
+    }
+
+    .game-item .players {
+    }
+
+.tab .content > div {
+    overflow: hidden !important;
+    margin-top: -20px;
+    padding-bottom: 40px;
+}

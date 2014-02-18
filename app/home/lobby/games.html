@@ -4,7 +4,7 @@
 <div data-bind="foreach: list" style="margin-bottom:20px;">
    <h1 data-bind="text: title" class="archive"></h1>
    <!-- ko if: games().length -->
-   <div class="" data-bind="css: {'container y scroll games': $root.type() == 'archive'}">
+   <div class="" data-bind1="css: {'container y scroll games': $root.type() == 'archive'}">
       <div class="table" data-bind="foreach: games">
          <div class="game-item" data-bind="click: $root.selectGame, css: {active: $root.activeGame() == $data}">
             <div class="cell left">

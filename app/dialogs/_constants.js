@@ -28,7 +28,7 @@
 
       SWAP_WORDS: {
          heading: "SWAP WORDS",
-         content: "Select the words you like to swap to exchange them for new ones. Then click \"Done\""
+         content: "Select the words you like to swap to exchange them for new ones."
       },
 
       TUT: {
@@ -77,8 +77,8 @@
             content: "Once the path is full,<br>the phrase will be accepted."
          },
          ARCHIVE_GAMES: {
-            heading: "Archive Games",
-            content: "To find your<br>finished games go<br>to \"My Games\" and<br>check out the tab<br>called:<br>\"Archived Games\"."
+            heading: "Game Archive",
+            content: "To find your<br>finished games go<br>to \"My Games\" and<br>check out the tab<br>called:<br>\"Game Archive\"."
          }
       }
    }

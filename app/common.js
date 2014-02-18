@@ -6,6 +6,7 @@ define('common',
    function (system, app, router, Dialog, server, ctx, palette) {
       var scrollable = true;
 
+      if (navigator && navigator.splashscreen) navigator.splashscreen.hide();
 
       (function (app) {
          app.browser = {};
@@ -33,8 +34,8 @@ define('common',
 
          updateScreenSize();
 
-         window.addEventListener("resize", function (e) {
-            if (updateScreenSize()) {
+         window.addEventListener("resize", function (e) {            
+            if (updateScreenSize()) {               
                app.trigger("app:resized:hook", e);
                clearTimeout(resizeHelperId);
                resizeHelperId = setTimeout(function (event) {
@@ -45,7 +46,8 @@ define('common',
 
          window.addEventListener('orientationchange', function (e) {
             setTimeout(function () {
-               $(app.el).css({ 'minHeight': window.outerHeight + 'px' });
+               var height = window.outerHeight - window.innerHeight == 54 ? window.outerHeight : window.innerHeight;
+               $(app.el).css({ 'minHeight': height + 'px' });
                //app.console.log(app.el.scrollHeight + ' ' + document.body.scrollHeight);
                if (updateScreenSize()) {
                   app.trigger("app:resized:hook", e);
@@ -54,6 +56,11 @@ define('common',
             }, 600);
             //500 is important, as in 500ms the new screen size is updated
          });
+
+         if (app.browser.tablet) {
+            var height = window.outerHeight - window.innerHeight == 54 ? window.outerHeight : window.innerHeight;
+            $(app.el).css({ 'minHeight': height + 'px' });
+         }
 
          function updateScreenSize() {
             var w = app.screen.size.width - window.innerWidth;
@@ -79,35 +86,10 @@ define('common',
 
       })(app);
 
-      var APP = app.el;
-      //app.on("app:resized").then(function () {
-      //   app.console.log("resized");
-      //});
-      //document.addEventListener("touchmove", function (e) {
-      //   app.console.log("prevented ");
-      //   e.preventDefault();
-      //}, false);
-
-      //APP.addEventListener('touchstart', function (e) {
-      //   if (e.currentTarget.scrollTop === 0) {
-      //      e.currentTarget.scrollTop = 1;
-      //   } else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
-      //      e.currentTarget.scrollTop -= 1;
-      //   }
-      //}, false);
-
-      //APP.addEventListener("touchmove", function (e) {         
-      //   e.stopPropagation();
-      //}, false);
-
-      if (app.browser.tablet) {
-         $(app.el).css({ 'minHeight': window.outerHeight + 'px' });         
-      }
+      var APP = app.el;      
 
       function resetScroll() {
-
-         var SHELL = document.getElementById("shell");
-         //if (app.browser.tablet && !app.browser.iPad) SHELL = APP;         
+         var SHELL = document.getElementById("shell");        
 
          $(SHELL).delay(1).promise().then(function () {
             $(SHELL).css({
@@ -120,8 +102,14 @@ define('common',
          });
       }
 
-      app.scrollUp = function (showScroll) {
+      app.scrollUp = function (opt) {
          console.log("Scrolling UP");
+         opt = opt || {};
+
+         if (opt.noAnimate) {
+            APP.scrollTop = 0;
+            return;
+         }
 
          var SHELL = document.getElementById("shell");
 
@@ -174,7 +162,6 @@ define('common',
          app.palette.get("fullscreen").hide()
       }
 
-
       app.console = {
          log: function (str) {
             $('#console').html(str);
@@ -205,4 +192,6 @@ define('common',
       //   '\nproduct: ' + navigator.product
       //   );
 
+      //alert(screen.availHeight + ' ' + screen.height + ' ' + outerHeight + ' ' + innerHeight);
+      
    });

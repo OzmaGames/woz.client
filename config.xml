@@ -31,19 +31,22 @@
     <preference name="phonegap-version"           value="3.1.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
-    <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
+    <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
     <preference name="prerendered-icon"           value="true" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
     <preference name="ios-statusbarstyle"         value="black-opaque" />   <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
     <preference name="detect-data-types"          value="true" />           <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
     <preference name="exit-on-suspend"            value="false" />          <!-- ios: if set to true, app will terminate when home button is pressed -->
-    <preference name="auto-hide-splash-screen"    value="true" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
+    <preference name="auto-hide-splash-screen"    value="true" />          <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
     <preference name="disable-cursor"             value="false" />          <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
     <preference name="android-minSdkVersion"      value="7" />              <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
+    <preference name="android-windowSoftInputMode" value="adjustResize"/>
     <preference name="DisallowOverscroll" value="true"/>
-    <preference name="BackgroundColor" value="0xfff1e8d5"/>
+    <!--<preference name="BackgroundColor" value="0xfff1e8d5"/>-->
+    <preference name="SplashScreenDelay" value="5000" />
   
-    <!-- Plugins -->
+  
+  <!-- Plugins -->
 
     <!-- Core plugins -->
     <!--<gap:plugin name="org.apache.cordova.battery-status" />
@@ -85,15 +88,15 @@
     <icon src="images/icon.png"   gap:platform="winphone"   gap:role="background" />
 
     <!-- Define app splash screen for each platform. -->
-    <!--<gap:splash src="images/ozma.png"  gap:platform="android" gap:density="ldpi" />
-    <gap:splash src="images/ozma.png"  gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="images/ozma.png"  gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="images/ozma.png"  gap:platform="android" gap:density="xhdpi" />
-    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="320" height="480" />
-    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="640" height="960" />
-    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="768" height="1024" />
-    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="1024" height="768" />
-    <gap:splash src="images/ozma.png"  gap:platform="winphone" />-->
+    <gap:splash src="images/ozma.jpg"  gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="android" gap:density="xhdpi" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="320" height="480" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="640" height="960" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="768" height="1024" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="1024" height="768" />
+    <gap:splash src="images/ozma.jpg"  gap:platform="winphone" />
 
     <!--
         Define access to external domains.

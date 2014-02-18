@@ -167,12 +167,13 @@
 
    var t = new Tutorial();
    
-   ctx.gameOver.subscribe(function (gameOver) {
-      if (gameOver && !ctx.player.resigned() && ctx.playerCount == 2) {
+   ctx._gameOver.subscribe(function (gameOver) {
+      if (gameOver && !ctx.player.resigned()) {
          if (!localStorage.getItem("tutorial-menu")) {
-            
-            t.archivedGames();
-            localStorage.setItem("tutorial-menu", true);
+            setTimeout(function () {
+               t.archivedGames();
+               localStorage.setItem("tutorial-menu", true);
+            }, 6000);
          }
       }
    });

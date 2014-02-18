@@ -166,7 +166,7 @@
                     }
                     setTimeout(function () {
                        app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' });
-                    }, 2000);
+                    }, 4000);
                  });
 
                  setTimeout(function () {

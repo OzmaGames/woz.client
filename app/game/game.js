@@ -461,11 +461,12 @@
       },
 
       binding: function () {
+         app.scrollUp({ noAnimate: true });
          return { cacheViews: false };
       },
 
       compositionComplete: function (view) {
-
+         
       },
 
       detached: function () {
