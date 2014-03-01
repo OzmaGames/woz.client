@@ -63,6 +63,7 @@
                   };
                   base.completeSub.dispose();
                   model.lastPath = base;
+                  console.log(data);
                   app.trigger("server:game:place-phrase", data);
                   app.scrollUp(); 
                } else {

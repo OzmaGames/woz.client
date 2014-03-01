@@ -8,15 +8,19 @@
       var height = window.innerHeight;
       var top = (height - dialog.outerHeight()) / 2;      
       if (top < 0) return;
-      
-      dialog.css({ y: top });      
+            
+      dialog.css({ y: top });
+
+      setTimeout(function () {         
+         $('input[autofocus]').focus();
+      }, 0);      
    }
 
    return {
       activate: function (moduleName) {
          if (!moduleName) return;
          this.modelName(moduleName);
-         sub = app.on("app:resized").then(adjust);
+         sub = app.on("app:resized:hook").then(adjust);
       },
 
       bindingComplete: function (view) {

@@ -200,7 +200,7 @@
 
                   if (result && result.then) {
                      result.then(function () {
-                        $('.content', element).slideDown();
+                        $('.content', element).delay(300).slideDown(500);
                      });
                   }
                }
@@ -218,7 +218,7 @@
    ko.bindingHandlers["click"].init = function (element, valueAccessor, allBindingsAccessor, viewModel) {
       if ($.support.touch) {
          $(element).bind("touchstart", function (e) {
-            e.preventDefault();
+            //e.preventDefault();
             e.stopPropagation();
          });
 

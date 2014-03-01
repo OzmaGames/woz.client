@@ -30,7 +30,7 @@
       SOLO: {
          heading: "Well done!",
          content: "You completed the game board.",
-         btnText: "continue playing",
+         btnText: "Start New Game",
          target: 'singlePlayer'
       },
       RESIGNED: {

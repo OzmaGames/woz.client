@@ -1,6 +1,6 @@
 ﻿<!--<h1>Join The Game!</h1>-->
 <div style="position:relative; overflow:hidden;">
-   <button class="facebook" data-bind="click: facebook, enable: facebookLogin && !loading()">login with facebook</button>
+   <button class="facebook" data-bind="enable: facebookLogin && !loading()">login with facebook</button>
    <div class="facebook profile" data-bind="if: facebookProfile">
       <div class="avatar btn"></div>
       <div class="avatar" data-bind="style: {backgroundImage: 'url(\'https://graph.facebook.com/'+ facebookProfile().id +'/picture?width=100&height=100\')'}"></div>

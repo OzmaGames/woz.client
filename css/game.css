@@ -453,11 +453,11 @@ body > .cloud.fixed {
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
     white-space: nowrap;
-    -moz-transform: scale(0.1) rotate(0deg) translateZ(0);
-    -ms-transform: scale(0.1) rotate(0deg) translateZ(0);
-    -o-transform: scale(0.1) rotate(0deg) translateZ(0);
-    -webkit-transform: scale(0.1) rotate(0deg) translateZ(0);
-    transform: scale(0.1) rotate(0deg) translateZ(0);
+    -moz-transform: scale(0.1) rotate(0) translateZ(0);
+    -ms-transform: scale(0.1) rotate(0) translateZ(0);
+    -o-transform: scale(0.1) rotate(0) translateZ(0);
+    -webkit-transform: scale(0.1) rotate(0) translateZ(0);
+    transform: scale(0.1) rotate(0) translateZ(0);
     opacity: 0;
 }
 
@@ -467,54 +467,121 @@ body > .cloud.fixed {
         border: 1px solid #f5cf76;
     }
 
-    .magnet.selected {
+    .magnet.highlight {
         border-width: 2px;
-        box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
-        border: 1px solid #986B31;
-        border-radius: 3px;
+        box-shadow: 0 0 15px #5cb0c6,1px 1px 2px #333, inset -1px -1px 4px #5cb0c6;
+        border: 1px solid #5cb0c6;
+        -moz-animation: .5s jiggle infinite linear;
+        -o-animation: .5s jiggle infinite linear;
+        -webkit-animation: .5s jiggle infinite linear;
+        animation: .5s jiggle infinite linear;
     }
 
-    .magnet .points {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        font-size: 12px;
-        width: 20px;
-        background-color: white;
-        border-radius: 50%;
-        border: 1px solid #e8e0d3;
-        text-align: center;
-        padding-right: 3px;
-        z-index: 1;
+@-webkit-keyframes jiggle {
+    from {
+        -webkit-transform: rotate(0deg);
     }
 
-    .magnet.drag {
-        /*position: fixed !important;*/
-        z-index: 50;
-        -moz-transform: scale(1.1) translateZ(1) !important;
-        -ms-transform: scale(1.1) translateZ(1) !important;
-        -o-transform: scale(1.1) translateZ(1) !important;
-        -webkit-transform: scale(1.1) translateZ(1) !important;
-        transform: scale(1.1) translateZ(1) !important;
+    25% {
+        -webkit-transform: rotate(10deg);
     }
 
-    .magnet:hover:not(.drag):not(:active):not(.placed) {
-        -moz-transform: scale(1.05) !important;
-        -ms-transform: scale(1.05) !important;
-        -o-transform: scale(1.05) !important;
-        -webkit-transform: scale(1.05) !important;
-        transform: scale(1.05) !important;
-        border-color: #b8b0a3;
-        border-radius: 4px;
+    75% {
+        -webkit-transform: rotate(-10deg);
     }
 
-    .magnet.complete {
-        cursor: default !important;
+    to {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+@-moz-keyframes jiggle {
+    from {
+        -moz-transform: rotate(0deg);
     }
 
-    .magnet.placed {
-
+    25% {
+        -moz-transform: rotate(10deg);
     }
+
+    75% {
+        -moz-transform: rotate(-10deg);
+    }
+
+    to {
+        -moz-transform: rotate(0deg);
+    }
+}
+
+@keyframes jiggle {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    25% {
+        -webkit-transform: rotate(10deg);
+        transform: rotate(10deg);
+    }
+
+    75% {
+        -webkit-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+
+    to {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+.magnet.selected {
+    border-width: 2px;
+    box-shadow: 0 0 15px #986B31,1px 1px 2px #333, inset -1px -1px 4px #963;
+    border: 1px solid #986B31;
+    border-radius: 3px;
+}
+
+.magnet .points {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 12px;
+    width: 20px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid #e8e0d3;
+    text-align: center;
+    padding-right: 3px;
+    z-index: 1;
+}
+
+.magnet.drag {
+    /*position: fixed !important;*/
+    z-index: 50;
+    -moz-transform: scale(1.1) translateZ(1) !important;
+    -ms-transform: scale(1.1) translateZ(1) !important;
+    -o-transform: scale(1.1) translateZ(1) !important;
+    -webkit-transform: scale(1.1) translateZ(1) !important;
+    transform: scale(1.1) translateZ(1) !important;
+}
+
+.magnet:hover:not(.drag):not(:active):not(.placed) {
+    -moz-transform: scale(1.05) !important;
+    -ms-transform: scale(1.05) !important;
+    -o-transform: scale(1.05) !important;
+    -webkit-transform: scale(1.05) !important;
+    transform: scale(1.05) !important;
+    border-color: #b8b0a3;
+    border-radius: 4px;
+}
+
+.magnet.complete {
+    cursor: default !important;
+}
+
+.magnet.placed {
+}
 
 .magnet-placeholder {
     position: absolute;
@@ -531,6 +598,21 @@ body > .cloud.fixed {
 
     .magnet-placeholder.elem {
         width: auto;
+    }
+
+    .magnet-placeholder .score {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #5cb0c6;
+        -moz-transition: all 2s ease-in-out, opacity 4s ease-in-out;
+        -o-transition: all 2s ease-in-out, opacity 4s ease-in-out;
+        -webkit-transition: all 2s ease-in-out, opacity 4s ease-in-out;
+        transition: all 2s ease-in-out, opacity 4s ease-in-out;
     }
 
     .magnet-placeholder .magnet {

@@ -54,7 +54,7 @@
       }
    });
 
-   function showStars(player, path, scoreObj) {
+   function showStars(player, path, scoreObj, highlight, showScore) {
       var playerEl, boxes;
       $('.player').each(function (i, el) {
          if (ko.dataFor(el) == player) {
@@ -72,7 +72,23 @@
          var boxLemma = boxes[j].wordModel.lemma;
          var boxScore = ko.utils.arrayFirst(scoreObj.words, function (w) { return w.lemma == boxLemma; }).points;
 
-         console.log(boxScore);
+         if (boxScore) {
+            $('.magnet', box).addClass("highlight");
+            setTimeout(function (b) { $('.magnet', b).removeClass("highlight"); }, 1000, box)
+
+            var scoreDiv = $('<div/>', { 'class': 'score', text: '+' + boxScore });
+            box.prepend(scoreDiv);
+
+            if (!highlight || showScore) {
+               setTimeout(function (div) {
+                  div.bind($.support.transitionEnd, function (e) {
+                     if (e.originalEvent.propertyName == 'opacity') {
+                        div.remove();
+                     }
+                  }).css({ y: '-3em', opacity: 0, scale: 2 });
+               }, 0, scoreDiv);
+            }
+         }
 
          for (var i = 0; i < boxScore * 3; i++) {
             var star = $('<div/>', { 'class': 'star' });
@@ -82,8 +98,8 @@
             star.css({
                scale: scale,
                x: offset.left * (1 / scale),
-               y: offset.top * (1 / scale),
-               backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
+               y: offset.top * (1 / scale)
+               //backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
             });
 
             setTimeout(function (o) {
@@ -129,7 +145,7 @@
          if (ko.dataFor(el) == tile) {
             cloud = $(el);
             rule = cloud.parent();
-            num = 2 * (tile.bonus || (ctx.player.scored || ctx.player.score()) * tile.mul || 20);
+            num = 2 * (tile.bonus || (ctx.player.scored || ctx.player.score()) * tile.mult || 20);
             return;
          }
       });
@@ -146,33 +162,6 @@
             .transition({ rotate: '-=30' }, { easing: 'ease-in-out' })
             .transition({ rotate: '+=15' }, { easing: 'ease-in-out' });
       }
-
-      //cloud.addClass('glow');
-      //setTimeout(function () {
-      //   cloud.removeClass('glow');
-      //}, 500);
-
-      //var r = Math.random();
-      //if (r < .2) {
-      //   cloud.transition({ scale: 1.2 }).transition({ scale: .9 }).transition({ scale: 1 });
-      //} else if (r < .4) {
-      //   $('.cloud:first').transition({ rotate: '+=360' }, 1500);
-      //} else if (r < .6) {
-      //   cloud.addClass('glow');
-      //   setTimeout(function () {
-      //      cloud.removeClass('glow');
-      //   }, 500);
-      //} else if (r < .8) {
-      //   cloud
-      //      .transition({ rotate: '+=15' })
-      //      .transition({ rotate: '-=30' })
-      //      .transition({ rotate: '+=15' });
-      //} else {
-      //   $('.cloud:first')
-      //      .transition({ rotate: '+=15' })
-      //      .transition({ rotate: '-=30' })
-      //      .transition({ rotate: '+=15' });
-      //}
 
       for (var i = 0; i < num; i++) {
          var star = $('<div/>', { 'class': 'star' });
@@ -227,7 +216,7 @@
       }
 
       document.getElementById('app').classList.add('noScroll');
-      setTimeout(function () {         
+      setTimeout(function () {
          app.scrollDown(window.innerHeight, true);
          setTimeout(app.scrollUp, 800, true);
          setTimeout(function () {
@@ -242,11 +231,124 @@
 
       console.log(json);
       if (ctx.player.scored) {
-         showStars(ctx.player, ctx.lastPath, json.path.score);
-         if (json.path.score.startTile.satisfied)
+
+         var d1 = 2000, d2 = 500;
+         if (json.path.score.startTile.satisfied) {
+            ko.utils.arrayForEach(json.path.score.startTile.words, function (i) {
+               var lemma = json.path.score.words[i].lemma;
+               for (var i = 0; i < ctx.lastPath.guiBoxes.length; i++) {
+                  var lemma2 = ctx.lastPath.guiBoxes[i].wordModel.lemma;
+                  if (lemma2 == lemma) {
+                     var $el = $('.magnet', ctx.lastPath.guiBoxes[i]._guiElem);
+                     $el.addClass('highlight');
+                     setTimeout(function (el) { el.removeClass('highlight') }, d1, $el);
+
+                     //var points = ctx.lastPath.startTile.bonus || (json.path.score.total / ctx.lastPath.startTile.mult);
+                     //points = points / json.path.score.startTile.words.length;
+                     //points = points.toFixed(0);
+                     //var scoreDiv = $('<div/>', { 'class': 'score', text: '+' + points }), box = $(ctx.lastPath.guiBoxes[i]._guiElem);
+                     //box.prepend(scoreDiv);
+
+                     //setTimeout(function (div) {
+                     //   div.bind($.support.transitionEnd, function (e) {
+                     //      if (e.originalEvent.propertyName == 'opacity') {
+                     //         div.remove();
+                     //      }
+                     //   }).css({ y: '-3em', opacity: 0, scale: 2 });
+                     //}, 0, scoreDiv);
+                  }
+               }
+               var points = ctx.lastPath.startTile.bonus || (json.path.score.total / ctx.lastPath.startTile.mult);
+               var scoreDiv = $('<div/>', { 'class': 'score', text: '+' + points }), box = $(ctx.lastPath.guiBoxes[Math.floor(ctx.lastPath.guiBoxes.length / 2)]._guiElem);
+               box.prepend(scoreDiv);
+
+               setTimeout(function (div) {
+                  div.bind($.support.transitionEnd, function (e) {
+                     if (e.originalEvent.propertyName == 'opacity') {
+                        div.remove();
+                     }
+                  }).css({ y: '-3em', opacity: 0, scale: 2 });
+               }, 0, scoreDiv);
+            });
             showGlowing(ctx.lastPath.startTile);
-         if (json.path.score.endTile.satisfied)
-            showGlowing(ctx.lastPath.endTile);
+         }
+
+         setTimeout(function () {
+            if (json.path.score.endTile.satisfied) {
+               ko.utils.arrayForEach(json.path.score.endTile.words, function (i) {
+                  var lemma = json.path.score.words[i].lemma;
+                  for (var i = 0; i < ctx.lastPath.guiBoxes.length; i++) {
+                     var lemma2 = ctx.lastPath.guiBoxes[i].wordModel.lemma;
+                     if (lemma2 == lemma) {
+                        var $el = $('.magnet', ctx.lastPath.guiBoxes[i]._guiElem);
+                        $el.addClass('highlight');
+                        setTimeout(function (el) { el.removeClass('highlight') }, d1, $el);
+
+                        //var points = ctx.lastPath.endTile.bonus || (json.path.score.total / ctx.lastPath.endTile.mult);
+                        //points = points / json.path.score.endTile.words.length;
+                        //points = points.toFixed(0);
+                        //var scoreDiv = $('<div/>', { 'class': 'score', text: '+' + points }), box = $(ctx.lastPath.guiBoxes[i]._guiElem);
+                        //box.prepend(scoreDiv);
+
+                        //setTimeout(function (div) {
+                        //   div.bind($.support.transitionEnd, function (e) {
+                        //      if (e.originalEvent.propertyName == 'opacity') {
+                        //         div.remove();
+                        //      }
+                        //   }).css({ y: '-3em', opacity: 0, scale: 2 });
+                        //}, 0, scoreDiv);
+                     }
+                  }
+
+                  var points = ctx.lastPath.endTile.bonus || (json.path.score.total / ctx.lastPath.endTile.mult);
+                  var scoreDiv = $('<div/>', { 'class': 'score', text: '+' + points }), box = $(ctx.lastPath.guiBoxes[Math.floor(ctx.lastPath.guiBoxes.length / 2)]._guiElem);
+                  box.prepend(scoreDiv);
+
+                  setTimeout(function (div) {
+                     div.bind($.support.transitionEnd, function (e) {
+                        if (e.originalEvent.propertyName == 'opacity') {
+                           div.remove();
+                        }
+                     }).css({ y: '-3em', opacity: 0, scale: 2 });
+                  }, 0, scoreDiv);
+               });
+               showGlowing(ctx.lastPath.endTile);
+            }
+         }, json.path.score.startTile.satisfied * (d1 + d2));
+
+         setTimeout(function () {
+            var anyRelated = false, index= 0;
+            var related = ko.utils.arrayMap(json.path.score.words, function (w) {
+               var p = 0;
+               if (w.related) {
+                  anyRelated = true;
+                  p = 15;
+                  json.path.score.words[index].points -= 15;
+               }
+               index++;
+               return {
+                  lemma: w.lemma,
+                  points: p,
+                  related: w.related
+               }
+            });
+            var all = json.path.score.words;
+
+            if (anyRelated) {
+               json.path.score.words = related;
+               showStars(ctx.player, ctx.lastPath, json.path.score, 1, 1);
+
+               json.path.score.words = all;
+               setTimeout(function () {
+                  showStars(ctx.player, ctx.lastPath, json.path.score);
+               }, 2000);
+            } else {
+               showStars(ctx.player, ctx.lastPath, json.path.score);
+            }
+            setTimeout(function () {
+               app.trigger("game:stars:done");
+            }, 2000 + anyRelated * 2000);
+         }, json.path.score.startTile.satisfied * (d1 + d2) + json.path.score.endTile.satisfied * (d1 + d2));
       }
    });
 
@@ -326,8 +428,8 @@
                      doneText: 'Swap Words',
                      cancelText: 'Cancel'
                   }).then(function (res) {
-                     
-                     
+
+
                      if (res == "cancel") {
                         base._wordsSub.dispose();
                         cancel();
@@ -466,7 +568,7 @@
       },
 
       compositionComplete: function (view) {
-         
+
       },
 
       detached: function () {

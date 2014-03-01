@@ -63,7 +63,7 @@
            model.loadingStatus("Starting The Game...");
 
            model.gameID = json.id;
-           model.playerCount = json.players.length;
+           model.playerCount = json.playerCount;
            model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
            model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
 
@@ -81,7 +81,18 @@
               player.score = ko.observable(player.score);
            });
 
+           model.player = find(json.players, { username: model.username });
+           model.players(json.players);
+
            if (model.playerCount > 1 && !json.over) {
+              if (model.players().length == 1) {
+                 model.players.unshift({
+                    active: ko.observable(false),
+                    resigned: ko.observable(false),
+                    score: ko.observable(0),
+                    username: '?'
+                 });
+              }
               var dialogData;
               if (model.player.active())
                  dialogData = DIALOGS.YOUR_TURN_FIRST_ROUND;
@@ -92,11 +103,7 @@
                  app.dialog.show("slipper-fixed", dialogData);
                  tmp.off();
               });
-
            }
-
-           model.player = find(json.players, { username: model.username });
-           model.players(json.players);
 
            ko.utils.arrayForEach(json.words, function (word) {
               word.isSelected = ko.observable(false);
@@ -158,20 +165,20 @@
                           data = module.WON;
                        }
                     } else if (winner === null) {
-                       //data = module.RESIGNED;
                        app.navigate("lobby");
                        return;
                     } else {
                        data = module.LOST;
                     }
-                    setTimeout(function () {
-                       app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' });
-                    }, 4000);
-                 });
 
-                 setTimeout(function () {
-                    app.trigger("game:tiles:visible", false);
-                 }, 3000)
+                    var sub;
+                    sub = app.on("game:score:done").then(function () {
+                       app.trigger("game:tiles:visible", false);
+                       app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' });
+                       sub.off();
+                    });
+                    
+                 });                 
               }
 
               for (var i = 0; i < json.players.length; i++) {
@@ -185,50 +192,17 @@
                  cplayer.resigned(jplayer.resigned || false);
 
                  if (cplayer.username === model.player.username && scored) {
-                    var text = ko.observable('');
-                    app.dialog.show("alert", {
-                       content: text,
-                       delay: 3000
-                    });
-
-                    text("You scored <b>" + scored + "</b> points!");
-
-                    //var wordsScore = 0, relatedScore = 0;
-                    //ko.utils.arrayForEach(json.path.score.words, function (w) {
-                    //   if (!w.related)
-                    //      wordsScore += w.points;
-                    //   else
-                    //      relatedScore += w.points;
-                    //});
-                    //var bonus = json.path.score.total - (wordsScore + relatedScore);
-
-                    //var delay = 1000;
-
-                    //$.Deferred(function (dfd) {
-                    //   if (wordsScore) {
-                    //      text("<b>Words</b>: X points".replace('X', wordsScore));
-                    //      setTimeout(function () { dfd.resolve() }, delay);
-                    //   } else
-                    //      dfd.resolve();
-                    //}).promise().then(function () {
-                    //   return $.Deferred(function (dfd) {
-                    //      if (relatedScore) {
-                    //         text("<b>Related words</b>: X points".replace('X', relatedScore));
-                    //         setTimeout(function () { dfd.resolve() }, delay);
-                    //      } else
-                    //         dfd.resolve();
-                    //   }).promise();
-                    //}).then(function () {
-                    //   return $.Deferred(function (dfd) {
-                    //      if (bonus) {
-                    //         text("<b>Bonuses</b>: X points".replace('X', bonus));
-                    //         setTimeout(function () { dfd.resolve() }, delay);
-                    //      } else
-                    //         dfd.resolve();
-                    //   }).promise()
-                    //}).then(function () {
-                    //   text("You scored <b>" + scored + "</b> points!");
-                    //});
+                    var sub;
+                    sub = app.on("game:stars:done").then(function () {
+                       app.dialog.show("alert", {
+                          content: "You scored <b>" + scored + "</b> points!",
+                          delay: 3000
+                       }).then(function () {
+                          app.trigger("game:score:done");
+                       });
+                       
+                       sub.off();
+                    });                    
                  }
               }
 

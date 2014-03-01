@@ -45,7 +45,10 @@
                break;
             case 1:
                sessionStorage.setItem("lobby", 1);
-               base.loading(false);
+               return $.Deferred(function (dfd) {
+                  base.loading(false);
+                  setTimeout(function () { dfd.resolve(); }, 500)
+               });
                break;
             case 2:
                sessionStorage.setItem("lobby", 2);
@@ -69,6 +72,7 @@
             sessionStorage.setItem("lobby", 0);
          } else {
             this.activeTab = sessionStorage.getItem("lobby");
+
          }
       },
 

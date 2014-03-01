@@ -34,7 +34,7 @@ define('common',
 
          updateScreenSize();
 
-         window.addEventListener("resize", function (e) {            
+         window.addEventListener("resize", function (e) {
             if (updateScreenSize()) {               
                app.trigger("app:resized:hook", e);
                clearTimeout(resizeHelperId);
@@ -46,8 +46,10 @@ define('common',
 
          window.addEventListener('orientationchange', function (e) {
             setTimeout(function () {
-               var height = window.outerHeight - window.innerHeight == 54 ? window.outerHeight : window.innerHeight;
-               $(app.el).css({ 'minHeight': height + 'px' });
+               if (app.browser.android) {
+                  var height = window.outerHeight - window.innerHeight == 54 ? window.outerHeight : window.innerHeight;
+                  $(app.el).css({ 'minHeight': height + 'px' });
+               }
                //app.console.log(app.el.scrollHeight + ' ' + document.body.scrollHeight);
                if (updateScreenSize()) {
                   app.trigger("app:resized:hook", e);
@@ -57,7 +59,7 @@ define('common',
             //500 is important, as in 500ms the new screen size is updated
          });
 
-         if (app.browser.tablet) {
+         if (app.browser.android) {
             var height = window.outerHeight - window.innerHeight == 54 ? window.outerHeight : window.innerHeight;
             $(app.el).css({ 'minHeight': height + 'px' });
          }
@@ -68,7 +70,8 @@ define('common',
 
             app.screen.size.width -= w;
             app.screen.size.height -= h;
-            
+         
+            //alert(w + ' ' + h);
             return w || h;
          }
 
@@ -192,6 +195,7 @@ define('common',
       //   '\nproduct: ' + navigator.product
       //   );
 
+      //alert(app.browser.iPad);
       //alert(screen.availHeight + ' ' + screen.height + ' ' + outerHeight + ' ' + innerHeight);
       
    });

@@ -45,7 +45,7 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
         loadCSS('_firefox');
      }
 
-     if (!app.browser.android) {
+     if (app.browser.iPad) {
         loadCSS('_ipad');
      }
 

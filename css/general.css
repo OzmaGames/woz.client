@@ -207,11 +207,6 @@ h3 {
         background-size: auto 100%;
     }
 
-    .logo.loading {
-        top: 100px;
-        height: 200px;
-    }
-
 @media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) { /*(min-resolution: 120dpi),*/
     .logo.page {
         background-image: url('../images/app/logo.png');
