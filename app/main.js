@@ -53,9 +53,11 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
         loadCSS('_touch');
      }
 
-     if ($.support.kindle) {
+     if (app.browser.kindle) {
         if (screen.lockOrientation)
            screen.lockOrientation(["landscape-primary", "landscape-secondary"]);
+
+        loadCSS('_kindle')
      }
 
      function loadCSS(css) {

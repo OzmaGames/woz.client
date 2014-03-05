@@ -458,7 +458,7 @@ body > .cloud.fixed {
     -o-transform: scale(0.1) rotate(0) translateZ(0);
     -webkit-transform: scale(0.1) rotate(0) translateZ(0);
     transform: scale(0.1) rotate(0) translateZ(0);
-    opacity: 0;
+    opacity: 0;    
 }
 
     .magnet.related {
@@ -471,10 +471,10 @@ body > .cloud.fixed {
         border-width: 2px;
         box-shadow: 0 0 15px #5cb0c6,1px 1px 2px #333, inset -1px -1px 4px #5cb0c6;
         border: 1px solid #5cb0c6;
-        -moz-animation: .5s jiggle infinite linear;
-        -o-animation: .5s jiggle infinite linear;
-        -webkit-animation: .5s jiggle infinite linear;
-        animation: .5s jiggle infinite linear;
+        -moz-animation: .6s jiggle 3 ease;
+        -o-animation: .6s jiggle 3 ease;
+        -webkit-animation: .6s jiggle 3 ease;
+        animation: .6s jiggle 3 ease;
     }
 
 @-webkit-keyframes jiggle {
@@ -609,10 +609,10 @@ body > .cloud.fixed {
         font-size: 20px;
         font-weight: bold;
         color: #5cb0c6;
-        -moz-transition: all 2s ease-in-out, opacity 4s ease-in-out;
-        -o-transition: all 2s ease-in-out, opacity 4s ease-in-out;
-        -webkit-transition: all 2s ease-in-out, opacity 4s ease-in-out;
-        transition: all 2s ease-in-out, opacity 4s ease-in-out;
+        -moz-transition: all 2s cubic-bezier(.2,.5,.5,.8), opacity 4s cubic-bezier(1,0,.75,.75);
+        -o-transition: all 2s cubic-bezier(.2,.5,.5,.8), opacity 4s cubic-bezier(1,0,.75,.75);
+        -webkit-transition: all 2s cubic-bezier(.2,.5,.5,.8), opacity 4s cubic-bezier(1,0,.75,.75);
+        transition: all 2s cubic-bezier(.2,.5,.5,.8), opacity 4s cubic-bezier(1,0,.75,.75);
     }
 
     .magnet-placeholder .magnet {

@@ -4,13 +4,7 @@
    <title>Words of Oz</title>
 
    <meta charset="utf-8" />
-   <meta       name="mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-capable" content="yes" />
-   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-   <meta name="format-detection" content="telephone=no" />
-   <meta name="application-name" content="Words of Oz" />
-
+   
    <link rel="shortcut icon" sizes="196x196" href="images/icon.png" />
    <link rel="shortcut icon" sizes="128x128" href="images/icon.png" />
    <link rel="apple-touch-icon" href="images/icon.png" />
@@ -20,14 +14,49 @@
 </head>
 <body>
    <div id="app">
-      <div class="logo page"></div>
-      <div class="tile girl">
-         <input type="email" placeholder="Email Address for newsletter" />
-         <button class="blue">Subscribe</button>
+      <div id="page">
+         <div class="logo page"></div>
+         <div class="tile girl">
+            <div class="card">
+               <div class="front">
+                  <form>
+                     <input type="email" placeholder="Email Address for Newsletter" required />
+                     <button type="submit" class="blue">Subscribe</button>
+                  </form>
+               </div>
+               <div class="back">
+                  <div class="ozma"></div>
+               </div>
+            </div>
+         </div>
+         <div class="card" style="height: 80px">
+            <div class="front">
+               <h1>Words Of Oz</h1>
+               <p>A cross-platform creative word game to be released in 2014.</p>
+            </div>
+            <div class="back">
+               <div class="loader-bar center">
+                  <i></i><i></i><i></i>
+               </div>
+               <div class="note visibleOnLoad">
+                  <h1>thank you</h1>
+               </div>
+            </div>
+         </div>
+         <div class="social">
+            <a href="https://www.facebook.com/WordsOfOz" target="_blank">
+               <img src="images/s-fb.png" />
+            </a>
+            <a href="https://twitter.com/ozmagames" target="_blank">
+               <img src="images/s-tw.png" />
+            </a>            
+            <a href="http://www.pinterest.com/ozmagames/" target="_blank">
+               <img src="images/s-pt.png" />
+            </a>
+         </div>
       </div>
-      <h1>Words Of Oz</h1>
-      <p>A cross-platform creative word game to be released in 2014.</p>
-   </div>   
+   </div>
    <script src="js/subscribe.js"></script>
+   
 </body>
 </html>

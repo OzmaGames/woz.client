@@ -74,14 +74,14 @@
 
          if (boxScore) {
             $('.magnet', box).addClass("highlight");
-            setTimeout(function (b) { $('.magnet', b).removeClass("highlight"); }, 1000, box)
+            setTimeout(function (b) { $('.magnet', b).removeClass("highlight"); }, 1200, box)
 
             var scoreDiv = $('<div/>', { 'class': 'score', text: '+' + boxScore });
             box.prepend(scoreDiv);
 
             if (!highlight || showScore) {
-               setTimeout(function (div) {
-                  div.bind($.support.transitionEnd, function (e) {
+               setTimeout(function (div) {                  
+                  div.bind($.support.transitionEnd, function (e) {                     
                      if (e.originalEvent.propertyName == 'opacity') {
                         div.remove();
                      }
@@ -241,7 +241,7 @@
                   if (lemma2 == lemma) {
                      var $el = $('.magnet', ctx.lastPath.guiBoxes[i]._guiElem);
                      $el.addClass('highlight');
-                     setTimeout(function (el) { el.removeClass('highlight') }, d1, $el);
+                     setTimeout(function (el) { el.removeClass('highlight'); }, d1, $el);
 
                      //var points = ctx.lastPath.startTile.bonus || (json.path.score.total / ctx.lastPath.startTile.mult);
                      //points = points / json.path.score.startTile.words.length;
@@ -282,7 +282,7 @@
                      if (lemma2 == lemma) {
                         var $el = $('.magnet', ctx.lastPath.guiBoxes[i]._guiElem);
                         $el.addClass('highlight');
-                        setTimeout(function (el) { el.removeClass('highlight') }, d1, $el);
+                        setTimeout(function (el) { el.removeClass('highlight'); }, d1, $el);
 
                         //var points = ctx.lastPath.endTile.bonus || (json.path.score.total / ctx.lastPath.endTile.mult);
                         //points = points / json.path.score.endTile.words.length;
