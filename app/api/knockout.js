@@ -223,7 +223,7 @@
          });
 
          $(element).touchPunch();
-         
+
          element.onlyClick = function (event) {
             if (valueAccessor().apply(viewModel, [viewModel, event]) !== true) {
                event.preventDefault();
@@ -232,6 +232,25 @@
       }
       else {
          clickInit.apply(this, arguments);
+      }
+   };
+
+   ko.bindingHandlers["pointer"] = {
+      init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+         var value = valueAccessor();
+         
+         if (value.enter)
+            element.addEventListener($.support.touch ? "touchenter" : "mouseenter", function (event) {               
+               value.enter.call(viewModel, event);
+            });
+         if (value.leave)
+            element.addEventListener($.support.touch ? "touchleave" : "mouseleave", function (event) {               
+               value.leave.call(viewModel, event);
+            });
+         if (value.drop)
+            element.addEventListener($.support.touch ? "touchend" : "mouseup", function (event) {               
+               value.drop.call(viewModel, event);
+            });
       }
    };
 

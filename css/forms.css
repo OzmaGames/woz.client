@@ -291,6 +291,39 @@ button {
     white-space: nowrap;
 }
 
+button.pt{
+    position:relative;
+}
+    button.pt::before {
+        content: '';
+        position: absolute;
+        left: -1em;
+        top: -.6em;
+        height: 2em;
+        width: 10em;
+        background: url('../images/app/price-tag.png') no-repeat;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        -webkit-background-size: contain;
+        background-size: contain;
+    }
+
+    button .point {
+        position: absolute;
+        left: -1em;
+        top: 0;
+        -moz-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        -ms-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        -o-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        -webkit-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        width: 2em;
+        height: 1em;
+        text-align: center;
+        z-index: 2;
+        color: white;
+    }
+
     button.ol {
         outline: 1px solid gold;
     }

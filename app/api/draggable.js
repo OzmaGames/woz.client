@@ -20,7 +20,7 @@
             e.clientX = e.pageX = touch.pageX;
             e.clientY = e.pageY = touch.pageY;
 
-            e.preventDefault();
+            //e.preventDefault();
          }
       }
 
@@ -79,7 +79,6 @@
             opt.parent.unbind("mousemove touchmove", events.mousemove)
             opt.parent.unbind("scroll", events.scroll)
             $el.removeClass('drag');
-
             
             var isWithin = events.isWithinBoundaries(e);
             var top = isWithin ? (e.data.t + e.pageY + e.data.scrollTopChange) : ($el.position().top),
@@ -102,9 +101,15 @@
             opt.dropped(e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange });
 
             hasMoved = false;
+
+            setTimeout(function () {
+               console.log(document.elementFromPoint(e.pageX, e.pageY));
+            }, 10)
+            
          },
 
          scroll: function () {
+            if (!opt.lastEvent) return;
             opt.lastEvent.data.scrollTopChange = opt.parent.scrollTop() - opt.lastEvent.data.scrollTop;
             events.mousemove(opt.lastEvent);            
          },
@@ -114,7 +119,7 @@
 
             var newTop = e.pageY + e.data.t + e.data.scrollTopChange,
                 newLeft = e.pageX + e.data.l;            
-            
+                        
             opt.lastEvent = e;
             
             if (opt.topLimit && newTop < opt.within.t) newTop = opt.within.t;

@@ -27,12 +27,37 @@
          mode: 'search',
          title: 'Search Result'
       }
-   }
+   };
+
+   var collections = [
+      {
+         shortName: 'woz',
+         longName: 'Words of Oz',
+         description: '50/50 tiles - 150/150 words'         
+      },
+      {
+         shortName: 'nf',
+         longName: 'NightFall',
+         description: '50/50 tiles - 150/150 words'        
+      },
+      {
+         shortName: 'loc',
+         longName: 'Life of Color',
+         description: '50/50 tiles - 150/150 words'         
+      },
+      {
+         shortName: 'more',
+         longName: 'More',
+         description: '3/15 collections'
+      }
+   ];
 
 
    vm = {
       gameOptions: gameOptions,
       gameOptionId: ko.observable(0),
+      collections: collections,
+      collection: ko.observable('woz'),
       friends: ko.observableArray(),
       query: ko.observable(''),
       friendListMode: ko.observable(mode.list),
@@ -89,7 +114,13 @@
                delete ctx.friendUsername;
             }
 
-            app.navigate("game")
+            ctx.collectionName = vm.collection();
+
+            if (ctx.collectionName != 'nf' && ctx.collectionName != 'woz') {
+               app.dialog.show("alert", { content: 'Sorry! This collection is not player yet.' });
+            } else {
+               app.navigate("game")
+            }
          } else {
             app.dialog.show("alert", { content: 'Please select a friend to continue.' });
          }
@@ -139,5 +170,5 @@
       }
    }).extend({ throttle: 300 });
 
-   return vm;
+   return window.page = vm;
 });

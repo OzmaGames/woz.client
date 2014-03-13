@@ -13,7 +13,7 @@
          data.left = item.offset().left + 60;
          data.fixed = true;
 
-         return app.dialog.show("tutorial", data);
+         return  data;
       }
 
       this.circleWords = function () {
@@ -25,7 +25,7 @@
          data.left = item.offset().left + 60;
          data.fixed = true;
 
-         return app.dialog.show("tutorial", data);
+         return data;
       }
 
       this.archivedGames = function () {
@@ -33,11 +33,11 @@
 
          var data = TUT.ARCHIVE_GAMES;
          data.css = "right";
-         data.top = item.offset().top + APP.scrollTop- 10;
+         data.top = item.offset().top + APP.scrollTop - 10;
          data.left = item.offset().left - 150;
          data.fixed = true;
 
-         return app.dialog.show("tutorial", data);
+         return  data;
       }
 
       this.placePhrase = function () {
@@ -52,7 +52,7 @@
          data.top = item.offset().top - 170 + APP.scrollTop;
          data.left = item.offset().left;
 
-         return app.dialog.show("tutorial", data);
+         return data;
       }
 
       this.fillPath = function () {
@@ -67,7 +67,7 @@
          data.top = item.offset().top - 110 + APP.scrollTop;
          data.left = item.offset().left;
 
-         return app.dialog.show("tutorial", data);
+         return  data;
       }
 
       this.workspace = function () {
@@ -78,7 +78,7 @@
          data.top = item.offset().top - 150 + APP.scrollTop;
          data.left = 200;
 
-         return app.dialog.show("tutorial", data);
+         return  data;
       }
 
       this.gameboard = function () {
@@ -89,7 +89,7 @@
          data.top = item.offset().top - 130 + APP.scrollTop;
          data.left = item.offset().left;
 
-         return app.dialog.show("tutorial", data);
+         return  data;
       }
 
       this.bonus = function () {
@@ -104,13 +104,14 @@
          data.top = item.offset().top - 220 + APP.scrollTop;
          data.left = item.offset().left + 20;
 
-         return app.dialog.show("tutorial", data);
+         return  data;
       }
 
       var base = this;
       this.relatedWords = function () {
          var item = $('.magnet.related:first');
          if (item.length == 0) {
+            return null;
             return $.Deferred(function (dfd) { dfd.reject(); })
          }
 
@@ -120,7 +121,7 @@
          data.left = item.offset().left - 120;
          data.fixed = false;
 
-         return app.dialog.show("tutorial", data);
+         return  data;
       }
    }
 
@@ -139,12 +140,23 @@
       }
 
       var base = this;
-      return func().then(function (obj) {
-         if (obj && obj.force) return $.Deferred();      
-         return base.showNext();
-      }, function () {
+      var data = func();
+      if (data == null) {
          localStorage.setItem("tutorial", "related");
+         return null;
+      }
+
+      return app.dialog.show("tutorial", data).then(function (obj) {         
+         if (obj && obj.force) return $.Deferred();
+         return base.showNext();
       });
+   }
+
+   Tutorial.prototype.refresh = function () {
+      this.qIndex--;
+      var func = this.getNext();
+      
+      app.trigger("dialog:data:changed", func());
    }
 
    Tutorial.prototype.show = function () {
@@ -162,11 +174,30 @@
             this.qIndex = 5;
             this.showNext();
             break;
-      }      
+      }
+
+      var base = this;
+      var res = app.on("app:resized:delayed").then(function () {
+         var tutorial = localStorage.getItem("tutorial");
+         if (!tutorial) {
+            base.refresh();
+         } else {
+            res.off();
+         }
+      });
    }
 
+   Tutorial.prototype.testRelated = function () {
+      var tutorial = localStorage.getItem("tutorial");
+
+      if (tutorial == "related") {
+         this.qIndex = 5;
+         this.showNext();
+      }
+   };
+
    var t = new Tutorial();
-   
+
    app.on("game:score:done").then(function () {
       if (ctx._gameOver() && !ctx.player.resigned()) {
          if (!localStorage.getItem("tutorial-menu")) {
@@ -177,6 +208,6 @@
          }
       }
    });
-   
+
    return t;
 });

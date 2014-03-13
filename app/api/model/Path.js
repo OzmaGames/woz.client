@@ -29,7 +29,7 @@
       base.phrase.update = function (words) {
          base.completeSub.dispose();
          if (base.phrase.complete()) return;
-         ko.utils.arrayForEach(words, function (word) {
+         ko.utils.arrayForEach(words || [], function (word) {
             base.addWord(word, undefined, true);
          })
       }      

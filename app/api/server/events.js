@@ -13,6 +13,7 @@
         "game:resign",
         "game:lobby",
         "game:archive",
+        "game:versions",
         "friends"
       ],
       init: function(socket){

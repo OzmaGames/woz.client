@@ -11,17 +11,6 @@
 }
 
 @font-face {
-    font-family: 'GreatVibesRegular';
-    font-weight: normal;
-    font-style: normal;
-    src: url('../fonts/GreatVibes-Regular-webfont.eot');
-    src: local('GreatVibes'), /* Local */
-    url('../fonts/Copse-Regular-webfont.woff') format('woff'), /* Modern */
-    url('../fonts/GreatVibes-Regular-webfont.ttf') format('truetype'), /* Safari, Android, IOS */
-    url('../fonts/GreatVibes-Regular-webfont.svg#GreatVibesRegular') format('svg'); /* Legacy IOS */
-}
-
-@font-face {
     font-family: "Cambria";
     font-weight: normal;
     font-style: normal;
@@ -44,7 +33,7 @@ html {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    font-family: 'Cambria', 'CopseRegular', 'GreatVibesRegular';
+    font-family: 'Cambria', 'CopseRegular';
     cursor: default;
 }
 
@@ -55,11 +44,19 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #f1e8d5;
-    background: url('../images/background.jpg') no-repeat fixed #f1e8d5 center center;
+    background: url('../images/background-small.jpg') no-repeat fixed #f1e8d5 center center;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
+}
+
+img {
+    border: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 #page {
@@ -111,6 +108,23 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
     letter-spacing: .03em;
 }
 
+
+input::-webkit-input-placeholder {
+    color: #999;
+}
+
+input::-moz-placeholder {
+    color: #999;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent !important;
+}
+
+input:focus::-moz-placeholder {
+    color: transparent !important;
+}
+
 button {
     cursor: pointer;
     font-family: CopseRegular;
@@ -143,17 +157,17 @@ button {
     }
 
     button:hover:not(:disabled) {
-        background-position: -470px -156px;
+        background-position: -470px 0;
     }
 
     button:active:not(:disabled) {
-        background-position: -940px -156px;
+        background-position: -940px 0;
     }
 
     button.blue {
         border-color: #b7dbe7;
         background-color: #62B6CC;
-        background-position: 0 -156px;
+        background-position: 0 0;
         box-shadow: 0 -.9em 1em .01em rgba(183, 219, 231, .5) inset, 0 .2em .5em .2em #54A8C0 inset, 0 .8em .5em .1em rgba(255, 255, 255, .5) inset;
     }
 
@@ -205,6 +219,10 @@ button {
         right: 0;
     }
 
+    .card.bottom {
+        height: 65px;
+    }
+
 .tile {
     width: 400px;
     height: 400px;
@@ -213,7 +231,7 @@ button {
     box-shadow: 5px 5px 10px 0 #333;
     margin: 0 auto;
     position: relative;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
     .tile.girl {
@@ -226,11 +244,13 @@ button {
 
     .tile .card {
         margin-top: 200px;
+        z-index: 2;
     }
 
     .tile input {
         width: 270px;
         margin-left: 65px;
+        z-index: 2;
     }
 
     .tile button {
@@ -249,12 +269,53 @@ button {
         -o-background-size: contain;
         -webkit-background-size: contain;
         background-size: contain;
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
         position: absolute;
         left: -2em;
-        bottom: -5em;
+        bottom: -4.5em;
     }
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation: portrait), only screen and (max-width: 480px) {
+    .tile {
+        width: 300px;
+        height: 300px;
+    }
+
+        .tile .card {
+            margin-top: 150px;
+        }
+
+        .tile input {
+            margin-left: 15px;
+        }
+
+        .tile button {
+            margin-left: 75px;
+        }
+
+    .card.bottom {
+        height: 85px;
+    }
+
+    .tile::after {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.1), only screen (min-resolution: 1.1dppx) {
+    .logo.page {
+        background-image: url('../images/logo.png');
+    }
+}
+
+@media only screen and (min-width : 1380px), only screen and (-webkit-min-device-pixel-ratio: 1.1), only screen (min-resolution: 1.1dppx) {
+    body {
+        background-image: url('../images/background.jpg');
+    }
+}
+
 
 .ozma {
     background: url('../images/ozma.png') no-repeat center center;
@@ -284,13 +345,9 @@ p {
     color: #986B31;
     text-align: center;
     word-spacing: 2px;
+    padding: 0 1em;
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
-    .logo.page {
-        background-image: url('../images/logo.png');
-    }
-}
 
 .card:not(.active) .back .loader-bar, .loaded .loader-bar {
     -moz-animation: none !important;
@@ -349,13 +406,13 @@ p {
     visibility: hidden;
 }
 
-    .loaded .visibleOnLoad {
-        visibility: visible;
-    }
+.loaded .visibleOnLoad {
+    visibility: visible;
+}
 
 @-webkit-keyframes slidein {
     from {
-        -webkit-transform: translateX(0em);
+        -webkit-transform: translateX(0);
     }
 
     10% {
@@ -382,8 +439,8 @@ p {
 
 @-moz-keyframes slidein {
     from {
-        -moz-transform: translateX(0em);
-        -webkit-transform: translateX(0em);
+        -moz-transform: translateX(0);
+        -webkit-transform: translateX(0);
     }
 
     10% {
@@ -413,8 +470,8 @@ p {
 
 @keyframes slidein {
     from {
-        -webkit-transform: translateX(0em);
-        transform: translateX(0em);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
     }
 
     10% {
@@ -443,6 +500,25 @@ p {
 }
 
 .social {
-    width:140px;
+    width: 140px;
     margin: 0 auto;
+}
+
+.s-fb, .s-tw, .s-pt {
+    display: inline-block;
+    width: 44px;
+    height: 45px;
+    background-image: url('../images/social.png');
+}
+
+.s-fb {
+    background-position: 0 0;
+}
+
+.s-pt {
+    background-position: 0 -45px;
+}
+
+.s-tw {
+    background-position: 0 -90px;
 }

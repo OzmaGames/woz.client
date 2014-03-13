@@ -52,6 +52,7 @@
          
          $el.data("immovable", ctx.words.immovable);
 
+         
          $el.draggable({
 
             withinEl: $el.parent(),

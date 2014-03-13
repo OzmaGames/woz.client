@@ -180,8 +180,8 @@
         font-size: 1.2em;
         font-weight: bold;
         margin-bottom: 10px;
-        -webkit-text-shadow: 0px 0px 1px #c95;
-        text-shadow: 0px 0px 1px #c95;
+        -webkit-text-shadow: 0 0 1px #c95;
+        text-shadow: 0 0 1px #c95;
         -moz-transition: all .5s ease;
         -o-transition: all .5s ease;
         -webkit-transition: all .5s ease;
@@ -243,8 +243,8 @@
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 2px 2px 5px gray;
-    -webkit-text-shadow: 0px 0px 1px #999;
-    text-shadow: 0px 0px 1px #999;
+    -webkit-text-shadow: 0 0 1px #999;
+    text-shadow: 0 0 1px #999;
 }
 
     .dialog .control .nWords {
@@ -307,8 +307,8 @@
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 2px 2px 5px gray;
-    -webkit-text-shadow: 0px 0px 1px #999;
-    text-shadow: 0px 0px 1px #999;
+    -webkit-text-shadow: 0 0 1px #999;
+    text-shadow: 0 0 1px #999;
     font-family: Cambria, CopseRegular;
 }
 
@@ -346,11 +346,12 @@
 
     .dialog .notice h2 {
         margin: 0.9em;
-        font-size: 2em;
+        font-size: 1.9em;        
     }
 
     .dialog .notice h3 {
-        font-size: 1.2em;
+        /*color: #38270b;*/
+        font-size: 1.1em;
     }
 
     .dialog .notice > div {
@@ -367,7 +368,7 @@
 
     .dialog .notice .badge {
         position: absolute;
-        right: 20px;
+        right: 10px;
         top: 100px;
         width: 80px;
         -moz-background-size: 100% auto;
@@ -377,6 +378,44 @@
         height: 120px;
         background-repeat: no-repeat;
     }
+
+    .dialog .notice a {
+        font-size: .9em;
+    }
+
+    .dialog .notice .version {
+        display: inline-block;
+        font-weight: bold;
+        width: 175px;
+        line-height: 2em;
+        text-align: center;
+        border: 1px dashed transparent;
+    }
+
+        .dialog .notice .version.active {
+            background: url('../images/game/Checkmark_Btn_Test2.png') left center no-repeat;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+            -webkit-background-size: contain;
+            background-size: contain;
+            border-radius: 1em;
+            border-color: #976b2c;
+        }
+
+    .dialog .notice .dropzone {
+        border: 2px dashed rgba(152, 107, 49,.5);
+        color: darkgrey;
+        height: 150px;
+        /*border-radius: 2em/1em;*/
+        border-radius: 1em;
+        text-align: center;
+        line-height: 150px;
+        vertical-align: middle;
+    }
+
+        .dialog .notice .dropzone:hover {
+            border-color: rgba(152, 107, 49,.8);
+        }
 
 .dialog .panel {
     position: relative;
@@ -842,6 +881,39 @@ button {
     white-space: nowrap;
 }
 
+button.pt{
+    position:relative;
+}
+    button.pt::before {
+        content: '';
+        position: absolute;
+        left: -1em;
+        top: -.6em;
+        height: 2em;
+        width: 10em;
+        background: url('../images/app/price-tag.png') no-repeat;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        -webkit-background-size: contain;
+        background-size: contain;
+    }
+
+    button .point {
+        position: absolute;
+        left: -1em;
+        top: 0;
+        -moz-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        -ms-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        -o-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        -webkit-transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        transform: rotate(-30deg) translateY(-0.28em) translateX(-0.1em);
+        width: 2em;
+        height: 1em;
+        text-align: center;
+        z-index: 2;
+        color: white;
+    }
+
     button.ol {
         outline: 1px solid gold;
     }
@@ -1115,7 +1187,7 @@ hr {
     }
 
 #tiles-max {
-    max-width: 800px;
+    max-width: 800px;    
     margin-left: auto;
     margin-right: auto;
     padding: 0 60px 0 60px; /*in portrait mode the tiles wont get stuck on the edges*/
@@ -1123,28 +1195,30 @@ hr {
     -o-transition: padding-top 1s;
     -webkit-transition: padding-top 1s;
     transition: padding-top 1s;
+    height: 600px;
 }
 
-    #tiles-max > #tiles-aspect {
+    #tiles-aspect {
         min-width: 400px;
         position: relative;
-        padding-bottom: 75%;
-        width: 100%;
+        /*padding-bottom: 75%;*/
+        height: 600px;
+        width: 100%;        
     }
 
 @media screen and (max-width: 900px) {
     #tiles-max {
-        padding-top: 80px;
-        height: 450px;
+        /*padding-top: 40px;*/
+        height: 600px;
     }
 
         #tiles-max > #tiles-aspect {
-            height: 450px;
+            height: 600px;
             padding-bottom: 0;
         }
 
     #gameboard {
-        padding-bottom: 40px;
+        /*padding-bottom: 40px;*/
     }
 }
 
@@ -1156,7 +1230,8 @@ hr {
     left: 0;
 }
 
-.carry #tiles {
+.carry .rule:hover, .carry .rule:active {
+    opacity: .2;
 }
 
 #tiles .container {
@@ -1475,8 +1550,14 @@ body > .cloud.fixed {
     -o-transform: scale(0.1) rotate(0) translateZ(0);
     -webkit-transform: scale(0.1) rotate(0) translateZ(0);
     transform: scale(0.1) rotate(0) translateZ(0);
-    opacity: 0;    
+    opacity: 0;
 }
+
+    .magnet.view {
+        opacity: 1;
+        position: relative;
+        line-height: 1.5em;
+    }
 
     .magnet.related {
         border-width: 2px;
@@ -1575,15 +1656,16 @@ body > .cloud.fixed {
 
 .magnet.drag {
     /*position: fixed !important;*/
-    z-index: 50;
+    z-index: 1000;
     -moz-transform: scale(1.1) translateZ(1) !important;
     -ms-transform: scale(1.1) translateZ(1) !important;
     -o-transform: scale(1.1) translateZ(1) !important;
     -webkit-transform: scale(1.1) translateZ(1) !important;
     transform: scale(1.1) translateZ(1) !important;
+    pointer-events: none !important;
 }
 
-.magnet:hover:not(.drag):not(:active):not(.placed) {
+.magnet:hover:not(.drag):not(:active):not(.placed):not(.view) {
     -moz-transform: scale(1.05) !important;
     -ms-transform: scale(1.05) !important;
     -o-transform: scale(1.05) !important;
@@ -1797,13 +1879,13 @@ body > .cloud.fixed {
     font-style: normal;
     src: url('../fonts/GreatVibes-Regular-webfont.eot');
     src: local('GreatVibes'), /* Local */
-    url('../fonts/Copse-Regular-webfont.woff') format('woff'), /* Modern */
+    url('../fonts/GreatVibes-Regular-webfont.woff') format('woff'), /* Modern */
     url('../fonts/GreatVibes-Regular-webfont.ttf') format('truetype'), /* Safari, Android, IOS */
     url('../fonts/GreatVibes-Regular-webfont.svg#GreatVibesRegular') format('svg'); /* Legacy IOS */
 }
 
 @font-face {
-    font-family: "Cambria";
+    font-family: 'Cambria';
     font-weight: normal;
     font-style: normal;
     src: url('../fonts/cambria/cambria.eot'); /* IE9 */
@@ -1813,7 +1895,15 @@ body > .cloud.fixed {
     url('../fonts/cambria/cambria.svg#Cambria') format('svg'); /* Legacy IOS */
 }
 
-* {
+[draggable] {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: element;
+}
+
+html, body, ul, button, h1, h2, h3, h4, h5, p {
     padding: 0;
     margin: 0;
 }
@@ -2174,7 +2264,7 @@ a.small {
         max-height: 36em;
     }
 
-        .container.y.games.sroll {            
+        .container.y.games.sroll {
             -webkit-transform: translate3d(0,0,0);
             -moz-transform: translate3d(0,0,0);
             -ms-transform: translate3d(0,0,0);
@@ -3181,7 +3271,7 @@ i.action {
         background-position: 0 -2em;
     }
 
-    i.action.unknownWords {
+    i.action.versions {
         background-position: 0 -3em;
     }
 
@@ -3257,6 +3347,15 @@ i.command.green {
     background-color: lightgreen;
 }
 
+i.command.fullscreen{
+background-image: url('../images/game/fullscreen.png');
+background-position: 0 0 !important;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
 i.command.close {
     display: block;
     position: absolute;
@@ -3271,7 +3370,7 @@ i.command.close {
 }
 
     i.command.close:hover, i.command.active {
-        background-position: 0 !important;
+        background-position: 0 0 !important;
     }
 
     i.command.close.compact {

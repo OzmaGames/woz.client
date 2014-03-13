@@ -9,10 +9,24 @@
          for (var i = 0; i < cards.length; i++) {
             cards[i].classList.add('active');
          }
+
+         var url = form.getAttribute("action");
         
-         post('http://wordsdevel.herokuapp.com/subscribe', { email: emailInput.value }, function () {
+         post(url, { email: emailInput.value }, function (data) {
             var note = document.getElementsByClassName('card')[1];
             note.classList.add('loaded');
+
+            
+            var json = JSON.parse(data);
+            if (!json.success) {
+               var el = document.getElementById("message");
+               if (json.error.code == 214) {
+                  el.innerHTML = 'You are already on the list :)';
+               } else {
+                  el.innerHTML = json.error.error;
+               }
+            }
+            console.log(json);
          });
       }
       return false;

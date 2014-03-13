@@ -22,8 +22,8 @@ define('common',
       })(app);
 
       (function (app) {
-         var resizeHelperId = null;
-         var resizeDelay = 200;
+         var resizeHelperId = null, resizeHelperLongId = null;
+         var resizeDelay = 200, resizeDelayLong = 600;
 
          app.screen = {
             size: {
@@ -37,10 +37,16 @@ define('common',
          window.addEventListener("resize", function (e) {
             if (updateScreenSize()) {               
                app.trigger("app:resized:hook", e);
+
                clearTimeout(resizeHelperId);
                resizeHelperId = setTimeout(function (event) {
-                  app.trigger("app:resized", event);
+                  app.trigger("app:resized", event);                  
                }, resizeDelay, e);
+
+               clearTimeout(resizeHelperLongId);
+               resizeHelperLongId = setTimeout(function (event) {
+                  app.trigger("app:resized:delayed", event);
+               }, resizeDelayLong, e);
             }
          }, false);
 
@@ -50,13 +56,18 @@ define('common',
                   var height = window.outerHeight - window.innerHeight == 54 ? window.outerHeight : window.innerHeight;
                   $(app.el).css({ 'minHeight': height + 'px' });
                }
-               //app.console.log(app.el.scrollHeight + ' ' + document.body.scrollHeight);
                if (updateScreenSize()) {
                   app.trigger("app:resized:hook", e);
                   app.trigger("app:resized", e);
                }
+               app.trigger("app:force-resize");               
+               
             }, 600);
-            //500 is important, as in 500ms the new screen size is updated
+
+            //setTimeout(function () {
+            //   paper.view
+            //}, 1000);
+            ////600 is important, as in 500ms the new screen size is updated
          });
 
          if (app.browser.android) {

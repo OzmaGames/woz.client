@@ -1,0 +1,25 @@
+{
+  "images": [
+    {
+      "name": "s-fb.png",
+      "width": 44,
+      "height": 45,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "name": "s-pt.png",
+      "width": 44,
+      "height": 45,
+      "offsetX": 0,
+      "offsetY": 45
+    },
+    {
+      "name": "s-tw.png",
+      "width": 44,
+      "height": 45,
+      "offsetX": 0,
+      "offsetY": 90
+    }
+  ]
+}

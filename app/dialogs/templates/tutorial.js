@@ -5,8 +5,17 @@
       this.content = '';
       this.css = '';
 
+
       var base = this;
+      this.onChange = app.on("dialog:data:changed").then(function (data) {      
+         base.activate(data);
+         if (base.el) {
+            base.el.transition({ top: base.top, left: base.left });
+         }
+      });
+
       this.close = function () {
+         base.onChange.off();
          return $.Deferred(function (dfd) { dfd.resolve(); });
       }
 

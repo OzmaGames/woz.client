@@ -18,9 +18,9 @@
            .transition({ y: -100, opacity: 0 }, duration).promise().then(function () {
               base.el.css({ y: 0, display: 'none' });
            });
-                  
-         if (this.onClose) {
-            this.onClose();
+                           
+         if (base.onClose) {
+            base.onClose();
          }
 
          return dfd;
@@ -30,7 +30,8 @@
    Notice.prototype.activate = function (data) {
       this.modal = data.modal || this.modal;
       this.view = data.view;
-      this.model = data.model;      
+      this.model = data.model || {};
+      this.closeOnClick = (data.closeOnClick == undefined) ? true : data.closeOnClick;
 
       if (!this.model.close) {
          this.model.close = this.close;
@@ -50,7 +51,11 @@
    Notice.prototype.canDeactivate = function (a, s, d) {
       var base = this;
       return $.Deferred(function (dfd) {
-         base.el.promise().then(function () { dfd.resolve(true); });
+         if (base.el) {
+            base.el.promise().then(function () { dfd.resolve(true); });
+         } else {
+            dfd.reject();
+         }
       }).promise();
    }
 

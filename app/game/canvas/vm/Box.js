@@ -105,7 +105,7 @@
    };
 
    Box.prototype.enter = function (word) {
-      if (!this.hasData && word != null) {
+      if (!this.hasData && word != null && ctx.mode() == '') {
          this.wordModel = word;
 
          this.active = true;

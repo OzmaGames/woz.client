@@ -15,13 +15,13 @@
     font-style: normal;
     src: url('../fonts/GreatVibes-Regular-webfont.eot');
     src: local('GreatVibes'), /* Local */
-    url('../fonts/Copse-Regular-webfont.woff') format('woff'), /* Modern */
+    url('../fonts/GreatVibes-Regular-webfont.woff') format('woff'), /* Modern */
     url('../fonts/GreatVibes-Regular-webfont.ttf') format('truetype'), /* Safari, Android, IOS */
     url('../fonts/GreatVibes-Regular-webfont.svg#GreatVibesRegular') format('svg'); /* Legacy IOS */
 }
 
 @font-face {
-    font-family: "Cambria";
+    font-family: 'Cambria';
     font-weight: normal;
     font-style: normal;
     src: url('../fonts/cambria/cambria.eot'); /* IE9 */
@@ -31,7 +31,15 @@
     url('../fonts/cambria/cambria.svg#Cambria') format('svg'); /* Legacy IOS */
 }
 
-* {
+[draggable] {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: element;
+}
+
+html, body, ul, button, h1, h2, h3, h4, h5, p {
     padding: 0;
     margin: 0;
 }
@@ -392,7 +400,7 @@ a.small {
         max-height: 36em;
     }
 
-        .container.y.games.sroll {            
+        .container.y.games.sroll {
             -webkit-transform: translate3d(0,0,0);
             -moz-transform: translate3d(0,0,0);
             -ms-transform: translate3d(0,0,0);

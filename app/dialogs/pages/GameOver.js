@@ -4,14 +4,15 @@
       this.heading = data.heading;
       this.content = data.content;
       this.btnText = data.btnText;
-      this.experience = data.experience || 0;
+      this.xp = data.xp || 0;
+      this.target = data.target || "lobby";
+      this.noRedirect = data.noRedirect;
 
+      var base = this;
       this.gotoLobby = function () {
          app.dialog.close("notice");
-         if (data.target) {
-            app.navigate(data.target);
-         } else {
-            app.navigate("lobby");
+         if (!base.noRedirect) {
+            app.navigate(base.target);
          }
       }
    }

@@ -91,7 +91,7 @@ i.action {
         background-position: 0 -2em;
     }
 
-    i.action.unknownWords {
+    i.action.versions {
         background-position: 0 -3em;
     }
 
@@ -167,6 +167,15 @@ i.command.green {
     background-color: lightgreen;
 }
 
+i.command.fullscreen{
+background-image: url('../images/game/fullscreen.png');
+background-position: 0 0 !important;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
 i.command.close {
     display: block;
     position: absolute;
@@ -181,7 +190,7 @@ i.command.close {
 }
 
     i.command.close:hover, i.command.active {
-        background-position: 0 !important;
+        background-position: 0 0 !important;
     }
 
     i.command.close.compact {

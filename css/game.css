@@ -98,7 +98,7 @@ hr {
     }
 
 #tiles-max {
-    max-width: 800px;
+    max-width: 800px;    
     margin-left: auto;
     margin-right: auto;
     padding: 0 60px 0 60px; /*in portrait mode the tiles wont get stuck on the edges*/
@@ -106,28 +106,30 @@ hr {
     -o-transition: padding-top 1s;
     -webkit-transition: padding-top 1s;
     transition: padding-top 1s;
+    height: 600px;
 }
 
-    #tiles-max > #tiles-aspect {
+    #tiles-aspect {
         min-width: 400px;
         position: relative;
-        padding-bottom: 75%;
-        width: 100%;
+        /*padding-bottom: 75%;*/
+        height: 600px;
+        width: 100%;        
     }
 
 @media screen and (max-width: 900px) {
     #tiles-max {
-        padding-top: 80px;
-        height: 450px;
+        /*padding-top: 40px;*/
+        height: 600px;
     }
 
         #tiles-max > #tiles-aspect {
-            height: 450px;
+            height: 600px;
             padding-bottom: 0;
         }
 
     #gameboard {
-        padding-bottom: 40px;
+        /*padding-bottom: 40px;*/
     }
 }
 
@@ -139,7 +141,8 @@ hr {
     left: 0;
 }
 
-.carry #tiles {
+.carry .rule:hover, .carry .rule:active {
+    opacity: .2;
 }
 
 #tiles .container {
@@ -458,8 +461,14 @@ body > .cloud.fixed {
     -o-transform: scale(0.1) rotate(0) translateZ(0);
     -webkit-transform: scale(0.1) rotate(0) translateZ(0);
     transform: scale(0.1) rotate(0) translateZ(0);
-    opacity: 0;    
+    opacity: 0;
 }
+
+    .magnet.view {
+        opacity: 1;
+        position: relative;
+        line-height: 1.5em;
+    }
 
     .magnet.related {
         border-width: 2px;
@@ -558,15 +567,16 @@ body > .cloud.fixed {
 
 .magnet.drag {
     /*position: fixed !important;*/
-    z-index: 50;
+    z-index: 1000;
     -moz-transform: scale(1.1) translateZ(1) !important;
     -ms-transform: scale(1.1) translateZ(1) !important;
     -o-transform: scale(1.1) translateZ(1) !important;
     -webkit-transform: scale(1.1) translateZ(1) !important;
     transform: scale(1.1) translateZ(1) !important;
+    pointer-events: none !important;
 }
 
-.magnet:hover:not(.drag):not(:active):not(.placed) {
+.magnet:hover:not(.drag):not(:active):not(.placed):not(.view) {
     -moz-transform: scale(1.05) !important;
     -ms-transform: scale(1.05) !important;
     -o-transform: scale(1.05) !important;

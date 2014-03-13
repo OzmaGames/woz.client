@@ -4,7 +4,7 @@
    <div id="game-main" data-bind="css: { loading: loading }">
       <div class="logo page"></div>
       <div id="game-players" data-bind="compose: 'game/players'"></div>
-      <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->
+      <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas data-paper-keepalive="true"></canvas><!--/ko-->
       <!--ko compose: 'game/tiles'--><!--/ko-->
       <!--ko compose: 'game/words'--><!--/ko-->
    </div>

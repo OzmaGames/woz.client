@@ -23,7 +23,7 @@
      };
      model.collection = {
         name: ko.observable("woz"),
-        size: ko.observable(20)
+        size: ko.observable(30)
      };
 
      model.username = sessionStorage.getItem("username") || "ali";
@@ -64,8 +64,8 @@
 
            model.gameID = json.id;
            model.playerCount = json.playerCount;
-           model.collection.name((json.collection && json.collection.name) ? json.collection.name : "woz");
-           model.collection.size((json.collection && json.collection.size) ? json.collection.size : 20);
+           model.collection.name((json.collection && json.collection.shortName) ? json.collection.shortName : "woz");
+           model.collection.size((json.collection && json.collection.size) ? json.collection.size : 30);
 
            model.actionDone = json.actionDone;
            model.resumedGame = json.resumedGame || false;
@@ -174,7 +174,26 @@
                     var sub;
                     sub = app.on("game:score:done").then(function () {
                        app.trigger("game:tiles:visible", false);
-                       app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' });
+                       data.xp = json.stats.xp;                       
+
+                       //json.stats.levelUp = true;
+
+                       if (json.stats.levelUp) {
+                          data.noRedirect = true; //dont redirect
+                       }
+
+                       app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' }).then(function () {                          
+                          if (json.stats.levelUp) {
+                             app.dialog.show("notice", {
+                                model: {
+                                   message: json.stats.level,
+                                   imageName: 'images/game/level/' + json.stats.level.toLowerCase() + '.png'
+                                }, view: "dialogs/pages/LevelUp"
+                             }).then(function () {                                
+                                app.navigate(data.target);
+                             });
+                          }
+                       });
                        sub.off();
                     });
                     
@@ -255,7 +274,8 @@
            app.trigger("server:game:queue", {
               username: model.username, password: 12345,
               playerCount: model.playerCount,
-              friendUsername: model.friendUsername
+              friendUsername: model.friendUsername,
+              collection: model.collectionName || 'woz'
            }, function () {
               model.loadingStatus("Waiting for awesomeness...");
            });

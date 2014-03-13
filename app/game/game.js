@@ -401,6 +401,9 @@
       allowCircle: ko.computed(function () {
          return isMenuActive() && isPlayerActive() && (ctx.mode() === '' || ctx.mode() == 'circleWords');
       }),
+      allowVersions: ko.computed(function () {
+         return isMenuActive() && (ctx.mode() === '' || ctx.mode() == 'versions');
+      }),
 
       mode: ctx.mode,
 
@@ -449,6 +452,10 @@
                               cancel();
                            } else {
                               ctx.canSwap(false);
+
+                              setTimeout(function () {
+                                 tutorial.testRelated();
+                              }, 1000);
                            }
                            ctx.mode('');
                            app.loading(false);
@@ -526,6 +533,22 @@
             ctx.mode('circleWords');
             module.load();
          }
+      },
+
+      versions: function () {                  
+         if (ctx.mode() == 'versions') {
+            ctx.mode("")
+            app.dialog.close("notice");
+         }
+         else if (game.allowVersions()) {
+            ctx.mode("versions");
+
+            system.acquire("dialogs/pages/versions").then(function (module) {               
+               app.dialog.show("notice", { model: new module(), view: 'dialogs/pages/versions', closeOnClick: false }).then(function () {
+                  ctx.mode("");
+               });
+            });            
+         } 
       }
    };
 
@@ -557,6 +580,13 @@
             .css({
                cancel: ko.computed(function () { return game.mode() === 'circleWords' || ctx.activeWords() }),
                disabled: ko.computed(function () { return !game.allowCircle() })
+            });
+
+         app.palette.add("versions", "action", "left")
+            .click(game.versions)
+            .css({
+               cancel: ko.computed(function () { return game.mode() === 'versions' }),
+               disabled: ko.computed(function () { return !game.allowVersions() })
             });
 
          ctx.load(id);
