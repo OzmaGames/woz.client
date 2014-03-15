@@ -237,8 +237,8 @@
 
    ko.bindingHandlers["pointer"] = {
       init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-         var value = valueAccessor();
-         
+         var value = valueAccessor();                 
+
          if (value.enter)
             element.addEventListener($.support.touch ? "touchenter" : "mouseenter", function (event) {               
                value.enter.call(viewModel, event);

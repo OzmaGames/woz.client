@@ -35,12 +35,12 @@ define('common',
          updateScreenSize();
 
          window.addEventListener("resize", function (e) {
-            if (updateScreenSize()) {               
+            if (updateScreenSize()) {
                app.trigger("app:resized:hook", e);
 
                clearTimeout(resizeHelperId);
                resizeHelperId = setTimeout(function (event) {
-                  app.trigger("app:resized", event);                  
+                  app.trigger("app:resized", event);
                }, resizeDelay, e);
 
                clearTimeout(resizeHelperLongId);
@@ -62,12 +62,7 @@ define('common',
                }
                app.trigger("app:force-resize");               
                
-            }, 600);
-
-            //setTimeout(function () {
-            //   paper.view
-            //}, 1000);
-            ////600 is important, as in 500ms the new screen size is updated
+            }, 600);           
          });
 
          if (app.browser.android) {
@@ -81,7 +76,7 @@ define('common',
 
             app.screen.size.width -= w;
             app.screen.size.height -= h;
-         
+
             //alert(w + ' ' + h);
             return w || h;
          }
@@ -100,10 +95,10 @@ define('common',
 
       })(app);
 
-      var APP = app.el;      
+      var APP = app.el;
 
       function resetScroll() {
-         var SHELL = document.getElementById("shell");        
+         var SHELL = document.getElementById("shell");
 
          $(SHELL).delay(1).promise().then(function () {
             $(SHELL).css({
@@ -208,5 +203,5 @@ define('common',
 
       //alert(app.browser.iPad);
       //alert(screen.availHeight + ' ' + screen.height + ' ' + outerHeight + ' ' + innerHeight);
-      
+
    });

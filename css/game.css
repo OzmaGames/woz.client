@@ -573,7 +573,7 @@ body > .cloud.fixed {
     -o-transform: scale(1.1) translateZ(1) !important;
     -webkit-transform: scale(1.1) translateZ(1) !important;
     transform: scale(1.1) translateZ(1) !important;
-    pointer-events: none !important;
+    /*pointer-events: none !important;*/
 }
 
 .magnet:hover:not(.drag):not(:active):not(.placed):not(.view) {

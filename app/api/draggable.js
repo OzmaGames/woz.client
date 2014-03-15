@@ -5,9 +5,7 @@
 
       var $el = $(this), hasMoved = false;
 
-      //if ($.support.touch) $el.touchPunch();
-      
-      function immovable(){
+      function immovable() {
          return $el.data("immovable") && $el.data("immovable")();
       }
 
@@ -20,16 +18,26 @@
             e.clientX = e.pageX = touch.pageX;
             e.clientY = e.pageY = touch.pageY;
 
-            //e.preventDefault();
+            if (e.type == "touchstart") {
+               //wake the hell up paperjs 
+               //var el = document.elementFromPoint(e.clientX, e.clientY);
+               var el = $('canvas')[0];
+               var evt = document.createEvent('TouchEvent');
+               evt.initTouchEvent('touchstart', true, true,
+                  window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, e.originalEvent.touches, e.originalEvent.targetTouches, e.originalEvent.changedTouches, 1, 0);
+
+               el.dispatchEvent(evt);
+            }
+            
          }
       }
 
       var events = {
          mousedown: function (e) {
             e.preventDefault(); // disable selection            
-            e.stopPropagation();            
+            e.stopPropagation();
             $el.addClass('drag');
-            
+
             convertEventForTouch(e);
 
             if (opt.withinEl) {
@@ -40,7 +48,7 @@
                    padBottom = parseInt(opt.withinEl.css('padding-bottom'));
                opt.within = { l: padLeft, t: padTop, r: width - padLeft - padRight, b: height - padTop - padBottom };
             }
-            
+
             var startPoint = {
                h: $el.outerHeight(),
                w: $el.outerWidth(),
@@ -58,10 +66,10 @@
                opt.within.l += startPoint.w / 2;
                opt.within.r += startPoint.w / 2;
             }
-            
+
             //$el.css({ left: $el.offset().left, top: $el.offset().top });
             opt.dragStart.call(this, e, opt.within);
-            
+
             if (!immovable()) {
                var pointerMove = $.support.touch ? "touchmove" : "mousemove";
                opt.parent.bind(pointerMove, startPoint, events.mousemove);
@@ -75,11 +83,32 @@
          mouseup: function (e) {
             if (!$el.hasClass('drag')) return;
             convertEventForTouch(e);
+            
+            if ($.support.touch) {
+               $el.hide();
+               var evt = document.createEvent('TouchEvent'),
+                  el = document.elementFromPoint(e.clientX, e.clientY);
+               $el.show();
+               evt.initTouchEvent('touchend', true, true,
+                  window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, e.originalEvent.touches, e.originalEvent.targetTouches, e.originalEvent.changedTouches, 1, 0);
+
+               el.dispatchEvent(evt);
+            } else {
+               $el.hide();
+               var evt = document.createEvent('MouseEvents'),
+                  el = document.elementFromPoint(e.clientX, e.clientY);
+               $el.show();
+               evt.initMouseEvent('mouseup', true, true,
+                  window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, 0, null);
+
+               console.log(el);
+               el.dispatchEvent(evt);
+            }
 
             opt.parent.unbind("mousemove touchmove", events.mousemove)
             opt.parent.unbind("scroll", events.scroll)
             $el.removeClass('drag');
-            
+
             var isWithin = events.isWithinBoundaries(e);
             var top = isWithin ? (e.data.t + e.pageY + e.data.scrollTopChange) : ($el.position().top),
                 left = isWithin ? (e.data.l + e.pageX) : ($el.position().left);
@@ -96,41 +125,36 @@
                   top: top + '%',
                   left: left + '%',
                });
-            }
+            }                       
 
             opt.dropped(e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange });
 
             hasMoved = false;
-
-            setTimeout(function () {
-               console.log(document.elementFromPoint(e.pageX, e.pageY));
-            }, 10)
-            
          },
 
          scroll: function () {
             if (!opt.lastEvent) return;
             opt.lastEvent.data.scrollTopChange = opt.parent.scrollTop() - opt.lastEvent.data.scrollTop;
-            events.mousemove(opt.lastEvent);            
+            events.mousemove(opt.lastEvent);
          },
 
          mousemove: function (e) {
             convertEventForTouch(e);
-
-            var newTop = e.pageY + e.data.t + e.data.scrollTopChange,
-                newLeft = e.pageX + e.data.l;            
-                        
-            opt.lastEvent = e;
             
+            var newTop = e.pageY + e.data.t + e.data.scrollTopChange,
+                newLeft = e.pageX + e.data.l;
+
+            opt.lastEvent = e;
+
             if (opt.topLimit && newTop < opt.within.t) newTop = opt.within.t;
             if (newLeft < opt.within.l) newLeft = opt.within.l;
-            if (newTop + e.data.h > opt.within.b)  newTop = opt.within.b - e.data.h;
-            if (newLeft + e.data.w > opt.within.r) newLeft = opt.within.r - e.data.w;            
+            if (newTop + e.data.h > opt.within.b) newTop = opt.within.b - e.data.h;
+            if (newLeft + e.data.w > opt.within.r) newLeft = opt.within.r - e.data.w;
 
             if (opt.move(e, { top: newTop, left: newLeft })) {
                $el.css({ top: newTop, left: newLeft });
 
-               hasMoved = true;               
+               hasMoved = true;
                if (e.data.scrollTop + e.data.scrollTopChange != 0 && e.pageY < 100) {
                   var currentTop = e.data.scrollTop + e.data.scrollTopChange;
 
@@ -156,7 +180,7 @@
               newTop < opt.within.t ||
               newTop + e.data.h > opt.within.b ||
               newLeft < opt.within.l ||
-              newLeft + e.data.w > opt.within.r) {               
+              newLeft + e.data.w > opt.within.r) {
                return false;
             }
 
@@ -165,7 +189,7 @@
       };
 
       var pointerDown = $.support.touch ? "touchstart" : "mousedown";
-      $el.bind(pointerDown, events.mousedown);      
+      $el.bind(pointerDown, events.mousedown);
 
       $el.data('draggable', this);
 

@@ -15,7 +15,7 @@
       <div class="version" data-bind="text: $data, css: {active: $root.activeVersion() == $data}, click: $root.select"></div>
    </div>
    <br />
-   <button class="blue pt p-2 enableGPU" data-bind="click: done, clickBubble: false, disable: loading">
+   <button class="blue pt p-2 enableGPU" data-bind="click: done, clickBubble: false, disable: loading() || versions().length == 0">
       <span class="point">2</span>
       Change Word
    </button>   

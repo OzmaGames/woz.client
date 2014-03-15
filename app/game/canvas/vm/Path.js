@@ -80,7 +80,6 @@
    Path.prototype._canPut = true;
 
    Path.prototype.put = function () {
-      app.console.log(++this._putFlags);
       if (this._canPut && activeWords() != null) {
          this._canPut = false;
          setTimeout(function (base) { base._canPut = true; }, 500, this);
