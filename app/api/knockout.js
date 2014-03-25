@@ -181,14 +181,17 @@
          var obj = valueAccessor();
 
          var activeIndex = ko.observable(obj.activeTab || 0),
-            items = $(element).find('nav li:not(:last)').each(function (index, el) {
-               $(el).data('index', index);
+            items = $(element).find('li:not(:last)').each(function (index, el) {
+               $(this).data('index', index);
+            }).click(function () {
+               activeIndex($(this).data('index'));
             });
 
          ko.computed({
             disposeWhenNodeIsRemoved: element,
-            read: function () {
+            read: function () {            
                var index = activeIndex();
+
                for (var i = 0; i < items.length; i++) {
                   items[i].classList.remove('active');
                }
@@ -196,19 +199,11 @@
 
                if (typeof obj.nav == "function") {
                   var dfd = $('.content', element).slideUp().promise();
-                  var result = obj.nav.call(viewModel, index, dfd);
-
-                  if (result && result.then) {
-                     result.then(function () {
-                        $('.content', element).delay(300).slideDown(500);
-                     });
-                  }
+                  obj.nav.call(viewModel, index, dfd).then(function () {
+                     $('.content', element).slideDown(500);
+                  });
                }
             }
-         });
-
-         $(element).find('li:not(:last)').click(function () {
-            activeIndex($(this).data('index'));
          });
       }
    };

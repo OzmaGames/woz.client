@@ -317,13 +317,14 @@
         margin-bottom: 5px;
     }
 
+
 .dialog .notice {
     position: relative;
     top: 200px;
     z-index: 11;
     margin: 0 auto;
     width: 379px;
-    min-height: 177px;
+    /*min-height: 177px;*/
     background-image: url('../images/app/notice-background.png');
     background-repeat: no-repeat;
     -moz-background-size: 100% 100%;
@@ -337,16 +338,60 @@
     cursor: pointer;
     font-family: cambria, CopseRegular;
 }
+    .dialog .notice.top {
+        top: 100px;
+    }
+
+    .dialog .notice.long {
+        padding-left: 1em;
+        width: 500px;
+        background-image: url('../images/app/notice-long-background.png');
+    }
+
+        .dialog .notice.long .close {
+            right: 30px !important;
+            top: 20px !important;
+        }
+
+        .dialog .notice.long .row {
+            text-align: left;
+        }
+
+        .dialog .notice.long .besoz {
+            display: inline-block;
+            vertical-align: middle;
+            font-weight: bold;
+            width: 150px;
+            text-align: right;
+            line-height: 1.75em;
+        }
+
+        .dialog .notice.long .price {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100px;
+            text-align: right;
+            line-height: 1.75em;
+        }
+
+        .dialog .notice.long .discount {
+            font-style: italic;
+            position: absolute;
+            top: 2.8em;
+            left: 0;
+            width: 168px;
+            text-align: right;
+            font-size: .8em;
+        }
 
     .dialog .notice h1 {
-        /*font-family: Cambria !important;*/
         font-size: 1.5em;
         margin-bottom: 20px;
     }
 
     .dialog .notice h2 {
         margin: 0.9em;
-        font-size: 1.9em;        
+        font-size: 1.9em;
     }
 
     .dialog .notice h3 {
@@ -364,6 +409,10 @@
 
     .dialog .notice button {
         font-size: 0.9em;
+    }
+
+    .dialog .notice .wand{
+        background-position:center right;
     }
 
     .dialog .notice .badge {
@@ -384,13 +433,15 @@
     }
 
     .dialog .notice .versions {
-        min-height: 150px;
+        min-height: 75px;
+        margin: 1em 0;
     }
 
     .dialog .notice .version {
         display: inline-block;
         font-weight: bold;
-        width: 175px;
+        width: 165px;
+        margin: 5px;
         line-height: 2em;
         text-align: center;
         border: 1px dashed transparent;
@@ -402,24 +453,35 @@
             -o-background-size: contain;
             -webkit-background-size: contain;
             background-size: contain;
-            border-radius: 1em;
-            border-color: #976b2c;
+            /*border-radius: 1em;
+            border-color: #976b2c;*/
         }
 
     .dialog .notice .dropzone {
-        border: 2px dashed rgba(152, 107, 49,.5);
+        border: 3px dashed rgba(152, 107, 49,.5);
         color: darkgrey;
         height: 150px;
-        /*border-radius: 2em/1em;*/
         border-radius: 1em;
         text-align: center;
-        line-height: 150px;
+        /*line-height: 150px;*/
+        display: table-cell;
+        width: 375px;
         vertical-align: middle;
     }
 
         .dialog .notice .dropzone:hover {
             border-color: rgba(152, 107, 49,.8);
         }
+
+        .dialog .notice .dropzone p {
+            color: rgba(152, 107, 49, 1);
+        }
+
+            .dialog .notice .dropzone p.sm {
+                font-size: .8em;
+            }
+
+
 
 .dialog .panel {
     position: relative;

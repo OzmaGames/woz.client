@@ -1,9 +1,9 @@
 ﻿<div class="dialog top-center" data-bind="css: {modal: modal}">
    <div class="ui-overlay"></div>
    <!-- ko if: closeOnClick -->
-   <div class="notice" data-bind="click: close, compose: {model: model, view: view}"></div>
+   <div class="notice" data-bind="click: close, compose: {model: model, view: view, preserveContext: true}, css: css"></div>
    <!-- /ko-->
    <!-- ko ifnot: closeOnClick -->
-   <div class="notice" data-bind="compose: {model: model, view: view}"></div>
+   <div class="notice" data-bind="compose: {model: model, view: view, preserveContext: true}, css: css"></div>
    <!-- /ko-->
 </div>

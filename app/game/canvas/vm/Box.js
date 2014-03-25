@@ -46,7 +46,7 @@
    }
 
    Box.prototype.updateModel = function (pathModel) {
-      if (pathModel === undefined || pathModel == null) return;
+      if (pathModel === undefined || pathModel == null) return;      
 
       this.pathModel = pathModel;
       this.wordModel = pathModel.getWordAt(this.index);
@@ -74,7 +74,7 @@
       if (this.hasData) {
          this.active = false;
          if (this._guiRect != null) { this._guiRect.remove(); this._guiRect = null; }
-         if (this.isButton) {
+         if (this.isButton) {            
             if (this._guiElem == null) this.createBtn(); else this.updateBtn();
          } else {
             this.prevAngle = 0;
@@ -181,7 +181,7 @@
          x: this.pathModel.cPoint.x - Box.pathOptions.container.left,
          y: this.pathModel.cPoint.y - Box.pathOptions.container.top
       });
-      div.appendTo('#tiles');
+      div.prependTo('#tiles');
 
       div.find('.button').one("click", this, function (e) {
          Box.options.animate = true;
@@ -201,7 +201,7 @@
    }
 
    Box.prototype.updateElem = function () {
-      if (this.pathModel.phrase.complete()) {
+      if (this.pathModel.phrase.complete.immediate()) {
          this._guiElem.find('.magnet').addClass("complete");
          this._guiElem.off('click');
       }
@@ -222,11 +222,11 @@
    Box.prototype.createElem = function () {
       var div = $('<div/>', { 'class': 'magnet-placeholder elem' }), magnet;
 
-      if (this.pathModel.phrase.complete() || !this.wordModel.$el) {
+      if (this.pathModel.phrase.complete.immediate() || !this.wordModel.$el) {
          magnet = $('<div/>', { 'class': 'magnet', text: this.wordModel.lemma });
          if (this.wordModel.isRelated) magnet.addClass("related");
          //div.one("click", this, function (e) {
-         //   if (e.data.pathModel.phrase.complete()) return;
+         //   if (e.data.pathModel.phrase.complete.immediate()) return;
          //   e.data.pathModel.removeWordAt(e.data.index);
          //});
       } else {
@@ -239,13 +239,13 @@
 
          var word = this.wordModel, pm = this.pathModel, index = this.index, base = this;
 
-         div.data("immovable", function () { return pm.phrase.complete() });
+         div.data("immovable", function () { return pm.phrase.complete.immediate() });
          div.draggable({
             usePercentage: false,
             centerBased: false,
             withinEl: $('#app'),
             dragStart: function (e, within) {
-               if (pm.phrase.complete()) return;
+               if (pm.phrase.complete.immediate()) return;
                ctx.activeWord(word);
 
                word.tX = div.css("x");
@@ -266,7 +266,7 @@
             },
 
             dropped: function (e, data) {
-               if (pm.phrase.complete()) return;
+               if (pm.phrase.complete.immediate()) return;
                ctx.activeWord(null);
 
 

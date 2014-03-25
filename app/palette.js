@@ -53,13 +53,20 @@
    }
 
    Palette.prototype.adjustPalettes = function (value) {
-      $('.palette:not(.fixed)').each(function (i, el) {
-         var $el = $(el);
-         if (value === undefined) {
-            $el.css('y', (window.innerHeight - $el.outerHeight()) / 2);
-         } else {
-            $el.css('y', value);
-         }
+      $('.palette:not(.fixed)').each(function (i) {
+         var $el = $(this);
+         //if ($el.hasClass("left")) {
+         //   var workspace = $('#workspace');
+         //   if (workspace.length) {
+         //      $el.css('y', workspace.position().top);               
+         //   }
+         //} else {
+            if (value === undefined) {
+               $el.css('y', (window.innerHeight - $el.outerHeight()) / 2);
+            } else {
+               $el.css('y', value);
+            }
+         //}
       });
    }
 

@@ -131,14 +131,15 @@
          nWords = 6;
       }
 
-      if (pm.guiBoxes && pm.guiBoxes.length == nWords) {
+      if (pm.guiBoxes && pm.guiBoxes.length == nWords) {         
          for (var i = 0; i < nWords; i++) {
             var box = pm.guiBoxes[i]
             box.updateModel(pm);
          }
       } else if (pm.guiBoxes) {
+         //game-editor
          if (pm.guiBoxes.length > nWords) {
-            //remove
+            //remove            
             pm.guiBoxes[nWords].remove();
             pm.removeWordAt(nWords);
             pm.guiBoxes.splice(nWords, 1);

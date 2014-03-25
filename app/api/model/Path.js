@@ -28,15 +28,23 @@
 
       base.phrase.update = function (words) {
          base.completeSub.dispose();
-         if (base.phrase.complete()) return;
+         if (base.phrase.complete.immediate()) return;
          ko.utils.arrayForEach(words || [], function (word) {
             base.addWord(word, undefined, true);
-         })
+         });
+         if (base.nWords == 0) {
+            base.phrase._complete(true);
+         }
       }      
 
-      base.phrase.complete = ko.computed(function () {
+      var isComplete = function () {
          return this.phrase._complete() === true || this.phrase.words().length == 6 || (this.nWords != 0 && this.phrase.words().length == this.nWords);
-      }, base).extend({ throttle: 1 }); //let exchange happends if any
+      }
+
+      base.phrase.complete = ko.computed(isComplete, base).extend({ throttle: 1 }); //let exchange happends if any
+      base.phrase.complete.immediate = function () {
+         return isComplete.call(base);
+      }
       
       base.completeSub = base.phrase.complete.subscribe(function (complete) {
          if (complete) {
@@ -143,17 +151,20 @@
          base.phrase.words.remove(entity);
 
          model.words.valueHasMutated();
+
+         return true;
       }
 
       base.removeWordAt = function (index, opt) {
          var entity = base._getEntityAt(index);
-         base._removeEntity(entity, opt);
-         if (base.nWords == 0) {
-            for (var i = entity.index + 1; i < 10; i++) {
-               if ((entity = base._getEntityAt(i)) == null) break;
-               entity.index--;
+         if (base._removeEntity(entity, opt)) {
+            if (base.nWords == 0) {
+               for (var i = entity.index + 1; i < 10; i++) {
+                  if ((entity = base._getEntityAt(i)) == null) break;
+                  entity.index--;
+               }
+               base.phrase.words.valueHasMutated();
             }
-            base.phrase.words.valueHasMutated();
          }
       }
 

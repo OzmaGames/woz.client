@@ -123,13 +123,13 @@ hr {
         height: 600px;
     }
 
-        #tiles-max > #tiles-aspect {
+        #tiles-aspect {
             height: 600px;
             padding-bottom: 0;
         }
 
     #gameboard {
-        /*padding-bottom: 40px;*/
+        padding-bottom: 40px;
     }
 }
 

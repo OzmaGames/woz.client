@@ -24,7 +24,7 @@
          
          tabIndex *= 1;
 
-         dfd.then(function () {
+         return dfd.then(function () {
             base.module(null);
             base.module(
                tabIndex === 0 ? 'home/lobby/games' :
@@ -32,35 +32,30 @@
                                 'home/lobby/games');
 
             base.mode(tabIndex);
-         });
 
-         switch (tabIndex) {
-            case 0:
-               sessionStorage.setItem("lobby", 0);
-               gamesDFD = $.Deferred();
-               return Games.loadGames().then(function () {
-                  base.loading(false);
-                  return gamesDFD;
-               });
-               break;
-            case 1:
-               sessionStorage.setItem("lobby", 1);
-               return $.Deferred(function (dfd) {
-                  base.loading(false);
-                  setTimeout(function () { dfd.resolve(); }, 500)
-               });
-               break;
-            case 2:
-               sessionStorage.setItem("lobby", 2);
-               gamesDFD = $.Deferred();
-               return Games.loadArchive().then(function () {
-                  base.loading(false);
-                  return gamesDFD;
-               });
-               break;
-         }
-
-         return dfd;
+            switch (tabIndex) {
+               case 0:
+                  sessionStorage.setItem("lobby", 0);
+                  gamesDFD = $.Deferred();
+                  return Games.loadGames().then(function () {
+                     base.loading(false);
+                     return gamesDFD;
+                  }).promise();                  
+               case 1:
+                  sessionStorage.setItem("lobby", 1);
+                  return $.Deferred(function (dfd) {
+                     base.loading(false);
+                     setTimeout(function () { dfd.resolve(); }, 500)
+                  }).promise();
+               case 2:
+                  sessionStorage.setItem("lobby", 2);
+                  gamesDFD = $.Deferred();
+                  return Games.loadArchive().then(function () {
+                     base.loading(false);
+                     return gamesDFD;
+                  }).promise();
+            }
+         });                
       },
 
       activate: function () {
@@ -72,7 +67,6 @@
             sessionStorage.setItem("lobby", 0);
          } else {
             this.activeTab = sessionStorage.getItem("lobby");
-
          }
       },
 

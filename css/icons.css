@@ -56,17 +56,17 @@ i.action {
 
     i.action:hover:not(.still),
     i.command:hover:not(.still) {
-        background-position-x: -1em !important;
+        background-position-x: -1em;
     }
 
     i.action:active:not(.still),
     i.command:active:not(.still) {
-        background-position-x: -2em !important;
+        background-position-x: -2em;
     }
 
     i.action.disabled:not(.still),
     i.command.disabled:not(.still) {
-        background-position-x: -3em !important;
+        background-position-x: -3em;
         cursor: default;
     }
 
@@ -76,7 +76,7 @@ i.action {
         -o-transform: rotateY(180deg);
         -webkit-transform: rotateY(180deg);
         transform: rotateY(180deg);
-        background-position-x: -4em !important;
+        background-position-x: -4em;
     }
 
     i.action.swapWords {
@@ -167,14 +167,17 @@ i.command.green {
     background-color: lightgreen;
 }
 
-i.command.fullscreen{
-background-image: url('../images/game/fullscreen.png');
-background-position: 0 0 !important;
+i.command.fullscreen {
+    background-image: url('../images/game/fullscreen.png');
+    background-position: 0 0 !important;
     -moz-background-size: cover;
     -o-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
 }
+    i.command.fullscreen.active {
+        background-position: -1em 0 !important;    
+    }
 
 i.command.close {
     display: block;

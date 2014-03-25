@@ -1,10 +1,13 @@
-﻿<i class="command close" data-bind="click: close"></i>
+﻿<i class="command close" data-bind="click: $parent.close"></i>
 <div data-bind="if: step() == 1">
    <h3>Select a word to change it's ending:</h3>
    <br />
    <div class="dropzone" data-bind="visible: !dropped(), pointer: {enter: enter, leave: leave, drop: drop}">
-      Drop a word here!
-   </div>   
+      <span data-bind="ifnot: message">Drop a word here!</span>
+      <!-- ko if: message -->
+         <div data-bind="html: message"></div>
+      <!-- /ko-->
+   </div>
    <div data-bind="if: dropped">
       <div class="loader-bar"><i></i><i></i><i></i></div>
    </div>
@@ -12,11 +15,10 @@
 <div data-bind="if: step() == 2">
    <h3>Choose an alternative for <span class="magnet view" data-bind="text: lemma"></span></h3>
    <div class="versions" data-bind="foreach: versions">
-      <div class="version" data-bind="text: $data, css: {active: $root.activeVersion() == $data}, click: $root.select"></div>
-   </div>
-   <br />
-   <button class="blue pt p-2 enableGPU" data-bind="click: done, clickBubble: false, disable: loading() || versions().length == 0">
-      <span class="point">2</span>
+      <div class="version" data-bind="text: $data, css: {active: $parent.activeVersion() == $data}, click: $parent.select"></div>
+   </div>   
+   <button class="blue enableGPU has-currency" data-bind="click: done, clickBubble: false, disable: loading() || versions().length == 0">
+      <span class="currency">2</span>
       Change Word
-   </button>   
+   </button>
 </div>

@@ -1,0 +1,12 @@
+﻿<i class="command close" data-bind="click: $parent.close"></i>
+<div>
+   <div class="table-flex" data-bind="foreach: list">
+      <div class="row mild-padding">
+         <!--ko if: flag--><div class="ribbon" data-bind="css: flag.color, text: flag.text"></div><!-- /ko-->
+         <span class="besoz"><span data-bind="text: besoz"></span> besoz</span>
+         <span class="price" data-bind="text:price"></span>
+         <button class="orange sm pull-right">BUY</button>
+         <span class="discount" data-bind="if: discount">-<span data-bind="text:discount"></span>% more value!</span>
+      </div>
+   </div>   
+</div>

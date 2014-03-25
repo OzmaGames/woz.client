@@ -1,0 +1,21 @@
+﻿<i class="command close" data-bind="click: $parent.close"></i>
+<div>
+   <h3>Search for a word to add</h3>
+   <br />
+   <div class="search-box">
+      <input type="search" placeholder="type in part of a word.." maxlength="25" />
+      <div class="btn">
+         <i class="command find" data-bind="click: search"></i>
+      </div>
+      <i class="icon-spinner icon-spin" data-bind="css: {active: loading()}"></i>
+   </div>
+   <div data-bind="if: words().length">
+      <div class="versions" data-bind="foreach: words">
+         <div class="version" data-bind="text: $data, css: {active: $parent.activeVersion() == $data}, click: $parent.select"></div>
+      </div>
+      <button class="blue enableGPU has-currency" data-bi1nd="click: done, clickBubble: false, disable: loading() || versions().length == 0">
+         <span class="currency">5</span>
+         Add Word
+      </button>
+   </div>
+</div>

@@ -90,7 +90,7 @@
                     active: ko.observable(false),
                     resigned: ko.observable(false),
                     score: ko.observable(0),
-                    username: '?'
+                    username: 'yet unknown'
                  });
               }
               var dialogData;
@@ -114,13 +114,13 @@
            model.words(json.words);
 
            for (var i = 0; i < json.tiles.length; i++) {
-              json.tiles[i].imageId = json.tiles[i].imageID || json.tiles[i].id;
+              json.tiles[i].imageId = json.tiles[i].imageID;
               json.tiles[i].imageName = consts.bigImageURL(model.collection.name(), json.tiles[i].imageId);
               json.tiles[i].info = (json.tiles[i].bonus !== 0 ? '+' + json.tiles[i].bonus : 'X' + json.tiles[i].mult);
               json.tiles[i].active = ko.observable(false);
            }
            model.tiles(json.tiles);
-
+           
            json.paths = ko.utils.arrayMap(json.paths, function (p) {
               return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
            });

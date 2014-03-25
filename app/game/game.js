@@ -80,8 +80,8 @@
             box.prepend(scoreDiv);
 
             if (!highlight || showScore) {
-               setTimeout(function (div) {                  
-                  div.bind($.support.transitionEnd, function (e) {                     
+               setTimeout(function (div) {
+                  div.bind($.support.transitionEnd, function (e) {
                      if (e.originalEvent.propertyName == 'opacity') {
                         div.remove();
                      }
@@ -317,7 +317,7 @@
          }, json.path.score.startTile.satisfied * (d1 + d2));
 
          setTimeout(function () {
-            var anyRelated = false, index= 0;
+            var anyRelated = false, index = 0;
             var related = ko.utils.arrayMap(json.path.score.words, function (w) {
                var p = 0;
                if (w.related) {
@@ -402,7 +402,10 @@
          return isMenuActive() && isPlayerActive() && (ctx.mode() === '' || ctx.mode() == 'circleWords');
       }),
       allowVersions: ko.computed(function () {
-         return isMenuActive() && (ctx.mode() === '' || ctx.mode() == 'versions');
+         return isMenuActive() && isPlayerActive() && ctx.canSwap() && (ctx.mode() === '' || ctx.mode() == 'versions');
+      }),
+      allowAddWords: ko.computed(function () {
+         return isMenuActive() && isPlayerActive() && ctx.canSwap() && (ctx.mode() === '' || ctx.mode() == 'addWords');
       }),
 
       mode: ctx.mode,
@@ -535,7 +538,7 @@
          }
       },
 
-      versions: function () {                  
+      versions: function () {
          if (ctx.mode() == 'versions') {
             ctx.mode("")
             app.dialog.close("notice");
@@ -543,12 +546,44 @@
          else if (game.allowVersions()) {
             ctx.mode("versions");
 
-            system.acquire("dialogs/pages/versions").then(function (module) {               
-               app.dialog.show("notice", { model: new module(), view: 'dialogs/pages/versions', closeOnClick: false }).then(function () {
+            //app.scrollDown();
+
+            system.acquire("dialogs/pages/versions").then(function (module) {
+               var model = new module();
+               model.successLiteral = ctx.canSwap;
+               app.dialog.show("notice", {
+                  model: model, view: 'dialogs/pages/versions',
+                  closeOnClick: false,
+                  fixed: true,
+                  css: 'top'
+               }).then(function () {
                   ctx.mode("");
                });
-            });            
-         } 
+            });
+         }
+      },
+
+      addWords: function () {
+         if (ctx.mode() == 'addWords') {
+            ctx.mode("")
+            app.dialog.close("notice");
+         }
+         else if (game.allowAddWords()) {
+            ctx.mode("addWords");            
+
+            system.acquire("dialogs/pages/addWords").then(function (module) {
+               var model = new module();
+               model.successLiteral = ctx.canSwap;
+               app.dialog.show("notice", {
+                  model: model, view: 'dialogs/pages/addWords',
+                  closeOnClick: false,
+                  css: 'top',
+                  fixed: true
+               }).then(function () {
+                  ctx.mode("");
+               });
+            });
+         }
       }
    };
 
@@ -588,6 +623,13 @@
                cancel: ko.computed(function () { return game.mode() === 'versions' }),
                disabled: ko.computed(function () { return !game.allowVersions() })
             });
+
+         app.palette.add("addWords", "action", "left")
+            .click(game.addWords)
+            .css({
+               cancel: ko.computed(function () { return game.mode() === 'addWords' }),
+               disabled: ko.computed(function () { return !game.allowAddWords() })
+         });
 
          ctx.load(id);
       },
