@@ -2,20 +2,24 @@
 <div>
    <h3>Search for a word to add</h3>
    <br />
-   <div class="search-box">
-      <input type="search" placeholder="type in part of a word.." maxlength="25" />
-      <div class="btn">
-         <i class="command find" data-bind="click: search"></i>
-      </div>
-      <i class="icon-spinner icon-spin" data-bind="css: {active: loading()}"></i>
-   </div>
+   <form class="search-box" data-bind="submit: search">
+      <input type="search" placeholder="type in part of a word.." maxlength="25" data-bind="value: lemma" autofocus />
+      <button class="btn" type="submit">
+         <i class="command find" data-bin1d="click: search"></i>
+      </button>
+      <i class="icon-spinner icon-spin" data-bind="css: {active: loading() && words().length == 0}"></i>
+   </form>
    <div data-bind="if: words().length">
       <div class="versions" data-bind="foreach: words">
-         <div class="version" data-bind="text: $data, css: {active: $parent.activeVersion() == $data}, click: $parent.select"></div>
+         <div class="version" data-bind="text: $data, css: {active: $parent.activeWord() == $data}, click: $parent.select"></div>
       </div>
-      <button class="blue enableGPU has-currency" data-bi1nd="click: done, clickBubble: false, disable: loading() || versions().length == 0">
+      <button class="blue enableGPU has-currency" data-bind="click: done, clickBubble: false, disable: loading() || words().length == 0">
          <span class="currency">5</span>
          Add Word
       </button>
+   </div>
+   <div data-bind="ifnot: words().length">
+      <br />
+      <div data-bind="html: message"></div>
    </div>
 </div>

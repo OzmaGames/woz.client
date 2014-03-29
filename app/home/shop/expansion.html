@@ -1,26 +1,26 @@
-﻿
-<div style="margin-bottom:20px;">
+﻿<div style="margin-bottom:20px;">
    <div class="table-flex" data-bind="foreach: collections">
       <div class="row">
          <!--ko if: flag--><div class="ribbon" data-bind="css: flag.color, text: flag.text"></div><!-- /ko-->
          <div class="head" data-bind="text: name"></div>
          <div class="body" data-bind="foreach: sub"><div class="collection">
-            <div class="couple has-currency" data-bind="">
-               <div class="currency" data-bind="text: besoz"></div>
-            </div>
-            <div>
-               <div class="upper font-smaller" data-bind="text: type"></div>
-               <div class="bold italic font-bigger" data-bind="text: $parent.name + ' - ' + name"></div>
-               <div class="font-smaller" data-bind="text: description"></div>
-               <div>
-                  Tiles: <span data-bind="text: tiles"></span>
-                  New Words: <span data-bind="text: words"></span>
+               <div class="couple has-currency" data-bind="">
+                  <div class="currency" data-bind="text: besoz"></div>
                </div>
                <div>
-                  <button class="orange sm">BUY</button>
+                  <div class="upper font-smaller" data-bind="text: type"></div>
+                  <div class="bold italic font-bigger" data-bind="text: $parent.name + ' - ' + name"></div>
+                  <div class="font-smaller" data-bind="text: description"></div>
+                  <div>
+                     Tiles: <span data-bind="text: tiles"></span>
+                     New Words: <span data-bind="text: words"></span>
+                  </div>
+                  <div>
+                     <button class="orange sm">BUY</button>
+                  </div>
                </div>
-            </div>
          </div></div>
       </div>
    </div>
-</div>   
+</div>
+   

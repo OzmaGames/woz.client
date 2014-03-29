@@ -40,6 +40,8 @@
       this.closeOnClick = (data.closeOnClick == undefined) ? true : data.closeOnClick;
       this.centered = data.centered || false;
 
+      this.model.close = this.close;
+
       var base = this;
       $.when(this.dfd1, this.dfd2).then(function () {
          if (base.centered) {

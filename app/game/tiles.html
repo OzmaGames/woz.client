@@ -5,7 +5,7 @@
             <div class="container" data-bind="foreach: { data: tiles, afterRender: afterRender }">
                <div class="tile" data-bind="css: { active: active }, click: $root.toggleTile">
                   <div class="tile-circle">
-                     <div class="cloud" data-bind="">
+                     <div class="cloud" data-bind="if: instruction != ''">
                         <div class="rule" data-bind="click: $root.help, clickBubble: false, fadeVisible: !$root.gameOver() || $root.forceVisible()">
                            <span data-bind="text: instruction"></span>
                            <div class="info" data-bind="text: info"></div>
@@ -18,6 +18,18 @@
                   </div>
                </div>
             </div>
+            <!-- ko if: $root.tutorialMode -->
+            <div class="notice-board">
+               <h1 data-bind="text: tutorialObject.title"></h1>
+               <p data-bind ="html: tutorialObject.description"></p>
+            </div>
+            <div class="footer">
+               <div class="page" data-bind="text: tutorialObject.page"></div>
+               <div class="skip-link">
+                  <a>skip tutorial</a>
+               </div>
+            </div>
+            <!-- /ko -->
          </div>
       </div>
    </div>

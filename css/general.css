@@ -1351,6 +1351,9 @@ a.small {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
+    .table-flex .row.flat{
+        box-shadow:none;
+    }
     .table-flex .row.mild-padding {
         padding: 1em;
     }

@@ -65,12 +65,7 @@
             base.pathModel.addWord(base.activeWord);
             base.events.mouseleave(e);
          } else if (base.activeWords != null) {
-            var words = base.activeWords;
-            for (var i = 0; i < words.length; i++) {
-               base.pathModel.addWord(words[i]);
-            }
-            base.pathModel.phrase._complete(true);
-            base.pathModel.phrase.words.valueHasMutated();
+            base.pathModel.addWords(base.activeWords);
             base.events.mouseleave(e);
          }
       }
@@ -92,7 +87,7 @@
       
       if (confirmBtn) {
          if (!this.confirmBox) {
-            this.confirmBox = new Box(-1, null);
+            this.confirmBox = new Box(6, null);
             this.confirmBox.button(pm);
             this.confirmBox.show();            
          }
@@ -128,8 +123,9 @@
       hover.add(pm.startTile.center);
 
       for (var i = 0; i < nWords; i++) {
-         var box = pm.guiBoxes[i],
-           half = box.width() / 2 + Path.options.rectMargin + delta / (2 * nWords);
+         var box = ko.utils.arrayFirst(pm.guiBoxes, function (box) {
+            return box.index == i;
+         }), half = box.width() / 2 + Path.options.rectMargin + delta / (2 * nWords);                  
 
          offset += half;
          var point = path.getPointAt(offset),

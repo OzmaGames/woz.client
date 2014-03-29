@@ -61,7 +61,7 @@
          }
 
          var box = this.wordModel.lastBox;
-         if (box && box != this) {
+         if (box && box != this) {            
             box.pathModel.removeWordAt(box.index, { keepUnplayed: true });
          }
          this.wordModel.lastBox = this;
@@ -90,7 +90,7 @@
       if (this.hasData && this._guiElem) {
          return this._guiElem.outerWidth();
       }
-      if (this.isCircle) return Box.options.circle.radius;
+      if (this.isCircle) return Box.options.circle.radius * 2;
 
       return 60;
    };
@@ -205,13 +205,14 @@
          this._guiElem.find('.magnet').addClass("complete");
          this._guiElem.off('click');
       }
-
-      //this._guiElem.find('.magnet').text(this.wordModel.lemma);
+            
+      //for dynamic path only, in case remove word happens
+      this._guiElem.find('.magnet').text(this.wordModel.lemma);
 
       var values = {
          x: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
          y: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2,
-         rotate: this.angle + 'deg'
+         rotate: this.angle + 'deg'         
       };
 
       values.scale = this.scale * .8;
@@ -269,16 +270,22 @@
                if (pm.phrase.complete.immediate()) return;
                ctx.activeWord(null);
 
+               div.addClass("noTransition").css({
+                  rotate: base.angle, scale: .8,
+                  left: 0, top: 0,
+                  x: word.tX,
+                  y: word.tY
+               });
+               setTimeout(function () { div.removeClass("noTransition") }, 0);
 
-               if (!data.hasMoved) {
-                  delete word.lastBox;
-                  pm.removeWordAt(index);
+               if (!data.hasMoved) {                  
+                  //delete word.lastBox;
+                  pm.removeWordAt(base.index);
                } else {
                   var workspace = $('#workspace').offset();
 
                   data.top -= data.within.t + data.scrollTopChange;
-                  data.left -= data.within.l;
-                  console.log(data.top, data.left, workspace.top, data.within);
+                  data.left -= data.within.l;                  
 
                   if (workspace.top < data.top + 20) {                     
                      var workspaceWidth = $('#workspace').innerWidth(),
@@ -300,16 +307,16 @@
                         }
                      });
                      
-                     delete word.lastBox;
-                     pm.removeWordAt(index);
-                  } else {
-                     div.css({
-                        rotate: base.angle, scale: .8,
-                        left: 0, top: 0,
-                        x: word.tX,
-                        y: word.tY,
-                     });
+                     //delete word.lastBox;
+                     pm.removeWordAt(base.index);
                   }
+
+                  //div.css({
+                  //   rotate: base.angle, scale: .8,
+                  //   left: 0, top: 0,
+                  //   x: word.tX,
+                  //   y: word.tY,
+                  //});
                   //word.x = (data.hasMoved ? data.left / 100 : word.x).toFixed(4) * 1;
                   //word.y = (data.hasMoved ? data.top / 100 : word.y).toFixed(4) * 1;
                }

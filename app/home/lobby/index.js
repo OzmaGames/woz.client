@@ -8,15 +8,17 @@
    }
 
    return {
-      loading: ko.observable(true),
-
-      module: ko.observable(),
+      loading: ko.observable(true),      
 
       mode: ko.observable(),
 
-      activeTab: 0,
+      activeTab: 0,      
 
-      games: Games,
+      compose: ko.observable({
+         model: null,
+         view: '',
+         cacheViews: false
+      }),
 
       navigate: function (tabIndex, dfd) {
          var base = this;
@@ -25,13 +27,19 @@
          tabIndex *= 1;
 
          return dfd.then(function () {
-            base.module(null);
-            base.module(
+            
+            //base.games(tabIndex == 1 ? 'home/lobby/notifications' : Games);
+            
+            base.compose().view =
                tabIndex === 0 ? 'home/lobby/games' :
                tabIndex === 1 ? 'home/lobby/notifications' :
-                                'home/lobby/games');
+                                'home/lobby/games';
 
-            base.mode(tabIndex);
+            base.compose().model = tabIndex == 1 ? 'home/lobby/notifications' : Games
+
+            base.compose.valueHasMutated();
+
+            base.mode(tabIndex);            
 
             switch (tabIndex) {
                case 0:

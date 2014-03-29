@@ -1,5 +1,5 @@
 ﻿define(['durandal/app', 'api/datacontext'], function (app, ctx) {
-     
+
    return {
       loading: ko.observable(false),
 
@@ -9,22 +9,21 @@
 
       activeTab: 0,
 
+      close: function () { },
+
       navigate: function (tabIndex, dfd) {
          var base = this;
          base.loading(true);
-         
+
          tabIndex *= 1;
 
          return dfd.then(function () {
             base.module(null);
-            base.module(
-               tabIndex === 0 ? 'home/shop/expansion' :
-               tabIndex === 1 ? 'home/shop/enhancement' :
-                                'home/shop/besoz');
+            base.module(tabIndex === 0 ? 'home/shop/expansion' : 'home/shop/currency');
 
             base.mode(tabIndex);
             base.loading(false);
-         });                
+         });
       },
 
       activate: function () {
@@ -38,7 +37,7 @@
             this.activeTab = sessionStorage.getItem("shop");
          }
       },
-      
+
       binding: function () {
          return { cacheViews: false };
       }

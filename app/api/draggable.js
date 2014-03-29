@@ -38,6 +38,16 @@
             e.stopPropagation();
             $el.addClass('drag');
 
+            
+            if ($el.hasClass('new')) {
+               $el.removeClass('new');
+               var wordData = ko.dataFor($el[0]);
+               if (wordData && wordData.css)
+               {
+                  wordData.css = wordData.css.replace("new", "");
+               }
+            }
+
             convertEventForTouch(e);
 
             if (opt.withinEl) {
@@ -100,8 +110,7 @@
                $el.show();
                evt.initMouseEvent('mouseup', true, true,
                   window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, 0, null);
-
-               console.log(el);
+               
                el.dispatchEvent(evt);
             }
 
@@ -125,7 +134,11 @@
                   top: top + '%',
                   left: left + '%',
                });
-            }                       
+            }
+
+            if (hasMoved) {
+               $el.addClass("dragged");
+            }
 
             opt.dropped(e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange });
 

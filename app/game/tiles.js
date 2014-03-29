@@ -190,13 +190,15 @@
       gameOver: ctx.gameOver,
       forceVisible: forceVisible,
       collection: ctx.collection,
-      carryingWords: ko.computed(function () {
+      tutorialMode: ctx.tutorialMode,
+      tutorialObject: ctx.tutorialObject,
+      carryingWords: ko.computed(function () {         
          return ctx.activeWords() || ctx.activeWord();
       }),
 
       disabled: ko.computed(function () {
          var mode = ctx.mode();
-         return mode == 'swapWords' || mode == 'circleWords';
+         return mode == 'swapWords' || mode == 'circleWords' || mode == 'versions';
       }),
 
       activate: function () {

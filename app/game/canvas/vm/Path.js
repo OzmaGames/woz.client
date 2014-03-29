@@ -129,6 +129,7 @@
 
       if (pm.nWords == 0) {
          nWords = 6;
+         //debugger;
       }
 
       if (pm.guiBoxes && pm.guiBoxes.length == nWords) {         

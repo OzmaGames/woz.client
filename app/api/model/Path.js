@@ -32,7 +32,7 @@
          ko.utils.arrayForEach(words || [], function (word) {
             base.addWord(word, undefined, true);
          });
-         if (base.nWords == 0) {
+         if (base.nWords == 0 && words && words.length >= 3) {
             base.phrase._complete(true);
          }
       }      
@@ -101,31 +101,51 @@
          });
       }
 
+      base._lastEmptyIndex = function () {
+         for (var i = 0; i < 10; i++) {
+            if (null == ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === i; })) {
+               return i;
+            }
+         }
+      }
+
+      base.addWords = function (words)
+      {
+         base.removeAll();
+         for (var i = 0; i < words.length; i++) {
+            if (!base.addWord(words[i])) return false;
+         }
+         base.phrase._complete(true);
+         base.phrase.words.valueHasMutated();
+         return true;
+      }
+
       base.addWord = function (word, index, force) {
          if (!model.player.active() && force !== true) {
             return false;
          }
 
          if (index === undefined) {
-            for (var i = 0; i < 10; i++) {
-               if (null == ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === i; })) {
-                  index = i;
-                  break;
-               }
-            }
+            index = base._lastEmptyIndex();            
          }
 
          if ((base.nWords == 0 && index >= 6) || (base.nWords != 0 && index >= base.nWords)) return false;
 
-         if (null != ko.utils.arrayFirst(base.phrase.words(), function (entity) { return entity.index === index; })) {
+         if (base.hasWordAt(index)) {
             base.removeWordAt(index);
-            //return false;
+            console.log('%cWhen?', 'background: red; color: white');
+         }
+
+         if (word.isPlayed) {
+            if (base.nWords == 0 && word.lastBox.pathModel == base)
+               return false;
+            //relocation
          }
 
          word.isPlayed = 1;
-         base.phrase.words.push({ word: word, index: index });
-
          model.words.valueHasMutated();
+
+         base.phrase.words.push({ word: word, index: index });
 
          return true;
       }
@@ -148,24 +168,37 @@
          if (!opt.keepUnplayed) {
             entity.word.isPlayed = 0;
          }
-         base.phrase.words.remove(entity);
+         
+         if (base.nWords == 0) {
+            var pos = base.phrase.words().indexOf(entity);
+            base.phrase.words().splice(pos, 1);
+            //delete entity.word.lastBox;
+         } else {
+            base.phrase.words.remove(entity);
+         }
 
-         model.words.valueHasMutated();
+         model.words.valueHasMutated();         
 
          return true;
       }
 
       base.removeWordAt = function (index, opt) {
-         var entity = base._getEntityAt(index);
+         var entity = base._getEntityAt(index);         
          if (base._removeEntity(entity, opt)) {
-            if (base.nWords == 0) {
+            if (base.nWords == 0) {               
+               entity.word.lastBox.index = base.phrase.words().length;
+               delete entity.word.lastBox;
                for (var i = entity.index + 1; i < 10; i++) {
                   if ((entity = base._getEntityAt(i)) == null) break;
-                  entity.index--;
+                  entity.index--;                  
+                  if (entity.word.lastBox) {                     
+                     entity.word.lastBox.index--;
+                     //delete entity.word.lastBox;
+                  }
                }
                base.phrase.words.valueHasMutated();
             }
-         }
+         }         
       }
 
       if (phrase) {

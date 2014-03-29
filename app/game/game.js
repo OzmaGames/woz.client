@@ -1,5 +1,8 @@
 ﻿define(['durandal/app', 'durandal/system', 'api/datacontext', 'dialogs/_constants', './tutorial'], function (app, system, ctx, DIALOGS, tutorial) {
-   ctx.canSwap = ko.observable(false);
+   var canSwap = ctx.tickets.swapWords;
+   var canAddWords = ctx.tickets.addWords;
+   var canVersions = ctx.tickets.versions;
+   var allowCircle = ctx.allowCircle;
 
    ctx.loading.subscribe(function (loading) {
       if (loading === true) {
@@ -227,9 +230,6 @@
    }
 
    app.on("game:updated").then(function (json) {
-      ctx.canSwap(ctx.player.active());
-
-      console.log(json);
       if (ctx.player.scored) {
 
          var d1 = 2000, d2 = 500;
@@ -352,32 +352,17 @@
       }
    });
 
-   app.on("game:started").then(function () {
-      ctx.canSwap(ctx.player.active() && !ctx.actionDone);
+   app.on("game:started").then(function () {      
       setTimeout(function () {
-         showScroll();
+         if (!ctx.tutorialMode) showScroll();
       }, 1000);
    });
 
    app.on("game:started:ready").then(function () {
       setTimeout(function () {
-         tutorial.show();
+         //tutorial.show();
       }, 500);
    });
-
-   var cancel = function () {
-      app.dialog.close("confirm");
-      app.dialog.close("slipper");
-      ctx.canSwap(true);
-      ctx.mode('');
-
-      var selectedWords = ctx.selectedWords();
-      for (var i = 0; i < selectedWords.length; i++) {
-         selectedWords[i].isSelected(false);
-      }
-
-      paper.tool.remove();
-   }
 
    var isMenuActive = ko.computed(function () {
       return !ctx.gameOver();
@@ -393,19 +378,19 @@
       player: ctx.player,
 
       allowSwap: ko.computed(function () {
-         return isMenuActive() && isPlayerActive() && ctx.canSwap() && (ctx.mode() === '' || ctx.mode() === 'swapWords');
+         return isMenuActive() && isPlayerActive() && canSwap() && (ctx.mode() === '' || ctx.mode() === 'swapWords');
       }),
       allowResign: ko.computed(function () {
          return isMenuActive();
       }),
       allowCircle: ko.computed(function () {
-         return isMenuActive() && isPlayerActive() && (ctx.mode() === '' || ctx.mode() == 'circleWords');
+         return isMenuActive() && isPlayerActive() && allowCircle() && (ctx.mode() === '' || ctx.mode() == 'circleWords');
       }),
       allowVersions: ko.computed(function () {
-         return isMenuActive() && isPlayerActive() && ctx.canSwap() && (ctx.mode() === '' || ctx.mode() == 'versions');
+         return isMenuActive() && isPlayerActive() && canVersions() && (ctx.mode() === '' || ctx.mode() == 'versions');
       }),
       allowAddWords: ko.computed(function () {
-         return isMenuActive() && isPlayerActive() && ctx.canSwap() && (ctx.mode() === '' || ctx.mode() == 'addWords');
+         return isMenuActive() && isPlayerActive() && canAddWords() && (ctx.mode() === '' || ctx.mode() == 'addWords');
       }),
 
       mode: ctx.mode,
@@ -454,10 +439,10 @@
                            if (!res.success) {
                               cancel();
                            } else {
-                              ctx.canSwap(false);
+                              canSwap(false);
 
                               setTimeout(function () {
-                                 tutorial.testRelated();
+                                 //tutorial.testRelated();
                               }, 1000);
                            }
                            ctx.mode('');
@@ -473,6 +458,19 @@
          }
          else {
             //app.dialog.show("alert", { content: "You can only swap words once in each turn", delay: 3000 });
+         }
+
+         var cancel = function () {
+            app.dialog.close("confirm");
+            app.dialog.close("slipper");
+            ctx.mode('');
+
+            var selectedWords = ctx.selectedWords();
+            for (var i = 0; i < selectedWords.length; i++) {
+               selectedWords[i].isSelected(false);
+            }
+
+            paper.tool.remove();
          }
       },
 
@@ -546,16 +544,14 @@
          else if (game.allowVersions()) {
             ctx.mode("versions");
 
-            //app.scrollDown();
+            app.scrollUp();
 
             system.acquire("dialogs/pages/versions").then(function (module) {
                var model = new module();
-               model.successLiteral = ctx.canSwap;
+               model.ticket = canVersions;
                app.dialog.show("notice", {
                   model: model, view: 'dialogs/pages/versions',
-                  closeOnClick: false,
-                  fixed: true,
-                  css: 'top'
+                  closeOnClick: false                  
                }).then(function () {
                   ctx.mode("");
                });
@@ -573,7 +569,7 @@
 
             system.acquire("dialogs/pages/addWords").then(function (module) {
                var model = new module();
-               model.successLiteral = ctx.canSwap;
+               model.ticket = canAddWords;
                app.dialog.show("notice", {
                   model: model, view: 'dialogs/pages/addWords',
                   closeOnClick: false,
@@ -616,6 +612,13 @@
                cancel: ko.computed(function () { return game.mode() === 'circleWords' || ctx.activeWords() }),
                disabled: ko.computed(function () { return !game.allowCircle() })
             });
+         
+         app.palette.add("addWords", "action", "left")
+            .click(game.addWords)
+            .css({
+               cancel: ko.computed(function () { return game.mode() === 'addWords' }),
+               disabled: ko.computed(function () { return !game.allowAddWords() })
+            });
 
          app.palette.add("versions", "action", "left")
             .click(game.versions)
@@ -623,13 +626,6 @@
                cancel: ko.computed(function () { return game.mode() === 'versions' }),
                disabled: ko.computed(function () { return !game.allowVersions() })
             });
-
-         app.palette.add("addWords", "action", "left")
-            .click(game.addWords)
-            .css({
-               cancel: ko.computed(function () { return game.mode() === 'addWords' }),
-               disabled: ko.computed(function () { return !game.allowAddWords() })
-         });
 
          ctx.load(id);
       },

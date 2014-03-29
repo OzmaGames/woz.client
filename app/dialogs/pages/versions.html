@@ -1,24 +1,26 @@
-﻿<i class="command close" data-bind="click: $parent.close"></i>
-<div data-bind="if: step() == 1">
-   <h3>Select a word to change it's ending:</h3>
-   <br />
-   <div class="dropzone" data-bind="visible: !dropped(), pointer: {enter: enter, leave: leave, drop: drop}">
-      <span data-bind="ifnot: message">Drop a word here!</span>
-      <!-- ko if: message -->
+﻿<div style="min-height:200px">
+   <i class="command close" data-bind="click: $parent.close"></i>
+   <div data-bind="if: step() == 1">
+      <h3>Select a word to change it's ending:</h3>
+      <br />
+      <div class="dropzone" data-bind="visible: !dropped(), pointer: {enter: enter, leave: leave, drop: drop}">
+         <span data-bind="ifnot: message">Drop a word here!</span>
+         <!-- ko if: message -->
          <div data-bind="html: message"></div>
-      <!-- /ko-->
+         <!-- /ko-->
+      </div>
+      <div data-bind="if: dropped">
+         <div class="loader-bar"><i></i><i></i><i></i></div>
+      </div>
    </div>
-   <div data-bind="if: dropped">
-      <div class="loader-bar"><i></i><i></i><i></i></div>
+   <div data-bind="if: step() == 2">
+      <h3>Choose an alternative for <span class="magnet view" data-bind="text: lemma"></span></h3>
+      <div class="versions" data-bind="foreach: versions">
+         <div class="version" data-bind="text: $data, css: {active: $parent.activeVersion() == $data}, click: $parent.select"></div>
+      </div>
+      <button class="blue enableGPU has-currency" data-bind="click: done, clickBubble: false, disable: loading() || versions().length == 0">
+         <span class="currency">2</span>
+         Change Word
+      </button>
    </div>
-</div>
-<div data-bind="if: step() == 2">
-   <h3>Choose an alternative for <span class="magnet view" data-bind="text: lemma"></span></h3>
-   <div class="versions" data-bind="foreach: versions">
-      <div class="version" data-bind="text: $data, css: {active: $parent.activeVersion() == $data}, click: $parent.select"></div>
-   </div>   
-   <button class="blue enableGPU has-currency" data-bind="click: done, clickBubble: false, disable: loading() || versions().length == 0">
-      <span class="currency">2</span>
-      Change Word
-   </button>
 </div>

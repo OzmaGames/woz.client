@@ -1,5 +1,13 @@
-﻿<div style="text-align:center">
+﻿<div style="position:relative;">
    <div>
-      <div class="note" style="display:block; position:relative; top: 3em">Notifications are not implemented yet. Coming soon!</div>
+      <!--<div class="note" style="display:block; position:relative; top: 3em">Notifications are not implemented yet. Coming soon!</div>-->
+      <div class="table-flex" data-bind="foreach: list">
+         <div class="row mild-padding">
+            <span class="col1">
+               <span data-bind="date: modDate"></span>
+            </span>
+            <span class="col2"></span>
+         </div>
+      </div>
    </div>
 </div>

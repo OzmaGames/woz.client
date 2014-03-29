@@ -335,6 +335,7 @@
     color: #976b2c;
     line-height: 140%;
     padding: 2em;
+    padding-bottom: 2.5em;
     cursor: pointer;
     font-family: cambria, CopseRegular;
 }
@@ -357,7 +358,7 @@
             text-align: left;
         }
 
-        .dialog .notice.long .besoz {
+        .dialog .notice.long .besoz, .table-flex .besoz {
             display: inline-block;
             vertical-align: middle;
             font-weight: bold;
@@ -366,7 +367,7 @@
             line-height: 1.75em;
         }
 
-        .dialog .notice.long .price {
+        .dialog .notice.long .price, .table-flex .price {
             display: inline-block;
             vertical-align: middle;
             width: 100px;
@@ -374,7 +375,7 @@
             line-height: 1.75em;
         }
 
-        .dialog .notice.long .discount {
+        .dialog .notice.long .discount, .table-flex .discount {
             font-style: italic;
             position: absolute;
             top: 2.8em;
@@ -432,9 +433,8 @@
         font-size: .9em;
     }
 
-    .dialog .notice .versions {
-        min-height: 75px;
-        margin: 1em 0;
+    .dialog .notice .versions {        
+        margin: .5em 0 1em 0;
     }
 
     .dialog .notice .version {

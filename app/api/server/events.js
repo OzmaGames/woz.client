@@ -14,6 +14,8 @@
         "game:lobby",
         "game:archive",
         "game:versions",
+        "game:search-word",
+        "game:add-word",
         "friends"
       ],
       init: function(socket){

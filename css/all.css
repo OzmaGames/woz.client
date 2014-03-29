@@ -1351,6 +1351,9 @@ a.small {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
+    .table-flex .row.flat{
+        box-shadow:none;
+    }
     .table-flex .row.mild-padding {
         padding: 1em;
     }
@@ -1601,7 +1604,7 @@ hr {
     }
 
 #tiles-max {
-    max-width: 800px;    
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 60px 0 60px; /*in portrait mode the tiles wont get stuck on the edges*/
@@ -1612,13 +1615,13 @@ hr {
     height: 600px;
 }
 
-    #tiles-aspect {
-        min-width: 400px;
-        position: relative;
-        /*padding-bottom: 75%;*/
-        height: 600px;
-        width: 100%;        
-    }
+#tiles-aspect {
+    min-width: 400px;
+    position: relative;
+    /*padding-bottom: 75%;*/
+    height: 600px;
+    width: 100%;
+}
 
 @media screen and (max-width: 900px) {
     #tiles-max {
@@ -1626,10 +1629,10 @@ hr {
         height: 600px;
     }
 
-        #tiles-aspect {
-            height: 600px;
-            padding-bottom: 0;
-        }
+    #tiles-aspect {
+        height: 600px;
+        padding-bottom: 0;
+    }
 
     #gameboard {
         padding-bottom: 40px;
@@ -1973,21 +1976,63 @@ body > .cloud.fixed {
         line-height: 1.5em;
     }
 
+    .magnet.new {
+        border-color: #EE988B; /*f0323f*/
+        box-shadow: 0 0 15px #EE988B,1px 1px 2px #333, inset -1px -1px 4px #EE988B;
+        border-width: 2px;
+        -moz-animation: .6s jiggle 3 ease;
+        -o-animation: .6s jiggle 3 ease;
+        -webkit-animation: .6s jiggle 3 ease;
+        animation: .6s jiggle 3 ease;
+    }
+
     .magnet.related {
         border-width: 2px;
         box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
         border: 1px solid #f5cf76;
+        -moz-animation: infinite 1s ease blink-shadow;
+        -o-animation: infinite 1s ease blink-shadow;
+        -webkit-animation: infinite 1s ease blink-shadow;
+        animation: infinite 1s ease blink-shadow;
+    }
+
+    .magnet.placed {
+        -moz-animation: none;
+        -o-animation: none;
+        -webkit-animation: none;
+        animation: none;
     }
 
     .magnet.highlight {
         border-width: 2px;
         box-shadow: 0 0 15px #5cb0c6,1px 1px 2px #333, inset -1px -1px 4px #5cb0c6;
         border: 1px solid #5cb0c6;
-        -moz-animation: .6s jiggle 3 ease;
-        -o-animation: .6s jiggle 3 ease;
-        -webkit-animation: .6s jiggle 3 ease;
-        animation: .6s jiggle 3 ease;
+        -moz-animation: .6s jiggle 3 ease !important;
+        -o-animation: .6s jiggle 3 ease !important;
+        -webkit-animation: .6s jiggle 3 ease !important;
+        animation: .6s jiggle 3 ease !important;
     }
+
+@keyframes blink-shadow {
+}
+
+@-moz-keyframes blink-shadow {
+}
+
+@-webkit-keyframes blink-shadow {
+    from {
+        box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
+    }
+
+    50% {
+        box-shadow: 0 0 15px 5px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
+    }
+
+    to {
+        box-shadow: 0 0 15px #f5cf76,1px 1px 2px #333, inset -1px -1px 4px #f1a460;
+    }
+}
+
 
 @-webkit-keyframes jiggle {
     from {
@@ -2054,6 +2099,13 @@ body > .cloud.fixed {
     border-radius: 3px;
 }
 
+.magnet.dragged {
+    -moz-animation: none;
+    -o-animation: none;
+    -webkit-animation: none;
+    animation: none;
+}
+
 .magnet .points {
     position: absolute;
     top: -10px;
@@ -2076,6 +2128,10 @@ body > .cloud.fixed {
     -o-transform: scale(1.1) translateZ(1) !important;
     -webkit-transform: scale(1.1) translateZ(1) !important;
     transform: scale(1.1) translateZ(1) !important;
+    -moz-animation: none;
+    -o-animation: none;
+    -webkit-animation: none;
+    animation: none;
     /*pointer-events: none !important;*/
 }
 
@@ -2093,9 +2149,6 @@ body > .cloud.fixed {
     cursor: default !important;
 }
 
-.magnet.placed {
-}
-
 .magnet-placeholder {
     position: absolute;
     left: 0;
@@ -2108,6 +2161,13 @@ body > .cloud.fixed {
     transition: all .5s ease;
     z-index: 3;
 }
+
+    .magnet-placeholder.noTransition {
+        -moz-transition: none;
+        -o-transition: none;
+        -webkit-transition: none;
+        transition: none;
+    }
 
     .magnet-placeholder.elem {
         width: auto;
@@ -2275,6 +2335,46 @@ body > .cloud.fixed {
     -webkit-transform-origin: center;
     transform-origin: center;
 }
+
+
+.notice-board {
+    color: #b49363;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 150px;
+    left: 0;
+}
+
+    .notice-board h1 {
+        margin-bottom: 1em;
+        font-size: 25px;
+    }
+
+    .notice-board p {
+        font-size: 18px;
+        line-height: 1.5em;
+    }
+
+#tiles .footer {
+    color: #b49363;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+    #tiles .footer .page {
+        display: inline-block;
+        font-size: 18px;
+    }
+
+    #tiles .footer .skip-link {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-transform: uppercase;
+    }
 
 
 .dialog {
@@ -2613,6 +2713,7 @@ body > .cloud.fixed {
     color: #976b2c;
     line-height: 140%;
     padding: 2em;
+    padding-bottom: 2.5em;
     cursor: pointer;
     font-family: cambria, CopseRegular;
 }
@@ -2635,7 +2736,7 @@ body > .cloud.fixed {
             text-align: left;
         }
 
-        .dialog .notice.long .besoz {
+        .dialog .notice.long .besoz, .table-flex .besoz {
             display: inline-block;
             vertical-align: middle;
             font-weight: bold;
@@ -2644,7 +2745,7 @@ body > .cloud.fixed {
             line-height: 1.75em;
         }
 
-        .dialog .notice.long .price {
+        .dialog .notice.long .price, .table-flex .price {
             display: inline-block;
             vertical-align: middle;
             width: 100px;
@@ -2652,7 +2753,7 @@ body > .cloud.fixed {
             line-height: 1.75em;
         }
 
-        .dialog .notice.long .discount {
+        .dialog .notice.long .discount, .table-flex .discount {
             font-style: italic;
             position: absolute;
             top: 2.8em;
@@ -2710,9 +2811,8 @@ body > .cloud.fixed {
         font-size: .9em;
     }
 
-    .dialog .notice .versions {
-        min-height: 75px;
-        margin: 1em 0;
+    .dialog .notice .versions {        
+        margin: .5em 0 1em 0;
     }
 
     .dialog .notice .version {
@@ -3220,19 +3320,21 @@ input[type="search"] {
         bottom: 0;
     }
 
-    .search-box div.btn {
+    .search-box .btn {
         position: absolute;
         right: 0;
         top: 0;
         bottom: 0;
         text-align: center;
         background-image: linear-gradient(0, #f1ebe2 0, white 100%);
+        border: 0;
+        box-shadow: none;
         border-left: 1px solid #f1ebe2;
         border-top-right-radius: inherit;
         border-bottom-right-radius: inherit;
     }
 
-        .search-box div.btn > i.find {
+        .search-box .btn > i.find {
         }
 
     .search-box i.icon-spinner {

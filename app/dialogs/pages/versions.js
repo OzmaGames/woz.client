@@ -29,7 +29,7 @@
             username: ctx.username,
             lemma: word.lemma
          }, function (data) {
-            //data.versions = ['version1', 'version2', 'version3'];
+            data.versions = ['version1', 'version2', 'version3'];
             if (data.versions.length == 0) {
                data.message = data.message || '<p>Only words that are <b>verbs</b> can be changed at the moment.</p><br/><p class=sm>Verbs are doing words like "talk", "run" and "smile", or being words like "wish", "feel" and "know".</p>';
                base.message(data.message);
@@ -67,10 +67,11 @@
          }, function (data) {
             base.loading(false);
             if (data.success) {
-               base.close();
                base.word.isPlayed = false;
                base.word.lemma = data.version;
                ctx.words.valueHasMutated();
+               base.ticket(false);
+               base.close();
             }
          });
       }
