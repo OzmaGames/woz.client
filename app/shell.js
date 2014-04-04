@@ -56,6 +56,7 @@
           { route: 'settings',     moduleId: 'home/settings',     title: 'Settings',          nav: true },
           { route: 'newGame',      moduleId: 'home/newGame',      title: 'New Game',          nav: true },
           { route: 'singlePlayer', moduleId: 'home/singlePlayer', title: 'Loading the game',  nav: true },
+          { route: 'nextTutorial', moduleId: 'home/nextTutorial', title: 'Loading the game',  nav: true },
           { route: 'not-found',    moduleId: 'error/not-found',   title: 'Not Found',         nav: true },
           { route: 'game',         moduleId: 'game/game',         title: 'Play',              nav: true },
           { route: 'game/:id',     moduleId: 'game/game',         title: 'Play',              nav: true },

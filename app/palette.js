@@ -136,7 +136,7 @@
 
    p.get("fullscreen").click(function () {
       app.trigger("app:fullscreen");
-   });
+   }).hide();
 
    return p;
 });

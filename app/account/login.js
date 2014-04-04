@@ -60,10 +60,19 @@
 
             app.loading(false);
 
-            if (res.success) {              
+            if (res.success) {
+               app.ctx.besoz = res.besoz || 0;
+               app.ctx.needTutorial = res.tutorial || false;               
+
                app.dialog.close("panel");
                app.trigger('account:login', res);
-               app.navigate("lobby");
+
+               if (app.ctx.needTutorial) {
+                  app.navigate("game/t");
+                  //app.trigger("server:tutorial:start", { username: res.username });
+               } else {
+                  app.navigate("lobby");
+               }               
             } else {
                base.errorMessage(res.message);
             }

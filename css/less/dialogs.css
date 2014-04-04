@@ -1,0 +1,585 @@
+﻿.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.dialog {
+  position: fixed;
+  z-index: 100;
+}
+.dialog.absolute {
+  position: absolute;
+  z-index: 10;
+}
+.dialog.low {
+  z-index: 99;
+}
+.dialog.bottom-center {
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.dialog.top-center {
+  top: 0;
+  width: 100%;
+  text-align: center;
+  height: 0;
+}
+.dialog.top-left {
+  top: 0;
+  left: 0;
+}
+.dialog.top-right {
+  top: 0;
+  right: 0;
+}
+.dialog.modal .ui-overlay,
+.overlay.visible {
+  background: #666;
+  z-index: 9;
+  opacity: .3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  position: fixed;
+}
+.dialog.modal .ui-overlay.pale {
+  background-color: #aaa;
+}
+.dialog.modal .ui-overlay.transparent {
+  background-color: transparent;
+}
+.overlay.visible {
+  position: absolute;
+  z-index: 999;
+}
+.dialog .loading {
+  position: relative;
+  z-index: 11;
+  margin: 0 auto;
+  width: 350px;
+  height: 70px;
+  text-align: center;
+  top: 250px;
+  color: #713b00;
+}
+.dialog .loading .block {
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.dialog .alert {
+  position: relative;
+  z-index: 11;
+  /*margin: 0 90px;*/
+  padding: 20px 30px;
+  border-radius: 50% 50% 50% 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.9);
+  color: #cfa972;
+  font-size: xx-large;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.dialog .confirm {
+  position: relative;
+  z-index: 11;
+  margin: 0 auto;
+  width: 300px;
+  background-image: url('../../images/app/confirm-background.png');
+  background-position: center bottom;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  text-align: center;
+  line-height: 120%;
+  padding: 10px;
+}
+.dialog .confirm p {
+  padding: 5px 0;
+}
+.dialog .transit0-5 {
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.dialog .transit0-25 {
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.dialog .slipper {
+  position: relative;
+  z-index: 11;
+  margin: 0 auto;
+  width: 555px;
+  top: -30px;
+  background-image: url('../../images/app/slipper-background.png');
+  background-position: center bottom;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  text-align: center;
+  line-height: 120%;
+  padding: 40px 30px 20px 30px;
+  cursor: pointer;
+  -moz-transition: width .5s ease, padding .5s ease;
+  -o-transition: width .5s ease, padding .5s ease;
+  -webkit-transition: width .5s ease, padding .5s ease;
+  transition: width .5s ease, padding .5s ease;
+}
+.dialog .slipper .btnCommand {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 30px;
+  height: 18px;
+  background-image: url('../../images/game/ArrowMinimize_Btn.png');
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  -moz-transition: all 0.5s 0.1s ease-in-out;
+  -o-transition: all 0.5s 0.1s ease-in-out;
+  -webkit-transition: all 0.5s 0.1s ease-in-out;
+  transition: all 0.5s 0.1s ease-in-out;
+  cursor: pointer;
+}
+.dialog .slipper .content {
+  font-size: .95em;
+}
+.dialog .slipper h1 {
+  /*font-family: cambria !important;*/
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  -webkit-text-shadow: 0 0 1px #c95;
+  text-shadow: 0 0 1px #c95;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+.dialog .slipper.minimized {
+  width: 300px;
+  padding-top: 35px;
+  padding-bottom: 10px;
+}
+.dialog .slipper.minimized .btnCommand {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.dialog .slipper.minimized .content {
+  display: none;
+}
+.dialog .slipper.minimized h1 {
+  font-weight: bold;
+  font-size: 1.0em;
+  margin-bottom: 0;
+}
+.dialog .menu {
+  position: relative;
+  z-index: 11;
+  margin: 0 auto;
+  width: 150px;
+  right: -10px;
+  background-image: url('../../images/app/menu-background.png');
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  text-align: center;
+  line-height: 120%;
+  padding: 2em 0 2em 1.5em;
+  cursor: pointer;
+}
+.dialog .control {
+  position: absolute;
+  z-index: 3;
+  width: 45px;
+  margin-left: -15px;
+  margin-top: -40px;
+  background-color: white;
+  text-align: center;
+  padding: 5px 7px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px gray;
+  -webkit-text-shadow: 0 0 1px #999;
+  text-shadow: 0 0 1px #999;
+}
+.dialog .control .nWords {
+  float: left;
+  width: 30px;
+}
+.dialog .control .btnDel,
+.control .btnDel {
+  float: left;
+  width: 10px;
+  font-family: CopseRegular;
+  font-size: 1.5em;
+}
+.dialog .control .btnCW {
+  float: left;
+  width: 10px;
+  font-family: CopseRegular;
+  font-size: 0.6em;
+}
+.dialog .control .up,
+.dialog .control .down,
+.control .up,
+.control .down {
+  float: left;
+  width: 30px;
+  height: 9px;
+  background-image: url('../../images/game/ArrowMinimize_Btn.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  -moz-background-size: 15px 9px;
+  -o-background-size: 15px 9px;
+  -webkit-background-size: 15px 9px;
+  background-size: 15px 9px;
+}
+.dialog .control .down,
+.control .down {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.dialog .control .number,
+.control .number {
+  width: 30px;
+  text-align: center;
+  float: left;
+  font-family: CopseRegular;
+  font-size: 1.5em;
+}
+.dialog .window {
+  position: relative;
+  margin: 0 auto;
+  z-index: 11;
+  width: 240px;
+  background-color: white;
+  text-align: left;
+  color: #39270d;
+  padding: 10px 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px gray;
+  -webkit-text-shadow: 0 0 1px #999;
+  text-shadow: 0 0 1px #999;
+  font-family: Cambria, CopseRegular;
+}
+.dialog .window h1 {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+.dialog .notice {
+  position: relative;
+  top: 200px;
+  z-index: 11;
+  margin: 0 auto;
+  width: 379px;
+  /*min-height: 177px;*/
+  background-image: url('../../images/app/notice-background.png');
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  text-align: center;
+  line-height: 140%;
+  padding: 2em;
+  padding-bottom: 2.5em;
+  cursor: pointer;
+  font-family: cambria, CopseRegular;
+}
+.dialog .notice.top {
+  top: 100px;
+}
+.dialog .notice.long {
+  padding-left: 1em;
+  width: 500px;
+  background-image: url('../../images/app/notice-long-background.png');
+}
+.dialog .notice.long .close {
+  right: 30px !important;
+  top: 20px !important;
+}
+.dialog .notice.long .row {
+  text-align: left;
+}
+.dialog .notice.long .besoz,
+.table-flex .besoz {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: bold;
+  width: 150px;
+  text-align: right;
+  line-height: 1.75em;
+}
+.dialog .notice.long .price,
+.table-flex .price {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100px;
+  text-align: right;
+  line-height: 1.75em;
+}
+.dialog .notice.long .discount,
+.table-flex .discount {
+  font-style: italic;
+  position: absolute;
+  top: 2.8em;
+  left: 0;
+  width: 168px;
+  text-align: right;
+  font-size: .8em;
+}
+.dialog .notice h1 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+.dialog .notice h2 {
+  margin: 0.9em;
+  font-size: 1.9em;
+}
+.dialog .notice h3 {
+  /*color: #38270b;*/
+  font-size: 1.1em;
+}
+.dialog .notice > div {
+  font-size: 1.2em;
+}
+.dialog .notice .strong {
+  font-weight: bold;
+}
+.dialog .notice button {
+  font-size: 0.9em;
+}
+.dialog .notice .wand {
+  background-position: center right;
+}
+.dialog .notice .badge {
+  position: absolute;
+  right: 10px;
+  top: 100px;
+  width: 80px;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  -webkit-background-size: 100% auto;
+  background-size: 100% auto;
+  height: 120px;
+  background-repeat: no-repeat;
+}
+.dialog .notice a {
+  font-size: .9em;
+}
+.dialog .notice .versions {
+  margin: .5em 0 1em 0;
+}
+.dialog .notice .version {
+  display: inline-block;
+  font-weight: bold;
+  width: 165px;
+  margin: 5px;
+  line-height: 2em;
+  text-align: center;
+  border: 1px dashed transparent;
+}
+.dialog .notice .version.active {
+  background: url('../../images/game/Checkmark_Btn_Test2.png') left center no-repeat;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  -webkit-background-size: contain;
+  background-size: contain;
+  /*border-radius: 1em;
+            border-color: #976b2c;*/
+}
+.dialog .notice .dropzone {
+  border: 3px dashed rgba(152, 107, 49, 0.5);
+  color: darkgrey;
+  height: 150px;
+  border-radius: 1em;
+  text-align: center;
+  /*line-height: 150px;*/
+  display: table-cell;
+  width: 375px;
+  vertical-align: middle;
+}
+.dialog .notice .dropzone:hover {
+  border-color: #d7bea2;
+}
+.dialog .notice .dropzone p {
+  color: #986b31;
+}
+.dialog .notice .dropzone p.sm {
+  font-size: .8em;
+}
+.dialog .panel {
+  position: relative;
+  background: #fff;
+  border: 2px solid #d7bea2;
+  box-shadow: 3px 3px 3px #57462f;
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px 20px 20px 20px;
+  width: 20em;
+  margin: 0 auto;
+}
+.dialog .panel h1 {
+  font-weight: normal;
+  font-size: 1.5em;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: .7em;
+}
+.dialog .panel p {
+  margin-bottom: 1em;
+}
+.dialog .tutorial {
+  position: relative;
+  background: #fff;
+  /*border: 1px solid #986b31;*/
+  box-shadow: 3px 3px 3px rgba(87, 70, 47, 0.3);
+  border-radius: 5px;
+  text-align: center;
+  padding: .5em;
+  color: #39270d;
+  margin: 0 auto;
+  line-height: 1.4em;
+  z-index: 1000;
+}
+.dialog .tutorial h1 {
+  font-size: 1.2em;
+  margin-bottom: .5em;
+  /*-webkit-text-shadow: none;*/
+  /*text-shadow: none;*/
+  /*font-weight: bold;*/
+}
+.dialog .tutorial .content {
+  position: absolute;
+  text-align: center;
+  background-color: white;
+  padding: .5em;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 5px;
+  z-index: 2;
+  cursor: default;
+}
+.dialog .tutorial button {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  z-index: 10;
+  background-color: white;
+  border-radius: 50%;
+  background-image: none;
+  /*border: 1px solid rgba(152, 107, 49, .5);*/
+  box-shadow: 0 0 2px rgba(152, 107, 49, 0.5);
+  padding: 2px;
+}
+.dialog .tutorial button:hover {
+  box-shadow: 0 0 4px rgba(152, 107, 49, 0.5);
+}
+.dialog .tutorial button i {
+  position: static;
+}
+.dialog .tutorial::before {
+  background-color: #fff;
+  content: "\00a0";
+  display: block;
+  height: 17px;
+  position: absolute;
+  width: 35px;
+  /*border-left: 1px solid #986b31;*/
+  /*border-bottom: 1px solid #986b31;*/
+  box-shadow: 0 4px 3px -2px #57462f;
+  /*border-radius: 5px;*/
+}
+.dialog .tutorial.none::before {
+  display: none;
+}
+.dialog .tutorial.bottom::before {
+  /*bottom: -6px;*/
+  bottom: 0;
+}
+.dialog .tutorial.bottom.left::before {
+  -moz-transform: rotate(-65deg) skew(-50deg);
+  -ms-transform: rotate(-65deg) skew(-50deg);
+  -o-transform: rotate(-65deg) skew(-50deg);
+  -webkit-transform: rotate(-65deg) skew(-50deg);
+  transform: rotate(-65deg) skew(-50deg);
+}
+.dialog .tutorial.bottom.right::before {
+  -moz-transform: rotate(-85deg) skew(-50deg);
+  -ms-transform: rotate(-85deg) skew(-50deg);
+  -o-transform: rotate(-85deg) skew(-50deg);
+  -webkit-transform: rotate(-85deg) skew(-50deg);
+  transform: rotate(-85deg) skew(-50deg);
+  height: 17px;
+  right: 10px;
+}
+.dialog .tutorial.left:not(.bottom)::before {
+  -moz-transform: rotate(25deg) skew(-50deg);
+  -ms-transform: rotate(25deg) skew(-50deg);
+  -o-transform: rotate(25deg) skew(-50deg);
+  -webkit-transform: rotate(25deg) skew(-50deg);
+  transform: rotate(25deg) skew(-50deg);
+  /*left: -17px;*/
+  left: -10px;
+  top: 16px;
+}
+.dialog .tutorial.right:not(.bottom)::before {
+  -moz-transform: rotate(195deg) skew(-40deg);
+  -ms-transform: rotate(195deg) skew(-40deg);
+  -o-transform: rotate(195deg) skew(-40deg);
+  -webkit-transform: rotate(195deg) skew(-40deg);
+  transform: rotate(195deg) skew(-40deg);
+  right: -10px;
+  top: 26px;
+}
+.tutorial-expose {
+  z-index: 1000 !important;
+  /*box-shadow:inset 0 0 1px 1px black;*/
+}
+.select-pic {
+  background: url('../../images/game/select.png') center center no-repeat;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  -webkit-background-size: auto 100%;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100px;
+}
+@media (min-resolution: 100dppx) {
+  .dialog .confirm {
+    width: 400px !important;
+    height: 140px;
+  }
+  .dialog .confirm button {
+    padding: 14px 20px;
+  }
+}
+/*# sourceMappingURL=dialogs.css.map */

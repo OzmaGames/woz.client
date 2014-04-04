@@ -19,14 +19,14 @@
                </div>
             </div>
             <!-- ko if: $root.tutorialMode -->
-            <div class="notice-board">
-               <h1 data-bind="text: tutorialObject.title"></h1>
-               <p data-bind ="html: tutorialObject.description"></p>
+            <div class="notice-board" data-bind="with: tutorialObject">
+               <h1 data-bind="text: title"></h1>
+               <p data-bind="html: description"></p>
             </div>
-            <div class="footer">
-               <div class="page" data-bind="text: tutorialObject.page"></div>
+            <div class="footer" data-bind="with: tutorialObject">
+               <div class="page" data-bind="text: page"></div>
                <div class="skip-link">
-                  <a>skip tutorial</a>
+                  <a data-bind="click: skip">skip tutorial</a>
                </div>
             </div>
             <!-- /ko -->

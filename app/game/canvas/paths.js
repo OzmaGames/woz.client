@@ -34,7 +34,7 @@
               width: tilesDOM.width(),
               height: tilesDOM.height(),
               left: container.position().left,
-              top: container.position().top
+              top: tilesDOM.offset().top + parseInt( tilesDOM.css('paddingTop'))
            };
 
            updateTiles(tiles);

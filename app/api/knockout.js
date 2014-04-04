@@ -112,8 +112,8 @@
          var time = new Date(valueAccessor()), str = "";
 
          str += ko.bindingHandlers.date.months[time.getMonth()] + ' ';
-         str += time.getDate() + ' ';
-         str += time.getHours() + ':' + ('0' + time.getUTCMinutes()).substr(-2);
+         str += ('0' + time.getDate()).substr(-2) + ' ';
+         str += ('0' + time.getHours()).substr(-2) + ':' + ('0' + time.getUTCMinutes()).substr(-2);
 
          $(element).text(str);
       },
@@ -175,7 +175,7 @@
          });
       }
    };
-
+   
    ko.bindingHandlers["tab"] = {
       init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
          var obj = valueAccessor();
@@ -198,7 +198,7 @@
                items[index].classList.add('active');
 
                if (typeof obj.nav == "function") {
-                  var dfd = $('.content', element).slideUp().promise();
+                  var dfd = $('.content', element).slideUp().delay(30).promise();
                   obj.nav.call(viewModel, index, dfd).then(function () {
                      $('.content', element).slideDown(500);
                   });

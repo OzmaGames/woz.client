@@ -1,4 +1,5 @@
 ﻿define(['durandal/app', 'api/constants', 'api/utils', 'paper'], function (app, constants, utils) {
+
    function Path(model, id, nWords, startTile, endTile, cw, phrase) {
       var base = this;
 
@@ -6,16 +7,16 @@
       base.nWords = nWords;
       base.startTile = utils.find(model.tiles(), { id: startTile });
       base.endTile = utils.find(model.tiles(), { id: endTile });
-      base.cw = (cw === undefined ? true : cw);      
-                  
+      base.cw = (cw === undefined ? true : cw);
+
       base.phrase = {
          _complete: ko.observable(false),
          playerId: 0,
-         score: 0,         
+         score: 0,
          words: ko.observableArray()
       };
 
-      base.phrase.toString = function () {         
+      base.phrase.toString = function () {
          var str = "", len = base.phrase.words().length;
          for (var i = 0; i < len; i++) {
             str += i + (i == len - 1 ? '' : ' ');
@@ -35,7 +36,7 @@
          if (base.nWords == 0 && words && words.length >= 3) {
             base.phrase._complete(true);
          }
-      }      
+      }
 
       var isComplete = function () {
          return this.phrase._complete() === true || this.phrase.words().length == 6 || (this.nWords != 0 && this.phrase.words().length == this.nWords);
@@ -45,7 +46,7 @@
       base.phrase.complete.immediate = function () {
          return isComplete.call(base);
       }
-      
+
       base.completeSub = base.phrase.complete.subscribe(function (complete) {
          if (complete) {
             app.dialog.close("slipper");
@@ -71,9 +72,48 @@
                   };
                   base.completeSub.dispose();
                   model.lastPath = base;
-                  console.log(data);
-                  app.trigger("server:game:place-phrase", data);
-                  app.scrollUp(); 
+
+                  if (app.ctx.tutorialMode()) {
+                     data.gameID = model.tutorialObject().tutorialIndex;
+                     app.trigger("server:tutorial:place-phrase", data, function (data) {
+                        ctx.player.scored = data.score.total;
+                        ctx.player.score(ctx.player.score() + data.score.total);
+                        ctx.player.active(true);
+                        ko.utils.arrayForEach(ctx.words(), function (word) {
+                           ko.utils.arrayFirst(data.score.words, function (sw) {
+                              return sw.id == word.id;
+                           }).lemma = word.lemma;
+                        });
+                        if (null == ko.utils.arrayFirst(ctx.paths(), function (path) {
+                              return !path.phrase.complete.immediate();
+                        })) {
+                           ctx._gameOver(true);
+
+                           var sub;
+                           sub = app.on("game:stars:done").then(function () {
+                              app.trigger("game:tiles:visible", false);
+                              
+                              if (ctx.tutorialObject().tutorialIndex >= ctx.tutorialObject().total - 1) {
+                                 app.dialog.show("notice", { view: 'dialogs/pages/TutorialEnd' }).then(function () {
+                                    app.navigate('newGame');
+                                 });
+                              } else {
+                                 app.dialog.show("notice", { view: 'dialogs/pages/TutorialNext' }).then(function () {
+                                    app.navigate('nextTutorial');
+                                 });
+                              }
+
+                              sub.off();
+                           });
+                        }
+                        //ctx.lastPath = ctx.paths()[0];
+                        app.trigger("game:updated", { path: { score: data.score } });
+                        app.loading(false);
+                     });
+                  } else {
+                     app.trigger("server:game:place-phrase", data);
+                  }
+                  app.scrollUp();
                } else {
                   base.phrase._complete(false);
                   base.removeAll();
@@ -109,8 +149,7 @@
          }
       }
 
-      base.addWords = function (words)
-      {
+      base.addWords = function (words) {
          base.removeAll();
          for (var i = 0; i < words.length; i++) {
             if (!base.addWord(words[i])) return false;
@@ -126,7 +165,7 @@
          }
 
          if (index === undefined) {
-            index = base._lastEmptyIndex();            
+            index = base._lastEmptyIndex();
          }
 
          if ((base.nWords == 0 && index >= 6) || (base.nWords != 0 && index >= base.nWords)) return false;
@@ -154,6 +193,7 @@
          var words = base.phrase.words();
          for (var i = 0; i < words.length; i++) {
             words[i].word.isPlayed = 0;
+            delete words[i].lastBox;
          }
          base.phrase.words.removeAll();
 
@@ -168,7 +208,7 @@
          if (!opt.keepUnplayed) {
             entity.word.isPlayed = 0;
          }
-         
+
          if (base.nWords == 0) {
             var pos = base.phrase.words().indexOf(entity);
             base.phrase.words().splice(pos, 1);
@@ -177,28 +217,28 @@
             base.phrase.words.remove(entity);
          }
 
-         model.words.valueHasMutated();         
+         model.words.valueHasMutated();
 
          return true;
       }
 
       base.removeWordAt = function (index, opt) {
-         var entity = base._getEntityAt(index);         
+         var entity = base._getEntityAt(index);
          if (base._removeEntity(entity, opt)) {
-            if (base.nWords == 0) {               
+            if (base.nWords == 0) {
                entity.word.lastBox.index = base.phrase.words().length;
                delete entity.word.lastBox;
                for (var i = entity.index + 1; i < 10; i++) {
                   if ((entity = base._getEntityAt(i)) == null) break;
-                  entity.index--;                  
-                  if (entity.word.lastBox) {                     
+                  entity.index--;
+                  if (entity.word.lastBox) {
                      entity.word.lastBox.index--;
                      //delete entity.word.lastBox;
                   }
                }
                base.phrase.words.valueHasMutated();
             }
-         }         
+         }
       }
 
       if (phrase) {

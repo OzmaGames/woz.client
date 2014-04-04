@@ -1,5 +1,52 @@
 ﻿define(['durandal/app', 'api/datacontext'], function (app, ctx) {
 
+   var archive = ko.observableArray();
+   var onGoings = ko.observableArray();
+   var notifications = ko.observableArray();
+
+   ctx.games.subscribe(function (games) {
+      notifications.removeAll();
+      onGoings.removeAll();
+      archive.removeAll();
+
+      ko.utils.arrayForEach(games, function (g) {
+         if (g.summary) {
+
+         } else {
+            g.playerCount = g.playerCount || g.players.length;
+            if (g.playerCount > 1 && g.players.length == 1) {
+               g.players.push({ username: 'unknown', active: !g.players[0].active, resigned: false, score: 0 });
+            }
+            g.resigned = g.players[0].resigned || (g.players.length > 1 && g.players[1].resigned);
+            g.summary = getSummary(g);
+            if (!g.resigned) {
+               if (g.over) {
+                  archive().push(g);
+               } else {
+                  onGoings().push(g);
+               }
+            }
+            if (g.playerCount == 2) {
+               if (g.over) {
+                  notifications().push(getNotification(g));
+
+                  //var gCopy = $.extend(true, {}, g);
+                  //gCopy.modDate = gCopy.creationDate;
+                  //gCopy.over = false;
+                  //gCopy.resigned = false;
+                  //notifications().push(getNotification(gCopy));
+               }
+            }
+         }
+      });
+
+      notifications().sort(function (a, b) { return b.modDate - a.modDate; });
+
+      onGoings.valueHasMutated();
+      archive.valueHasMutated();
+      notifications.valueHasMutated();
+   });
+
    var res = {
       playedWith: 'Played with {{opponent}} - Using {{collection}} collection',
       playedSolo: 'Played solo - Using {{collection}} collection',
@@ -11,7 +58,7 @@
       playerWon: '{{winner}} won the game with {{winnerScore}} over {{loserScore}} points.'
    }
 
-   var augment = {
+   var augments = {
       collection: function (g, style) {
          return $("<span/>", { 'class': 'collection', text: g.collection }).get(0).outerHTML;
       },
@@ -40,6 +87,11 @@
          if (winner.username == ctx.username) return 'You';
          return $("<span/>", { 'class': 'bold', text: winner.username }).get(0).outerHTML;
       },
+      loser: function (g, style) {
+         var loser = getLoser(g);
+         if (loser.username == ctx.username) return 'You';
+         return $("<span/>", { 'class': 'bold', text: loser.username }).get(0).outerHTML;
+      },
       winnerScore: function (g, style) {
          var winner = getWinner(g);
          return $("<span/>", { 'class': 'point', text: winner.score }).get(0).outerHTML;
@@ -47,32 +99,36 @@
       loserScore: function (g, style) {
          var loser = getLoser(g);
          return $("<span/>", { 'class': 'point', text: loser.score }).get(0).outerHTML;
+      },
+      player: function () {
+         return $("<span/>", { 'class': 'bold', text: 'You' }).get(0).outerHTML;
       }
    }
 
-   function load(event, gameMode) {
-      return $.Deferred(function (dfd) {         
-         app.trigger(event, { username: ctx.username }, function (data) {
-            if (data.success) {
-               data.games.sort(function (a, b) { return b.modDate - a.modDate; });
-               ko.utils.arrayForEach(data.games, function (g) {
-                  g.gameOver = gameMode == "archive";
-
-                  addMetadata(g);                  
-               });
-               dfd.resolve(data.games);
+   function getNotification(g) {
+      var str = resolveRes("{{modDate, date}} ", g);
+      if (g.resigned) {
+         return str + resolveRes("{{loser}} resigned from your game.", g);
+      } else {
+         if (g.over) {
+            if (getWinner(g).username == ctx.username) {
+               return str + resolveRes('You won a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g);
+            } else {
+               return str + resolveRes('You lost a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g);
             }
-         });
-      });
+         } else {
+            return str + "A game has started.";
+         }
+      }
    }
 
-   function addMetadata(g) {
-      g.summary = [
-                     g.players.length > 1 ? resolveRes(res.playedWith, g) : resolveRes(res.playedSolo, g),
-                     g.gameOver ? resolveRes(res.gameEnded, g) : resolveRes(res.gameStarted, g),
-                     g.gameOver ?
-                        g.players.length > 1 ? resolveRes(res.playerWon, g) : resolveRes(res.playerScored, g) :
-                        g.lastPhrase.username ? resolveRes(res.phrasePlaced, g) : resolveRes(res.noPhrase, g)
+   function getSummary(g) {
+      return [
+         g.playerCount > 1 ? resolveRes(res.playedWith, g) : resolveRes(res.playedSolo, g),
+         g.over ? resolveRes(res.gameEnded, g) : resolveRes(res.gameStarted, g),
+         g.over ?
+            g.playerCount > 1 ? resolveRes(res.playerWon, g) : resolveRes(res.playerScored, g) :
+            g.lastPhrase.username ? resolveRes(res.phrasePlaced, g) : resolveRes(res.noPhrase, g)
       ];
    }
 
@@ -86,102 +142,51 @@
 
    function getWinner(game) {
       return game.players.length == 1 ? game.players[0] :
-         game.players[0].score > game.players[1].score ? game.players[0] : game.players[1];
+         game.players[0].score > game.players[1].score && !game.players[0].resigned ? game.players[0] : game.players[1];
    }
 
    function getLoser(game) {
       return game.players.length == 1 ? game.players[0] :
-         game.players[0].score > game.players[1].score ? game.players[1] : game.players[0];
+         game.players[0].score > game.players[1].score && !game.players[0].resigned? game.players[1] : game.players[0];
    }
 
    function resolveRes(str, g) {
       return str.replace(/\{\{([a-z]*),?\s*([a-z]*)\}\}/gi, function (match, key, style, index, str) {
-         return augment[key](g, style);
+         return augments[key](g, style);
       });
    }
 
-   var _sh1 = { "gameID": 2, "gameOver": false, "playerInfo": [{ "username": "ali", "score": 19, "active": false, "resigned": false }, { "username": "ozma", "score": 0, "active": true, "resigned": false }], "success": true, "path": { "id": 1, "phrase": [{ "id": 3, "lemma": "someone", "points": 5, "isRelated": false, "x": 0.45000000000000007, "y": -0.003395597068592906, "angle": -2.3578363307751715 }, { "id": 4, "lemma": "any", "points": 2, "isRelated": false, "x": 0.55, "y": -0.005719725571107119, "angle": 0.05013423506170511 }, { "id": 5, "lemma": "after", "points": 2, "isRelated": false, "x": 0.65, "y": -0.004432368031702936, "angle": 0.15674688620492816 }] } };
-
    function Games() {
-      this.games = ko.observableArray();
+
       this.activeGame = ko.observable();
       this.type = ko.observable();
+      this.notifications = notifications;
 
+      var base = this;
+      
       this.binding = function () {
          return { cacheViews: false };
       }
+
       this.detached = function () {
          console.log('detached');
       }
 
-      var base = this;
-      app.on("game:update1").then(function (json) {
-         /// <param name="json" value="_sh1"></param>
-         if (!location.hash.match(/lobby/gi)) return;
-         console.log("lobby games being updated");
+      this.loadNotification = function () {
+         base.message("You can have up to 10 notification games at the time. <a>Get more space</a>!");
+         base.type("notification");
+      }
 
-         var type = base.type();
-
-         var game = ko.utils.arrayFirst(base.games(), function (g) { return g.gameID == json.gameID });
-         var dfd = $.Deferred();
-
-         if (!game) {
-            //if game does not exist
-            load("server:game:lobby", type).then(function (games) {
-               game = ko.utils.arrayFirst(games, function (g) { return g.gameID == json.gameID });
-               if (game) base.games().unshift(game);
-               dfd.resolve();
-            });
-         } else {            
-            var phrase = "";
-            for (var i = 0; i < json.path.phrase.length; i++) {
-               phrase += json.path.phrase[i].lemma + ' ';
-            }
-            game.modDate = new Date().getTime();
-            game.lastPhrase.phrase = phrase.substr(0, phrase.length - 1);
-            game.lastPhrase.username = ko.utils.arrayFirst(json.players, function (p) { return !p.active; }).username;
-                        
-            var playedWithOld = ko.utils.arrayFirst(game.players, function (p) { return p.username == game.lastPhrase.username; });
-            var playedWithNew = ko.utils.arrayFirst(json.players, function (p) { return p.username == game.lastPhrase.username; });
-            game.lastPhrase.score = playedWithNew.score - playedWithOld.score;
-            playedWithOld.score = playedWithNew.score;
-
-            addMetadata(game);
-            dfd.resolve();
-         }
-
-         dfd.then(function () {
-            var pos = base.games.indexOf(game);
-            if (pos != 0) {
-               base.games().splice(pos, 1);
-               base.games().unshift(game);
-            }
-
-            if (type == "ongoing" && json.gameOver) {
-               base.games().splice(0, 1);
-            }
-
-            base.games.valueHasMutated();
-            base.list.valueHasMutated();
-         });         
-      });
-
-      this.loadGames = function () {
-         return load("server:game:lobby", "ongoing").then(function (games) {
-            base.games(games)
-            base.message("You can have up to 10 ongoing games at the time. <a>Get more space</a>!");
-            base.list(base.ongoing);
-            base.type("ongoing");
-         });
+      this.loadOnGoing = function () {
+         base.message("You can have up to 10 ongoing games at the time. <a>Get more space</a>!");
+         base.list(base.ongoing);
+         base.type("ongoing");
       }
 
       this.loadArchive = function () {
-         return load("server:game:archive", "archive").then(function (games) {
-            base.games(games);
-            base.message("Your archive have room for 10 games right now. <a>Get more space</a>!");
-            base.list(base.archive);
-            base.type("archive");
-         });
+         base.message("Your archive have room for 10 games right now. <a>Get more space</a>!");
+         base.list(base.archive);
+         base.type("archive");
       }
 
       this.list = ko.observableArray();
@@ -189,8 +194,8 @@
            {
               title: 'My Turn',
               empty: 'You have no ongoing games where it\'s your turn.',
-              games: ko.computed(function () {                 
-                 return ko.utils.arrayFilter(base.games(), function (g) {
+              games: ko.computed(function () {
+                 return ko.utils.arrayFilter(onGoings(), function (g) {
                     return getPlayer(g).active;
                  })
               })
@@ -198,7 +203,7 @@
               title: 'Their Turn',
               empty: 'You have no ongoing games where it\'s your opponents turn.',
               games: ko.computed(function () {
-                 return ko.utils.arrayFilter(base.games(), function (g) {
+                 return ko.utils.arrayFilter(onGoings(), function (g) {
                     return !getPlayer(g).active;
                  })
               })
@@ -210,7 +215,7 @@
                title: 'two player',
                empty: 'You have not finished any game.',
                games: ko.computed(function () {
-                  return ko.utils.arrayFilter(base.games(), function (g) {
+                  return ko.utils.arrayFilter(archive(), function (g) {
                      return g.players.length == 2;
                   })
                })
@@ -218,7 +223,7 @@
                title: 'Single player',
                empty: 'You have not finished any game.',
                games: ko.computed(function () {
-                  return ko.utils.arrayFilter(base.games(), function (g) {
+                  return ko.utils.arrayFilter(archive(), function (g) {
                      return g.players.length == 1;
                   })
                })
@@ -237,7 +242,7 @@
             doneText: 'Delete', cancelText: 'No'
          }).then(function (res) {
             if (res == "done") {
-               base.games.remove(game);
+               ctx.games.remove(game);
 
                app.trigger("server:game:resign", {
                   username: ctx.username,

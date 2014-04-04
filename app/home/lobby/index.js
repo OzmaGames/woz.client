@@ -1,70 +1,59 @@
-﻿define(['durandal/app', 'api/datacontext', './games'], function (app, ctx, Games) {
-
-   var gamesDFD = $.Deferred();
-
-   Games.compositionComplete = function () {      
-      gamesDFD.resolve();
-      console.log('resolved');
-   }
-
+﻿define(['durandal/app', 'api/datacontext','./games'], function (app, ctx, parser) {
+   
+   var gamesDFD = $.Deferred();   
+   
    return {
-      loading: ko.observable(true),      
+      loading: ko.observable(true),
 
       mode: ko.observable(),
 
-      activeTab: 0,      
+      activeTab: 0,
 
       compose: ko.observable({
-         model: null,
+         model: parser,
          view: '',
-         cacheViews: false
+         cacheViews: false,
+         //preserveContext: true
       }),
 
       navigate: function (tabIndex, dfd) {
          var base = this;
          base.loading(true);
-         
+
          tabIndex *= 1;
 
          return dfd.then(function () {
-            
-            //base.games(tabIndex == 1 ? 'home/lobby/notifications' : Games);
-            
+
+            if (tabIndex == 0) {
+               parser.loadOnGoing();
+            } else if (tabIndex == 1) {
+               parser.loadNotification();
+            } else if (tabIndex == 2) {
+               parser.loadArchive();
+            }
+
             base.compose().view =
                tabIndex === 0 ? 'home/lobby/games' :
                tabIndex === 1 ? 'home/lobby/notifications' :
                                 'home/lobby/games';
 
-            base.compose().model = tabIndex == 1 ? 'home/lobby/notifications' : Games
-
             base.compose.valueHasMutated();
 
-            base.mode(tabIndex);            
+            base.mode(tabIndex);
 
-            switch (tabIndex) {
-               case 0:
-                  sessionStorage.setItem("lobby", 0);
-                  gamesDFD = $.Deferred();
-                  return Games.loadGames().then(function () {
-                     base.loading(false);
-                     return gamesDFD;
-                  }).promise();                  
-               case 1:
-                  sessionStorage.setItem("lobby", 1);
-                  return $.Deferred(function (dfd) {
-                     base.loading(false);
-                     setTimeout(function () { dfd.resolve(); }, 500)
-                  }).promise();
-               case 2:
-                  sessionStorage.setItem("lobby", 2);
-                  gamesDFD = $.Deferred();
-                  return Games.loadArchive().then(function () {
-                     base.loading(false);
-                     return gamesDFD;
-                  }).promise();
-            }
-         });                
+            sessionStorage.setItem("lobby", tabIndex);
+            
+            base.loading(false);
+
+            var nDfd = $.Deferred();
+            setTimeout(function () {
+               nDfd.resolve();
+            }, 100);
+            return nDfd;
+         });
       },
+
+      repository: ko.observableArray(),
 
       activate: function () {
          app.trigger("game:dispose");
@@ -76,6 +65,13 @@
          } else {
             this.activeTab = sessionStorage.getItem("lobby");
          }
+
+         app.trigger("server:lobby", { username: ctx.username }, function (data) {
+            if (data.success) {
+               data.games.sort(function (a, b) { return b.modDate - a.modDate; });               
+               ctx.games(data.games);
+            }
+         });
       },
 
       start: function () {

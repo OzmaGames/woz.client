@@ -57,7 +57,7 @@
       }
    });
 
-   function showStars(player, path, scoreObj, highlight, showScore) {
+   function showStars(player, path, scoreObj, highlight, showScore) {      
       var playerEl, boxes;
       $('.player').each(function (i, el) {
          if (ko.dataFor(el) == player) {
@@ -352,9 +352,9 @@
       }
    });
 
-   app.on("game:started").then(function () {      
+   app.on("game:started").then(function () {
       setTimeout(function () {
-         if (!ctx.tutorialMode) showScroll();
+         if (!ctx.tutorialMode()) showScroll();
       }, 1000);
    });
 
@@ -435,19 +435,30 @@
                            gameID: ctx.gameID,
                            words: ko.utils.arrayMap(ctx.selectedWords(), function (w) { return w.id })
                         };
-                        app.trigger("server:game:swap-words", data, function (res) {
-                           if (!res.success) {
-                              cancel();
-                           } else {
-                              canSwap(false);
-
-                              setTimeout(function () {
-                                 //tutorial.testRelated();
-                              }, 1000);
-                           }
+                        if (ctx.tutorialMode()) {
+                           app.trigger("game:swap-words", {
+                              success: true,
+                              oldWords: data.words,
+                              words: ko.utils.arrayMap(ctx.selectedWords(), function (w) {
+                                 var wCopy = $.extend(true, {}, w);
+                                 wCopy.lemma = wCopy.altLemma;
+                                 return wCopy;
+                              })
+                           });
+                           canSwap(false);
                            ctx.mode('');
                            app.loading(false);
-                        });
+                        } else {
+                           app.trigger("server:game:swap-words", data, function (res) {
+                              if (!res.success) {
+                                 cancel();
+                              } else {
+                                 canSwap(false);
+                              }
+                              ctx.mode('');
+                              app.loading(false);
+                           });
+                        }
                      }
                   });
                } else if (selectedWords.length <= 0 && created) {
@@ -460,7 +471,7 @@
             //app.dialog.show("alert", { content: "You can only swap words once in each turn", delay: 3000 });
          }
 
-         var cancel = function () {
+         function cancel() {
             app.dialog.close("confirm");
             app.dialog.close("slipper");
             ctx.mode('');
@@ -510,8 +521,13 @@
                //$(window).resize();
 
                system.acquire("game/canvas/circleWords").then(function (m) {
-                  m.load().then(function (words) {
-                     app.scrollUp();
+                  m.load().then(function (words) {                     
+                     var dfd = app.scrollUp();
+                     if (dfd) {
+                        dfd.then(function () {
+                           app.trigger("app:force-resize");
+                        })
+                     }
                      ctx.activeWords(words);
                      module.unload();
 
@@ -551,7 +567,7 @@
                model.ticket = canVersions;
                app.dialog.show("notice", {
                   model: model, view: 'dialogs/pages/versions',
-                  closeOnClick: false                  
+                  closeOnClick: false
                }).then(function () {
                   ctx.mode("");
                });
@@ -565,7 +581,7 @@
             app.dialog.close("notice");
          }
          else if (game.allowAddWords()) {
-            ctx.mode("addWords");            
+            ctx.mode("addWords");
 
             system.acquire("dialogs/pages/addWords").then(function (module) {
                var model = new module();
@@ -612,7 +628,7 @@
                cancel: ko.computed(function () { return game.mode() === 'circleWords' || ctx.activeWords() }),
                disabled: ko.computed(function () { return !game.allowCircle() })
             });
-         
+
          app.palette.add("addWords", "action", "left")
             .click(game.addWords)
             .css({
@@ -626,7 +642,8 @@
                cancel: ko.computed(function () { return game.mode() === 'versions' }),
                disabled: ko.computed(function () { return !game.allowVersions() })
             });
-
+         
+         ctx.unload();
          ctx.load(id);
       },
 

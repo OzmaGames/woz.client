@@ -60,17 +60,21 @@
       var APP = app.el;
       
       function resetScroll() {
-         var SHELL = document.getElementById("shell");
+         return $.Deferred(function (dfd) {
+            var SHELL = document.getElementById("shell");
 
-         $(SHELL).delay(1).promise().then(function () {
-            $(SHELL).css({
-               y: 0,
-               transition: 'all .5s ease-in-out'
-            }).delay(500).promise().then(function () {
-               $(SHELL).css({ transition: 'none', transform: 'none' });
-               $('#app, body').trigger("scroll");
+            $(SHELL).delay(1).promise().then(function () {
+               $(SHELL).css({
+                  y: 0,
+                  transition: 'all .5s ease-in-out'
+               }).delay(500).promise().then(function () {
+                  $(SHELL).css({ transition: 'none', transform: 'none' });
+                  $('#app, body').trigger("scroll");
+
+                  dfd.resolve();
+               });
             });
-         });
+         })         
       }
 
       app.scrollUp = function (opt) {
@@ -91,7 +95,7 @@
             });
             APP.scrollTop = 0;
 
-            resetScroll();
+            return resetScroll();
          }
          //$(APP).animate({ scrollTop: 0 }, "slow", "swing");
       };
@@ -116,8 +120,7 @@
             });
             APP.scrollTop = proportion + APP.scrollTop;
 
-            resetScroll();
-
+            return resetScroll();
          }
          //$(APP).animate({ scrollTop: proportion + APP.scrollTop }, "slow", "swing");
       }

@@ -1,0 +1,62 @@
+﻿@darkbrown: #39270d;
+@brown: #986b31;
+@lightbrown: #cfa972;
+@yellow: #f5cf76;
+@orange: #f1a460;
+@red: #f0322f;
+@blue: #5cb0c6;
+@darkblue: #296e8b;
+@backColor: #f1e8d5;
+@backBoxColor: #f9f8f4;
+@shadowColor: #57462f;
+@strokeColor: #d7bea2;
+@strokeDarkerColor: #aa8350;
+@rowColor: #f1ebe2;
+@rowSelectedColor: #d9cfc0;
+
+@scrollbarBaseColor: #c09d6c;
+@scrollbarFaceColor: #c8b39b;
+@scrollbarColor: fade(@scrollbarBaseColor, 30%);
+@scrollbarLightColor: fade(@scrollbarBaseColor, 10%);
+@scrollbarShadowColor: fade(black, 50%);
+@rowStrokeColor: #EEE8E2;
+@loadingColor: #713b00;
+@textColor: @brown;
+@textShadowColor: fade(@textColor, 50%);
+
+.withShadow() {
+    box-shadow: 1em 1em @shadowColor;
+}
+
+.box() {
+    border-radius: 1em;
+    border: 1px solid @strokeColor;
+    background-color: @backBoxColor;
+}
+
+.absolute-full() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.background-size-stretched() {
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.curly {
+    font-family: GreatVibesRegular !important;
+}
+
+.enableGPU {
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}

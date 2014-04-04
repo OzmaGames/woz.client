@@ -177,6 +177,8 @@
    app.on("game:started").then(function () {
       if (ctx.gameOver() && ctx.resumedGame) {
          forceVisible(false);
+      } else {
+         forceVisible(true);
       }
    });
 
@@ -201,7 +203,7 @@
          return mode == 'swapWords' || mode == 'circleWords' || mode == 'versions';
       }),
 
-      activate: function () {
+      activate: function () {         
          $('#app, body').bind("scroll", scroll);
       },
 

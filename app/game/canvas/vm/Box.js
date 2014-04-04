@@ -46,7 +46,7 @@
    }
 
    Box.prototype.updateModel = function (pathModel) {
-      if (pathModel === undefined || pathModel == null) return;      
+      if (pathModel === undefined || pathModel == null) return;
 
       this.pathModel = pathModel;
       this.wordModel = pathModel.getWordAt(this.index);
@@ -61,7 +61,7 @@
          }
 
          var box = this.wordModel.lastBox;
-         if (box && box != this) {            
+         if (box && box != this) {
             box.pathModel.removeWordAt(box.index, { keepUnplayed: true });
          }
          this.wordModel.lastBox = this;
@@ -74,7 +74,7 @@
       if (this.hasData) {
          this.active = false;
          if (this._guiRect != null) { this._guiRect.remove(); this._guiRect = null; }
-         if (this.isButton) {            
+         if (this.isButton) {
             if (this._guiElem == null) this.createBtn(); else this.updateBtn();
          } else {
             this.prevAngle = 0;
@@ -205,14 +205,14 @@
          this._guiElem.find('.magnet').addClass("complete");
          this._guiElem.off('click');
       }
-            
+
       //for dynamic path only, in case remove word happens
       this._guiElem.find('.magnet').text(this.wordModel.lemma);
-
+      
       var values = {
          x: this.cPoint.x - Box.pathOptions.container.left - this._guiElem.outerWidth() / 2,
          y: this.cPoint.y - Box.pathOptions.container.top - this._guiElem.outerHeight() / 2,
-         rotate: this.angle + 'deg'         
+         rotate: this.angle + 'deg'
       };
 
       values.scale = this.scale * .8;
@@ -258,7 +258,7 @@
                   left: word.tX,
                   top: word.tY,
                });
-               
+
                var lefty = $('#tiles').offset().left, topy = $('#tiles').offset().top;
                within.l -= lefty;
                within.r -= lefty;
@@ -278,19 +278,19 @@
                });
                setTimeout(function () { div.removeClass("noTransition") }, 0);
 
-               if (!data.hasMoved) {                  
+               if (!data.hasMoved) {
                   //delete word.lastBox;
                   pm.removeWordAt(base.index);
                } else {
                   var workspace = $('#workspace').offset();
 
                   data.top -= data.within.t + data.scrollTopChange;
-                  data.left -= data.within.l;                  
+                  data.left -= data.within.l;
 
-                  if (workspace.top < data.top + 20) {                     
+                  if (workspace.top < data.top + 20) {
                      var workspaceWidth = $('#workspace').innerWidth(),
                         workspaceHeight = $('#workspace').innerHeight();
-                     
+
                      word.originalY = ((data.top - workspace.top) / workspaceHeight).toFixed(4) * 1;
                      word.originalX = ((data.left - workspace.left) / workspaceWidth).toFixed(4) * 1;
 
@@ -306,7 +306,7 @@
                            y: word.originalY
                         }
                      });
-                     
+
                      //delete word.lastBox;
                      pm.removeWordAt(base.index);
                   }
@@ -327,7 +327,7 @@
 
       div.css({
          x: this.pathModel.cPoint.x - Box.pathOptions.container.left,
-         y: this.pathModel.cPoint.y - Box.pathOptions.container.top,         
+         y: this.pathModel.cPoint.y - Box.pathOptions.container.top,
          scale: .8
       });
       div.appendTo('#tiles');
@@ -339,7 +339,7 @@
       this.updateElem();
    };
 
-   Box.prototype.updateRect = function () {
+   Box.prototype.updateRect = function () {      
       this._guiRect.css({
          x: this.cPoint.x - Box.pathOptions.container.left - this._guiRect.outerWidth() / 2,
          y: this.cPoint.y - Box.pathOptions.container.top - this._guiRect.outerHeight() / 2,

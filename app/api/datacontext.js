@@ -3,6 +3,8 @@
 
      var model =
      {
+        games: ko.observableArray(),
+
         gameID: 0,
 
         player: { active: ko.observable() },
@@ -11,7 +13,7 @@
         tiles: ko.observableArray(),
         paths: ko.observableArray(),
         words: ko.observableArray(),
-        
+
         loading: ko.observable(null),
         loadingStatus: ko.observable(''),
 
@@ -60,22 +62,27 @@
 
      model.mode = ko.observable(''); //swap;
      model.words.immovable = ko.computed(function () { return model.mode() === 'swapWords'; });
-     model.tutorialMode = false;
-     model.tutorialObject = {};
+     model.tutorialMode = ko.observable(false);
+     model.tutorialObject = ko.observable();
 
      model.load = function (id) {
         console.log("loading game..");
         app.off("game:start game:update game:swap-words");
         model.loading(true);
         app.dialog.show("loading");
-     
-        if (id === "") id = -1;
+
+        if (id === "" || id === undefined) id = -1;
         if (id.toString().length && id.toString().substr(0, 1) == 't') {
-           //tutorial mode
-           model.tutorialMode = true;
-           id = id.toString().substr(1) * 1;
+           model.tutorialMode(true);
+           if (id == 't')
+              id = undefined;
+           else
+              id = +id.toString().substr(1, 1);
+        } else if (id == "next") {
+           model.tutorialMode(true);
+           id = +localStorage.getItem("tutorial-index") + 1;           
         } else {
-           model.tutorialMode = false;
+           model.tutorialMode(false);
            id = isNaN(id) ? -1 : id * 1;
         }
 
@@ -83,14 +90,29 @@
            router.navigate('game/' + json.id, { trigger: false, replace: true });
            model.loadingStatus("Starting The Game...");
 
-           if (model.tutorialMode) {
-              model.tutorialObject = json;
+           if (json.id.toString().substr(0, 1) === 't') {
+              model.tutorialMode(true);
+              json.skip = function () {
+                 app.dialog.show("confirm", {
+                    modal: true,
+                    content: 'Do you want to skip all tutorials?',
+                    doneText: 'YES',
+                    cancelText: 'NO'
+                 }).then(function (result) {
+                    if (result == "done") {
+                       app.trigger("server:tutorial:skip", { username: model.username });
+                    }
+                 });
+              }
+              model.tutorialObject(json);
+              localStorage.setItem("tutorial-index", json.tutorialIndex);
            }
+
            model.gameID = json.id;
            model.playerCount = json.playerCount;
            model.collection.name((json.collection && json.collection.shortName) ? json.collection.shortName : "woz");
            model.collection.size((json.collection && json.collection.size) ? json.collection.size : 30);
-           
+
            model.resumedGame = json.resumedGame || false;
 
            ko.utils.arrayForEach(json.players, function (player) {
@@ -138,14 +160,14 @@
            }
            model.tickets.reset(json.tickets);
            model.allowCircle(json.allowCircle);
-           
+
            ko.utils.arrayForEach(json.words, function (word) {
               word.isSelected = ko.observable(false);
               word.css = "";
               if (ko.utils.arrayFilter(json.words, function (w) { return word.id === w.id }).length > 1) {
-                 word.isPlayed = true;                 
+                 word.isPlayed = true;
               }
-           });           
+           });
            model.words(json.words);
 
            for (var i = 0; i < json.tiles.length; i++) {
@@ -155,7 +177,7 @@
               json.tiles[i].active = ko.observable(false);
            }
            model.tiles(json.tiles);
-           
+
            //json.paths[0].nWords = 0;
            json.paths = ko.utils.arrayMap(json.paths, function (p) {
               return new Path(model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase);
@@ -221,7 +243,7 @@
                     var sub;
                     sub = app.on("game:score:done").then(function () {
                        app.trigger("game:tiles:visible", false);
-                       data.xp = json.stats.xp;                       
+                       data.xp = json.stats.xp;
 
                        //json.stats.levelUp = true;
 
@@ -229,22 +251,22 @@
                           data.noRedirect = true; //dont redirect
                        }
 
-                       app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' }).then(function () {                          
+                       app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver' }).then(function () {
                           if (json.stats.levelUp) {
                              app.dialog.show("notice", {
                                 model: {
                                    message: json.stats.level,
                                    imageName: 'images/game/level/' + json.stats.level.toLowerCase() + '.png'
                                 }, view: "dialogs/pages/LevelUp"
-                             }).then(function () {                                
+                             }).then(function () {
                                 app.navigate(data.target);
                              });
                           }
                        });
                        sub.off();
                     });
-                    
-                 });                 
+
+                 });
               }
 
               for (var i = 0; i < json.players.length; i++) {
@@ -258,17 +280,19 @@
                  cplayer.resigned(jplayer.resigned || false);
 
                  if (cplayer.username === model.player.username && scored) {
-                    var sub;
-                    sub = app.on("game:stars:done").then(function () {
-                       app.dialog.show("alert", {
-                          content: "You scored <b>" + scored + "</b> points!",
-                          delay: 3000
-                       }).then(function () {
-                          app.trigger("game:score:done");
+                    (function (scored) {
+                       var sub;
+                       sub = app.on("game:stars:done").then(function () {
+                          app.dialog.show("alert", {
+                             content: "You scored <b>" + scored + "</b> points!",
+                             delay: 3000
+                          }).then(function () {
+                             app.trigger("game:score:done");
+                          });
+
+                          sub.off();
                        });
-                       
-                       sub.off();
-                    });                    
+                    })(scored)
                  }
               }
 
@@ -314,8 +338,12 @@
 
         model.loadingStatus("Waiting for the server...");
 
-        if (model.tutorialMode) {
-           app.trigger("game:start", consts.tutorialGames[id]);
+        if (model.tutorialMode()) {
+           //var game = consts.tutorialGames[id];
+           //game.players[0].username = model.username;
+           //app.trigger("game:start", game);
+           model.loadingStatus("Gathering learning materials...");
+           app.trigger("server:tutorial:start", { username: model.username, level: id });
         } else {
            if (id >= 0) {
               model.loadingStatus("Waiting for awesomeness...");
@@ -335,9 +363,16 @@
         }
      };
 
-     model.unload = function () {
+     model.unload = function () {        
         model._gameOver(false);
         app.off("game:start game:update game:swap-words");
+        model.words.removeAll();
+        var paths = ctx.paths();
+        for (var i = 0; i < paths.length; i++) {
+           paths[i].dispose();
+        }
+        model.paths.removeAll();
+        model.tiles.removeAll();        
      }
 
      model.playedWords = ko.computed(function () {

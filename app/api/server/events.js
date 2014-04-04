@@ -1,5 +1,5 @@
 ﻿define(['durandal/app'], function (app) {
-   
+
    return {
       emission: [
         "account:login",
@@ -11,19 +11,20 @@
         "game:more-words",
         "game:skip-turn",
         "game:resign",
-        "game:lobby",
-        "game:archive",
         "game:versions",
         "game:search-word",
         "game:add-word",
-        "friends"
+        "lobby",
+        "friends",
+        "tutorial:place-phrase",
+        "tutorial:skip"
       ],
-      init: function(socket){
+      init: function (socket) {
          socket.on("game:update", function (data) {
             console.log('%cgame:update', 'background: #222; color: #bada55', data);
             app.trigger("game:update", data);
          });
-      },         
+      },
       custom: {
          "game:swap-words": function (data, callback, socket) {
             socket.emit("game:swap-words", data, function (res) {
@@ -44,7 +45,7 @@
             });
          },
 
-         "game:queue": function (data, callback, socket) {         
+         "game:queue": function (data, callback, socket) {
             socket.once("game:start", function (data) {
                console.log('%cgame:start', 'background: #222; color: #bada55', data);
                app.trigger("game:start", data);
@@ -67,6 +68,27 @@
 
             console.log(data);
             socket.emit("game:request", data, callback);
+         },
+
+         "tutorial:start": function (data, callback, socket) {
+            //socket.once("game:start", function (data) {
+            //   console.log('%cgame:start', 'background: #222; color: #bada55', data);
+            //   app.trigger("game:start", data);
+            //});
+
+            socket.emit("tutorial:start", data, function (game) {
+               ko.utils.arrayForEach(game.tiles, function (tile) {
+                  tile.instruction = tile.instruction || tile.shortDescription || "";
+                  tile.description = tile.description || tile.longDescription || "";
+               });
+               game.title = (game.id + 1) + '. ' + game.title;
+               game.page = (game.id + 1) + ' / ' + game.total;
+               game.tutorialIndex = game.id;
+               game.id = 't' + game.id;
+
+               app.trigger("game:start", game);
+               callback(game);
+            });
          }
       }
    }

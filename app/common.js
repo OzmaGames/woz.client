@@ -20,6 +20,8 @@ define(['durandal/system', 'durandal/app', 'plugins/router',
          router.navigate(hash, options);
       }
 
+      app.ctx = ctx;
+
       app.dialog = Dialog;
       app.dialog.showCurrency = function () {
          app.dialog.show("notice", {

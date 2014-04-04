@@ -81,7 +81,7 @@
             ]
          }, {
             title: 'Place a phrase with the select tool.',
-            description: 'To place a whole phrase on the game board in one go, <br /> use the <b>select tool</b> in the left menu.',
+            description: 'To place a whole phrase on the game board in one go, <br /> you can line up the words below and use the <b>select tool</b> in the left menu.',
             tiles: [
                { id: 0, imageID: 19, x: .25, y: .75 },
                { id: 1, imageID: 14, x: .75, y: .75 }
@@ -97,6 +97,29 @@
                { id: 4, x: 0.66, y: 0.05, lemma: 'cats' }
             ],
             allowCircle: true
+         }, {
+            title: 'Explore the action menu.',
+            description: 'During your turn you have the possibility to: <br> <b>Swap words</b>, <b>Add a word</b> and <b>change word endings</b>. <br/> Try at least one action and place a phrase.',
+            tiles: [
+               { id: 0, imageID: 19, x: .25, y: .75 },
+               { id: 1, imageID: 14, x: .75, y: .75 }
+            ],
+            paths: [
+               { id: 0, nWords: 3, cw: 1, startTile: 0, endTile: 1 },
+            ],
+            words: [
+               { id: 0, x: 0.50, y: 0.00, lemma: 'I' },
+               { id: 1, x: 0.40, y: 0.07, lemma: 'love' },
+               { id: 2, x: 0.60, y: 0.15, lemma: 'hate' },
+               { id: 3, x: 0.25, y: 0.05, lemma: 'you' },
+               { id: 4, x: 0.66, y: 0.05, lemma: 'birds' }
+            ],
+            allowCircle: true,
+            tickets: {
+               swapWords: 1,
+               versions: 1,
+               addWords: 1
+            }
          }
       ]
    };
@@ -125,10 +148,11 @@
       game.over = false;
       game.collection = { shortName: "woz", longName: "Words Of Oz" };
       game.actionDone = true;
+      game.tickets = game.tickets || {};
       game.tickets = {
-         swapWords: 0,
-         versions: 0,
-         addWords: 0,
+         swapWords: game.tickets.swapWords || 0,
+         versions: game.tickets.versions || 0,
+         addWords: game.tickets.addWords || 0,
       },
       game.allowCircle = !!game.allowCircle;
       game.id = 't' + (index - 1);

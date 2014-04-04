@@ -1,6 +1,5 @@
-﻿
-<div class="note pull-right" data-bind="html: message()"></div>
-
+﻿<div class="note pull-right" data-bind="html: message()"></div>
+<!-- ko ifnot: type() == 'notification' -->
 <div data-bind="foreach: list" style="margin-bottom:20px;">
    <h1 data-bind="text: title" class="archive"></h1>
    <!-- ko if: games().length -->
@@ -45,3 +44,4 @@
    </div>
    <!-- /ko -->
 </div>
+<!-- /ko -->
