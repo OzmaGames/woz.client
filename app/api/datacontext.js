@@ -273,6 +273,11 @@
               for (var i = 0; i < json.players.length; i++) {
                  var jplayer = json.players[i];
                  var cplayer = find(model.players(), { username: jplayer.username });
+                 if (!cplayer) {
+                    cplayer = find(model.players(), { username: 'unknown' });
+                    cplayer.username = jplayer.username;
+                    ctx.players.valueHasMutated();
+                 }
                  var scored = jplayer.score - cplayer.score();
 
                  cplayer.scored = scored;
