@@ -9,6 +9,7 @@
          app.loading(false);
       } else if (loading === false) {
          app.palette.show();
+         app.palette.get("quit").visible(!ctx.tutorialMode());
       }
    });
 
@@ -613,7 +614,7 @@
             .click(game.resign)
             .css({
                disabled: ko.computed(function () { return !game.allowResign() })
-            });
+            }).visible(!ctx.tutorialMode());
 
          app.palette.add("swapWords", "action", "left")
             .click(game.swapWords)

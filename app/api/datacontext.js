@@ -101,6 +101,7 @@
                  }).then(function (result) {
                     if (result == "done") {
                        app.trigger("server:tutorial:skip", { username: model.username });
+                       app.navigate("newGame");
                     }
                  });
               }

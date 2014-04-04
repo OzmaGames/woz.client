@@ -213,8 +213,8 @@
          if (base.nWords == 0) {
             var pos = base.phrase.words().indexOf(entity);
             base.phrase.words().splice(pos, 1);
-            //delete entity.word.lastBox;
          } else {
+            delete entity.word.lastBox;
             base.phrase.words.remove(entity);
          }
 
