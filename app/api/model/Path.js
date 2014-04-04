@@ -94,6 +94,7 @@
                               app.trigger("game:tiles:visible", false);
                               
                               if (ctx.tutorialObject().tutorialIndex >= ctx.tutorialObject().total - 1) {
+                                 app.trigger("server:tutorial:skip", { username: model.username });
                                  app.dialog.show("notice", { view: 'dialogs/pages/TutorialEnd' }).then(function () {
                                     app.navigate('newGame');
                                  });
