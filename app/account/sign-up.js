@@ -44,7 +44,8 @@
                localStorage.removeItem("tutorial");
                app.dialog.close("panel");
                app.trigger('account:login', res);
-               app.navigate("newGame");
+               //app.navigate("newGame");
+               app.navigate("game/t");
                setTimeout(function () {
                   app.dialog.show("notice", { model: {}, view: "dialogs/pages/welcome", modal: true });
                }, 200);               
