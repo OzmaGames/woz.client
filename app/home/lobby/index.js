@@ -4,6 +4,7 @@
    
    return {
       loading: ko.observable(true),
+      loadingData: ko.observable(true),
 
       mode: ko.observable(),
 
@@ -65,12 +66,15 @@
          } else {
             this.activeTab = sessionStorage.getItem("lobby");
          }
+         var base = this;
 
+         base.loadingData(true);
          app.trigger("server:lobby", { username: ctx.username }, function (data) {
             if (data.success) {
                data.games.sort(function (a, b) { return b.modDate - a.modDate; });               
                ctx.games(data.games);
             }
+            base.loadingData(false);
          });
       },
 

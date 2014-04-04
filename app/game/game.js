@@ -448,6 +448,7 @@
                            canSwap(false);
                            ctx.mode('');
                            app.loading(false);
+                           app.trigger("app:force-resize");
                         } else {
                            app.trigger("server:game:swap-words", data, function (res) {
                               if (!res.success) {

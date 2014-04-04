@@ -79,10 +79,10 @@
                         ctx.player.scored = data.score.total;
                         ctx.player.score(ctx.player.score() + data.score.total);
                         ctx.player.active(true);
-                        ko.utils.arrayForEach(ctx.words(), function (word) {
-                           ko.utils.arrayFirst(data.score.words, function (sw) {
+                        ko.utils.arrayForEach(data.score.words, function (sw) {
+                           sw.lemma = ko.utils.arrayFirst(ctx.words(), function (word) {
                               return sw.id == word.id;
-                           }).lemma = word.lemma;
+                           }).lemma;
                         });
                         if (null == ko.utils.arrayFirst(ctx.paths(), function (path) {
                               return !path.phrase.complete.immediate();

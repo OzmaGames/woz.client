@@ -13,11 +13,11 @@
                <li><span>game archive</span></li>
                <li class="ending"><span>ending</span></li>
             </ul>
-            <div class="loader-bar" data-bind="fadeVisible: $root.loading"><i></i><i></i><i></i></div>
+            <div class="loader-bar" data-bind="fadeVisible: $root.loading() || $root.loadingData()"><i></i><i></i><i></i></div>
          </nav>
          <div class="content">
             <div>
-               <div data-bind="compose: compose"></div>
+               <div data-bind="compose: compose, fadeVisible: !$root.loadingData()"></div>
             </div>
          </div>
       </div>
