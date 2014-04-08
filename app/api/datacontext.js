@@ -82,6 +82,12 @@
               if ( id >= 5 ) id = 0;
            }
            id = isNaN( id ) ? 0 : id * 1;
+
+           var obj = model.tutorialObject();
+           if ( obj ) {
+              obj.title = "";
+              obj.description = "";
+           }
         }
         else {
            model.tutorialMode( false );

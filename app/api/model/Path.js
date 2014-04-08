@@ -108,6 +108,10 @@
                               cancel( bubble.showOne( bubble.bonusFor( tile ) ) );
                            }, 500 );
                         }
+                        
+                        if ( model.gameID == 5 && ( model.tickets.versions() && model.tickets.addWords() && model.tickets.swapWords() ) ) {
+                           return cancel( 'Please use at least one of the action items from the left menu to complete this tutorial.' );
+                        }
 
                         ctx.player.scored = data.score.total;
                         ctx.player.score( ctx.player.score() + data.score.total );

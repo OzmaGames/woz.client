@@ -288,6 +288,7 @@
   font-family: Cambria, CopseRegular;
 }
 .dialog .window h1 {
+  color: #986b31;
   font-size: 1.2em;
   margin-bottom: 5px;
 }
@@ -471,7 +472,7 @@
 .dialog .tutorial h1 {
   font-size: 1.2em;
   margin-bottom: .5em;
-  color: #cfa972;
+  color: #986b31;
   /*-webkit-text-shadow: none;*/
   /*text-shadow: none;*/
   /*font-weight: bold;*/

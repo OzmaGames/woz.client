@@ -317,7 +317,7 @@ body > .cloud.fixed .rule {
   }
 }
 .notice-board {
-  color: #b49363;
+  color: #986b31;
   text-align: center;
   position: absolute;
   width: 100%;
@@ -333,7 +333,7 @@ body > .cloud.fixed .rule {
   line-height: 1.5em;
 }
 #tiles .footer {
-  color: #b49363;
+  color: #986b31;
   position: absolute;
   bottom: 0;
   width: 100%;

@@ -138,7 +138,7 @@
          //var data = TUT.RELATED;
          var data = {
             heading: "Related Word",
-            content: "Use a related word <br/> in your path."
+            content: "Use a related word in <br/> your path."
          };
          data.css = "bottom right";
          data.top = item.offset().top - 110 + APP.scrollTop;
@@ -230,11 +230,11 @@
 
    var t = new Tutorial();
 
-   app.on("game:score:done").then(function () {
+   app.on( "game:score:done" ).then( function () {      
       if (app.ctx._gameOver() && !app.ctx.player.resigned()) {
          if (!localStorage.getItem("tutorial-menu")) {
             setTimeout(function () {
-               t.archivedGames();
+               t.showOne( t.archivedGames() );
                localStorage.setItem("tutorial-menu", true);
             }, 2000);
          }

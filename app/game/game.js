@@ -355,8 +355,8 @@
 
    app.on("game:started").then(function () {
       setTimeout(function () {
-         if (!ctx.tutorialMode()) showScroll();
-      }, 1000);
+         if (!ctx.tutorialMode() || ctx.gameID == 0) showScroll();
+      }, 800);
    });
 
    app.on("game:started:ready").then(function () {
