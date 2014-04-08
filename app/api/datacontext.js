@@ -79,7 +79,7 @@
               id = +localStorage.getItem( "tutorial-index" ) + 1;
            } else if ( id.toString().toLowerCase() == "new" ) {
               id = +localStorage.getItem( "tutorial-index" );
-              if ( id > 5 ) id = 0;
+              if ( id >= 5 ) id = 0;
            }
            id = isNaN( id ) ? 0 : id * 1;
         }
