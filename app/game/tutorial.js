@@ -1,6 +1,6 @@
-﻿define('game/tutorial', ['durandal/app', 'api/datacontext', 'dialogs/_constants'], function (app, ctx, consts) {
+﻿define( 'game/tutorial', ['durandal/app', 'api/datacontext', 'dialogs/_constants'], function ( app, ctx, consts ) {
    TUT = consts.TUT;
-
+   
    var APP = document.getElementById("app");
 
    function Tutorial() {
@@ -98,7 +98,7 @@
 
          var data = {
             heading: "Bonus points",
-            content: "Place a word that <br/> relates to this."
+            content: "Use a feeling in your <br/> phrase to get the bonus."
          };
          data.css = "bottom left";
          data.top = item.offset().top - 115 + APP.scrollTop;
@@ -231,7 +231,7 @@
    var t = new Tutorial();
 
    app.on("game:score:done").then(function () {
-      if (ctx._gameOver() && !ctx.player.resigned()) {
+      if (app.ctx._gameOver() && !app.ctx.player.resigned()) {
          if (!localStorage.getItem("tutorial-menu")) {
             setTimeout(function () {
                t.archivedGames();

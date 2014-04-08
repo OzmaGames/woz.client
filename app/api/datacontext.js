@@ -77,8 +77,11 @@
            model.tutorialMode( true );
            if ( id.toString().toLowerCase() == "next" ) {
               id = +localStorage.getItem( "tutorial-index" ) + 1;
+           } else if ( id.toString().toLowerCase() == "new" ) {
+              id = +localStorage.getItem( "tutorial-index" );
+              if ( id > 5 ) id = 0;
            }
-           id = isNaN( id ) ? -1 : id * 1;
+           id = isNaN( id ) ? 0 : id * 1;
         }
         else {
            model.tutorialMode( false );
@@ -229,24 +232,26 @@
               if ( model.gameOver() ) {
                  app.dialog.closeAll();
 
-                 var dfd = system.acquire( "dialogs/pages/GameOver" ).then( function ( module ) {
-                    var winner = model.winner(), data;
-                    if ( winner === model.player ) {
-                       if ( model.playerCount == 1 ) {
-                          data = module.SOLO;
+                 var dfd = $.Deferred( function ( dfd ) {
+                    system.acquire( "dialogs/pages/GameOver" ).then( function ( module ) {
+                       var winner = model.winner(), data;
+                       if ( winner === model.player ) {
+                          if ( model.playerCount == 1 ) {
+                             data = module.SOLO;
+                          } else {
+                             data = module.WON;
+                          }
+                       } else if ( winner === null ) {
+                          app.navigate( "lobby" );
+                          return;
+                       } else if ( model.player.resigned() ) {
+                          data = module.RESIGNED;
                        } else {
-                          data = module.WON;
+                          data = module.LOST;
                        }
-                    } else if ( winner === null ) {
-                       app.navigate( "lobby" );
-                       return;
-                    } else if ( model.player.resigned() ) {
-                       data = module.RESIGNED;
-                    } else {
-                       data = module.LOST;
-                    }
 
-                    return data;
+                       dfd.resolve( data );
+                    } )
                  } );
 
                  var sub;

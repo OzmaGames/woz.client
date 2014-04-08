@@ -2,7 +2,7 @@
 
    function Path( model, id, nWords, startTile, endTile, cw, phrase ) {
       var base = this;
-      
+
       base.id = id;
       base.nWords = nWords;
       base.startTile = utils.find( model.tiles(), { id: startTile } );
@@ -73,6 +73,8 @@
                   model.lastPath = base;
 
                   if ( app.ctx.tutorialMode() ) {
+                     data.words = ko.utils.arrayMap( base.phrase.words(), function ( word ) { return word.word.lemma; } );
+
                      app.trigger( "server:tutorial:place-phrase", data, function ( data ) {
 
                         bubble.closeAll();
@@ -92,25 +94,28 @@
 
                         var relatedWord = ko.utils.arrayFirst( model.unplayedWords(), function ( w ) { return w.isRelated; } );
                         if ( relatedWord ) {
-                           
                            //return cancel( 'This tutorial requires you to use the related word. Please try again.' );
-                           return cancel( bubble.showOne( bubble.relatedWords() ) );
+                           return setTimeout( function () {
+                              cancel( bubble.showOne( bubble.relatedWords() ) );
+                           }, 500 );
                         }
 
                         if ( ( base.startTile.instruction != "" && !data.score.startTile.satisfied ) ||
                            ( base.endTile.instruction != "" && !data.score.endTile.satisfied ) ) {
-                           var tile = (base.startTile.instruction != "" && !data.score.startTile.satisfied )? base.startTile : base.endTile;
-                           
-                           return cancel( bubble.showOne( bubble.bonusFor(tile) ));
+                           var tile = ( base.startTile.instruction != "" && !data.score.startTile.satisfied ) ? base.startTile : base.endTile;
+
+                           return setTimeout( function () {
+                              cancel( bubble.showOne( bubble.bonusFor( tile ) ) );
+                           }, 500 );
                         }
 
                         ctx.player.scored = data.score.total;
                         ctx.player.score( ctx.player.score() + data.score.total );
                         ctx.player.active( true );
                         ko.utils.arrayForEach( data.score.words, function ( sw ) {
-                           sw.lemma = ko.utils.arrayFirst( ctx.words(), function ( word ) {
-                              return sw.id == word.id;
-                           } ).lemma;
+                           sw.id = ko.utils.arrayFirst( ctx.words(), function ( word ) {
+                              return sw.lemma == word.lemma;
+                           } ).id;
                         } );
                         if ( null == ko.utils.arrayFirst( ctx.paths(), function ( path ) {
                               return !path.phrase.complete.immediate();
@@ -221,7 +226,7 @@
 
       base.removeAll = function () {
          var words = base.phrase.words();
-         
+
          for ( var i = 0; i < words.length; i++ ) {
             words[i].word.isPlayed = 0;
             delete words[i].word.lastBox;

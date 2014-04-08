@@ -5,7 +5,8 @@
      { text: "My Games", hash: 'lobby' },
      { text: "Shop", hash: 'shop' },
      { text: "settings", hash: 'settings' },
-     { text: "help", hash: 'help' }
+     { text: "help", hash: 'help' },
+     { text: "tutorial", hash: 'tutorial/new' }
    ];
 
    function Menu() {

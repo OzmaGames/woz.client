@@ -39,7 +39,7 @@
             var json = {
                success: true,
                word: {
-                  id: 1, x: 0.50, y: 0.20, lemma: base.activeWord(), points: 3, isRelated: false, angle: 3, altLemma: base.activeWord()
+                  id: 10, x: 0.50, y: 0.20, lemma: base.activeWord(), points: 3, isRelated: false, angle: 3, altLemma: base.activeWord()
                }
             };
 

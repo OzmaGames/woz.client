@@ -70,6 +70,7 @@
                }).delay(500).promise().then(function () {
                   $(SHELL).css({ transition: 'none', transform: 'none' });
                   $('#app, body').trigger("scroll");
+                  app.trigger( "app:force-resize" );
 
                   dfd.resolve();
                });
