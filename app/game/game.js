@@ -34,11 +34,11 @@
       if (location.hash.match(/game/gi)) {
          if (e.keyCode == 84) {
             //t
-            localStorage.removeItem("tutorial");
-            tutorial.show();
+            //localStorage.removeItem("tutorial");
+            //tutorial.show();
          } else if (e.keyCode == 83) {
             //s
-            showScroll();
+            //showScroll();
          } else if (e.keyCode == 85) {
             //u  
             //if (ctx.player.scored)
@@ -49,11 +49,11 @@
             //}
          } else if (e.keyCode == 86) {
             //v
-            app.trigger("game:rule:toggle");
+            //app.trigger("game:rule:toggle");
          } else if (e.keyCode == 87) {
             //w
-            showGlowing(ctx.tiles()[0]);
-            showGlowing(ctx.tiles()[1]);
+            //showGlowing(ctx.tiles()[0]);
+            //showGlowing(ctx.tiles()[1]);
          }
       }
    });
@@ -608,6 +608,13 @@
          app.trigger("game:dispose");
          app.palette.dispose();
          app.dialog.closeAll();
+
+         if ( app.fromSignUp ) {
+            delete app.fromSignUp;
+            setTimeout( function () {
+               app.dialog.show( "notice", { view: "dialogs/pages/welcome", modal: true } );
+            }, 200 );
+         }
 
          app.palette.hide({ duration: 0 });
          app.palette.add("quit", "command", "right")

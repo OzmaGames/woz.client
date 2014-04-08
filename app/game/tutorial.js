@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/datacontext', 'dialogs/_constants'], function (app, ctx, consts) {
+﻿define('game/tutorial', ['durandal/app', 'api/datacontext', 'dialogs/_constants'], function (app, ctx, consts) {
    TUT = consts.TUT;
 
    var APP = document.getElementById("app");
@@ -92,6 +92,21 @@
          return  data;
       }
 
+      this.bonusFor = function (tile) {
+         var maxLeft = window.innerWidth - 300;
+         var item = $( '.cloud .info', tile.$el );
+
+         var data = {
+            heading: "Bonus points",
+            content: "Place a word that <br/> relates to this."
+         };
+         data.css = "bottom left";
+         data.top = item.offset().top - 115 + APP.scrollTop;
+         data.left = item.offset().left + 20;
+
+         return data;
+      }
+
       this.bonus = function () {
          var maxLeft = window.innerWidth - 300;
          var item = $('.cloud .info').filter(function (i) {
@@ -109,26 +124,43 @@
 
       var base = this;
       this.relatedWords = function () {
-         var item = $('.magnet.related:first');
-         if (item.length == 0) {
+         var item = $( '.magnet.related:first' );
+         if ( item.length == 0 ) {
             return null;
-            return $.Deferred(function (dfd) { dfd.reject(); })
          }
 
-         var data = TUT.RELATED;
+         var closeMe = function () {
+            app.dialog.close( 'tutorial' );
+            item.unbind( 'mouseup', closeMe );
+         };
+         item.bind( 'mouseup', closeMe );
+
+         //var data = TUT.RELATED;
+         var data = {
+            heading: "Related Word",
+            content: "Use a related word <br/> in your path."
+         };
          data.css = "bottom right";
-         data.top = item.offset().top - 170 + APP.scrollTop;
+         data.top = item.offset().top - 110 + APP.scrollTop;
          data.left = item.offset().left - 120;
          data.fixed = false;
 
          return  data;
-      }
+      }      
    }
 
    Tutorial.prototype.getNext = function () {
       this.qIndex = this.qIndex || 0;
 
       return [this.placePhrase, this.fillPath, this.bonus, this.swapWords, this.circleWords, this.relatedWords][this.qIndex++];
+   }
+
+   Tutorial.prototype.showOne = function ( data ) {
+      return app.dialog.show( "tutorial", data );
+   }
+
+   Tutorial.prototype.closeAll = function () {
+      return app.dialog.close( 'tutorial' );
    }
 
    Tutorial.prototype.showNext = function () {

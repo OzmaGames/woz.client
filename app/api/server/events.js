@@ -82,9 +82,7 @@
                   tile.description = tile.description || tile.longDescription || "";
                });
                game.title = (game.id + 1) + '. ' + game.title;
-               game.page = (game.id + 1) + ' / ' + game.total;
-               game.tutorialIndex = game.id;
-               game.id = 't' + game.id;
+               game.page = (game.id + 1) + ' / ' + game.total;               
 
                app.trigger("game:start", game);
                callback(game);

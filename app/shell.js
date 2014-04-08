@@ -60,6 +60,8 @@
           { route: 'not-found',    moduleId: 'error/not-found',   title: 'Not Found',         nav: true },
           { route: 'game',         moduleId: 'game/game',         title: 'Play',              nav: true },
           { route: 'game/:id',     moduleId: 'game/game',         title: 'Play',              nav: true },
+          { route: 'tutorial',     moduleId: 'game/game',         title: 'Tutorial',          nav: true },
+          { route: 'tutorial/:id', moduleId: 'game/game',         title: 'Tutorial',          nav: true },
           { route: 'game-editor',  moduleId: 'game-editor/menu',  title: 'Game Editor',       nav: true },
           {
             title: 'Game Editor - Edit',

@@ -1,4 +1,4 @@
-﻿define(['durandal/app'], function (app) {
+﻿define( ['durandal/app'], function ( app ) {
 
    function Gameover(data) {
       this.heading = data.heading;

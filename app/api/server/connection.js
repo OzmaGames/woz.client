@@ -1,9 +1,9 @@
 ﻿define(['socket', 'durandal/app'], function (socket, app) {
 
-   //socket = io.connect("http://wordsdevel.herokuapp.com:80");
+   socket = io.connect("http://wordsdevel.herokuapp.com:80");
    //socket = io.connect("http://wordstesting.herokuapp.com:80");   //for app
    //socket = io.connect("http://localhost:8080");
-   socket = io.connect("http://wozbeta.herokuapp.com:80");
+   //socket = io.connect("http://wozbeta.herokuapp.com:80");
    
    var state;
 

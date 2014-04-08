@@ -68,7 +68,7 @@
                app.trigger('account:login', res);
 
                if (app.ctx.needTutorial) {
-                  app.navigate("game/t");
+                  app.navigate("tutorial");
                   //app.trigger("server:tutorial:start", { username: res.username });
                } else {
                   app.navigate("lobby");

@@ -1609,6 +1609,7 @@ a.big {
 .dialog .tutorial h1 {
   font-size: 1.2em;
   margin-bottom: .5em;
+  color: #986b31;
   /*-webkit-text-shadow: none;*/
   /*text-shadow: none;*/
   /*font-weight: bold;*/
@@ -2929,10 +2930,10 @@ body > .cloud.fixed .rule {
   border-width: 2px;
   box-shadow: 0 0 15px #f5cf76, 1px 1px 2px #333333, inset -1px -1px 4px #f1a460;
   border: 1px solid #f5cf76;
-  -moz-animation: infinite 1s ease blink-shadow;
-  -o-animation: infinite 1s ease blink-shadow;
-  -webkit-animation: infinite 1s ease blink-shadow;
-  animation: infinite 1s ease blink-shadow;
+  /*-moz-animation: infinite 1s ease blink-shadow;
+        -o-animation: infinite 1s ease blink-shadow;
+        -webkit-animation: infinite 1s ease blink-shadow;
+        animation: infinite 1s ease blink-shadow;*/
 }
 .magnet.placed {
   -moz-animation: none;
