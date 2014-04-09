@@ -92,13 +92,13 @@
          return  data;
       }
 
-      this.bonusFor = function (tile) {
+      this.bonusFor = function (tile, content) {
          var maxLeft = window.innerWidth - 300;
          var item = $( '.cloud .info', tile.$el );
 
          var data = {
             heading: "Bonus points",
-            content: "Use a feeling in your <br/> phrase to get the bonus."
+            content: content || "Use a feeling in your <br/> phrase to get the bonus."
          };
          data.css = "bottom left";
          data.top = item.offset().top - 115 + APP.scrollTop;

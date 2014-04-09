@@ -114,9 +114,9 @@
                delete ctx.friendUsername;
             }
 
-            ctx.collectionName = vm.collection();
+            ctx.collection.name(vm.collection());
 
-            if (ctx.collectionName != 'nf' && ctx.collectionName != 'woz') {
+            if ( vm.collection() != 'nf' && vm.collection() != 'woz' ) {
                app.dialog.show("alert", { content: 'Sorry! This collection is not player yet.' });
             } else {
                app.navigate("game")

@@ -165,7 +165,7 @@
            if ( json.allowCircle == undefined ) json.allowCircle = true;
            if ( json.tickets == undefined ) {
               json.tickets = {
-                 swapWords: !json.actionDone,
+                 swapWords: 1,
                  versions: 1,
                  addWords: 1,
               }
@@ -226,9 +226,9 @@
               if ( json.allowCircle == undefined ) json.allowCircle = true;
               if ( json.tickets == undefined ) {
                  json.tickets = {
-                    swapWords: json.swapWords || !json.actionDone,
-                    versions: json.versions || 1,
-                    addWords: json.addWords || 1,
+                    swapWords: json.swapWord || !json.actionDone,
+                    versions: json.version || 1,
+                    addWords: json.addWord || 1,
                  }
               }
               model.tickets.reset( json.tickets );
@@ -389,7 +389,7 @@
                  username: model.username,
                  playerCount: model.playerCount,
                  friendUsername: model.friendUsername,
-                 collection: model.collectionName || 'woz'
+                 collection: model.collection.name() || 'woz'
               }, function () {
                  model.loadingStatus( "Waiting for awesomeness..." );
               } );

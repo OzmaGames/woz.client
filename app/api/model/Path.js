@@ -105,7 +105,7 @@
                            var tile = ( base.startTile.instruction != "" && !data.score.startTile.satisfied ) ? base.startTile : base.endTile;
 
                            return setTimeout( function () {
-                              cancel( bubble.showOne( bubble.bonusFor( tile ) ) );
+                              cancel( bubble.showOne( bubble.bonusFor( tile, tile.bubble || null ) ) );
                            }, 500 );
                         }
                         
