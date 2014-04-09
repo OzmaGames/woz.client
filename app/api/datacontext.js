@@ -165,9 +165,9 @@
            if ( json.allowCircle == undefined ) json.allowCircle = true;
            if ( json.tickets == undefined ) {
               json.tickets = {
-                 swapWords: 1,
-                 versions: 1,
-                 addWords: 1,
+                 swapWords: json.swapWord || 1,
+                 versions: json.version || 1,
+                 addWords: json.addWord || 1,
               }
            }
            model.tickets.reset( json.tickets );
@@ -226,7 +226,7 @@
               if ( json.allowCircle == undefined ) json.allowCircle = true;
               if ( json.tickets == undefined ) {
                  json.tickets = {
-                    swapWords: json.swapWord || !json.actionDone,
+                    swapWords: json.swapWord || 1,
                     versions: json.version || 1,
                     addWords: json.addWord || 1,
                  }
