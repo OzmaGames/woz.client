@@ -13,7 +13,7 @@
       <div class="versions" data-bind="foreach: words">
          <div class="version" data-bind="text: $data, css: {active: $parent.activeWord() == $data}, click: $parent.select"></div>
       </div>
-      <button class="blue enableGPU has-currency" data-bind="click: done, clickBubble: false, disable: loading() || words().length == 0">
+      <button class="blue enableGPU" data-bind="click: done, clickBubble: false, disable: loading() || words().length == 0, css:{'has-currency': !tMode()}">
          <span class="currency">5</span>
          Add Word
       </button>

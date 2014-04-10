@@ -26,6 +26,16 @@
   /* IE9 */
   /* Legacy IOS */
 }
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
 html,
 body,
 ul,
@@ -1110,6 +1120,9 @@ a.big {
   color: white;
   font-size: 75%;
 }
+button .currency {
+  display: none;
+}
 .couple.has-currency::before {
   left: 33%;
   top: 0;
@@ -1135,16 +1148,6 @@ a.big {
   -o-background-size: contain;
   -webkit-background-size: contain;
   background-size: contain;
-}
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
 }
 .dialog {
   position: fixed;
@@ -2843,6 +2846,11 @@ body > .cloud.fixed .rule {
   width: 100%;
   top: 150px;
   left: 0;
+  -webkit-transform: translateZ(2px);
+  -moz-transform: translateZ(2px);
+  -ms-transform: translateZ(2px);
+  -o-transform: translateZ(2px);
+  transform: translateZ(2px);
 }
 .notice-board h1 {
   margin-bottom: 1em;

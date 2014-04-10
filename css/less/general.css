@@ -1092,6 +1092,9 @@ a.big {
   color: white;
   font-size: 75%;
 }
+button .currency {
+  display: none;
+}
 .couple.has-currency::before {
   left: 33%;
   top: 0;

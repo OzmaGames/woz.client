@@ -100,8 +100,9 @@
             heading: "Bonus points",
             content: content || "Use a feeling in your <br/> phrase to get the bonus."
          };
+         var top = data.content.split( '<br' ).length * 60;
          data.css = "bottom left";
-         data.top = item.offset().top - 115 + APP.scrollTop;
+         data.top = item.offset().top - top + APP.scrollTop;
          data.left = item.offset().left + 20;
 
          return data;

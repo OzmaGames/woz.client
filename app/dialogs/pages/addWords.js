@@ -7,6 +7,8 @@
       this.activeWord = ko.observable();
       this.lemma = ko.observable();
 
+      this.tMode = ctx.tutorialMode;
+
       var base = this;
 
       this.search = function () {

@@ -5,6 +5,7 @@
       this.dropped = ko.observable( false );
       this.loading = app.loading;
       this.message = ko.observable();
+      this.tMode = ctx.tutorialMode;
 
       var base = this;
 

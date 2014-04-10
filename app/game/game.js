@@ -94,17 +94,21 @@
             }
          }
 
+         var topPadding = parseInt($( '#gameboard' ).css('paddingTop'));
+
          for ( var i = 0; i < boxScore * 3; i++ ) {
             var star = $( '<div/>', { 'class': 'star' } );
             var scale = ( ( Math.random() * 5 ) + 3 ) / 10;
             var offset = box.offset();
-
+            var position = box.position();
+            
+            
             star.css( {
                scale: scale,
                x: offset.left * ( 1 / scale ),
-               y: offset.top * ( 1 / scale )
+               y: position.top * ( 1 / scale ) + topPadding
                //backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
-            } );
+            } );            
 
             setTimeout( function ( o ) {
                $( '#app' ).append( o[0] );
