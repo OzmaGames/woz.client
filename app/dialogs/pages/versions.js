@@ -8,6 +8,14 @@
 
       var base = this;
 
+      this.detached = function () {
+         var word = this.lastWord;
+         if ( word ) {
+            word.isPlayed = false;
+            ctx.words.valueHasMutated();
+         }
+      }
+      
       this.enter = function () {
          console.log( "enter" )
       }
@@ -15,7 +23,7 @@
          console.log( "leave" )
       }
       this.drop = function () {
-         var word = ctx.activeWord();
+         var word = this.lastWord = ctx.activeWord();
 
          word.isPlayed = true;
          ctx.words.valueHasMutated();
@@ -60,6 +68,7 @@
          base.loading( true );
          if ( ctx.tutorialMode() ) {
             base.loading( false );
+
             base.word.isPlayed = false;
             base.word.lemma = base.activeVersion();
             ctx.words.valueHasMutated();
