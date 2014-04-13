@@ -8,7 +8,7 @@
                text: 'Featured!',
                color: 'yellow'
             },            
-            sub: [
+            types: [
                {
                   type: 'starter',
                   name: 'Starter',
@@ -33,7 +33,7 @@
                text: 'New!',
                color: 'blue'
             },
-            sub: [
+            types: [
                {
                   type: 'starter',
                   name: 'Horror',
@@ -55,7 +55,7 @@
          {
             name: 'Vintage',
             flag: null,
-            sub: [
+            types: [
                {
                   type: 'starter',
                   name: 'Quirky',

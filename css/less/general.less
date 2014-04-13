@@ -49,7 +49,7 @@ h3 {
     font-size: .9em;
 }
 
-a{
+a {
     cursor: pointer;
 }
 
@@ -1175,32 +1175,33 @@ a.small {
     .table-flex .row .date {
         display: inline-block;
         width: 8em;
-        font-style:italic;
+        font-style: italic;
         text-align: left;
     }
 
     .table-flex .couple {
         display: inline-block;
         width: 200px;
-        height: 150px;
-        background: url('../../images/tiles/couple-woz.png') no-repeat center center;
+        height: 150px;        
+        background-position: center center;
+        background-repeat: no-repeat;
         -moz-background-size: contain;
         -o-background-size: contain;
         -webkit-background-size: contain;
         background-size: contain;
         vertical-align: middle;
         font-size: 1.5em;
-    }    
-
-    .table-flex .couple + div {
-        display: inline-block;
-        width: ~"calc(100% - 205px)";
-        vertical-align: middle;
     }
 
-        .table-flex .couple + div > div {
-            margin-bottom: .3em;
+        .table-flex .couple + div {
+            display: inline-block;
+            width: ~"calc(100% - 205px)";
+            vertical-align: middle;
         }
+
+            .table-flex .couple + div > div {
+                margin-bottom: .3em;
+            }
 
 .has-currency {
     position: relative;
@@ -1238,9 +1239,9 @@ a.small {
         font-size: 75%;
     }
 
-    button .currency{
-        display: none;
-    }
+button .currency {
+    display: none;
+}
 
 .couple.has-currency::before {
     left: 33%;

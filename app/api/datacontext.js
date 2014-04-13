@@ -190,6 +190,7 @@
            }
            model.tiles( json.tiles );
 
+           //alert( json.paths[0].nWords );
            //json.paths[0].nWords = 0;
            json.paths = ko.utils.arrayMap( json.paths, function ( p ) {
               return new Path( model, p.id, p.nWords, p.startTile, p.endTile, p.cw, p.phrase );
@@ -226,9 +227,9 @@
               if ( json.allowCircle == undefined ) json.allowCircle = true;
               if ( json.tickets == undefined ) {
                  json.tickets = {
-                    swapWords: json.swapWord,
-                    versions: json.version,
-                    addWords: json.addWord,
+                    swapWords: json.swapWord === undefined ? 1 : json.swapWord,
+                    versions: json.version === undefined ? 1 : json.version,
+                    addWords: json.addWord === undefined ? 1 : json.addWord,
                  }
               }
               model.tickets.reset( json.tickets );

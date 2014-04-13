@@ -39,7 +39,9 @@
       }
 
       var isComplete = function () {
-         return this.phrase._complete() === true || this.phrase.words().length == 6 || ( this.nWords != 0 && this.phrase.words().length == this.nWords );
+         return this.phrase._complete() === true ||
+            ( this.nWords == 0 && this.phrase.words().length == 6 ) ||
+            ( this.nWords != 0 && this.phrase.words().length == this.nWords );
       }
 
       base.phrase.complete = ko.computed( isComplete, base ).extend( { throttle: 1 } ); //let exchange happends if any

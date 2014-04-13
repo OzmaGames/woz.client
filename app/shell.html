@@ -12,6 +12,10 @@
             <span class="bad">Offline</span>
             <span class="good">Online</span>
          </div>
+         <div class="switch" data-bind="css: { b: status.devMode }">
+            <span class="bad"></span>
+            <span class="good" style="color:darkslateblue;opacity:1">Developement Mode</span>
+         </div>
          <div class="switch" data-bind="css: { b: errors().length }">
             <span class="good"></span>
             <span class="bad" data-bind="attr:{title: $root.summary}, click: $root.showSummary">

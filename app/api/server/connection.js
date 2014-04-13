@@ -1,15 +1,18 @@
 ﻿define(['socket', 'durandal/app'], function (socket, app) {
 
-   socket = io.connect("http://wordsdevel.herokuapp.com:80");
-   //socket = io.connect("http://wordstesting.herokuapp.com:80");   //for app
-   //socket = io.connect("http://localhost:8080");
-   //socket = io.connect("http://wozbeta.herokuapp.com:80");
+   var url = "http://wordsdevel.herokuapp.com:80";
+   //var url = "http://wordstesting.herokuapp.com:80";
+   //var url = "http://localhost:8080";
+   //var url = "http://wozbeta.herokuapp.com:80";
+   
+   socket = io.connect(url);   
    
    var state;
 
    socket.on('connect', function () {
       console.log("%c" + "connected", "background: green; color: white");
-      app.trigger("socket:status", "connect");
+      app.trigger( "socket:status", "connect" );
+      app.trigger("socket:server", url.match(/devel/gi));
       state = true;
    });
 

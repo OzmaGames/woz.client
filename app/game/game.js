@@ -213,6 +213,8 @@
    app.on( "game:updated" ).then( function ( json ) {
       if ( ctx.player.scored ) {
 
+         ctx.lastPath.guiBoxes = ko.utils.arrayFilter( ctx.lastPath.guiBoxes, function ( gui ) { return !!gui.wordModel; } );
+
          var d1 = 2000, d2 = 500;
          if ( json.path.score.startTile.satisfied ) {
             ko.utils.arrayForEach( json.path.score.startTile.words, function ( i ) {
@@ -259,6 +261,7 @@
                ko.utils.arrayForEach( json.path.score.endTile.words, function ( i ) {
                   var lemma = json.path.score.words[i].lemma;
                   for ( var i = 0; i < ctx.lastPath.guiBoxes.length; i++ ) {
+                     //if ( !ctx.lastPath.guiBoxes[i].wordModel ) break;
                      var lemma2 = ctx.lastPath.guiBoxes[i].wordModel.lemma;
                      if ( lemma2 == lemma ) {
                         var $el = $( '.magnet', ctx.lastPath.guiBoxes[i]._guiElem );

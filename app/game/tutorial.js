@@ -70,26 +70,20 @@
          return  data;
       }
 
-      this.workspace = function () {
-         var item = $('#workspace');
+      this.dynamicSubmit = function (  ) {
+         var maxLeft = window.innerWidth - 300;
+         var item = $( '.confirm-box .button' );
 
-         var data = TUT.WORKSPACE;
+         var data = {
+            heading: "Done?",
+            content: "Click me when <br> you are done!"
+         };
+
          data.css = "bottom right";
-         data.top = item.offset().top - 150 + APP.scrollTop;
-         data.left = 200;
+         data.top = item.offset().top - 90 + APP.scrollTop;
+         data.left = item.offset().left - 90;
 
-         return  data;
-      }
-
-      this.gameboard = function () {
-         var item = $('.magnet-placeholder:first');
-
-         var data = TUT.GAMEBOARD;
-         data.css = "bottom left";
-         data.top = item.offset().top - 130 + APP.scrollTop;
-         data.left = item.offset().left;
-
-         return  data;
+         return data;
       }
 
       this.bonusFor = function (tile, content) {
@@ -231,16 +225,27 @@
 
    var t = new Tutorial();
 
-   app.on( "game:score:done" ).then( function () {      
+   app.on( "game:score:done" ).then( function () {
+      ctx = app.ctx;
+      var storageName = ctx.username + ".bubble.menu";
       if (app.ctx._gameOver() && !app.ctx.player.resigned()) {
-         if (!localStorage.getItem("tutorial-menu")) {
+         if ( !localStorage.getItem( storageName ) ) {
             setTimeout(function () {
                t.showOne( t.archivedGames() );
-               localStorage.setItem("tutorial-menu", true);
+               localStorage.setItem( storageName, true );
             }, 2000);
          }
       }
-   });
+   } );
+
+   app.on( "game:bubble" ).then( function ( eventName, data1, data2 ) {
+      ctx = app.ctx;
+      var storageName = ctx.username + ".bubble.dynamic";
+      if ( !localStorage.getItem( storageName ) ) {
+         t.showOne( t[eventName].call( t, data1, data2 ) );
+         localStorage.setItem( storageName, true );
+      }      
+   } );
 
    return t;
 });

@@ -26,16 +26,6 @@
   /* IE9 */
   /* Legacy IOS */
 }
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
 html,
 body,
 ul,
@@ -1071,7 +1061,8 @@ a.big {
   display: inline-block;
   width: 200px;
   height: 150px;
-  background: url('../images/tiles/couple-woz.png') no-repeat center center;
+  background-position: center center;
+  background-repeat: no-repeat;
   -moz-background-size: contain;
   -o-background-size: contain;
   -webkit-background-size: contain;
@@ -1724,6 +1715,16 @@ button .currency {
   .dialog .confirm button {
     padding: 14px 20px;
   }
+}
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 input[type="checkbox"],
 input[type="radio"] {

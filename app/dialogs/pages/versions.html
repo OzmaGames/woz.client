@@ -4,7 +4,7 @@
       <h3>Select a word to change it's ending:</h3>
       <br />
       <div class="dropzone" data-bind="visible: !dropped(), pointer: {enter: enter, leave: leave, drop: drop}">
-         <span data-bind="ifnot: message">Drop a word here!</span>
+         <span data-bind="ifnot: message">You can only change verbs right now. <br /> Drag and drop the word here!</span>
          <!-- ko if: message -->
          <div data-bind="html: message"></div>
          <!-- /ko-->

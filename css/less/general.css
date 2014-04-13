@@ -1043,7 +1043,8 @@ a.big {
   display: inline-block;
   width: 200px;
   height: 150px;
-  background: url('../../images/tiles/couple-woz.png') no-repeat center center;
+  background-position: center center;
+  background-repeat: no-repeat;
   -moz-background-size: contain;
   -o-background-size: contain;
   -webkit-background-size: contain;
