@@ -67,6 +67,9 @@ h3 {
 a {
   cursor: pointer;
 }
+.strong {
+  font-weight: bold;
+}
 .noScroll::-webkit-scrollbar,
 .noScroll::-webkit-scrollbar-thumb {
   background-color: transparent !important;
@@ -251,6 +254,18 @@ a {
 }
 .block {
   display: block;
+}
+.loading-image {
+  overflow: visible;
+  background: url('../../images/app/loading.png') no-repeat center center;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  -webkit-background-size: contain;
+  background-size: contain;
+  width: 100%;
+  height: 192px;
+  text-align: center;
+  margin: 0 auto;
 }
 .link {
   cursor: pointer;
@@ -600,6 +615,10 @@ a.big {
   box-shadow: 0 0 10px 3px #aa8350;
   cursor: default;
 }
+.game-item.unseen .cell {
+  background-color: white;
+  border-color: #cfa972;
+}
 .tile:not(.active) .visibleOnActive {
   visibility: hidden;
   background-image: none !important;
@@ -857,6 +876,12 @@ a.big {
   font-family: CopseRegular;
   white-space: nowrap;
 }
+.tab nav .loader-bar {
+  position: absolute;
+  right: 0;
+  top: 4em;
+  font-size: 8px;
+}
 .tab nav ul {
   list-style: none;
   position: relative;
@@ -877,12 +902,44 @@ a.big {
   -webkit-text-shadow: 0 0 3px rgba(152, 107, 49, 0.5);
   text-shadow: 0 0 3px rgba(152, 107, 49, 0.5);
 }
+.tab nav li > * {
+  font-size: 15px;
+}
+.tab nav li .has-number {
+  padding-right: 1.5em;
+  position: relative;
+}
+.tab nav li .has-number .number {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  background-color: #f1a460;
+  height: 1em;
+  line-height: 1em;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #d7bea2;
+  width: 1.3em;
+  padding: 0.2em 0;
+  box-shadow: 1px 1px 7px 2px #f5cf76 inset;
+}
+.tab nav li:first-child {
+  margin-left: 0;
+}
+.tab nav li:not(.active) {
+  background-position: bottom center;
+}
 .tab nav li.active {
   -webkit-text-shadow: 0 2px 3px white;
   text-shadow: 0 2px 3px white;
   background-image: url('../../images/app/tabs/active.png');
   padding: 0 .5em;
   margin: 0 1.4em 0 1.2em;
+}
+.tab nav li.active:first-child {
+  margin-left: 1.5em;
 }
 .tab nav li.active::before,
 .tab nav li.active::after {
@@ -911,15 +968,6 @@ a.big {
   height: 2.3em;
   right: -1.35em;
 }
-.tab nav li:not(.active) {
-  background-position: bottom center;
-}
-.tab nav li:first-child {
-  margin-left: 0;
-}
-.tab nav li.active:first-child {
-  margin-left: 1.5em;
-}
 .tab nav li.ending {
   background: url('../../images/app/tabs/right.png') no-repeat;
   background-position: bottom center;
@@ -935,15 +983,6 @@ a.big {
 }
 .tab nav li.ending span {
   visibility: hidden;
-}
-.tab nav li > * {
-  font-size: 15px;
-}
-.tab nav .loader-bar {
-  position: absolute;
-  right: 0;
-  top: 4em;
-  font-size: 8px;
 }
 .note {
   display: none;
@@ -976,6 +1015,9 @@ a.big {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.table-flex .row.noPointer {
+  cursor: default;
+}
 .table-flex .row.flat {
   box-shadow: none;
 }
@@ -996,8 +1038,8 @@ a.big {
   text-transform: uppercase;
   text-align: center;
 }
-.table-flex .row,
-.table-flex .head {
+.table-flex .row:not(.no-shadow),
+.table-flex .head:not(.no-shadow) {
   box-shadow: inset #eee8e2 0 0 5px 2px;
 }
 .table-flex .ribbon {
@@ -1024,6 +1066,40 @@ a.big {
 }
 .table-flex .ribbon.blue {
   background-color: #5cb0c6;
+}
+.table-flex .row.unseen {
+  background-color: white;
+  border-color: #cfa972;
+}
+.table-flex .row.rightRibbon {
+  cursor: default;
+}
+.table-flex .row.rightRibbon.over:not(.resigned):not(.newGame),
+.table-flex .row.rightRibbon.newGame:not(.over) {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.table-flex .row.rightRibbon::after {
+  content: '';
+  position: absolute;
+  top: -1em;
+  right: -0.5em;
+  bottom: -1em;
+  width: 1em;
+  background-color: #f1a460;
+  box-shadow: 0 0 5px 5px #f1a460;
+}
+.table-flex .row.rightRibbon.won::after {
+  background-color: #5cb0c6;
+  box-shadow: 0 0 5px 5px #5cb0c6;
+}
+.table-flex .row.rightRibbon.resigned::after {
+  background-color: #cfa972;
+  box-shadow: 0 0 5px 5px #cfa972;
+}
+.table-flex .row.rightRibbon.newGame::after {
+  background-color: #f5cf76;
+  box-shadow: 0 0 5px 5px #f5cf76;
 }
 .table-flex .body {
   min-height: 100px;

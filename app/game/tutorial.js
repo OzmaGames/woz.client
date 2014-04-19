@@ -76,12 +76,12 @@
 
          var data = {
             heading: "Done?",
-            content: "Click me when <br> you are done!"
+            content: "Click me when <br> you are done! <br> Use 3-6 words."
          };
 
          data.css = "bottom right";
-         data.top = item.offset().top - 90 + APP.scrollTop;
-         data.left = item.offset().left - 90;
+         data.top = item.offset().top - 120 + APP.scrollTop;
+         data.left = item.offset().left - 70;
 
          return data;
       }

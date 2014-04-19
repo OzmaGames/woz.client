@@ -4,7 +4,8 @@
    
    return {
       loading: ko.observable(true),
-      loadingData: ko.observable(true),
+      loadingData: ctx.lobby.loading,
+      unseens: ctx.lobby.unseens,
 
       mode: ko.observable(),
 
@@ -29,6 +30,7 @@
                parser.loadOnGoing();
             } else if (tabIndex == 1) {
                parser.loadNotification();
+               ctx.lobby.seenAll();               
             } else if (tabIndex == 2) {
                parser.loadArchive();
             }
@@ -68,14 +70,7 @@
          }
          var base = this;
 
-         base.loadingData(true);
-         app.trigger("server:lobby", { username: ctx.username }, function (data) {
-            if (data.success) {
-               data.games.sort(function (a, b) { return b.modDate - a.modDate; });               
-               ctx.games(data.games);
-            }
-            base.loadingData(false);
-         });
+         app.trigger( "user:authenticated", { username: ctx.username, online: 1 } );
       },
 
       start: function () {

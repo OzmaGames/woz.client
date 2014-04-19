@@ -34,13 +34,6 @@
      GameBoard.prototype.portrait = function () {
         var base = this;
         base.portraitMode(!base.portraitMode());
-
-        //if (base.portraitMode()) {
-        //   base.innerWidth = window.innerWidth;
-        //   window.innerWidth = 768;
-        //} else {
-        //   window.innerWidth = base.innerWidth;
-        //}
      }
 
      GameBoard.prototype.addTile = function () {

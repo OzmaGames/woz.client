@@ -127,7 +127,7 @@
                $el.css({ top: top });
             }
 
-            if (hasMoved && opt.usePercentage) {
+            if ( hasMoved && opt.usePercentage ) {
                top = 100.0 * top / (opt.within.b - opt.within.t);
                left = 100.0 * left / (opt.within.r - opt.within.l);
                $el.css({
@@ -140,7 +140,7 @@
                $el.addClass("dragged");
             }
 
-            opt.dropped(e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange });
+            opt.dropped( e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange, isWithin: isWithin } );
 
             hasMoved = false;
          },

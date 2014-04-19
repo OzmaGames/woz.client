@@ -2,7 +2,7 @@
 
    function Gameover( data ) {
       this.heading = data.heading;
-      this.content = data.content.replace( '{{scored}}', ctx.player.score() );
+      this.content = data.content.replace( '{{scored}}', '<span class="score">' +  ctx.player.score() + '</span>' );
       this.btnText = data.btnText;
       this.xp = data.xp || 0;
       this.noXP = data.noXP === undefined ? false : data.noXP;
@@ -27,7 +27,7 @@
       LOST: {
          heading: "Good luck next time!",
          content: "You lost the game, scoring {{scored}} points.",
-         noXP: true,
+         //noXP: true,
          btnText: "Dismiss!"
       },
       SOLO: {
@@ -37,8 +37,8 @@
          target: 'singlePlayer'
       },
       RESIGNED: {
-         heading: "Meh, Good luck next time!",
-         content: "You resigned the game.",
+         heading: "The game has ended!",
+         content: "Your opponent has resigned from the game. Too bad, but this means you win!",
          btnText: "Dismiss"
       }
    }

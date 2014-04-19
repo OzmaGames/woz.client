@@ -115,17 +115,21 @@
       this.midPath = path.getPointAt(path.length / 2);
 
       var delta = path.length - desiredLength,
-          visibleLength = path.length - 2 * (Path.options.tileMargin + Path.options.tileRadius),
+          visibleLength = path.length - 2 * ( Path.options.tileMargin + Path.options.tileRadius ),
+          desiredVisibleLength = desiredLength - 2 * ( Path.options.tileMargin + Path.options.tileRadius ),
           startPoint = Path.options.tileRadius + Path.options.tileMargin,
           offset = startPoint;
 
       var hover = new paper.Path();
       hover.add(pm.startTile.center);
 
-      for (var i = 0; i < nWords; i++) {
-         var box = ko.utils.arrayFirst(pm.guiBoxes, function (box) {
+      for ( var i = 0; i < nWords; i++ ) {
+         var box = ko.utils.arrayFirst( pm.guiBoxes, function ( box ) {
             return box.index == i;
-         }), half = box.width() / 2 + Path.options.rectMargin + delta / (2 * nWords);                  
+         } ), half;
+
+         box.scale = delta >= 0 ? 1 : ( visibleLength / desiredVisibleLength );
+         half = box.scaledWidth() / 2 + Path.options.rectMargin + ( delta > 0 ? delta / ( 2 * nWords ) : 0 );
 
          offset += half;
          var point = path.getPointAt(offset),

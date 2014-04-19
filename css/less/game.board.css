@@ -323,11 +323,11 @@ body > .cloud.fixed .rule {
   width: 100%;
   top: 150px;
   left: 0;
-  -webkit-transform: translateZ(2px);
-  -moz-transform: translateZ(2px);
-  -ms-transform: translateZ(2px);
-  -o-transform: translateZ(2px);
-  transform: translateZ(2px);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 .notice-board h1 {
   margin-bottom: 1em;

@@ -60,7 +60,6 @@
             //dfd.reject(selection);
          } else {
             selection = Sort(selection);
-            for (var i = 0; i < selection.length; i++) console.log(selection[i].id, selection[i].lemma);
             dfd.resolve(selection);
          }
          path.remove();

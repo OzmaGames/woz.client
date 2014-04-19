@@ -1,22 +1,17 @@
 ﻿define( ['durandal/app', 'api/datacontext'], function ( app, ctx ) {
 
+   Object.beget = ( function ( Function ) {
+      return function ( Object ) {
+         Function.prototype = Object;
+         return new Function;
+      }
+   } )( function () { } );
+
    var archive = ko.observableArray();
    var onGoings = ko.observableArray();
    var notifications = ko.observableArray();
-
-   app.on( "game:update" ).then( function ( json ) {
-      var g = ko.utils.arrayFirst( ctx.games(), function ( game ) { return game.gameID == json.gameID; } );
-
-      g.over = json.over;
-      g.players = json.players;
-      delete g.summary;
-
-      ko.utils.arrayForEach( ctx.games(), function ( game ) { delete game.summary; } );
-
-      ctx.games.valueHasMutated();
-   } );
-
-   ctx.games.subscribe( function ( games ) {
+  
+   ctx.lobby.games.subscribe( function ( games ) {
       notifications.removeAll();
       onGoings.removeAll();
       archive.removeAll();
@@ -29,8 +24,8 @@
             if ( g.playerCount > 1 && g.players.length == 1 ) {
                g.players.push( { username: 'unknown', active: !g.players[0].active, resigned: false, score: 0 } );
             }
-            g.resigned = g.players[0].resigned || ( g.players.length > 1 && g.players[1].resigned );
             g.summary = getSummary( g );
+
             if ( !g.resigned ) {
                if ( g.over ) {
                   archive().push( g );
@@ -40,13 +35,17 @@
             }
             if ( g.playerCount == 2 ) {
                if ( g.over ) {
-                  notifications().push( getNotification( g ) );
+                  g.notificationSummary = getNotification( g );
+                  notifications().push( g );               
+               }
+               if ( g.creator != getPlayer( g ).username ) {
+                  var gCopy = Object.beget( g );
 
-                  //var gCopy = $.extend(true, {}, g);
-                  //gCopy.modDate = gCopy.creationDate;
-                  //gCopy.over = false;
-                  //gCopy.resigned = false;
-                  //notifications().push(getNotification(gCopy));
+                  //var gCopy = $.extend( true, {}, g );
+                  gCopy.newGame = true;
+                  gCopy.modDate = gCopy.creationDate;
+                  gCopy.notificationSummary = getNotification( gCopy );
+                  notifications().push( gCopy );                  
                }
             }
          }
@@ -114,22 +113,33 @@
       },
       player: function () {
          return $( "<span/>", { 'class': 'bold', text: 'You' } ).get( 0 ).outerHTML;
-      }
+      },
+      creator: function ( g ) {
+         return g.creator == ctx.username ? 'You' :
+            $( "<span/>", { 'class': 'bold', text: g.creator } ).get( 0 ).outerHTML;
+      },
    }
 
    function getNotification( g ) {
       var str = resolveRes( "{{modDate, date}} ", g );
-      if ( g.resigned ) {
-         return str + resolveRes( "{{loser}} resigned from your game.", g );
+      if ( g.newGame ) {
+         return str + resolveRes( "{{creator}} has started a game with you.", g );
       } else {
-         if ( g.over ) {
+         if ( g.resigned ) {
             if ( getWinner( g ).username == ctx.username ) {
-               return str + resolveRes( 'You won a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g );
+               return str + resolveRes( "{{loser}} resigned from your game.", g );
             } else {
-               return str + resolveRes( 'You lost a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g );
+               return str + resolveRes( "{{loser}} resigned from a game against {{winner}}.", g );
             }
+
          } else {
-            return str + "A game has started.";
+            if ( g.over ) {
+               if ( getWinner( g ).username == ctx.username ) {
+                  return str + resolveRes( 'You won a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g );
+               } else {
+                  return str + resolveRes( 'You lost a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g );
+               }
+            }
          }
       }
    }
@@ -154,12 +164,14 @@
 
    function getWinner( game ) {
       return game.players.length == 1 ? game.players[0] :
-         game.players[0].score > game.players[1].score && !game.players[0].resigned ? game.players[0] : game.players[1];
+         game.resigned ? ( game.players[0].resigned ? game.players[1] : game.players[0] ) :
+         game.players[0].score > game.players[1].score ? game.players[0] : game.players[1];
    }
 
    function getLoser( game ) {
       return game.players.length == 1 ? game.players[0] :
-         game.players[0].score > game.players[1].score && !game.players[0].resigned ? game.players[1] : game.players[0];
+         game.resigned ? ( game.players[0].resigned ? game.players[0] : game.players[1] ) :
+         game.players[0].score < game.players[1].score ? game.players[0] : game.players[1];
    }
 
    function resolveRes( str, g ) {
@@ -243,6 +255,7 @@
       ]
 
       this.selectGame = function ( game ) {
+         if ( game.resigned || (game.newGame && game.over) ) return;
          base.activeGame( game );
          app.navigate( "game/" + game.gameID );
       }
@@ -254,13 +267,11 @@
             doneText: 'Delete', cancelText: 'No'
          } ).then( function ( res ) {
             if ( res == "done" ) {
-               //ctx.games.valueHasMutated();
-
                app.trigger( "server:game:resign", {
                   username: ctx.username,
                   gameID: game.gameID,
                }, function () {
-                  //base.games.remove(game);
+
                } );
             }
          } );

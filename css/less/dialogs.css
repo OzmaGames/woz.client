@@ -70,11 +70,12 @@
   top: 250px;
   color: #713b00;
 }
-.dialog .loading .block {
+.dialog .loading.block {
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
+  z-index: 1 !important;
 }
 .dialog .alert {
   position: relative;
@@ -306,11 +307,12 @@
   -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   text-align: center;
-  line-height: 140%;
   padding: 2em;
   padding-bottom: 2.5em;
   cursor: pointer;
   font-family: cambria, CopseRegular;
+  font-size: 1em;
+  line-height: 1.3em;
 }
 .dialog .notice.top {
   top: 100px;
@@ -356,24 +358,40 @@
 }
 .dialog .notice h1 {
   font-size: 1.5em;
-  margin-bottom: 20px;
+  margin-bottom: 1em;
 }
 .dialog .notice h2 {
-  margin: 0.9em;
-  font-size: 1.9em;
+  margin: 1em;
+  font-size: 1.25em;
 }
 .dialog .notice h3 {
-  /*color: #38270b;*/
-  font-size: 1.1em;
+  margin: 1em;
+  font-size: 1em;
 }
-.dialog .notice > div {
+.dialog .notice p {
+  font-size: 1em;
+  line-height: 1.3em;
+}
+.dialog .notice a {
+  font-size: .9em;
+}
+.dialog .notice button:not(.btn) {
+  margin-top: .5em;
+  font-size: 0.9em;
+}
+.dialog .notice .score {
   font-size: 1.2em;
 }
-.dialog .notice .strong {
-  font-weight: bold;
+.dialog .notice .xp-container {
+  line-height: 2em;
 }
-.dialog .notice button {
-  font-size: 0.9em;
+.dialog .notice .xp-container .xp {
+  font-size: 2em;
+  font-weight: bold;
+  /*text-shadow: 1px 1px 3px;*/
+}
+.dialog .notice .xp-container .symbol {
+  font-size: 1em;
 }
 .dialog .notice .wand {
   background-position: center right;
@@ -389,9 +407,6 @@
   background-size: 100% auto;
   height: 120px;
   background-repeat: no-repeat;
-}
-.dialog .notice a {
-  font-size: .9em;
 }
 .dialog .notice .versions {
   margin: .5em 0 1em 0;

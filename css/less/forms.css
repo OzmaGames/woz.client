@@ -491,4 +491,11 @@ button.facebook,
   vertical-align: top;
 }
 /*# sourceMappingURL=forms.css.map */
+.button-group button {
+  margin-bottom: .5em;
+  font-size: .9em;
+}
+.button-group button:last-child {
+  margin-bottom: 0;
+}
 /*# sourceMappingURL=forms.css.map */

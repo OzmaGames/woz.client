@@ -9,7 +9,12 @@
          <nav>
             <ul>
                <li><span>ongoing games</span></li>
-               <li><span>notifications</span></li>
+               <li>
+                  <span class="has-number">
+                     notifications
+                     <span class="number" data-bind="text: unseens, visible: unseens"></span>
+                  </span>
+               </li>
                <li><span>game archive</span></li>
                <li class="ending"><span>ending</span></li>
             </ul>
@@ -17,7 +22,7 @@
          </nav>
          <div class="content">
             <div>
-               <div data-bind="compose: compose, fadeVisible: !$root.loadingData()"></div>
+               <div data-bind="compose: compose"></div>
             </div>
          </div>
       </div>

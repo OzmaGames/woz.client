@@ -53,6 +53,10 @@ a {
     cursor: pointer;
 }
 
+.strong {
+    font-weight: bold;
+}
+
 .noScroll::-webkit-scrollbar,
 .noScroll::-webkit-scrollbar-thumb {
     background-color: transparent !important;
@@ -255,6 +259,19 @@ a {
 
 .block {
     display: block;
+}
+
+.loading-image {
+    overflow: visible;
+    background: url('../../images/app/loading.png') no-repeat center center;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 100%;
+    height: 192px;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .link {
@@ -669,6 +686,10 @@ a.small {
         box-shadow: 0 0 10px 3px @strokeDarkerColor;
         cursor: default;
     }
+    .game-item.unseen .cell {
+        background-color: white;
+        border-color: @lightbrown;     
+    }
 
 .tile:not(.active) .visibleOnActive {
     visibility: hidden;
@@ -969,14 +990,20 @@ a.small {
     min-width: 300px;
     font-family: CopseRegular;
     white-space: nowrap;
-}
 
-    .tab nav ul {
+    & .loader-bar {
+        position: absolute;
+        right: 0;
+        top: 4em;
+        font-size: 8px;
+    }
+
+    & ul {
         list-style: none;
         position: relative;
     }
 
-    .tab nav li {
+    & li {
         display: inline-block;
         padding: 0 1.4em 0 1.2em;
         margin-left: -.3em; /*collaps spaces*/
@@ -990,24 +1017,60 @@ a.small {
         position: relative;
         -webkit-text-shadow: 0 0 3px @textShadowColor;
         text-shadow: 0 0 3px @textShadowColor;
-    }
 
-        .tab nav li.active {
+        & > * {
+            font-size: 15px;
+        }
+
+        & .has-number {
+            padding-right: 1.5em;
+            position: relative;
+
+            & .number {
+                position: absolute;
+                top: 0;
+                right: 0;
+                color:white;
+                background-color: @orange;
+                height: 1em;
+                line-height: 1em;
+                border-radius: 50%;                
+                text-align: center;
+                font-size: 12px;
+                border: 1px solid @strokeColor;
+                width: 1.3em;
+                padding: 0.2em 0;
+                box-shadow: 1px 1px 7px 2px @yellow inset;
+            }
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:not(.active) {
+            background-position: bottom center;
+        }
+
+        &.active {
             -webkit-text-shadow: 0 2px 3px white;
             text-shadow: 0 2px 3px white;
             background-image: url('../../images/app/tabs/active.png');
             padding: 0 .5em;
             margin: 0 1.4em 0 1.2em;
-        }
 
-            .tab nav li.active::before, .tab nav li.active::after {
+            &:first-child {
+                margin-left: 1.5em;
+            }
+
+            &::before, &::after {
                 content: " ";
                 position: absolute;
                 display: block;
                 top: 0;
             }
 
-            .tab nav li.active::before {
+            &::before {
                 background: url('../../images/app/tabs/active-left.png') no-repeat;
                 -moz-background-size: contain;
                 -o-background-size: contain;
@@ -1018,7 +1081,7 @@ a.small {
                 left: -1.35em;
             }
 
-            .tab nav li.active::after {
+            &::after {
                 background: url('../../images/app/tabs/active-right.png') no-repeat;
                 -moz-background-size: contain;
                 -o-background-size: contain;
@@ -1028,20 +1091,9 @@ a.small {
                 height: 2.3em;
                 right: -1.35em;
             }
-
-        .tab nav li:not(.active) {
-            background-position: bottom center;
         }
 
-        .tab nav li:first-child {
-            margin-left: 0;
-        }
-
-        .tab nav li.active:first-child {
-            margin-left: 1.5em;
-        }
-
-        .tab nav li.ending {
+        &.ending {
             background: url('../../images/app/tabs/right.png') no-repeat;
             background-position: bottom center;
             -moz-background-size: 100% .5em;
@@ -1053,23 +1105,13 @@ a.small {
             -webkit-text-shadow: none;
             text-shadow: none;
             cursor: default;
-        }
 
-            .tab nav li.ending span {
+            & span {
                 visibility: hidden;
             }
-
-        .tab nav li > * {
-            font-size: 15px;
         }
-
-    .tab nav .loader-bar {
-        position: absolute;
-        right: 0;
-        top: 4em;
-        font-size: 8px;
     }
-
+}
 
 .note {
     display: none;
@@ -1106,6 +1148,10 @@ a.small {
         box-sizing: border-box;
     }
 
+        .table-flex .row.noPointer {
+            cursor: default;
+        }
+
         .table-flex .row.flat {
             box-shadow: none;
         }
@@ -1130,9 +1176,9 @@ a.small {
         text-align: center;
     }
 
-    .table-flex .row, .table-flex .head {
-        box-shadow: inset @rowStrokeColor 0 0 5px 2px;
-    }
+        .table-flex .row:not(.no-shadow), .table-flex .head:not(.no-shadow) {
+            box-shadow: inset @rowStrokeColor 0 0 5px 2px;
+        }
 
     .table-flex .ribbon {
         position: absolute;
@@ -1162,46 +1208,88 @@ a.small {
             background-color: @blue;
         }
 
-    .table-flex .body {
-        min-height: 100px;
-        line-height: 1.2em;
+    .table-flex .row.unseen {
+        background-color: white;
+        border-color: @lightbrown;
     }
 
-    .table-flex .collection {
-        width: 50%;
-        display: inline-block;
+.ribbonColor(@color) {
+    background-color: @color;
+    box-shadow: 0 0 5px 5px @color;
+}
+
+.table-flex .row.rightRibbon {
+    cursor: default;
+}
+
+    .table-flex .row.rightRibbon.over:not(.resigned):not(.newGame),
+    .table-flex .row.rightRibbon.newGame:not(.over) {
+        text-decoration: underline;
+        cursor: pointer;
     }
 
-    .table-flex .row .date {
-        display: inline-block;
-        width: 8em;
-        font-style: italic;
-        text-align: left;
+    .table-flex .row.rightRibbon::after {
+        content: '';
+        position: absolute;
+        top: -1em;
+        right: -.5em;
+        bottom: -1em;
+        width: 1em;
+        .ribbonColor(@orange);
     }
 
-    .table-flex .couple {
+    .table-flex .row.rightRibbon.won::after {
+        .ribbonColor(@blue);
+    }
+
+    .table-flex .row.rightRibbon.resigned::after {
+        .ribbonColor(@lightbrown);
+    }
+
+    .table-flex .row.rightRibbon.newGame::after {
+        .ribbonColor(@yellow);
+    }
+
+.table-flex .body {
+    min-height: 100px;
+    line-height: 1.2em;
+}
+
+.table-flex .collection {
+    width: 50%;
+    display: inline-block;
+}
+
+.table-flex .row .date {
+    display: inline-block;
+    width: 8em;
+    font-style: italic;
+    text-align: left;
+}
+
+.table-flex .couple {
+    display: inline-block;
+    width: 200px;
+    height: 150px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    -webkit-background-size: contain;
+    background-size: contain;
+    vertical-align: middle;
+    font-size: 1.5em;
+}
+
+    .table-flex .couple + div {
         display: inline-block;
-        width: 200px;
-        height: 150px;        
-        background-position: center center;
-        background-repeat: no-repeat;
-        -moz-background-size: contain;
-        -o-background-size: contain;
-        -webkit-background-size: contain;
-        background-size: contain;
+        width: ~"calc(100% - 205px)";
         vertical-align: middle;
-        font-size: 1.5em;
     }
 
-        .table-flex .couple + div {
-            display: inline-block;
-            width: ~"calc(100% - 205px)";
-            vertical-align: middle;
+        .table-flex .couple + div > div {
+            margin-bottom: .3em;
         }
-
-            .table-flex .couple + div > div {
-                margin-bottom: .3em;
-            }
 
 .has-currency {
     position: relative;

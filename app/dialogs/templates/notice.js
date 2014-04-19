@@ -5,6 +5,20 @@
    //app.dialog.show("notice", {model: {},view: "dialogs/pages/welcome"})
    //app.dialog.show("notice", {model: 'dialogs/pages/currency', css: 'long', closeOnClick: false, fixed: true, centered: true, modal: true})
 
+   app.dialog.show( "notice", {
+      model: {
+         btnText: "Start New Game",
+         close: function () { },
+         content: "You completed the game board, <br> scoring 195 points.",
+         gotoLobby: function () { },
+         heading: "Well done!",
+         noRedirect: undefined,
+         noXP: false,
+         target: "singlePlayer",
+         xp: 0,
+      }, view: 'dialogs/pages/GameOver'
+   } );
+
    function Notice() {
       this.modal = false;
       this.model = {};

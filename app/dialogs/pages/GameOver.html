@@ -1,23 +1,18 @@
-﻿<div style="letter-spacing: 1px; font-size: 1.1em; ">
-   <i class="command close" data-bind="click: $parent.close"></i>
+﻿<i class="command close" data-bind="click: $parent.close"></i>
 
-   <h1 data-bind="text: heading"></h1>
-   <div data-bind="text: content"></div>
-   <br />
-   <div data-bind="ifnot: xp == -1 && !noXP">
-      <div class="strong">You received:</div>
-      <div><span data-bind="text: xp"></span> XP</div>
+<h1 data-bind="text: heading"></h1>
+<div data-bind="html: content"></div>
+<br />
+<div data-bind="ifnot: xp <= -1 && !noXP">
+   <div class="strong">You received:</div>
+   <div class="xp-container">
+      <span class="xp" data-bind="text: xp"></span>
+      <span class="symbol">XP</span>
    </div>
-   <br />
-   <div>
-      <button class="blue enableGPU" data-bind="text: btnText, click: gotoLobby, clickBubble: false"></button>
-   </div>
-   <br />
-   <div>
-      <button class="blue enableGPU" disabled>share game board</button>
-   </div>
-   <br />
-   <div>
-      <button class="blue enableGPU" disabled>make a poem</button>
-   </div>
+</div>
+<br />
+<div class="">
+   <button class="blue enableGPU" style="width:220px" data-bind="text: btnText, click: gotoLobby, clickBubble: false"></button>
+   <button class="blue enableGPU" style="width:220px" disabled>share game board</button>
+   <button class="blue enableGPU" style="width:220px" disabled>make a poem</button>
 </div>

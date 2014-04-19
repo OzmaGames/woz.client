@@ -1,9 +1,11 @@
-﻿define( 'api/datacontext', ['durandal/system', 'plugins/router', 'durandal/app', 'api/constants', 'dialogs/_constants', 'api/model/Path'],
-  function ( system, router, app, consts, DIALOGS, Path ) {
+﻿define( 'api/datacontext', ['durandal/system', 'plugins/router', 'durandal/app', 'api/constants', 'dialogs/_constants', 'api/model/Path', 'api/datacontext.lobby'],
+  function ( system, router, app, consts, DIALOGS, Path, ctxLobby ) {
+
+     app.on( "game:update" ).then( function ( data ) { app.trigger( "game:update:ctx", data ) } );
 
      var model =
      {
-        games: ko.observableArray(),
+        lobby: ctxLobby,
 
         gameID: 0,
 
@@ -67,7 +69,7 @@
 
      model.load = function ( id ) {
         console.log( "loading game.." );
-        app.off( "game:start game:update game:swap-words" );
+        app.off( "game:start game:update:ctx game:swap-words" );
         model.loading( true );
         app.dialog.show( "loading" );
 
@@ -216,11 +218,17 @@
            model.loading( false );
            model.loadingStatus( "Ready" );
            app.dialog.close( "loading" );
-           app.trigger( "game:started" );
+           app.trigger( "game:started", json );
         } );
 
-        app.on( "game:update", function ( json ) {
+        app.on( "game:update:ctx", function ( json ) {
            app.loading( false );
+           debugger;
+           if ( !json.success && json.gameID == model.gameID ) {
+              app.dialog.show( "alert", { content: "Your phrase has been rejected by the server." } );
+              ctx.lastPath.removeAll();
+              ctx.player.active( true );
+           }
 
            if ( json.success && json.gameID == model.gameID ) {
 
@@ -248,13 +256,14 @@
                           } else {
                              data = module.WON;
                           }
-                       } else if ( winner === null ) {
-                          app.navigate( "lobby" );
-                          return;
-                       } else if ( model.player.resigned() ) {
-                          data = module.RESIGNED;
                        } else {
                           data = module.LOST;
+                       }
+                       if ( model.player.resigned() ) {
+                          app.navigate( "lobby" );
+                          return;
+                       } else if ( model.players()[0].resigned() || (model.playerCount == 2 && model.players()[1].resigned()) ) {
+                          data = module.RESIGNED;
                        }
 
                        dfd.resolve( data );
@@ -280,6 +289,7 @@
                           data.noRedirect = true; //dont redirect
                        }
 
+                       console.log( data )
                        app.dialog.show( "notice", { model: data, view: 'dialogs/pages/GameOver' } ).then( function () {
                           if ( json.stats.levelUp ) {
                              app.dialog.show( "notice", {
@@ -297,69 +307,70 @@
                  } );
 
               }
-           }
 
-           var waitingForStars = false;
-           for ( var i = 0; i < json.players.length; i++ ) {
-              var jplayer = json.players[i];
-              var cplayer = find( model.players(), { username: jplayer.username } );
-              if ( !cplayer ) {
-                 cplayer = find( model.players(), { username: 'unknown' } );
-                 cplayer.username = jplayer.username;
-                 ctx.players.valueHasMutated();
-              }
-              var scored = jplayer.score - cplayer.score();
+              var waitingForStars = false;
+              for ( var i = 0; i < json.players.length; i++ ) {
+                 var jplayer = json.players[i];
+                 var cplayer = find( model.players(), { username: jplayer.username } );
+                 if ( !cplayer ) {
+                    cplayer = find( model.players(), { username: 'unknown' } );
+                    cplayer.username = jplayer.username;
+                    ctx.players.valueHasMutated();
+                 }
+                 var scored = jplayer.score - cplayer.score();
 
-              cplayer.scored = scored;
-              cplayer.score( jplayer.score );
-              cplayer.active( jplayer.active );
-              cplayer.resigned( jplayer.resigned || false );
+                 cplayer.scored = scored;
+                 cplayer.score( jplayer.score );
+                 cplayer.active( jplayer.active );
+                 cplayer.resigned( jplayer.resigned || false );
 
-              if ( cplayer.username === model.player.username && scored ) {
-                 waitingForStars = true;
-                 ( function ( scored ) {
-                    var sub;
-                    sub = app.on( "game:stars:done" ).then( function () {
-                       app.dialog.show( "alert", {
-                          content: "You scored <b>" + scored + "</b> points!",
-                          delay: 3000
-                       } ).then( function () {
-                          app.trigger( "game:score:done" );
+                 if ( cplayer.username === model.player.username && scored ) {
+                    waitingForStars = true;
+                    ( function ( scored ) {
+                       var sub;
+                       sub = app.on( "game:stars:done" ).then( function () {
+                          app.dialog.show( "alert", {
+                             content: "You scored <b>" + scored + "</b> points!",
+                             delay: 3000
+                          } ).then( function () {
+                             app.trigger( "game:score:done" );
+                          } );
+
+                          sub.off();
                        } );
-
-                       sub.off();
-                    } );
-                 } )( scored )
+                    } )( scored )
+                 }
               }
-           }
 
-           if ( !waitingForStars && model.gameOver() ) {
-              app.trigger( "game:score:done" );
-           }
-
-           if ( json.path ) {
-              var path = ko.utils.arrayFirst( model.paths(), function ( path ) { return path.id == json.path.id } );
-              path.phrase.update( json.path.phrase );
-           }
-
-           if ( json.words ) {
-              for ( var j = 0; j < json.words.length; j++ ) {
-                 json.words[j].isSelected = ko.observable( false );
-                 json.words[j].css = "";
-                 model.words.push( json.words[j] );
+              if ( !waitingForStars && model.gameOver() ) {
+                 app.trigger( "game:score:done" );
               }
+
+              if ( json.path ) {
+                 var path = ko.utils.arrayFirst( model.paths(), function ( path ) { return path.id == json.path.id } );
+                 path.phrase.update( json.path.phrase );
+              }
+
+              if ( json.words ) {
+                 for ( var j = 0; j < json.words.length; j++ ) {
+                    json.words[j].isSelected = ko.observable( false );
+                    json.words[j].css = "";
+                    model.words.push( json.words[j] );
+                 }
+              }
+
+              if ( model.playerCount > 1 && !model.gameOver() ) {
+                 if ( model.player.active() )
+                    app.dialog.show( "slipper-fixed", DIALOGS.YOUR_TURN );
+                 else
+                    app.dialog.show( "slipper-fixed", DIALOGS.THEIR_TURN );
+              }
+
+              model.players.valueHasMutated();
+
+              app.trigger( "game:updated", json );
            }
 
-           if ( model.playerCount > 1 && !model.gameOver() ) {
-              if ( model.player.active() )
-                 app.dialog.show( "slipper-fixed", DIALOGS.YOUR_TURN );
-              else
-                 app.dialog.show( "slipper-fixed", DIALOGS.THEIR_TURN );
-           }
-
-           model.players.valueHasMutated();
-
-           app.trigger( "game:updated", json );
         } );
 
         app.on( "game:swap-words", function ( json ) {
@@ -400,7 +411,7 @@
 
      model.unload = function () {
         model._gameOver( false );
-        app.off( "game:start game:update game:swap-words" );
+        app.off( "game:start game:update:ctx game:swap-words" );
         model.words.removeAll();
         var paths = ctx.paths();
         for ( var i = 0; i < paths.length; i++ ) {

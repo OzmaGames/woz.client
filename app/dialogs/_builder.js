@@ -26,7 +26,7 @@
         var root = createRoot(isFixed);
         
         return system.defer(function (dfd) {
-           if (instance.attributes.singleton) {
+           if ( instance.attributes.singleton ) {
               var z = close(instance.__moduleId__, { msg: 'queue' })
                  .then(createHost);
            } else {

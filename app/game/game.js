@@ -87,28 +87,28 @@
                setTimeout( function ( div ) {
                   div.bind( $.support.transitionEnd, function ( e ) {
                      if ( e.originalEvent.propertyName == 'opacity' ) {
-                        $(this).remove();
+                        $( this ).remove();
                      }
                   } ).css( { y: '-3em', opacity: 0, scale: 2 } );
                }, 0, scoreDiv );
             }
          }
 
-         var topPadding = parseInt($( '#gameboard' ).css('paddingTop'));
+         var topPadding = parseInt( $( '#gameboard' ).css( 'paddingTop' ) );
 
          for ( var i = 0; i < boxScore * 3; i++ ) {
             var star = $( '<div/>', { 'class': 'star' } );
             var scale = ( ( Math.random() * 5 ) + 3 ) / 10;
             var offset = box.offset();
             var position = box.position();
-            
-            
+
+
             star.css( {
                scale: scale,
                x: offset.left * ( 1 / scale ),
                y: position.top * ( 1 / scale ) + topPadding
                //backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
-            } );            
+            } );
 
             setTimeout( function ( o ) {
                $( '#app' ).append( o[0] );
@@ -248,7 +248,7 @@
                setTimeout( function ( div ) {
                   div.bind( $.support.transitionEnd, function ( e ) {
                      if ( e.originalEvent.propertyName == 'opacity' ) {
-                        $(this).remove();
+                        $( this ).remove();
                      }
                   } ).css( { y: '-3em', opacity: 0, scale: 2 } );
                }, 0, scoreDiv );
@@ -362,7 +362,7 @@
       player: ctx.player,
 
       allowSwap: ko.computed( function () {
-         return isMenuActive() && isPlayerActive() && canSwap() && ( ctx.mode() === '' || ctx.mode() === 'swapWords' );
+         return isMenuActive() && isPlayerActive() && canSwap() && ( ctx.mode() === '' || ctx.mode() === 'swapWords' ) && !ctx.activeWords();
       } ),
       allowResign: ko.computed( function () {
          return isMenuActive();
@@ -371,10 +371,10 @@
          return isMenuActive() && isPlayerActive() && allowCircle() && ( ctx.mode() === '' || ctx.mode() == 'circleWords' );
       } ),
       allowVersions: ko.computed( function () {
-         return isMenuActive() && isPlayerActive() && canVersions() && ( ctx.mode() === '' || ctx.mode() == 'versions' );
+         return isMenuActive() && isPlayerActive() && canVersions() && ( ctx.mode() === '' || ctx.mode() == 'versions' ) && !ctx.activeWords();
       } ),
       allowAddWords: ko.computed( function () {
-         return isMenuActive() && isPlayerActive() && canAddWords() && ( ctx.mode() === '' || ctx.mode() == 'addWords' );
+         return isMenuActive() && isPlayerActive() && canAddWords() && ( ctx.mode() === '' || ctx.mode() == 'addWords' ) && !ctx.activeWords();
       } ),
 
       mode: ctx.mode,
@@ -507,14 +507,10 @@
                system.acquire( "game/canvas/circleWords" ).then( function ( m ) {
                   m.load().then( function ( words ) {
                      var dfd = app.scrollUp();
-                     if ( dfd ) {
-                        dfd.then( function () {
-                           app.trigger( "app:force-resize" );
-                        } )
-                     }
                      ctx.activeWords( words );
+                     ctx.mode( '' );
                      module.unload();
-
+                     
                      app.dialog.show( "slipper", DIALOGS.CHOOSE_PATH );
                   } );
                } );
@@ -523,12 +519,12 @@
 
             unload: function () {
                app.dialog.close( "slipper" );
-               ctx.mode( '' );
                paper.tool.remove();
             }
          };
 
          if ( ctx.mode() == 'circleWords' ) {
+            ctx.mode( '' );
             module.unload();
          } else {
             ctx.mode( 'circleWords' );
@@ -618,7 +614,7 @@
          app.palette.add( "circleWords", "action", "left" )
             .click( game.circleWords )
             .css( {
-               cancel: ko.computed( function () { return game.mode() === 'circleWords' || ctx.activeWords() } ),
+               cancel: ko.computed( function () { return game.mode() == 'circleWords' || ctx.activeWords() } ),
                disabled: ko.computed( function () { return !game.allowCircle() } )
             } );
 

@@ -237,6 +237,7 @@
             words[i].word.isPlayed = 0;
             delete words[i].word.lastBox;
          }
+         base.phrase._complete( false );
          base.phrase.words.removeAll();
 
          model.words.valueHasMutated();

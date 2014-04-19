@@ -24,7 +24,7 @@
       app.inlineLoading(true);
 
       this.el.css({
-         top: ($(window).innerHeight() - this.el.outerHeight()) / 2
+         top: ($(window).innerHeight() - this.el.outerHeight()) / 2 - 150
       });
 
       $('.block', this.el).css({ opacity: 1, scale: 1 });

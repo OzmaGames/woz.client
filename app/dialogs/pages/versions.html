@@ -1,8 +1,7 @@
 ﻿<div style="min-height:200px">
    <i class="command close" data-bind="click: $parent.close"></i>
    <div data-bind="if: step() == 1">
-      <h3>Select a word to change it's ending:</h3>
-      <br />
+      <h1>Select a word to change it's ending</h1>
       <div class="dropzone" data-bind="visible: !dropped(), pointer: {enter: enter, leave: leave, drop: drop}">
          <span data-bind="ifnot: message">You can only change verbs right now. <br /> Drag and drop the word here!</span>
          <!-- ko if: message -->
