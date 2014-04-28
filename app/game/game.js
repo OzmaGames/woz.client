@@ -193,9 +193,13 @@
       }
    }
 
+   function gameIsReady() {
+      app.trigger( "game:started:ready" );
+   }
+
    function showScroll() {
       if ( ctx.gameOver() || ctx.resumedGame ) {
-         app.trigger( "game:started:ready" );
+         gameIsReady();
          return;
       }
 
@@ -205,7 +209,7 @@
          setTimeout( app.scrollUp, 800, true );
          setTimeout( function () {
             document.getElementById( 'app' ).classList.remove( 'noScroll' );
-            app.trigger( "game:started:ready" );
+            gameIsReady();
          }, 1500 );
       }, 800 );
    }

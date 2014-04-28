@@ -9,6 +9,9 @@
       this.target = data.target || "lobby";
       this.noRedirect = data.noRedirect;
 
+      this.btnSizeAuto = !!data.btnSizeAuto;
+      this.showButtons = !data.hideButtons;
+
       var base = this;
       this.gotoLobby = function () {
          app.dialog.close( "notice" );
@@ -39,7 +42,9 @@
       RESIGNED: {
          heading: "The game has ended!",
          content: "Your opponent has resigned from the game. Too bad, but this means you win!",
-         btnText: "Dismiss"
+         btnText: "OK!",
+         btnSizeAuto: "auto",
+         hideButtons: true
       }
    }
 

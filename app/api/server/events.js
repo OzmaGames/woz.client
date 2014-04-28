@@ -17,7 +17,11 @@
         "lobby",
         "friends",
         "tutorial:place-phrase",
-        "tutorial:skip"
+        "tutorial:skip",
+        "user:collections",
+        "shop:collections",
+        "user:info",
+        "shop:besoz"
       ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {

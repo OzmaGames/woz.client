@@ -1,11 +1,15 @@
-﻿define( 'api/datacontext', ['durandal/system', 'plugins/router', 'durandal/app', 'api/constants', 'dialogs/_constants', 'api/model/Path', 'api/datacontext.lobby'],
-  function ( system, router, app, consts, DIALOGS, Path, ctxLobby ) {
+﻿define( 'api/datacontext',
+  ['durandal/system', 'plugins/router', 'durandal/app', 'api/constants', 'dialogs/_constants', 'api/model/Path',
+     'api/datacontext.lobby', 'api/datacontext.user', 'api/datacontext.shop'],
+  function ( system, router, app, consts, DIALOGS, Path, ctxLobby, ctxUser, ctxShop ) {
 
      app.on( "game:update" ).then( function ( data ) { app.trigger( "game:update:ctx", data ) } );
 
      var model =
      {
         lobby: ctxLobby,
+        user: ctxUser,
+        shop: ctxShop,
 
         gameID: 0,
 
@@ -43,6 +47,7 @@
      };
 
      model.username = sessionStorage.getItem( "username" ) || "ali";
+     app.trigger( "user:authenticated", { username: model.username, online: 1 } );
 
      app.on( 'account:login', function ( res ) {
         if ( res.success ) {
@@ -66,6 +71,28 @@
      model.words.immovable = ko.computed( function () { return model.mode() === 'swapWords'; } );
      model.tutorialMode = ko.observable( false );
      model.tutorialObject = ko.observable();
+
+     app.on( "game:lobby:published", function ( game ) {
+        if ( game.gameID == model.gameID ) {
+           var hasUnknown = ko.utils.arrayFirst( ctx.players(), function ( p ) { return p.username == 'unknown'; } );
+           if ( hasUnknown ) {
+              var oponent = ko.utils.arrayFirst( game.players, function ( p ) { return p.username != model.username; } );
+              if ( oponent ) {
+                 app.trigger( "game:random-player:update", oponent.username );
+              }
+           }
+        }
+     } );
+
+     app.on( "game:random-player:update", function ( username ) {
+        for ( var i = 0, player; player = model.players()[i++]; ) {
+           if ( player.username == 'unknown' ) {
+              player.username = username;
+              ctx.players.splice( i - 1, 1 );
+              ctx.players.splice( i - 1, 0, player );
+           }
+        }
+     } );
 
      model.load = function ( id ) {
         console.log( "loading game.." );
@@ -159,7 +186,9 @@
                  dialogData = DIALOGS.THEIR_TURN;
 
               var tmp = app.on( "game:started:ready" ).then( function () {
-                 app.dialog.show( "slipper-fixed", dialogData );
+                 if ( location.hash.match( /#game/ig ) ) {
+                    app.dialog.show( "slipper-fixed", dialogData );
+                 }
                  tmp.off();
               } );
            }
@@ -223,7 +252,7 @@
 
         app.on( "game:update:ctx", function ( json ) {
            app.loading( false );
-           debugger;
+
            if ( !json.success && json.gameID == model.gameID ) {
               app.dialog.show( "alert", { content: "Your phrase has been rejected by the server." } );
               ctx.lastPath.removeAll();
@@ -262,7 +291,7 @@
                        if ( model.player.resigned() ) {
                           app.navigate( "lobby" );
                           return;
-                       } else if ( model.players()[0].resigned() || (model.playerCount == 2 && model.players()[1].resigned()) ) {
+                       } else if ( model.players()[0].resigned() || ( model.playerCount == 2 && model.players()[1].resigned() ) ) {
                           data = module.RESIGNED;
                        }
 
@@ -313,9 +342,7 @@
                  var jplayer = json.players[i];
                  var cplayer = find( model.players(), { username: jplayer.username } );
                  if ( !cplayer ) {
-                    cplayer = find( model.players(), { username: 'unknown' } );
-                    cplayer.username = jplayer.username;
-                    ctx.players.valueHasMutated();
+                    app.trigger( "game:random-player:update", jplayer.username );
                  }
                  var scored = jplayer.score - cplayer.score();
 
@@ -359,7 +386,7 @@
                  }
               }
 
-              if ( model.playerCount > 1 && !model.gameOver() ) {
+              if ( model.playerCount > 1 && !model.gameOver() && location.hash.match( /#game/ig ) ) {
                  if ( model.player.active() )
                     app.dialog.show( "slipper-fixed", DIALOGS.YOUR_TURN );
                  else

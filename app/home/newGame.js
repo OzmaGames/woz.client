@@ -5,17 +5,20 @@
          id: 0,
          title: 'play with friend',
          description: 'Choose from my friends list',
-         playerCount: 2
+         playerCount: 2,
+         className: 'icon-group'
       }, {
          id: 1,
          title: 'random opponent',
          description: 'Find an opponent automatically',
-         playerCount: 2
+         playerCount: 2,
+         className: 'icon-random'
       }, {
          id: 2,
          title: 'single play',
          description: 'Compete with yourself',
-         playerCount: 1
+         playerCount: 1,
+         className: 'icon-user'
       }
    ];
 
@@ -29,29 +32,16 @@
       }
    };
 
-   var collections = [
-      {
-         shortName: 'woz',
-         longName: 'Words of Oz',
-         description: '50/50 tiles - 150/150 words'         
-      },
-      {
-         shortName: 'nf',
-         longName: 'NightFall',
-         description: '50/50 tiles - 150/150 words'        
-      },
-      {
-         shortName: 'loc',
-         longName: 'Life of Color',
-         description: '50/50 tiles - 150/150 words'         
-      },
-      {
+   var collections = ko.observableArray();
+   ctx.user.collections.subscribe( function ( data ) {
+      collections( data );
+      collections.push( {
          shortName: 'more',
          longName: 'More',
-         description: '3/15 collections'
-      }
-   ];
-
+         desc: '3/15 collections'
+      } );
+   } );
+   ctx.user.collections.valueHasMutated();
 
    vm = {
       gameOptions: gameOptions,
@@ -79,6 +69,11 @@
          app.trigger("game:dispose");
 
          app.palette.dispose();         
+      },
+      collectionClicked: function (collection) {
+         if ( collection.shortName == 'more' ) {
+            app.navigate( 'shop' );
+         }
       },
       binding: function () {
          return { cacheViews: false };
@@ -170,5 +165,5 @@
       }
    }).extend({ throttle: 300 });
 
-   return window.page = vm;
+   return vm;
 });

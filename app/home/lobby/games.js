@@ -1,61 +1,47 @@
 ﻿define( ['durandal/app', 'api/datacontext'], function ( app, ctx ) {
 
-   Object.beget = ( function ( Function ) {
-      return function ( Object ) {
-         Function.prototype = Object;
-         return new Function;
-      }
-   } )( function () { } );
-
    var archive = ko.observableArray();
    var onGoings = ko.observableArray();
-   var notifications = ko.observableArray();
-  
+   var notifications = ko.observableArray();   
+
+   notifications.show = function ( elem ) {
+      if ( elem.nodeType === 1 )
+         $( elem ).hide().slideDown()
+   }
+
+   ctx.lobby.notifications.subscribe( function ( games ) {
+      
+      notifications().splice( 0, notifications().length );
+
+      ko.utils.arrayForEach( games, function ( g ) {
+         g.notificationSummary = getNotification( g );
+         if ( g.over || g.newGame ) notifications().push( g );
+      } );
+
+      notifications.valueHasMutated();
+   } );
+   
+
    ctx.lobby.games.subscribe( function ( games ) {
-      notifications.removeAll();
+      //onGoings().splice( 0, onGoings().length );
+      //archive().splice( 0, archive().length );
       onGoings.removeAll();
       archive.removeAll();
 
       ko.utils.arrayForEach( games, function ( g ) {
-         if ( g.summary ) {
+         if ( !g.summary ) g.summary = getSummary( g );
 
-         } else {
-            g.playerCount = g.playerCount || g.players.length;
-            if ( g.playerCount > 1 && g.players.length == 1 ) {
-               g.players.push( { username: 'unknown', active: !g.players[0].active, resigned: false, score: 0 } );
-            }
-            g.summary = getSummary( g );
-
-            if ( !g.resigned ) {
-               if ( g.over ) {
-                  archive().push( g );
-               } else {
-                  onGoings().push( g );
-               }
-            }
-            if ( g.playerCount == 2 ) {
-               if ( g.over ) {
-                  g.notificationSummary = getNotification( g );
-                  notifications().push( g );               
-               }
-               if ( g.creator != getPlayer( g ).username ) {
-                  var gCopy = Object.beget( g );
-
-                  //var gCopy = $.extend( true, {}, g );
-                  gCopy.newGame = true;
-                  gCopy.modDate = gCopy.creationDate;
-                  gCopy.notificationSummary = getNotification( gCopy );
-                  notifications().push( gCopy );                  
-               }
+         if ( !g.resigned ) {
+            if ( g.over ) {
+               archive().push( g );
+            } else {
+               onGoings().push( g );
             }
          }
       } );
 
-      notifications().sort( function ( a, b ) { return b.modDate - a.modDate; } );
-
       onGoings.valueHasMutated();
       archive.valueHasMutated();
-      notifications.valueHasMutated();
    } );
 
    var res = {
@@ -189,6 +175,10 @@
       var base = this;
 
       this.binding = function () {
+         ctx.lobby.games.valueHasMutated();
+         ctx.lobby.notifications.valueHasMutated();
+         app.trigger( "lobby:update" );
+
          return { cacheViews: false };
       }
 
@@ -255,7 +245,7 @@
       ]
 
       this.selectGame = function ( game ) {
-         if ( game.resigned || (game.newGame && game.over) ) return;
+         if ( game.resigned || ( game.newGame && game.over ) ) return;
          base.activeGame( game );
          app.navigate( "game/" + game.gameID );
       }

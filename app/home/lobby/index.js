@@ -1,9 +1,9 @@
-﻿define(['durandal/app', 'api/datacontext','./games'], function (app, ctx, parser) {
-   
-   var gamesDFD = $.Deferred();   
-   
+﻿define( ['durandal/app', 'api/datacontext', './games'], function ( app, ctx, parser ) {
+
+   var gamesDFD = $.Deferred();
+
    return {
-      loading: ko.observable(true),
+      loading: ko.observable( true ),
       loadingData: ctx.lobby.loading,
       unseens: ctx.lobby.unseens,
 
@@ -11,27 +11,26 @@
 
       activeTab: 0,
 
-      compose: ko.observable({
+      compose: ko.observable( {
          model: parser,
          view: '',
          cacheViews: false,
          //preserveContext: true
-      }),
+      } ),
 
-      navigate: function (tabIndex, dfd) {
+      navigate: function ( tabIndex, dfd ) {
          var base = this;
-         base.loading(true);
+         base.loading( true );
 
          tabIndex *= 1;
 
-         return dfd.then(function () {
+         return dfd.then( function () {
 
-            if (tabIndex == 0) {
+            if ( tabIndex == 0 ) {
                parser.loadOnGoing();
-            } else if (tabIndex == 1) {
+            } else if ( tabIndex == 1 ) {
                parser.loadNotification();
-               ctx.lobby.seenAll();               
-            } else if (tabIndex == 2) {
+            } else if ( tabIndex == 2 ) {
                parser.loadArchive();
             }
 
@@ -42,43 +41,49 @@
 
             base.compose.valueHasMutated();
 
-            base.mode(tabIndex);
+            base.mode( tabIndex );
 
-            sessionStorage.setItem("lobby", tabIndex);
-            
-            base.loading(false);
+            sessionStorage.setItem( "lobby", tabIndex );
+
+            base.loading( false );
 
             var nDfd = $.Deferred();
-            setTimeout(function () {
+            setTimeout( function () {
+               if ( tabIndex == 0 ) {
+                  ctx.lobby.seenAllOngoing();
+               } else if ( tabIndex == 1 ) {
+                  ctx.lobby.seenAll();
+               }
+
                nDfd.resolve();
-            }, 100);
+            }, 100 );
             return nDfd;
-         });
+         } );
       },
 
       repository: ko.observableArray(),
 
       activate: function () {
-         app.trigger("game:dispose");
+         app.trigger( "game:dispose" );
          app.dialog.closeAll();
          app.palette.dispose();
 
-         if (!sessionStorage.getItem("lobby")) {
-            sessionStorage.setItem("lobby", 0);
+         if ( !sessionStorage.getItem( "lobby" ) ) {
+            sessionStorage.setItem( "lobby", 0 );
          } else {
-            this.activeTab = sessionStorage.getItem("lobby");
+            this.activeTab = sessionStorage.getItem( "lobby" );
          }
          var base = this;
 
-         app.trigger( "user:authenticated", { username: ctx.username, online: 1 } );
+
       },
 
       start: function () {
-         app.navigate("newGame");
+         app.navigate( "newGame" );
       },
 
       binding: function () {
          return { cacheViews: false };
       }
    }
-});
+} );

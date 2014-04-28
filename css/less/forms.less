@@ -271,9 +271,9 @@ input[type="search"] {
         box-shadow: none;
         padding: 0 1em;
         position: absolute;
-        top: .3em;
+        top: 0;
         left: 0;
-        bottom: .5em;
+        bottom: 0;
         right: 0;
         width: 100%;
         -moz-appearance: none;
@@ -308,6 +308,7 @@ input[type="search"] {
     }
 
         .search-box .btn > i.find {
+            font-size: 32px;
         }
 
     .search-box i.icon-spinner {
@@ -381,6 +382,12 @@ button {
         outline: 1px solid gold;
     }
 
+    button.centered {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: .5em;
+    }
+
     button:hover {
         box-shadow: 0 0 4px #986B31;
     }
@@ -394,6 +401,10 @@ button {
         text-transform: uppercase;
         border: 2px solid;
         border-radius: 0.2em;
+    }
+
+    button.normal {
+        font-size: 1.2em !important;
     }
 
     button.sm {

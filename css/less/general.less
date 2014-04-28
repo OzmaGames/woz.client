@@ -453,8 +453,11 @@ a.small {
         display: block;
         position: relative;
         width: auto;
-        height: 1em;
-        padding: .8em;
+        height: 2.5em;
+        padding: .75em;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
         font-family: Cambria, CopseRegular;
         font-weight: normal;
         border-bottom: 1px solid @strokeColor;
@@ -472,6 +475,7 @@ a.small {
             color: white;
             background-color: @lightbrown;
             padding: .4em;
+            height: 1.8em;
             text-transform: capitalize;
             cursor: default;
             border-top-left-radius: 5px;
@@ -686,9 +690,10 @@ a.small {
         box-shadow: 0 0 10px 3px @strokeDarkerColor;
         cursor: default;
     }
+
     .game-item.unseen .cell {
         background-color: white;
-        border-color: @lightbrown;     
+        border-color: @lightbrown;
     }
 
 .tile:not(.active) .visibleOnActive {
@@ -1030,11 +1035,11 @@ a.small {
                 position: absolute;
                 top: 0;
                 right: 0;
-                color:white;
+                color: white;
                 background-color: @orange;
                 height: 1em;
                 line-height: 1em;
-                border-radius: 50%;                
+                border-radius: 50%;
                 text-align: center;
                 font-size: 12px;
                 border: 1px solid @strokeColor;
@@ -1146,6 +1151,10 @@ a.small {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
         .table-flex .row.noPointer {
@@ -1256,9 +1265,83 @@ a.small {
 }
 
 .table-flex .collection {
-    width: 50%;
+    width: 48%;
     display: inline-block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    & .description {
+        display: inline-block;
+        width: ~"calc(100% - 205px)";
+        vertical-align: middle;
+        line-height: 1.5em;
+    }
+
+    & .couple {
+        display: inline-block;
+        width: 200px;
+        height: 150px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        -webkit-background-size: contain;
+        background-size: contain;
+        vertical-align: middle;
+        font-size: 1.5em;
+
+        &.woz {
+            background-image: url('../../images/tiles/collections/shop-woz.png');
+        }
+
+            &.woz-ikea {
+                background-image: url('../../images/tiles/collections/shop-woz-booster.png');
+            }
+
+        &.nf {
+            background-image: url('../../images/tiles/collections/shop-nf.png');
+        }
+
+            &.nf-breeze {
+                background-image: url('../../images/tiles/collections/shop-nf-booster.png');
+            }
+
+        &.loc {
+            background-image: url('../../images/tiles/collections/shop-loc.png');
+        }
+    }
+
+    &.full-row {
+        width: 100%;
+        padding: 1em;
+    }
+
+    &.centered {
+        text-align: center;
+    }
+
+    & p {
+        margin-bottom: .5em;
+    }
 }
+
+    .table-flex .collection.disabled {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+    }
+
+@media only screen and (max-width: 900px) {
+    .table-flex .collection {
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid @rowStrokeColor;
+        padding: 1em;
+    }
+}
+
 
 .table-flex .row .date {
     display: inline-block;
@@ -1267,35 +1350,14 @@ a.small {
     text-align: left;
 }
 
-.table-flex .couple {
-    display: inline-block;
-    width: 200px;
-    height: 150px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    -webkit-background-size: contain;
-    background-size: contain;
-    vertical-align: middle;
-    font-size: 1.5em;
+button .currency {
+    display: none;
 }
-
-    .table-flex .couple + div {
-        display: inline-block;
-        width: ~"calc(100% - 205px)";
-        vertical-align: middle;
-    }
-
-        .table-flex .couple + div > div {
-            margin-bottom: .3em;
-        }
 
 .has-currency {
     position: relative;
-}
 
-    .has-currency::before {
+    &::before {
         content: '';
         position: absolute;
         top: -.6em;
@@ -1309,26 +1371,39 @@ a.small {
         background-size: contain;
     }
 
-    .has-currency .currency {
+    & .currency {
+        display: block;
         font-weight: bold;
+        font-size: 75%;
+        font-family: Cambria;
+        letter-spacing: 1px;
+        -webkit-text-shadow: none;
+        text-shadow: none;
         position: absolute;
         left: 1em;
         top: 0;
-        -moz-transform: rotate(-30deg) translateY(-1em) translateX(-1.9em);
-        -ms-transform: rotate(-30deg) translateY(-1em) translateX(-1.9em);
-        -o-transform: rotate(-30deg) translateY(-1em) translateX(-1.9em);
-        -webkit-transform: rotate(-30deg) translateY(-1em) translateX(-1.9em);
-        transform: rotate(-30deg) translateY(-1em) translateX(-1.9em);
+        -moz-transform: translateY(-0.1em) translateX(-2em) rotate(-30deg);
+        -ms-transform: translateY(-0.1em) translateX(-2em) rotate(-30deg);
+        -o-transform: translateY(-0.1em) translateX(-2em) rotate(-30deg);
+        -webkit-transform: translateY(-0.1em) translateX(-2em) rotate(-30deg);
+        transform: translateY(-0.1em) translateX(-2em) rotate(-30deg);
         width: 2em;
         line-height: 1em;
         text-align: center;
         z-index: 2;
         color: white;
-        font-size: 75%;
     }
 
-button .currency {
-    display: none;
+    &.currency-right::before {
+        left: auto;
+        right: 0;
+        background-position: right top;
+    }
+
+    &.currency-right .currency {
+        left: auto;
+        right: 0;
+    }
 }
 
 .couple.has-currency::before {
@@ -1337,19 +1412,8 @@ button .currency {
 }
 
 .couple.has-currency .currency {
-    left: 53%;
-    top: 0.7em;
-}
-
-.has-currency.currency-right::before {
-    left: auto;
-    right: 0;
-    background-position: right top;
-}
-
-.has-currency.currency-right .currency {
-    left: auto;
-    right: 0;
+    left: 54%;
+    top: 0.8em;
 }
 
 .wand {
@@ -1360,4 +1424,22 @@ button .currency {
     -o-background-size: contain;
     -webkit-background-size: contain;
     background-size: contain;
+}
+
+.radio i {
+    position: absolute;
+    top: 0.7em;
+    right: 0;
+    width: 2em;
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    opacity: .5;
+    -moz-transition: opacity .2s linear;
+    -o-transition: opacity .2s linear;
+    -webkit-transition: opacity .2s linear;
+    transition: opacity .2s linear;
+}
+:checked ~ i{
+    opacity: .9;
 }

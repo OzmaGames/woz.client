@@ -1,7 +1,11 @@
 ﻿<div>
-   <div class="curly">test</div>
-   <div class="loader-bar"><i></i><i></i><i></i></div>
-   <div style="padding: 40px;">
+   <!--<div class="loader-bar"><i></i><i></i><i></i></div>-->
+
+   <div data-bind="template: {foreach: a, afterAdd: a.show}" class="table-flex">
+      <div data-bind="text: b" class="row mild-padding"></div>
+   </div>
+
+   <div style="padding: 40px; display:none">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin scelerisque turpis sem, sit amet posuere libero blandit at. Quisque adipiscing posuere lacus at laoreet. Pellentesque orci felis, placerat non turpis quis, tempus fringilla justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat. Praesent nec metus vitae dolor iaculis lacinia at eu neque. Pellentesque viverra cursus purus. Nulla volutpat cursus magna, eu semper leo egestas ut. Proin vitae velit purus. Morbi aliquet neque nunc, eu gravida quam auctor et. Fusce eget turpis adipiscing, vehicula massa eget, eleifend lacus. Suspendisse aliquet nibh felis, non tincidunt orci tristique quis. In ultrices urna nec lacus porta, ac commodo arcu bibendum. Sed a bibendum eros, nec mollis mi. Praesent dignissim nulla nulla, in elementum neque porta id.
 
       Suspendisse potenti. In porta ante id lacus commodo, a pulvinar eros mattis. Quisque feugiat turpis vitae gravida molestie. Donec bibendum tincidunt cursus. Etiam in pulvinar est, a lobortis mi. Vestibulum ullamcorper lectus at massa viverra, quis congue quam mollis. Vivamus ultrices risus ac massa fringilla consequat. Nulla non nibh ut augue fringilla congue iaculis semper odio.
@@ -51,78 +55,5 @@
       Fusce posuere, lectus eu blandit bibendum, nibh massa lobortis urna, nec consectetur ante nulla a mi. Mauris dictum magna nisi, vel scelerisque sapien placerat sollicitudin. Donec porttitor lectus metus, in vestibulum lacus accumsan vitae. In eu purus augue. Sed sed leo pharetra metus feugiat ornare eget ut dui. Cras placerat dictum consequat. Sed consequat tellus in velit viverra, sit amet feugiat nunc porttitor. Nulla facilisi. Praesent venenatis nunc vel blandit fringilla. Nullam sed aliquet lacus, nec pellentesque augue. Vivamus nulla dolor, hendrerit in gravida non, aliquet nec lectus. In et nisl enim. Fusce faucibus vitae dolor non posuere. Nulla tempus lorem turpis, quis luctus turpis vulputate tempor. Duis enim nulla, tempus fermentum vulputate eu, ullamcorper at augue. Duis a felis ornare, tempus dui at, rhoncus lectus.
    </div>
 
-   <!--<div style="margin: 100px" class="shine"></div>
-   <div style="width: 100px; height: 100px" class="star-box">
-
-   </div>-->
-
-   <!--<div style="max-width:800px;margin:0 auto;">
-      <div class="tab responsive" data-bind="tab: {}">
-         <nav>
-            <ul>
-               <li>ongoing games</li>
-               <li>notifications</li>
-               <li>game archive</li>
-               <li class="ending">ending</li> 
-               <li class="load">
-                  <div class="loader-bar"><i></i><i></i><i></i></div>
-               </li>
-            </ul>
-         </nav>
-         <article></article>
-      </div>
-   </div>-->
+   <!--<div style="margin: 100px" class="shine"></div><div style="width: 100px; height: 100px" class="star-box"></div>-->
 </div>
-<!--<div>
-    <button class="blue">Sign up</button><br /><br />
-    <button class="blue" disabled>Sign up</button><br /><br />
-    <button class="orange">Sign up</button><br /><br />
-    <button class="orange" disabled>Sign up</button><br /><br />
-</div>
-<h1 id="debug">choose collection</h1>
-<div class="container y scroll">
-   <label class="radio">
-      <span class="pic woz"></span>
-      <span class="text">
-         <span class="title">Words of Oz</span>
-         <span class="description">50/50 tiles - 150/150 words</span>
-      </span>
-      <input type="radio" name="c" checked /><span></span>
-   </label>
-   <label class="radio">
-      <span class="pic nf"></span>
-      <span class="text">
-         <span class="title">NightFall</span>
-         <span class="description">50/50 tiles - 150/150 words</span>
-      </span>
-      <input type="radio" name="c" /><span></span>
-   </label>
-   <label class="radio">
-      <span class="pic loc"></span>
-      <span class="text">
-         <span class="title">Life of Color</span>
-         <span class="description">50/50 tiles - 150/150 words</span>
-      </span>
-      <input type="radio" name="c" /><span></span>
-   </label>
-   <label class="radio">
-      <span class="pic"></span>
-      <span class="text">
-         <span class="title">More..</span>
-         <span class="description">3/15 collections - 450/7600 words</span>
-      </span>
-      <input type="radio" name="c" /><span></span>
-   </label>
-</div>
-<div>
-   <label>
-      on <input type="checkbox" />
-      <span></span>
-   </label>
-   <label>
-      off <input type="checkbox" checked />
-      <span></span>
-   </label>
-</div>
-
-<div class="loader-bar"><i></i><i></i><i></i></div>-->

@@ -1,0 +1,38 @@
+﻿<i class="command close" data-bind="click: $parent.close"></i>
+<div class="table-flex">
+   <div class="row">
+      <div class="head" data-bind="text: longName"></div>
+      <div class="body">
+         <div class="collection centered full-row">
+            <!-- ko if: dependent-->
+            <p>
+               In order to unlock this booster, you need to buy the starter first.
+            </p>
+            <div class="couple has-currency" data-bind="css: dependent.shortName">
+               <div class="currency" data-bind="text: dependent.price"></div>
+            </div>
+            <!-- /ko -->
+            <div class="couple has-currency" data-bind="css: shortName ">
+               <div class="currency" data-bind="text: price"></div>
+            </div>
+            <p class="font-smaller" style="text-align:left">
+               <!-- ko if: dependent-->
+               <span data-bind="text: dependent.description"></span>
+               <!-- /ko -->
+               <span data-bind="text: description"></span>
+            </p>
+            <p>
+               New Tiles: <span class="bold" data-bind="text: nImages + (dependent? dependent.nImages: 0)"></span>,
+               New Words: <span class="bold" data-bind="text: nWords + (dependent? dependent.nWords: 0)"></span>
+            </p>
+            <p data-bind="if: dependent">Buy both starter and booster for <span data-bind="text: totalPrice"></span> besoz.</p>
+         </div>
+      </div>
+   </div>
+   <br />
+   <button class="orange centered has-currency normal" data-bind="click: $parent.close.bind(null, {confirm: true})">
+      <span class="currency" data-bind="text: totalPrice"></span>
+      Buy
+   </button>
+</div>
+

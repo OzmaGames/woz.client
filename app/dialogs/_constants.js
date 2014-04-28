@@ -78,7 +78,7 @@
          },
          ARCHIVE_GAMES: {
             heading: "Game Archive",
-            content: "To find your<br>finished games go<br>to \"My Games\" and<br>check out the tab<br>called:<br>\"Game Archive\"."
+            content: "To find your finished <br>games go to \"My Games\" <br> and check out the tab<br>called:<br>\"Game Archive\"."
          }
       }
    }

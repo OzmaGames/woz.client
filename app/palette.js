@@ -4,7 +4,7 @@
       var base = this;
 
       this.items = ko.observableArray([
-         new Palette.Icon("currency", "command", "fixed", 123),
+         new Palette.Icon("currency", "command", "fixed", 0),
          new Palette.Icon("menu"),
          new Palette.Icon("fullscreen", "command", "fixed")
       ]);

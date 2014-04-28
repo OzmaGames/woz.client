@@ -1,11 +1,11 @@
 ﻿define( 'game/tutorial', ['durandal/app', 'api/datacontext', 'dialogs/_constants'], function ( app, ctx, consts ) {
    TUT = consts.TUT;
-   
-   var APP = document.getElementById("app");
+
+   var APP = document.getElementById( "app" );
 
    function Tutorial() {
       this.swapWords = function () {
-         var item = $('.palette.left .btn:first');
+         var item = $( '.palette.left .btn:first' );
 
          var data = TUT.SWAP_WORDS;
          data.css = "left";
@@ -13,11 +13,11 @@
          data.left = item.offset().left + 60;
          data.fixed = true;
 
-         return  data;
+         return data;
       }
 
       this.circleWords = function () {
-         var item = $('.palette.left .btn:nth-child(2)');
+         var item = $( '.palette.left .btn:nth-child(2)' );
 
          var data = TUT.SELECT_PHRASE;
          data.css = "left";
@@ -29,23 +29,23 @@
       }
 
       this.archivedGames = function () {
-         var item = $('.palette.right .menu');
+         var item = $( '.palette.right .menu' );
 
          var data = TUT.ARCHIVE_GAMES;
          data.css = "right";
          data.top = item.offset().top + APP.scrollTop - 10;
-         data.left = item.offset().left - 150;
+         data.left = item.offset().left - 190;
          data.fixed = true;
 
-         return  data;
+         return data;
       }
 
       this.placePhrase = function () {
          var maxLeft = window.innerWidth - 300;
-         var item = $('.magnet-placeholder').filter(function (i) {
-            if ($(this).offset().top > 200 && $(this).offset().left < maxLeft && $(this).offset().left > 70) return true;
+         var item = $( '.magnet-placeholder' ).filter( function ( i ) {
+            if ( $( this ).offset().top > 200 && $( this ).offset().left < maxLeft && $( this ).offset().left > 70 ) return true;
             return false;
-         });
+         } );
 
          var data = TUT.PLACE_PHRASE;
          data.css = "bottom left";
@@ -57,20 +57,20 @@
 
       this.fillPath = function () {
          var maxLeft = window.innerWidth - 300;
-         var item = $('.magnet-placeholder').filter(function (i) {
-            if ($(this).offset().top > 200 && $(this).offset().left < maxLeft && $(this).offset().left > 70) return true;
+         var item = $( '.magnet-placeholder' ).filter( function ( i ) {
+            if ( $( this ).offset().top > 200 && $( this ).offset().left < maxLeft && $( this ).offset().left > 70 ) return true;
             return false;
-         });
+         } );
 
          var data = TUT.FILL_PATH;
          data.css = "bottom left";
          data.top = item.offset().top - 110 + APP.scrollTop;
          data.left = item.offset().left;
 
-         return  data;
+         return data;
       }
 
-      this.dynamicSubmit = function (  ) {
+      this.dynamicSubmit = function () {
          var maxLeft = window.innerWidth - 300;
          var item = $( '.confirm-box .button' );
 
@@ -86,7 +86,7 @@
          return data;
       }
 
-      this.bonusFor = function (tile, content) {
+      this.bonusFor = function ( tile, content ) {
          var maxLeft = window.innerWidth - 300;
          var item = $( '.cloud .info', tile.$el );
 
@@ -104,17 +104,17 @@
 
       this.bonus = function () {
          var maxLeft = window.innerWidth - 300;
-         var item = $('.cloud .info').filter(function (i) {
-            if ($(this).offset().top > 220 && $(this).offset().left < maxLeft && $(this).offset().left > 70) return true;
+         var item = $( '.cloud .info' ).filter( function ( i ) {
+            if ( $( this ).offset().top > 220 && $( this ).offset().left < maxLeft && $( this ).offset().left > 70 ) return true;
             return false;
-         });
+         } );
 
          var data = TUT.BONUS;
          data.css = "bottom left";
          data.top = item.offset().top - 220 + APP.scrollTop;
          data.left = item.offset().left + 20;
 
-         return  data;
+         return data;
       }
 
       var base = this;
@@ -140,8 +140,8 @@
          data.left = item.offset().left - 120;
          data.fixed = false;
 
-         return  data;
-      }      
+         return data;
+      }
    }
 
    Tutorial.prototype.getNext = function () {
@@ -161,42 +161,42 @@
    Tutorial.prototype.showNext = function () {
       var func = this.getNext();
 
-      if (!func) {
-         localStorage.setItem("tutorial", "end");
+      if ( !func ) {
+         localStorage.setItem( "tutorial", "end" );
          return $.Deferred();
       }
 
       var base = this;
       var data = func();
-      if (data == null) {
-         localStorage.setItem("tutorial", "related");
+      if ( data == null ) {
+         localStorage.setItem( "tutorial", "related" );
          return null;
       }
 
-      return app.dialog.show("tutorial", data).then(function (obj) {         
-         if (obj && obj.force) return $.Deferred();
+      return app.dialog.show( "tutorial", data ).then( function ( obj ) {
+         if ( obj && obj.force ) return $.Deferred();
          return base.showNext();
-      });
+      } );
    }
 
    Tutorial.prototype.refresh = function () {
       this.qIndex--;
       var func = this.getNext();
-      
-      app.trigger("dialog:data:changed", func());
+
+      app.trigger( "dialog:data:changed", func() );
    }
 
    Tutorial.prototype.show = function () {
       var base = this;
       this.qIndex = 0;
 
-      var tutorial = localStorage.getItem("tutorial");
+      var tutorial = localStorage.getItem( "tutorial" );
 
-      if (!tutorial) {
+      if ( !tutorial ) {
          this.showNext();
       }
 
-      switch (tutorial) {
+      switch ( tutorial ) {
          case "related":
             this.qIndex = 5;
             this.showNext();
@@ -204,20 +204,20 @@
       }
 
       var base = this;
-      var res = app.on("app:resized:delayed").then(function () {
-         var tutorial = localStorage.getItem("tutorial");
-         if (!tutorial) {
+      var res = app.on( "app:resized:delayed" ).then( function () {
+         var tutorial = localStorage.getItem( "tutorial" );
+         if ( !tutorial ) {
             base.refresh();
          } else {
             res.off();
          }
-      });
+      } );
    }
 
    Tutorial.prototype.testRelated = function () {
-      var tutorial = localStorage.getItem("tutorial");
+      var tutorial = localStorage.getItem( "tutorial" );
 
-      if (tutorial == "related") {
+      if ( tutorial == "related" ) {
          this.qIndex = 5;
          this.showNext();
       }
@@ -227,13 +227,14 @@
 
    app.on( "game:score:done" ).then( function () {
       ctx = app.ctx;
-      var storageName = ctx.username + ".bubble.menu";
-      if (app.ctx._gameOver() && !app.ctx.player.resigned()) {
+      var storageName = "tutorial[" + ctx.username + "].menuBubble";
+      if ( app.ctx._gameOver() && !app.ctx.players()[0].resigned() &&
+         ( app.ctx.players().length == 1 || !app.ctx.players()[1].resigned() ) ) {
          if ( !localStorage.getItem( storageName ) ) {
-            setTimeout(function () {
+            setTimeout( function () {
                t.showOne( t.archivedGames() );
                localStorage.setItem( storageName, true );
-            }, 2000);
+            }, 2000 );
          }
       }
    } );
@@ -244,8 +245,8 @@
       if ( !localStorage.getItem( storageName ) ) {
          t.showOne( t[eventName].call( t, data1, data2 ) );
          localStorage.setItem( storageName, true );
-      }      
+      }
    } );
 
    return t;
-});
+} );

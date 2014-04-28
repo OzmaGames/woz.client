@@ -261,14 +261,15 @@ i.command.find {
 
 i.command.currency {
     background-image: url('../../images/game/currency.png');
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-position: 3px 0 !important;
+    background-repeat: no-repeat;
     width: 80px;
     height: 80px;
     margin-left: -20px;
-    background-position: 0 0;
     color: #986B31;
     font-size: 13px;
     -webkit-text-shadow: 0 0 1px #986B31;
@@ -278,9 +279,9 @@ i.command.currency {
 }
 
     i.command.currency:hover, i.command.currency:active {
-        background-position: 0 0 !important;
+        /*background-position: 0 0 !important;*/
     }
 
     i.command.currency:active, i.command.currency.active {
-        background-image: url('../../images/game/currency-active.png');
+        /*background-image: url('../../images/game/currency-active.png');*/
     }

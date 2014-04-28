@@ -1,81 +1,69 @@
-﻿define(['durandal/app', 'api/datacontext'], function (app, ctx) {
+﻿define( ['durandal/app', 'api/datacontext'], function ( app, ctx ) {
 
    function ctor() {
-      this.collections = [
-         {
-            name: 'Zen',
-            flag: {
-               text: 'Featured!',
-               color: 'yellow'
-            },            
-            types: [
-               {
-                  type: 'starter',
-                  name: 'Starter',
-                  description: 'Beautiful images to enhance your poetic talents. Be prepared to chill!',
-                  tiles: 20,
-                  words: 100,
-                  besoz: 65
-               },
-               {
-                  type: 'booster',
-                  name: 'Breeze',
-                  description: 'An epic nature adventure awaits! Nature has inspired poets for ages. Now it\'s your turn!',
-                  tiles: 10,
-                  words: 40,
-                  besoz: 30
+      var base = this;
+
+      this.userCollections = ctx.user.collections;
+      this.collections = ctx.shop.collections;
+      this.loading = ko.observable( false );
+
+      ko.computed( function () {
+         var userCollections = base.userCollections();
+         var collections = base.collections();
+
+         ko.utils.arrayForEach( collections, function ( col ) {
+            var exist = ko.utils.arrayFirst( userCollections, function ( uc ) { return uc.shortName == col.shortName; } );
+            if ( col.purchased ) col.purchased( !!exist );
+            else col.purchased = ko.observable( !!exist );
+
+            col.flags = col.flags || (col.boosters.length ? col.boosters[0].flags : null);
+
+            for ( var i = 0; i < col.boosters.length; i++ ) {
+               var purchased = false;
+               if ( exist ) {
+                  var bExist = ko.utils.arrayFirst( exist.boosters, function ( booster ) { return booster.shortName == col.boosters[i].shortName; } );
+                  purchased = !!bExist;
                }
-            ]
-         },
-         {
-            name: 'Gothic',
-            flag: {
-               text: 'New!',
-               color: 'blue'
-            },
-            types: [
-               {
-                  type: 'starter',
-                  name: 'Horror',
-                  description: 'This gothic horror expansion will let your imagination run wild! Can you sleep tonight?',
-                  tiles: 10,
-                  words: 40,
-                  besoz: 30
-               },
-               {
-                  type: 'booster',
-                  name: 'Romantic',
-                  description: 'Lorem...',
-                  tiles: 15,
-                  words: 50,
-                  besoz: 40
+               if ( col.boosters[i].purchased ) col.boosters[i].purchased( purchased );
+               else col.boosters[i].purchased = ko.observable( purchased );
+               col.boosters[i].collection = col;
+            }
+         } );
+      } );
+      ctx.shop.collections.load();
+      
+      this.buy = function ( type ) {
+         base.loading( true );
+
+         var model = type;
+         model.dependent = model.type == 'starter' ? null :
+            model.collection.purchased() ? null : model.collection;
+         model.totalPrice = model.price + ( model.dependent ? model.dependent.price : 0 );
+
+         app.dialog.show( "notice", {
+            model: model,
+            view: 'dialogs/pages/shop-collections',
+            css: 'long',
+            closeOnClick: false,
+            fixed: true,
+            centered: true,
+            modal: true
+         } ).then( function ( data ) {
+            if ( data && data.confirm ) {
+               if ( model.dependent ) {
+                  ctx.user.buyCollection( model.collection.type, model.collection.shortName );
                }
-            ]
-         },
-         {
-            name: 'Vintage',
-            flag: null,
-            types: [
-               {
-                  type: 'starter',
-                  name: 'Quirky',
-                  description: 'Open up to tge quirkiness of the old times - Get a good laugh as you embrace the unexpected!',
-                  tiles: 10,
-                  words: 40,
-                  besoz: 99
-               },
-               {
-                  type: 'booster',
-                  name: 'Golden',
-                  description: 'Lorem...',
-                  tiles: 15,
-                  words: 50,
-                  besoz: 49
-               }
-            ]
-         }
-      ];
+               ctx.user.buyCollection( model.type, model.shortName ).always( function () {
+                  base.loading( false );
+               } ).fail( function () {
+                  app.dialog.showNoBesoz(model.totalPrice);
+               } );
+            } else {
+               base.loading( false );
+            }
+         } );
+      }
    }
 
    return ctor;
-});
+} );

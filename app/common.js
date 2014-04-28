@@ -33,10 +33,9 @@ define(['durandal/system', 'durandal/app', 'plugins/router',
             modal: true
          });
       };
-
-      app.dialog.showNoBesoz = function () {
+      app.dialog.showNoBesoz = function (besoz) {
          app.dialog.show("notice", {
-            model: {getBesoz: app.dialog.showCurrency},
+            model: {getBesoz: app.dialog.showCurrency, besoz: besoz},
             view: 'dialogs/pages/noBesoz',
             closeOnClick: false,
             fixed: true,
@@ -44,10 +43,25 @@ define(['durandal/system', 'durandal/app', 'plugins/router',
             modal: true
          });
       };
+      app.dialog.confirm = function ( content, opt, callback ) {
+         opt = opt || {};
+         opt.content = content;
+         $.extend( {}, {
+            doneText: 'YES',
+            cancelText: 'NO'
+         }, opt );         
+
+         return $.Deferred( function ( dfd ) {
+            return app.dialog.show( "confirm", opt ).then( function(result){
+               if ( result == "done" ) dfd.resolve(true);
+               dfd.reject(false);
+            } );            
+         } ).promise();         
+      }
 
       app.palette = palette;
       app.palette.get("menu").click(function () { app.dialog.show("menu"); });
-      app.palette.get("currency").click(app.dialog.showCurrency);
+      app.palette.get("currency").click(app.dialog.showCurrency).content = ctx.user.besoz;
       if (app.browser.tablet) {
          app.palette.get("fullscreen").hide()
       }

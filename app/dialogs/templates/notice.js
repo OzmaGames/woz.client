@@ -1,23 +1,23 @@
 ﻿define(['durandal/app'], function (app) {
-   var duration = 400;
+   var duration = 400, elem;
 
    //app.dialog.show("notice", { model: { message: 'Master of Poetry', imageName: 'images/game/feather.png' }, view: "dialogs/pages/levelup" })
    //app.dialog.show("notice", {model: {},view: "dialogs/pages/welcome"})
    //app.dialog.show("notice", {model: 'dialogs/pages/currency', css: 'long', closeOnClick: false, fixed: true, centered: true, modal: true})
 
-   app.dialog.show( "notice", {
-      model: {
-         btnText: "Start New Game",
-         close: function () { },
-         content: "You completed the game board, <br> scoring 195 points.",
-         gotoLobby: function () { },
-         heading: "Well done!",
-         noRedirect: undefined,
-         noXP: false,
-         target: "singlePlayer",
-         xp: 0,
-      }, view: 'dialogs/pages/GameOver'
-   } );
+   //app.dialog.show( "notice", {
+   //   model: {
+   //      btnText: "Start New Game",
+   //      close: function () { },
+   //      content: "You completed the game board, <br> scoring 195 points.",
+   //      gotoLobby: function () { },
+   //      heading: "Well done!",
+   //      noRedirect: undefined,
+   //      noXP: false,
+   //      target: "singlePlayer",
+   //      xp: 0,
+   //   }, view: 'dialogs/pages/GameOver'
+   //} );
 
    function Notice() {
       this.modal = false;
@@ -30,7 +30,7 @@
       this.dfd2 = $.Deferred();
 
       var base = this;
-      this.close = function () {
+      this.close = function () {         
          duration = duration || 500;
          var dfd = base.el
            .transition({ y: 10 }, duration / 2, 'ease')
@@ -39,7 +39,7 @@
            });
 
          if (base.onClose) {
-            base.onClose();
+            base.onClose.apply(this, arguments);
          }
 
          return dfd;
@@ -70,7 +70,7 @@
    }
 
    Notice.prototype.bindingComplete = function (el) {
-      this.el = $('.notice', el).hide();
+      elem = this.el = $('.notice', el).hide();
       this.__dialog__.settings.bindingComplete(el);
    }
 
@@ -84,6 +84,7 @@
 
    Notice.prototype.canDeactivate = function (a, s, d) {
       var base = this;
+      elem = null;
       return $.Deferred(function (dfd) {
          if (base.el) {
             base.el.promise().then(function () { dfd.resolve(true); });
@@ -100,6 +101,10 @@
 
       el.transition({ y: top });
    }
+
+   app.on( "dialog:adjust-size", function () {
+      if ( elem ) adjust( elem );
+   } );
 
    return Notice;
 });

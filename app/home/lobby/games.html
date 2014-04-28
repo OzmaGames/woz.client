@@ -5,7 +5,7 @@
    <!-- ko if: games().length -->
    <div data-bind1="css: {'container y scroll games': $root.type() == 'archive'}">
       <div class="table" data-bind="foreach: games">
-         <div class="game-item" data-bind="click: $root.selectGame, css: {active: $root.activeGame() == $data, unseen: !seenOngoing}">
+         <div class="game-item" data-bind="click: $root.selectGame, css: {unseen: !seenOngoing}">
             <div class="cell left">
                <div class="subCell">
                   <div class="pic" data-bind="css: collection"></div>

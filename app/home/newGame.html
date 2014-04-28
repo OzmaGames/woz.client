@@ -10,6 +10,7 @@
                   <span class="title" data-bind="text: title"></span>
                   <span class="description" data-bind="text: description"></span>
                   <input type="radio" name="gameOption" data-bind="value: id, checked: $root.gameOptionId" /><span></span>
+                  <i data-bind="css: className"></i>
                </label>
             </div>
             <h1>choose friend</h1>
@@ -69,9 +70,9 @@
                   <span class="pic" data-bind="css: shortName"></span>
                   <span class="text">
                      <span class="title" data-bind="text: longName"></span>
-                     <span class="description" data-bind="text: description"></span>
+                     <span class="description" data-bind="text: desc"></span>
                   </span>
-                  <input type="radio" name="c" data-bind="value: shortName, checked: $root.collection" /><span></span>
+                  <input type="radio" name="c" data-bind="value: shortName, checked: $root.collection, click: $root.collectionClicked" /><span></span>
                </label>
             </div>
             <!--<h1>set language</h1>
