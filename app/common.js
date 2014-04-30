@@ -1,47 +1,54 @@
 ﻿"use strict";
-define(['durandal/system', 'durandal/app', 'plugins/router',
+define( ['durandal/system', 'durandal/app', 'plugins/router',
     'dialogs/_builder', 'api/server/setup', 'api/datacontext', './palette',
     '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout', 'common.screen'],
-   function (system, app, router, Dialog, server, ctx, palette) {
+   function ( system, app, router, Dialog, server, ctx, palette ) {
 
-      var loading = ko.observable(false);
-      app.inlineLoading = ko.observable(false);
-      app.loading = ko.computed({
+      var loading = ko.observable( false );
+      app.inlineLoading = ko.observable( false );
+      app.loading = ko.computed( {
          read: function () {
             return loading() || ctx.loading() === true;
          },
-         write: function (value) {
-            loading(value);
+         write: function ( value ) {
+            loading( value );
          },
          owner: this
-      });
+      } );
 
-      app.navigate = function (hash, options) {
-         router.navigate(hash, options);
+      app.navigate = function ( hash, options ) {
+         router.navigate( hash, options );
       }
 
       app.ctx = ctx;
 
       app.dialog = Dialog;
       app.dialog.showCurrency = function () {
-         app.dialog.show("notice", {
+         app.dialog.show( "notice", {
             model: 'dialogs/pages/currency',
             css: 'long',
             closeOnClick: false,
             fixed: true,
             centered: true,
             modal: true
-         });
+         } );
       };
-      app.dialog.showNoBesoz = function (besoz) {
-         app.dialog.show("notice", {
-            model: {getBesoz: app.dialog.showCurrency, besoz: besoz},
+      app.dialog.showNoBesoz = function ( besoz ) {
+         app.dialog.show( "notice", {
+            model: { getBesoz: app.dialog.showCurrency, besoz: besoz },
             view: 'dialogs/pages/noBesoz',
             closeOnClick: false,
             fixed: true,
             centered: true,
             modal: true
-         });
+         } );
+      };
+      app.dialog.showBesozBought = function ( besoz ) {
+         app.dialog.show( "notice", {
+            view: 'dialogs/pages/besoz',
+            fixed: true,
+            centered: true
+         } );
       };
       app.dialog.confirm = function ( content, opt, callback ) {
          opt = opt || {};
@@ -49,45 +56,66 @@ define(['durandal/system', 'durandal/app', 'plugins/router',
          $.extend( {}, {
             doneText: 'YES',
             cancelText: 'NO'
-         }, opt );         
+         }, opt );
 
          return $.Deferred( function ( dfd ) {
-            return app.dialog.show( "confirm", opt ).then( function(result){
-               if ( result == "done" ) dfd.resolve(true);
-               dfd.reject(false);
-            } );            
-         } ).promise();         
+            return app.dialog.show( "confirm", opt ).then( function ( result ) {
+               if ( result == "done" ) dfd.resolve( true );
+               dfd.reject( false );
+            } );
+         } ).promise();
       }
 
       app.palette = palette;
-      app.palette.get("menu").click(function () { app.dialog.show("menu"); });
-      app.palette.get("currency").click(app.dialog.showCurrency).content = ctx.user.besoz;
-      if (app.browser.tablet) {
-         app.palette.get("fullscreen").hide()
+      app.palette.get( "menu" ).click( function () { app.dialog.show( "menu" ); } );
+      app.palette.get( "currency" ).click( app.dialog.showCurrency ).content = ctx.user.besoz;
+      if ( app.browser.tablet ) {
+         app.palette.get( "fullscreen" ).hide()
       }
 
       app.console = {
-         log: function (str) {
-            $('#console').html(str);
+         log: function ( str ) {
+            $( '#console' ).html( str );
          }
       }
 
       var isFullscreen = 0;
-      app.on("app:fullscreen").then(function () {
-         var html = $('html')[0];
+      app.on( "app:fullscreen" ).then( function () {
+         var html = $( 'html' )[0];
 
-         if (isFullscreen) {
+         if ( isFullscreen ) {
             document.webkitCancelFullScreen();
          } else {
-            if (html.webkitRequestFullscreen)
+            if ( html.webkitRequestFullscreen )
                html.webkitRequestFullscreen();
-            else if (html.webkitEnterFullScreen)
+            else if ( html.webkitEnterFullScreen )
                html.webkitEnterFullscreen();
          }
 
          isFullscreen ^= 1;
-      });
+      } );
 
+
+      window.Task = {
+         run: function ( func ) {
+            var base = this;
+            var time = arguments.length == 1 ? 1 : arguments[arguments.length - 1];
+            var args = [];
+            for ( var i = 1; i < arguments.length - 1; i++ ) {
+               args.push( arguments[i] );
+            }
+
+            var thenFunc;
+            setTimeout( function () {
+               var result = func.apply( base, args );
+               if ( thenFunc ) thenFunc( result );
+            }, time );
+
+            return {
+               then: function ( func ) { thenFunc = func; }
+            };
+         }
+      }
       //alert(
       //   'user agent: ' + navigator.userAgent +
       //   '\nplatform: ' + navigator.platform +
@@ -101,4 +129,4 @@ define(['durandal/system', 'durandal/app', 'plugins/router',
       //alert(app.browser.iPad);
       //alert(screen.availHeight + ' ' + screen.height + ' ' + outerHeight + ' ' + innerHeight);
 
-   });
+   } );

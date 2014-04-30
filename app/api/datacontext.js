@@ -281,18 +281,18 @@
                        var winner = model.winner(), data;
                        if ( winner === model.player ) {
                           if ( model.playerCount == 1 ) {
-                             data = module.SOLO;
+                             data = module.SOLO();
                           } else {
-                             data = module.WON;
+                             data = module.WON();
                           }
                        } else {
-                          data = module.LOST;
+                          data = module.LOST();
                        }
                        if ( model.player.resigned() ) {
                           app.navigate( "lobby" );
                           return;
                        } else if ( model.players()[0].resigned() || ( model.playerCount == 2 && model.players()[1].resigned() ) ) {
-                          data = module.RESIGNED;
+                          data = module.RESIGNED();
                        }
 
                        dfd.resolve( data );

@@ -67,6 +67,8 @@
          }
       } );
 
+      if ( !playerEl ) return;
+
       boxes = ko.utils.arrayMap( path.guiBoxes, function ( box ) { return box; } );
 
       var x = playerEl.offset().left + 20, y = playerEl.offset().top;
@@ -95,38 +97,35 @@
          }
 
          var topPadding = parseInt( $( '#gameboard' ).css( 'paddingTop' ) );
+         var totalMS = 500, totalStars = boxScore * 2;
 
-         for ( var i = 0; i < boxScore * 3; i++ ) {
-            var star = $( '<div/>', { 'class': 'star' } );
-            var scale = ( ( Math.random() * 5 ) + 3 ) / 10;
-            var offset = box.offset();
-            var position = box.position();
+         for ( var i = 0; i < totalStars; i++ ) {
+            ( function ( index ) {
+               var scale = ( ( Math.random() * 5 ) + 3 ) / 10;
+               var offset = box.offset();
+               var position = box.position();
+               var starDelay = ( totalMS / ( totalStars ) ) * index;
 
+               var star = $( '<div/>', { 'class': 'star' } ).css( {
+                  scale: scale,
+                  x: offset.left * ( 1 / scale ) + ( Math.random() * 20 - 10 ),
+                  y: position.top * ( 1 / scale ) + topPadding
+               } ).appendTo( $( '#app' ) );
 
-            star.css( {
-               scale: scale,
-               x: offset.left * ( 1 / scale ),
-               y: position.top * ( 1 / scale ) + topPadding
-               //backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
-            } );
-
-            setTimeout( function ( o ) {
-               $( '#app' ).append( o[0] );
-
-               setTimeout( function ( o ) {
+               Task.run( function () {
                   var mul = Math.random() * 1.3 + .4;
 
-                  o[0].bind( $.support.transitionEnd, function () {
+                  star.bind( $.support.transitionEnd, function () {
                      $( this ).remove();
                   } ).css( {
-                     x: x * ( mul / o[1] ),
-                     y: y * ( mul / o[1] ),
-                     scale: o[1] / mul,
+                     x: x * ( mul / scale ),
+                     y: y * ( mul / scale ),
+                     scale: scale / mul,
                      opacity: 0
                   } );
+               }, starDelay );
 
-               }, 0, o );
-            }, Math.random() * 700, [star, scale] );
+            } )( i );
          }
       }
    }
@@ -158,38 +157,36 @@
       }
 
       for ( var i = 0; i < num; i++ ) {
-         var star = $( '<div/>', { 'class': 'star' } );
          var scale = ( ( Math.random() * 5 ) + 3 ) / 10;
          var position = cloud.position();
          var offset = cloud.offset();
 
-         star.css( {
-            scale: scale,
-            left: 60,
-            top: -20
-         } );
+         var distance = 150;
+         ( function ( index ) {
+            var star = $( '<div/>', { 'class': 'star' } ).css( {
+               scale: scale,
+               left: 60,
+               top: -20
+            } ).appendTo( rule );
 
-         var distance = 200;
-         setTimeout( function ( o ) {
-            rule.append( o[0] );
-            setTimeout( function ( o ) {
-               var
-                  mul = Math.random() * 1.3 + .4,
-                  deg = Math.random() * 360,
-                  x = distance * Math.cos( deg * Math.PI / 180 ),
-                  y = distance * Math.sin( deg * Math.PI / 180 );
+            Task.run( function () {
+               var mul = Math.random() * 1.3 + .4;
+               var deg = Math.random() * 360;
+               var x = distance * Math.cos( deg * Math.PI / 180 );
+               var y = distance * Math.sin( deg * Math.PI / 180 );
 
-               o[0].bind( $.support.transitionEnd, function () {
+               star.bind( $.support.transitionEnd, function () {
                   $( this ).remove();
                } ).css( {
-                  x: x * ( mul / o[1] ),
-                  y: y * ( mul / o[1] ),
-                  scale: o[1] / mul,
+                  x: x * ( mul / scale ),
+                  y: y * ( mul / scale ),
+                  scale: scale / mul,
                   opacity: 0
                } );
 
-            }, 0, o );
-         }, Math.random() * 700, [star, scale] );
+            }, Math.random() * 700 );
+         } )( i )
+
       }
    }
 
@@ -514,7 +511,7 @@
                      ctx.activeWords( words );
                      ctx.mode( '' );
                      module.unload();
-                     
+
                      app.dialog.show( "slipper", DIALOGS.CHOOSE_PATH );
                   } );
                } );

@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
   font-family: 'CopseRegular';
   font-weight: normal;
   font-style: normal;
@@ -331,7 +331,7 @@ a.big {
   box-sizing: border-box;
 }
 .container.y {
-  max-height: 13em;
+  max-height: 13.3em;
   border: 2px solid #d7bea2;
   border-radius: 7px;
   overflow-y: auto;
@@ -1621,7 +1621,7 @@ button .currency {
   display: inline-block;
   vertical-align: middle;
   font-weight: bold;
-  width: 150px;
+  width: 200px;
   text-align: right;
   line-height: 1.75em;
 }
@@ -1637,9 +1637,9 @@ button .currency {
 .table-flex .discount {
   font-style: italic;
   position: absolute;
-  top: 2.8em;
+  top: 3em;
   left: 0;
-  width: 168px;
+  width: 243px;
   text-align: right;
   font-size: .8em;
 }
@@ -2210,7 +2210,7 @@ p.error {
 p.error {
   margin-bottom: 0 !important;
 }
-/*# sourceMappingURL=all.css.map */
+/*#region buttons */
 button {
   cursor: pointer;
   font-family: CopseRegular;
@@ -2379,7 +2379,7 @@ button.facebook,
   line-height: 50px;
   vertical-align: top;
 }
-/*# sourceMappingURL=all.css.map */
+/*#endregion */
 .button-group button {
   margin-bottom: .5em;
   font-size: .9em;

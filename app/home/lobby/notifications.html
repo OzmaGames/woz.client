@@ -1,6 +1,6 @@
 ﻿<div>
    <div class="table-flex" data-bind="template: {foreach: notifications, afterAdd: notifications.show}">
-      <div class="row mild-padding no-shadow rightRibbon" style="width:520px"
+      <div class="row mild-padding no-shadow rightRibbon" style="max-width:520px"
            data-bind="html: notificationSummary, css:{won: won, newGame: newGame, resigned: resigned, over: over, unseen: !seen }, click: $root.selectGame"></div>
    </div>
 </div>

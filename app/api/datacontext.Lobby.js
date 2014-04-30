@@ -1,6 +1,6 @@
 ﻿define( 'api/datacontext.lobby', ['durandal/app', './datacontext.storage'], function ( app, Storage ) {
 
-   var version = 0.15;
+   var version = 0.16;
 
    Object.beget = ( function ( Function ) {
       return function ( Object ) {

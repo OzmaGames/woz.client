@@ -2,7 +2,7 @@
 
    function Gameover( data ) {
       this.heading = data.heading;
-      this.content = data.content.replace( '{{scored}}', '<span class="score">' +  ctx.player.score() + '</span>' );
+      this.content = data.content.replace( '{{scored}}', '<span class="score">' + ctx.player.score() + '</span>' );
       this.btnText = data.btnText;
       this.xp = data.xp || 0;
       this.noXP = data.noXP === undefined ? false : data.noXP;
@@ -14,10 +14,11 @@
 
       var base = this;
       this.gotoLobby = function () {
-         app.dialog.close( "notice" );
-         if ( !base.noRedirect ) {
-            app.navigate( base.target );
-         }
+         base.close().then( function () {
+            if ( !base.noRedirect ) {
+               app.navigate( base.target );
+            }
+         } );
       }
    }
 
@@ -30,7 +31,6 @@
       LOST: {
          heading: "Good luck next time!",
          content: "You lost the game, scoring {{scored}} points.",
-         //noXP: true,
          btnText: "Dismiss!"
       },
       SOLO: {
@@ -43,15 +43,15 @@
          heading: "The game has ended!",
          content: "Your opponent has resigned from the game. Too bad, but this means you win!",
          btnText: "OK!",
-         btnSizeAuto: "auto",
+         btnSizeAuto: true,
          hideButtons: true
       }
    }
 
-   Gameover.WON = new Gameover( messages.WON );
-   Gameover.LOST = new Gameover( messages.LOST );
-   Gameover.SOLO = new Gameover( messages.SOLO );
-   Gameover.RESIGNED = new Gameover( messages.RESIGNED );
+   Gameover.WON = function () { return new Gameover( messages.WON ); }
+   Gameover.LOST = function () { return new Gameover( messages.LOST ); }
+   Gameover.SOLO = function () { return new Gameover( messages.SOLO ); }
+   Gameover.RESIGNED = function () { return new Gameover( messages.RESIGNED ); }
 
    return Gameover;
 } );

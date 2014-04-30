@@ -35,11 +35,11 @@
    var collections = ko.observableArray();
    ctx.user.collections.subscribe( function ( data ) {
       collections( data );
-      collections.push( {
-         shortName: 'more',
-         longName: 'More',
-         desc: '3/15 collections'
-      } );
+      //collections.push( {
+      //   shortName: 'more',
+      //   longName: 'More',
+      //   desc: '3/15 collections'
+      //} );
    } );
    ctx.user.collections.valueHasMutated();
 
@@ -74,6 +74,7 @@
          if ( collection.shortName == 'more' ) {
             app.navigate( 'shop' );
          }
+         return true;
       },
       binding: function () {
          return { cacheViews: false };

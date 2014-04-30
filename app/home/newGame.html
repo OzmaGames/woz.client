@@ -65,7 +65,11 @@
             </div>
          </article><article>
             <h1>choose collection</h1>
-            <div class="container y scroll" data-bind="foreach: collections">
+            <div class="container y scroll">
+               <!-- ko if:  !collections().length-->
+               <div class="loader-bar"><i></i><i></i><i></i></div>
+               <!-- /ko -->
+               <!-- ko foreach: collections-->
                <label class="radio">
                   <span class="pic" data-bind="css: shortName"></span>
                   <span class="text">
@@ -74,7 +78,8 @@
                   </span>
                   <input type="radio" name="c" data-bind="value: shortName, checked: $root.collection, click: $root.collectionClicked" /><span></span>
                </label>
-            </div>
+               <!-- /ko-->
+            </div>            
             <!--<h1>set language</h1>
             <div class="container group">
                <select class="woz" data-bind="dropdown: { inst: 'Change Language', options: null, selected: null }">
@@ -86,7 +91,7 @@
                </select>
             </div>-->
             <div class="container group">
-               <button data-bind="click: $root.start" class="blue" style="position:absolute;right:1.1em;top:12em;">Start Game</button>
+               <button data-bind="click: $root.start" class="blue" style="/*position:absolute;right:1.1em;top:12em;*/float:right;">Start Game</button>
             </div>
          </article>
       </div>

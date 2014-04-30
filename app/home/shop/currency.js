@@ -9,7 +9,9 @@
       ctx.shop.besozes.load();
 
       this.buy = function (item) {
-         ctx.user.buyBesoz( item.besoz );
+         ctx.user.buyBesoz( item.besoz ).then( function () {
+            app.dialog.showBesozBought();
+         } );         
       }
    }
 

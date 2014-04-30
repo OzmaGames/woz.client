@@ -92,7 +92,7 @@
 
          var data = {
             heading: "Bonus points",
-            content: content || "Use a feeling in your <br/> phrase to get the bonus."
+            content: content || "Use an adequate word to <br/> fulfill this bonus point."
          };
          var top = data.content.split( '<br' ).length * 60;
          data.css = "bottom left";
@@ -227,7 +227,7 @@
 
    app.on( "game:score:done" ).then( function () {
       ctx = app.ctx;
-      var storageName = "tutorial[" + ctx.username + "].menuBubble";
+      var storageName = "tutorial[" + ctx.username + "].bubble.menu";
       if ( app.ctx._gameOver() && !app.ctx.players()[0].resigned() &&
          ( app.ctx.players().length == 1 || !app.ctx.players()[1].resigned() ) ) {
          if ( !localStorage.getItem( storageName ) ) {
@@ -241,11 +241,11 @@
 
    app.on( "game:bubble" ).then( function ( eventName, data1, data2 ) {
       ctx = app.ctx;
-      var storageName = ctx.username + ".bubble.dynamic";
-      if ( !localStorage.getItem( storageName ) ) {
+      var storageName = ctx.username + ".bubble.dynamicPath";
+      //if ( !localStorage.getItem( storageName ) ) {
          t.showOne( t[eventName].call( t, data1, data2 ) );
          localStorage.setItem( storageName, true );
-      }
+      //}
    } );
 
    return t;

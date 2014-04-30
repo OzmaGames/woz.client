@@ -22,15 +22,20 @@
                <span data-bind="text: description"></span>
             </p>
             <p>
-               New Tiles: <span class="bold" data-bind="text: nImages + (dependent? dependent.nImages: 0)"></span>,
-               New Words: <span class="bold" data-bind="text: nWords + (dependent? dependent.nWords: 0)"></span>
+               New Tiles: <span class="" data-bind="text: nImages + (dependent? dependent.nImages: 0)"></span>,
+               New Words: <span class="" data-bind="text: nWords + (dependent? dependent.nWords: 0)"></span>
             </p>
-            <p data-bind="if: dependent">Buy both starter and booster for <span data-bind="text: totalPrice"></span> besoz.</p>
+            <br />
+            <p class="bold">
+               Buy
+               <span data-bind="if: dependent">both starter and booster</span>
+               <span data-bind="ifnot: dependent, text: 'this ' + type"></span>
+               for <span data-bind="text: totalPrice"></span> besoz.
+            </p>
          </div>
       </div>
    </div>
-   <br />
-   <button class="orange centered has-currency normal" data-bind="click: $parent.close.bind(null, {confirm: true})">
+   <button class="orange centered normal" data-bind="click: $parent.close.bind(null, {confirm: true})">
       <span class="currency" data-bind="text: totalPrice"></span>
       Buy
    </button>

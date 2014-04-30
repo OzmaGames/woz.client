@@ -303,7 +303,7 @@ a.big {
   box-sizing: border-box;
 }
 .container.y {
-  max-height: 13em;
+  max-height: 13.3em;
   border: 2px solid #d7bea2;
   border-radius: 7px;
   overflow-y: auto;

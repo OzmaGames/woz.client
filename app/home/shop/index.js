@@ -38,6 +38,10 @@
          }
       },
 
+      start: function () {
+         app.navigate( "newGame" );
+      },
+
       binding: function () {
          return { cacheViews: false };
       }

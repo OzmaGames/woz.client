@@ -30,12 +30,13 @@
       base.phrase.update = function ( words ) {
          base.completeSub.dispose();
          if ( base.phrase.complete.immediate() ) return;
-         ko.utils.arrayForEach( words || [], function ( word ) {
-            base.addWord( word, undefined, true );
-         } );
          if ( base.nWords == 0 && words && words.length >= 3 ) {
             base.phrase._complete( true );
          }
+
+         ko.utils.arrayForEach( words || [], function ( word ) {
+            base.addWord( word, undefined, true );
+         } );         
       }
 
       var isComplete = function () {
@@ -209,7 +210,7 @@
             index = base._lastEmptyIndex();
          }
 
-         if ( ( base.nWords == 0 && index >= 6 ) || ( base.nWords != 0 && index >= base.nWords ) ) return false;
+         if ( ( base.nWords == 0 && index >= 9 ) || ( base.nWords != 0 && index >= base.nWords ) ) return false;
 
          if ( base.hasWordAt( index ) ) {
             base.removeWordAt( index );
