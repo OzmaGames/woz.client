@@ -82,9 +82,12 @@
                gameID: ctx.gameID,
                wordID: base.word.id,
                version: base.activeVersion()
-            }, function ( data ) {
+            }, function ( data ) {               
                base.loading( false );
                if ( data.success ) {
+                  if ( data.besoz != undefined ) {
+                     ctx.user.besoz( data.besoz );
+                  }
                   base.word.isPlayed = false;
                   base.word.lemma = data.version;
                   ctx.words.valueHasMutated();

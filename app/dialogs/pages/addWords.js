@@ -53,6 +53,9 @@
                lemma: base.activeWord()
             }, function ( data ) {
                publishWord( data );
+               if ( data.besoz != undefined ) {
+                  ctx.user.besoz( data.besoz );
+               }
             } );
          }
 

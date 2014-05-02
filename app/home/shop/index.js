@@ -19,7 +19,8 @@
 
          return dfd.then(function () {
             base.module(null);
-            base.module(tabIndex === 0 ? 'home/shop/expansion' : 'home/shop/currency');
+            base.module(tabIndex === 0 ? 'home/shop/expansion' : 
+                        tabIndex === 1 ? 'home/shop/currency' : 'home/shop/storage' );
 
             base.mode(tabIndex);
             base.loading(false);

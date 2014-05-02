@@ -129,8 +129,10 @@
          this.active = false;
          clearInterval( this._hoverHandler );
          this._hoverHandler = setTimeout( function ( base ) {
-            base._guiRect.removeClass( "hover" );
-            if ( !base.isCircle ) base._guiRect.children( ".box" ).text( "" );
+            if ( base._guiRect ) {
+               base._guiRect.removeClass( "hover" );
+               if ( !base.isCircle ) base._guiRect.children( ".box" ).text( "" );
+            }
          }, 1, this );
       }
    };

@@ -1,6 +1,6 @@
 ﻿define( 'api/datacontext.lobby', ['durandal/app', './datacontext.storage'], function ( app, Storage ) {
 
-   var version = 0.16;
+   var version = 0.18;
 
    Object.beget = ( function ( Function ) {
       return function ( Object ) {
@@ -103,8 +103,10 @@
       app.on( "game:update" ).then( function ( json ) {
          var g = ko.utils.arrayFirst( base.games(), function ( game ) { return game.gameID == json.gameID; } );
          if ( g ) {
+            if ( json.players.length != g.playerCount ) debugger;
+
             g.over = json.over;
-            g.players = json.players;
+            g.players = json.players;            
             g.modDate = +new Date(); //storage.since.load() + 1;  //todo
             g.localChanges = true;
             g.seen = false;
@@ -219,7 +221,11 @@
          var localGames = storage.games.load(), games = this.games();
 
          for ( var i = 0; i < localGames.length; i++ ) {
-            updateGame( localGames[i], games[i] );
+            var g = ko.utils.arrayFirst( games, function ( g ) { return g.gameID == localGames[i].gameID; } );
+            if ( g ) {
+               updateGame( localGames[i], g );
+            }            
+            if ( localGames[i].playerCount != localGames[i].players.length ) debugger;
          }
 
          storage.games.save( localGames );

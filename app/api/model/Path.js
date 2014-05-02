@@ -223,6 +223,7 @@
             //relocation
          }
 
+         if ( word.isSelected ) word.isSelected( false );
          word.isPlayed = 1;
          model.words.valueHasMutated();
 

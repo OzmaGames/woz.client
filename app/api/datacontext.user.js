@@ -25,6 +25,10 @@
          } );
       }
 
+      this.refresh = function () {
+         pullData();
+      }
+
       app.on( "account:login" ).then( function ( json ) {
          userAuthenticated( { username: json.username, online: 1 } );
       } );
