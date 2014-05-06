@@ -1,11 +1,19 @@
 ﻿<div style="font-size: 18px">
-   <span class="loader-bar center" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
+   <p style="max-width:520px;margin-left:1em; text-align:center">
+      You currently have space for <span class="bold" data-bind="text: storage"></span> games in your archive. Get more space for your archived games!
+   </p>
+   <span class="loader-bar pull-right" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
    <div class="table-flex" data-bind="foreach: list">
-      <div class="row mild-padding" style="max-width:520px">
+      <div class="row mild-padding" style="max-width:520px" data-bind="css: {disabled: $root.storage() >= storage && (storage != 0 || storage == $root.storage())}">
          <!--ko if: flag--><div class="ribbon" data-bind="css: flag.color, text: flag.text"></div><!-- /ko-->
-         <span class="besoz"><span data-bind="text: besoz"></span> besoz</span>
-         <span class="price" style="width:150px" data-bind="text: text"></span>
-         <button class="orange xsm pull-right" data-bind="click: $parent.buy">BUY</button>         
+         <span class="besoz" data-bind="text: text"></span>
+         <span class="price" style="width:150px"><span data-bind="text: price"></span> besoz</span>
+         <!--ko if: $root.storage() >= storage && (storage != 0 || storage == $root.storage())-->
+
+         <!-- /ko -->
+         <!--ko ifnot: $root.storage() >= storage && (storage != 0 || storage == $root.storage())-->
+         <button class="orange xsm pull-right" data-bind="click: $parent.buy">BUY</button>
+         <!-- /ko -->
       </div>
    </div>
 </div>

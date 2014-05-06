@@ -3,8 +3,9 @@
       var base = this, _user;
 
       this.username = '';
-      this.besoz = ko.observable(0);
-      this.level = ko.observable(0);
+      this.besoz = ko.observable( 0 );
+      this.storage = ko.observable( 0 );
+      this.level = ko.observable( 0 );
       this.collections = ko.observableArray();      
 
       this.loading = ko.observable( false );
@@ -22,6 +23,14 @@
             pullData();
          } ).fail( function () {
             
+         } );
+      }
+
+      this.buyStorageSpace = function ( storageObj ) {
+         return shop.storageSpaceList.buy( _user, storageObj ).then( function () {
+            pullData();
+         } ).fail( function () {
+            app.dialog.showNoBesoz( storageObj.price );
          } );
       }
 
@@ -54,6 +63,8 @@
                base.collections( data.collections );
                base.besoz( data.besoz );
                base.level( data.level );
+               base.storage( data.storage );
+               //base.storage( 5 );
             }
             base.loading( false );
          } );

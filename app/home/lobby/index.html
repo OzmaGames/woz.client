@@ -5,12 +5,12 @@
          Start New Game
       </button>
       <br />
-      <div class="tab responsive" data-bind="tab: {nav: navigate, activeTab: activeTab}">
+      <div class="tab responsive" data-bind="tab: {nav: navigate, navEnd: navEnd, navSwitch: navSwitch, activeTab: activeTab}">
          <nav>
             <ul>
                <li><span>ongoing games</span></li>
                <li>
-                  <span class="has-number">
+                  <span class="animate" data-bind="css: unseens() == 0?'': 'has-number'">
                      notifications
                      <span class="number" data-bind="text: unseens, visible: unseens"></span>
                   </span>

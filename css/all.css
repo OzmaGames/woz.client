@@ -26,16 +26,6 @@
   /* IE9 */
   /* Legacy IOS */
 }
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
 html,
 body,
 ul,
@@ -894,6 +884,7 @@ a.big {
   min-width: 550px;
   font-size: 15px;
   padding-right: 15px;
+  border: 1px solid transparent;
 }
 .tab .content .table {
   min-width: initial;
@@ -936,6 +927,12 @@ a.big {
 }
 .tab nav li > * {
   font-size: 15px;
+}
+.tab nav li .animate {
+  -moz-transition: padding-right 0.5s;
+  -o-transition: padding-right 0.5s;
+  -webkit-transition: padding-right 0.5s;
+  transition: padding-right 0.5s;
 }
 .tab nav li .has-number {
   padding-right: 1.5em;
@@ -1017,7 +1014,6 @@ a.big {
   visibility: hidden;
 }
 .note {
-  display: none;
   font-size: .9em;
   background-color: #f9f8f4;
   font-family: Cambria, CopseRegular;
@@ -1191,7 +1187,8 @@ a.big {
 .table-flex .collection p {
   margin-bottom: .5em;
 }
-.table-flex .collection.disabled {
+.table-flex .collection.disabled,
+.table-flex .row.disabled {
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
   -o-filter: grayscale(100%);
@@ -1294,6 +1291,16 @@ button .currency {
 }
 :checked ~ i {
   opacity: .9;
+}
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 .dialog {
   position: fixed;
@@ -1697,6 +1704,8 @@ button .currency {
 }
 .dialog .notice .versions {
   margin: .5em 0 1em 0;
+  min-height: 5em;
+  font-size: 1.1em;
 }
 .dialog .notice .version {
   display: inline-block;
@@ -1726,6 +1735,7 @@ button .currency {
   display: table-cell;
   width: 375px;
   vertical-align: middle;
+  padding: 0 .5em;
 }
 .dialog .notice .dropzone:hover {
   border-color: #d7bea2;

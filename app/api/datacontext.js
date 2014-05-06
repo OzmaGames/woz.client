@@ -72,7 +72,7 @@
      model.tutorialMode = ko.observable( false );
      model.tutorialObject = ko.observable();
 
-     app.on( "game:lobby:published", function ( game ) {
+     app.on( "lobby:changed", function ( game ) {
         if ( game.gameID == model.gameID ) {
            var hasUnknown = ko.utils.arrayFirst( ctx.players(), function ( p ) { return p.username == 'unknown'; } );
            if ( hasUnknown ) {

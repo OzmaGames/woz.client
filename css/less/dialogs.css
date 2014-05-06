@@ -410,6 +410,8 @@
 }
 .dialog .notice .versions {
   margin: .5em 0 1em 0;
+  min-height: 5em;
+  font-size: 1.1em;
 }
 .dialog .notice .version {
   display: inline-block;
@@ -439,6 +441,7 @@
   display: table-cell;
   width: 375px;
   vertical-align: middle;
+  padding: 0 .5em;
 }
 .dialog .notice .dropzone:hover {
   border-color: #d7bea2;

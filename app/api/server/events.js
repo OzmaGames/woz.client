@@ -21,7 +21,8 @@
         "user:collections",
         "shop:collections",
         "user:info",
-        "shop:besoz"
+        "shop:besoz",
+        "shop:storage"
       ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {

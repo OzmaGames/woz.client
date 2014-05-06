@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/constants', 'api/utils', 'game/tutorial', 'paper'], function ( app, constants, utils, bubble ) {
+﻿define( ['durandal/app', 'api/constants', 'api/utils', 'paper'], function ( app, constants, utils ) {
 
    function Path( model, id, nWords, startTile, endTile, cw, phrase ) {
       var base = this;
@@ -79,6 +79,8 @@
                      data.words = ko.utils.arrayMap( base.phrase.words(), function ( word ) { return word.word.lemma; } );
 
                      app.trigger( "server:tutorial:place-phrase", data, function ( data ) {
+
+                        var bubble = require( 'game/tutorial' );
 
                         bubble.closeAll();
                         var cancel = function ( message ) {

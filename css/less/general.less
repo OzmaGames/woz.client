@@ -979,6 +979,7 @@ a.small {
     min-width: 550px;
     font-size: 15px;
     padding-right: 15px;
+    border:1px solid transparent;
 }
 
     .tab .content .table {
@@ -1025,6 +1026,13 @@ a.small {
 
         & > * {
             font-size: 15px;
+        }
+
+        & .animate {
+            -moz-transition: padding-right .5s;
+            -o-transition: padding-right .5s;
+            -webkit-transition: padding-right .5s;
+            transition: padding-right .5s;
         }
 
         & .has-number {
@@ -1119,7 +1127,6 @@ a.small {
 }
 
 .note {
-    display: none;
     font-size: .9em;
     background-color: @backBoxColor;
     font-family: Cambria, CopseRegular;
@@ -1326,7 +1333,7 @@ a.small {
     }
 }
 
-    .table-flex .collection.disabled {
+    .table-flex .collection.disabled, .table-flex .row.disabled {
         -webkit-filter: grayscale(100%);
         -moz-filter: grayscale(100%);
         -o-filter: grayscale(100%);

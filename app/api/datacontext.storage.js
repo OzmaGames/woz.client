@@ -1,7 +1,7 @@
 ﻿define( 'api/datacontext.storage', [], function () {
 
    function Storage( prefixProvider, version, names ) {
-      var base = this;
+      var base = this, cache = {};
 
       if ( typeof prefixProvider !== "function" )
          prefixProvider = ( function ( provider ) {
@@ -24,45 +24,59 @@
          return prefixProvider() + ( name ? '.' + name : '' );
       }
 
-      function save( name, obj ) {
-         console.log( "%cSave Storage (" + getKey( name ) + ")", "background: lightblue; color: white" );
-
-         localStorage.setItem( getKey( name ), JSON.stringify( obj ) );
+      function copyOf( obj ) {
+         return JSON.parse( JSON.stringify( obj ) );
       }
 
-      function load( name ) {
-         console.log( "%cLoad Storage (" + getKey( name ) + ")", "background: lightblue" );
+      function save( name, obj ) {
+         localStorage.setItem( getKey( name ), JSON.stringify( obj ) );
+
+         cache[name] = copyOf( obj );
+
+         console.log( "%cSave Storage (" + getKey( name ) + ")", "background: lightblue; color: white", cache[name] );
+      }
+
+      function load( name, noCache ) {
+         if ( !noCache && cache[name] ) return cache[name];
 
          var strObj = localStorage.getItem( getKey( name ) );
+         cache[name] = strObj ? JSON.parse( strObj ) : names[name];
 
-         return strObj ? JSON.parse( strObj ) : names[name];
+         console.log( "%cLoad Storage (" + getKey( name ) + ")", "background: lightblue", cache[name] );
+
+         return cache[name];
+      }
+
+      function loadCopy( name ) {
+         return copyOf( load( name ) );
       }
 
       var model = {};
       for ( var name in names ) {
-         model[name] = {
-            save: ( function ( n ) {
-               return function ( obj ) {
-                  return save( n, obj );
+         ( function ( name ) {
+            model[name] = {
+               save: function ( obj ) {
+                  return save( name, obj );
+               },
+               load: function ( noCache ) {
+                  return load( name, noCache );
+               },
+               loadCopy: function () {
+                  return loadCopy( name );
                }
-            } )( name ),
-            load: ( function ( n ) {
-               return function () {
-                  return load( n );
-               }
-            } )( name )
-         }
+            }
+         } )( name );
       }
 
       model.save = function ( obj ) {
          return save( null, obj );
       }
-      model.load = function () {
-         return load( null );
+      model.load = function ( noCache ) {
+         return load( null, noCache );
       }
 
       return model;
    }
 
-   return Storage;
+   return window.STG = Storage;
 } );

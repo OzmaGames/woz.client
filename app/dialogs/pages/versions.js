@@ -26,6 +26,8 @@
       this.drop = function () {
          var word = this.lastWord = ctx.activeWord();
 
+         if ( !word ) return;
+
          word.isPlayed = true;
          ctx.words.valueHasMutated();
 
@@ -89,6 +91,7 @@
                      ctx.user.besoz( data.besoz );
                   }
                   base.word.isPlayed = false;
+                  base.word.isRelated = data.isRelated;
                   base.word.lemma = data.version;
                   ctx.words.valueHasMutated();
                   base.ticket( false );

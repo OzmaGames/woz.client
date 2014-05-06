@@ -189,35 +189,90 @@
       }
    };
 
+   ko.bindingHandlers["loadMore"] = {
+      init: function ( element, valueAccessor, all, vm ) {
+         var loadMore = ko.unwrap( valueAccessor() );
+         var MARGIN = 10;
+         var lastCh = $( ':last', element );
+
+         var dettach = function () {
+            $( app.el ).off( "scroll", scrollCheck );
+         }
+
+         var attach = function () {
+            $( app.el ).on( "scroll", scrollCheck );
+         }
+
+         var scrollCheck = function () {
+            if ( !lastCh.length ) {
+               lastCh = $( ':last', element );
+               if ( !lastCh.length ) return;
+            }
+            var visible = app.el.clientHeight + MARGIN > lastCh.offset().top;
+            if ( visible ) {
+               dettach();
+               loadMore.call(vm).then( function ( canLoad ) {
+                  if ( canLoad ) {
+                     attach();
+                  }
+               } );
+            }
+         };
+
+         ko.utils.domNodeDisposal.addDisposeCallback( element, dettach );
+         attach();
+      }
+   }
+
    ko.bindingHandlers["tab"] = {
       init: function ( element, valueAccessor, allBindingsAccessor, viewModel ) {
-         var obj = valueAccessor();
+         var obj = valueAccessor(), lastIndex = undefined;
 
-         var activeIndex = ko.observable( obj.activeTab || 0 ),
+         var activeIndex = ko.observable( lastIndex ),
             items = $( element ).find( 'li:not(:last)' ).each( function ( index, el ) {
                $( this ).data( 'index', index );
             } ).click( function () {
                activeIndex( $( this ).data( 'index' ) );
             } );
 
-         ko.computed( {
-            disposeWhenNodeIsRemoved: element,
-            read: function () {
-               var index = activeIndex();
+         var sub = activeIndex.subscribe( function ( index ) {
+            for ( var i = 0; i < items.length; i++ ) {
+               items[i].classList.remove( 'active' );
+            }
+            items[index].classList.add( 'active' );
 
-               for ( var i = 0; i < items.length; i++ ) {
-                  items[i].classList.remove( 'active' );
-               }
-               items[index].classList.add( 'active' );
-
-               if ( typeof obj.nav == "function" ) {
-                  var dfd = $( '.content', element ).slideUp().delay( 30 ).promise();
-                  obj.nav.call( viewModel, index, dfd ).then( function () {
-                     $( '.content', element ).slideDown( 500 );
+            if ( typeof obj.nav == "function" ) {
+               var dfd = $.Deferred();
+               $( '.content', element ).stop().slideUp().delay( 30 ).promise().then( function () {
+                  if ( index != activeIndex() ) {
+                     dfd.reject();
+                  } else {
+                     dfd.resolve( index );
+                  }
+               } );
+               obj.nav.call( viewModel, index, dfd ).then( function () {
+                  $( '.content', element ).slideDown( 500 ).promise().then( function () {
+                     $( this ).css( 'height', '' );
+                     if ( typeof obj.navEnd == "function" ) {
+                        obj.navEnd.call( viewModel, index );
+                     }
+                     if ( typeof obj.navSwitch == "function" ) {
+                        obj.navSwitch.call( viewModel, lastIndex, index );
+                     }
+                     lastIndex = index;
                   } );
-               }
+               } );
             }
          } );
+
+         ko.utils.domNodeDisposal.addDisposeCallback( element, function () {
+            sub.dispose();
+            if ( typeof obj.navSwitch == "function" ) {
+               obj.navSwitch.call( viewModel, activeIndex() );
+            }
+         } );
+
+         activeIndex( obj.activeTab || 0 );
       }
    };
 

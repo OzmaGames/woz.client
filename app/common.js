@@ -24,14 +24,16 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
 
       app.dialog = Dialog;
       app.dialog.showCurrency = function () {
-         app.dialog.show( "notice", {
-            model: 'dialogs/pages/currency',
-            css: 'long',
-            closeOnClick: false,
-            fixed: true,
-            centered: true,
-            modal: true
-         } );
+         ctx.shop.besozes.load().then( function () {            
+            app.dialog.show( "notice", {
+               model: 'dialogs/pages/currency',
+               css: 'long',
+               closeOnClick: false,
+               fixed: true,
+               centered: false,
+               modal: true
+            } );
+         } );         
       };
       app.dialog.showNoBesoz = function ( besoz ) {
          app.dialog.show( "notice", {
@@ -114,6 +116,21 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
             return {
                then: function ( func ) { thenFunc = func; }
             };
+         },
+         delay: function (ms) {
+            return run( function () { } );
+         },
+         Queue: function () {
+            this.timer = 0;
+
+            this.runAfter = function ( func, ms ) {
+               this.timer += ms;
+
+               var base = this;
+               Task.run( func, this.timer ).then( function () {
+                  base.timer -= ms;
+               } );
+            }
          }
       }
       //alert(

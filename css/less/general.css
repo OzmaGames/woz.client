@@ -866,6 +866,7 @@ a.big {
   min-width: 550px;
   font-size: 15px;
   padding-right: 15px;
+  border: 1px solid transparent;
 }
 .tab .content .table {
   min-width: initial;
@@ -908,6 +909,12 @@ a.big {
 }
 .tab nav li > * {
   font-size: 15px;
+}
+.tab nav li .animate {
+  -moz-transition: padding-right 0.5s;
+  -o-transition: padding-right 0.5s;
+  -webkit-transition: padding-right 0.5s;
+  transition: padding-right 0.5s;
 }
 .tab nav li .has-number {
   padding-right: 1.5em;
@@ -989,7 +996,6 @@ a.big {
   visibility: hidden;
 }
 .note {
-  display: none;
   font-size: .9em;
   background-color: #f9f8f4;
   font-family: Cambria, CopseRegular;
@@ -1163,7 +1169,8 @@ a.big {
 .table-flex .collection p {
   margin-bottom: .5em;
 }
-.table-flex .collection.disabled {
+.table-flex .collection.disabled,
+.table-flex .row.disabled {
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
   -o-filter: grayscale(100%);

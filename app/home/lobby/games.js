@@ -1,30 +1,65 @@
 ﻿define( ['durandal/app', 'api/datacontext'], function ( app, ctx ) {
 
+   var notificationsPerPage = 15;
+   var gamesPerPage = 10;
+
    var archive = ko.observableArray();
    var onGoings = ko.observableArray();
-   var notifications = ko.observableArray();   
-
+   var notifications = ko.observableArray();
+   notifications.queue = new Task.Queue();
    notifications.show = function ( elem ) {
-      if ( elem.nodeType === 1 )
-         $( elem ).hide().slideDown()
+      if ( elem.nodeType === 1 ) {
+         $( elem ).hide();
+         notifications.queue.runAfter( function () {
+            $( elem ).slideDown()
+         }, 150 );
+      }
    }
 
+   var forGames = {};
+   forGames.queue = new Task.Queue();
+   forGames.show = function ( elem ) {
+      //if ( elem.nodeType === 1 ) {
+      //   $( elem ).hide();
+      //   forGames.queue.runAfter( function () {
+      //      $( elem ).slideDown();
+      //   }, 150 );
+      //}
+   }
+
+   var nVisibleNotifications = ko.observable( notificationsPerPage );
+   nVisibleNotifications.subscribe( function () {
+      ctx.lobby.notifications.valueHasMutated();
+   } );
+   var nVisibleGames = ko.observable( gamesPerPage );
+   nVisibleGames.subscribe( function () {
+      ctx.lobby.games.valueHasMutated();
+   } );
+
    ctx.lobby.notifications.subscribe( function ( games ) {
-      
+
       notifications().splice( 0, notifications().length );
 
-      ko.utils.arrayForEach( games, function ( g ) {
+      for ( var i = 0; games[i]; i++ ) {
+         var g = games[i];
          g.notificationSummary = getNotification( g );
-         if ( g.over || g.newGame ) notifications().push( g );
-      } );
+         if ( g.over || g.newGame ) {
+            if ( nVisibleNotifications() > notifications().length ) {
+               notifications().push( g );
+            } else {
+               break;
+            }
+         }
+      }
 
       notifications.valueHasMutated();
    } );
-   
+
+   ctx.user.storage.subscribe( function () {
+      ctx.lobby.games.valueHasMutated();
+   } );
 
    ctx.lobby.games.subscribe( function ( games ) {
-      //onGoings().splice( 0, onGoings().length );
-      //archive().splice( 0, archive().length );
       onGoings.removeAll();
       archive.removeAll();
 
@@ -33,9 +68,15 @@
 
          if ( !g.resigned ) {
             if ( g.over ) {
-               archive().push( g );
+               if ( ctx.user.storage() > archive().length &&
+                        nVisibleGames() > archive().length
+                  ) {
+                  archive().push( g );
+               }
             } else {
-               onGoings().push( g );
+               if ( nVisibleGames() > onGoings().length ) {
+                  onGoings().push( g );
+               }
             }
          }
       } );
@@ -57,7 +98,7 @@
 
    var augments = {
       collection: function ( g, style ) {
-         return $( "<span/>", { 'class': 'collection', text: g.collection } ).get( 0 ).outerHTML;
+         return $( "<span/>", { 'class': 'collection', text: g.collection.longName } ).get( 0 ).outerHTML;
       },
       opponent: function ( g, style ) {
          return $( "<span/>", { 'class': 'bold', text: getOpponent( g ).username } ).get( 0 ).outerHTML;
@@ -172,7 +213,13 @@
       this.type = ko.observable();
       this.notifications = notifications;
 
+      this.gotoShopStorage = function () {
+         app.navigate( "shop/storage" );
+      }
+
       var base = this;
+
+      this.forGames = forGames;
 
       this.binding = function () {
          ctx.lobby.games.valueHasMutated();
@@ -187,18 +234,18 @@
       }
 
       this.loadNotification = function () {
-         base.message( "You can have up to 10 notification games at the time. <a>Get more space</a>!" );
+         nVisibleNotifications( notificationsPerPage );
          base.type( "notification" );
       }
 
       this.loadOnGoing = function () {
-         base.message( "You can have up to 10 ongoing games at the time. <a>Get more space</a>!" );
+         nVisibleGames( gamesPerPage );
          base.list( base.ongoing );
          base.type( "ongoing" );
       }
 
       this.loadArchive = function () {
-         base.message( "Your archive have room for 10 games right now. <a>Get more space</a>!" );
+         nVisibleGames( gamesPerPage );
          base.list( base.archive );
          base.type( "archive" );
       }
@@ -243,6 +290,30 @@
                } )
             }
       ]
+
+      this.nextPageNotifications = function () {
+         var base = this;
+         nVisibleNotifications( nVisibleNotifications() + notificationsPerPage );
+
+         return Task.run.call( this, function () {
+            return nVisibleNotifications() < ctx.lobby.notifications().length;
+         }, 150 * notificationsPerPage );
+      };
+      
+      this.nextPageGames = function () {
+         var base = this;
+         nVisibleGames( nVisibleGames() + gamesPerPage );
+
+         return Task.run.call( this, function () {
+            return nVisibleGames() < ctx.lobby.games().length;
+         }, 150 * gamesPerPage );
+      };
+
+      this.storage = ctx.user.storage;
+
+      this.archiveStorageVisibility = ko.computed( function () {
+         return ctx.user.storage() <= archive().length;
+      } );
 
       this.selectGame = function ( game ) {
          if ( game.resigned || ( game.newGame && game.over ) ) return;

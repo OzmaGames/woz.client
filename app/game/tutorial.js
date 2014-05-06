@@ -1,9 +1,12 @@
-﻿define( 'game/tutorial', ['durandal/app', 'api/datacontext', 'dialogs/_constants'], function ( app, ctx, consts ) {
+﻿define( 'game/tutorial', ['durandal/app', 'dialogs/_constants', 'api/datacontext.storage'], function ( app, consts, Storage ) {
    TUT = consts.TUT;
 
    var APP = document.getElementById( "app" );
 
    function Tutorial() {
+
+      this.storage = new Storage( function () { return "tutorial[" + app.ctx.username + "].bubble" }, .1, { "menu": null, "dynamic": null } );
+
       this.swapWords = function () {
          var item = $( '.palette.left .btn:first' );
 
@@ -79,9 +82,19 @@
             content: "Click me when <br> you are done! <br> Use 3-6 words."
          };
 
-         data.css = "bottom right";
-         data.top = item.offset().top - 120 + APP.scrollTop;
-         data.left = item.offset().left - 70;
+         if ( item.offset().top + APP.scrollTop < 150 ) {
+            data.css = "left";
+            data.top = item.offset().top + 15 + APP.scrollTop;
+            data.left = item.offset().left + 65;
+         } else {
+            data.css = "bottom right";
+            data.top = item.offset().top - 100 + APP.scrollTop;
+            data.left = item.offset().left - 75;
+         }
+
+         item.click( function () {
+            app.dialog.close( 'tutorial' );
+         } );
 
          return data;
       }
@@ -226,14 +239,13 @@
    var t = new Tutorial();
 
    app.on( "game:score:done" ).then( function () {
-      ctx = app.ctx;
-      var storageName = "tutorial[" + ctx.username + "].bubble.menu";
+
       if ( app.ctx._gameOver() && !app.ctx.players()[0].resigned() &&
          ( app.ctx.players().length == 1 || !app.ctx.players()[1].resigned() ) ) {
-         if ( !localStorage.getItem( storageName ) ) {
+         if ( !t.storage.menu.load() ) {
+            t.storage.menu.save( true );
             setTimeout( function () {
                t.showOne( t.archivedGames() );
-               localStorage.setItem( storageName, true );
             }, 2000 );
          }
       }
@@ -241,11 +253,11 @@
 
    app.on( "game:bubble" ).then( function ( eventName, data1, data2 ) {
       ctx = app.ctx;
-      var storageName = ctx.username + ".bubble.dynamicPath";
-      //if ( !localStorage.getItem( storageName ) ) {
+      var storageName = app.ctx.username + ".bubble.dynamicPath";
+      if ( !t.storage.dynamic.load() ) {
+         t.storage.dynamic.save( true )
          t.showOne( t[eventName].call( t, data1, data2 ) );
-         localStorage.setItem( storageName, true );
-      //}
+      }
    } );
 
    return t;

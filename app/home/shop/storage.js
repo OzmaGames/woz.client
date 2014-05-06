@@ -8,6 +8,7 @@
       this.list = ctx.shop.storageSpaceList;
       ctx.shop.storageSpaceList.load();
 
+      this.storage = ctx.user.storage;
       this.buy = function (item) {
          ctx.user.buyStorageSpace( item ).then( function () {
             //app.dialog.showBesozBought();

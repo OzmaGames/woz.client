@@ -57,6 +57,7 @@
             { route: 'test', moduleId: 'home/test', title: 'Test', nav: true },
             { route: 'lobby', moduleId: 'home/lobby/index', title: 'My Games', nav: true },
             { route: 'shop', moduleId: 'home/shop/index', title: 'Shop', nav: true },
+            { route: 'shop/:id', moduleId: 'home/shop/index', title: 'Shop', nav: true },
             { route: 'settings', moduleId: 'home/settings', title: 'Settings', nav: true },
             { route: 'newGame', moduleId: 'home/newGame', title: 'New Game', nav: true },
             { route: 'singlePlayer', moduleId: 'home/singlePlayer', title: 'Loading the game', nav: true },

@@ -1,6 +1,6 @@
 ﻿define( 'api/datacontext.lobby', ['durandal/app', './datacontext.storage'], function ( app, Storage ) {
 
-   var version = 0.18;
+   var version = 0.42;
 
    Object.beget = ( function ( Function ) {
       return function ( Object ) {
@@ -20,45 +20,46 @@
 
       var unseenUpdate = ko.observable( 0 );
       this.unseens = ko.computed( function () {
-         unseenUpdate();
-         var c = ko.utils.arrayFilter( base.games(), function ( g ) { return !g.seen && g.playerCount == 2 && !g.isPlayerCreator; } ).length;
-         return c + ko.utils.arrayFilter( base.games(), function ( g ) { return !g.seen && g.playerCount == 2 && g.over; } ).length;
+         var games = base.notifications(); unseenUpdate();
+         return ko.utils.arrayFilter( games, function ( g ) { return !g.seen && ( g.over || ( !g.over && g.newGame ) ); } ).length;
       } );
 
       this.seenAll = function () {
-         ko.utils.arrayForEach( base.games(), function ( game ) { game.seen = true; } );
-         base.saveChanges();
+         ko.utils.arrayForEach( base.notifications(), function ( game ) {
+            game.seen = true;
+            delete game.changed;
+         } );
+         saveChanges();
          unseenUpdate( unseenUpdate() + 1 );
       }
 
       this.seenAllOngoing = function () {
-         ko.utils.arrayForEach( base.games(), function ( game ) { game.seenOngoing = true; } );
-         base.saveChanges();
+         ko.utils.arrayForEach( base.games(), function ( game ) {
+            game.seenOngoing = true;
+            delete game.changed;
+         } );
+         saveChanges();
       }
 
       this.games.subscribe( function ( games ) {
-         var notifications = base.notifications(), changed = false;
+         var notifications = base.notifications();
          for ( var i = 0, game; game = games[i++]; ) {
-            var exist = ko.utils.arrayFirst( notifications, function ( ntf ) { return ntf.gameID == game.gameID; } );
-            if ( !exist ) {
-               if ( game.playerCount == 2 ) {
+            if ( game.playerCount == 2 ) {
+               var exist = ko.utils.arrayFirst( notifications, function ( ntf ) { return ntf.gameID == game.gameID; } );
+               if ( !exist ) {
                   notifications.push( game );
-
                   if ( !game.isPlayerCreator ) {
                      var copy = Object.beget( game );
                      copy.newGame = true;
+                     copy.seen = !!game.seen;
                      copy.modDate = copy.creationDate;
                      notifications.push( copy );
                   }
-                  
-                  changed = true;
                }
             }
          }
-         sort( notifications );
+         sortGames( notifications );
          base.notifications.valueHasMutated();
-         //if ( changed ) {            
-         //}
       } );
 
       function pullGames() {
@@ -67,25 +68,25 @@
          var since = storage.since.load();
 
          if ( since && !base.games().length ) {
-            //if list is empty, fill it with local stored games while waiting
-            var localGames = storage.games.load();
-            base.games( polish( localGames ) );
+            //if list is empty, fill it with local stored games while waiting            
+            base.games( polish( storage.games.loadCopy() ) );
          }
 
          base.loading( true );
          app.trigger( "server:lobby", { username: _user.username, modDate: since }, function ( data ) {
             if ( data.success && data.games.length ) {
-               publish( data.games );
+               publishGames( data.games );
             }
             base.loading( false );
          } );
       }
 
-      function userAuthenticated(user) {
+      function userAuthenticated( user ) {
          base.games.removeAll();
+         base.notifications.removeAll();
 
          if ( _user = user, _user.online ) {
-            window.stg = storage = new Storage( "lobby[" + _user.username + "]", version, { "games": [], "since": 0 } );
+            storage = new Storage( "lobby[" + _user.username + "]", version, { "games": [], "since": 0 } );
             pullGames();
          }
       }
@@ -95,7 +96,7 @@
       app.on( "account:login" ).then( function ( json ) {
          userAuthenticated( { username: json.username, online: 1 } );
       } );
-      
+
       app.on( "lobby:update" ).then( function () {
          pullGames();
       } );
@@ -103,37 +104,34 @@
       app.on( "game:update" ).then( function ( json ) {
          var g = ko.utils.arrayFirst( base.games(), function ( game ) { return game.gameID == json.gameID; } );
          if ( g ) {
-            if ( json.players.length != g.playerCount ) debugger;
+            var oldSeen = g.seen;
 
             g.over = json.over;
-            g.players = json.players;            
-            g.modDate = +new Date(); //storage.since.load() + 1;  //todo
-            g.localChanges = true;
-            g.seen = false;
+            g.players = json.players;
+            g.modDate = +new Date();
+            g.local = true;
+            markAsChanged( g );
+            polish( [g] );
 
-            if ( g.players[0].resigned || ( g.players.length > 1 && g.players[1].resigned ) ) {
-
-            } else {
+            if ( !g.resigned ) {
                g.lastPhrase = {
                   phrase: ko.utils.arrayMap( json.path.phrase, function ( p ) { return p.lemma } ).join( ' ' ),
                   score: json.path.score.total,
                   username: json.path.username
                };
-               g.seenOngoing = ( json.path.username == _user.username );               
+               g.seenOngoing = ( json.path.username == _user.username );
             }
-            delete g.summary;
+            if ( !g.over ) g.seen = oldSeen;
 
             var pos = base.games.indexOf( g );
             base.games().splice( pos, 1 );
             base.games().unshift( g );
-            
-            polish( [g] );
 
-            base.saveChanges();
+            saveChanges();
 
             base.games.valueHasMutated();
 
-            if ( g.over && g.players.length == 2 ) {               
+            if ( g.over && g.players.length == 2 ) {
                base.notifications.valueHasMutated();
             }
          }
@@ -145,16 +143,15 @@
          if ( game ) {
             game.seen = true;
             game.seenOngoing = true;
-            base.saveChanges();
+            saveChanges();
+            base.games.valueHasMutated();
          } else {
             pullGames();
          }
-
-         base.games.valueHasMutated();
       } );
 
-      function sort( games ) {
-         games.sort( function ( a, b ) {
+      function sortGames( games ) {
+         return games.sort( function ( a, b ) {
             if ( b.modDate === a.modDate )
                return b.gameID - a.gameID;
             else
@@ -162,89 +159,91 @@
          } );
       }
 
-      function publish( games ) {
-         var localGames = storage.games.load();
-         
-         sort( games );
+      function publishGames( games ) {
+         var localGames = storage.games.load(), hasChanges = false;
+
+         sortGames( games );
          for ( var i = 0, game; game = games[i++]; ) {
-            var exist = ko.utils.arrayFirst( localGames, function ( localGame ) {
-               return localGame.gameID == game.gameID && localGame.modDate == game.modDate && !localGame.localChanges;
+            var exist = localGames.some( function ( localGame ) {
+               return localGame.gameID == game.gameID && localGame.modDate == game.modDate && !localGame.local;
             } );
-            if ( exist ) { debugger; break;}
+            if ( exist ) { continue; }
+
+            var oldSeen = false;
+            hasChanges = true;
+            markAsChanged( game );
 
             var localGame = ko.utils.arrayFirst( localGames, function ( localGame ) {
                return localGame.gameID == game.gameID;
             } );
-            if ( localGame ) {
-               updateGameUnseen( localGame, game );
-               localGame.needPolish = true;
+            
+            if ( localGame ) {               
+               oldSeen = localGame.seen;
+               updateGameInfo( localGame, game );
             } else {
+               localGame = game;
                localGames.push( game );
-               game.needPolish = true;
             }
 
-            app.trigger( "game:lobby:published", game );
+            if ( !localGame.over ) localGame.seen = oldSeen;
+
+            app.trigger( "lobby:changed", localGame );
          }
-         sort( localGames );
 
-         //localGames = localGames.slice( 0, 20 );
+         if ( hasChanges ) {
+            sortGames( localGames );
 
-         copyGamesKeepRef( localGames );
+            storage.games.save( localGames );
+            storage.since.save( localGames.length ? localGames[0].modDate : 0 );
 
-         storage.games.save( localGames );
-         storage.since.save( localGames.length ? localGames[0].modDate : 0 );
-
-         sort( base.games() );
-
-         base.games.valueHasMutated();
-         base.notifications.valueHasMutated();
+            updateObservables( localGames );
+         }
       }
 
-      function copyGamesKeepRef( localGames ) {
+      function updateObservables( source ) {
          var games = base.games();
-         for ( var i = localGames.length - 1, localGame; localGame = localGames[i--]; ) {
-            var exist = ko.utils.arrayFirst( games, function ( game ) {
+         for ( var i = source.length - 1, localGame; localGame = source[i--]; ) {
+            var game = ko.utils.arrayFirst( games, function ( game ) {
                return game.gameID === localGame.gameID;
             } );
 
-            if ( exist ) {
-               updateGame( exist, localGame );
-               if ( localGame.needPolish ) exist.needPolish = true;
+            if ( game ) {
+               updateGameInfo( game, localGame );
             } else {
                games.unshift( localGame );
             }
          }
          polish( games );
+         sortGames( games );
+         base.games.valueHasMutated();
+         base.notifications.valueHasMutated();
       }
 
-      this.saveChanges = function () {
-         var localGames = storage.games.load(), games = this.games();
+      function saveChanges() {
+         var localGames = storage.games.load(), games = base.games();
 
          for ( var i = 0; i < localGames.length; i++ ) {
             var g = ko.utils.arrayFirst( games, function ( g ) { return g.gameID == localGames[i].gameID; } );
-            if ( g ) {
-               updateGame( localGames[i], g );
-            }            
-            if ( localGames[i].playerCount != localGames[i].players.length ) debugger;
+            if ( g ) updateGameInfo( localGames[i], g );
          }
 
          storage.games.save( localGames );
-         //storage.since.save( localGames.length ? localGames[0].modDate : 0 );
       }
 
-      function updateGameUnseen( localGame, game ) {
-         updateGame( localGame, game );
-         localGame.seen = false;
-         localGame.seenOngoing = false;
+      function markAsChanged( game ) {
+         game.changed = true;
       }
 
-      function updateGame( localGame, game ) {
-         localGame.players = game.players;
-         localGame.over = game.over;
-         localGame.modDate = game.modDate;
-         localGame.lastPhrase = game.lastPhrase;
-         localGame.seen = !!game.seen;
-         localGame.seenOngoing = !!game.seenOngoing;         
+      function updateGameInfo( game, source ) {
+         game.players = source.players;
+         game.over = source.over;
+         game.modDate = source.modDate;
+         game.lastPhrase = source.lastPhrase;
+         game.seen = !!source.seen;
+         game.seenOngoing = !!source.seenOngoing;
+
+         if ( source.changed ) game.changed = true;
+         else delete game.changed;
       }
 
       var prototype = {
@@ -278,7 +277,7 @@
             if ( game.playerCount > 1 && game.players.length == 1 ) {
                game.players.push( { username: 'unknown', active: !game.players[0].active, resigned: false, score: 0 } );
             }
-            
+
             game.winner = prototype.getWinner.call( game );
             game.player = prototype.getPlayer.call( game );
             game.opponent = prototype.getOpponent.call( game );
@@ -292,9 +291,12 @@
             game.seen = !!game.seen;
             game.seenOngoing = !!game.seenOngoing;
 
-            if ( game.needPolish && game.summary ) {
+            if ( game.changed ) {
+               if ( game.seen && game.over ) game.seen = false;
+               game.seenOngoing = false;
                delete game.summary;
-               delete game.needPolish;
+               delete game.notificationSummary;
+               delete game.changed;
             }
          }
 
