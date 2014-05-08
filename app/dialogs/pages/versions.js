@@ -96,6 +96,8 @@
                   ctx.words.valueHasMutated();
                   base.ticket( false );
                   base.close();
+               } else {
+                  app.dialog.showNoBesoz( 2 );
                }
             } );
          }

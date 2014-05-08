@@ -52,7 +52,7 @@
 
          var data = {
             username: this.username(),
-            password: CryptoJS.SHA3(constants.salt + this.username() + this.password()).toString()
+            password: CryptoJS.SHA3(constants.salt + this.password()).toString()
          };
 
          var base = this;

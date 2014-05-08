@@ -29,7 +29,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
                model: 'dialogs/pages/currency',
                css: 'long',
                closeOnClick: false,
-               fixed: true,
+               fixed: false,
                centered: false,
                modal: true
             } );

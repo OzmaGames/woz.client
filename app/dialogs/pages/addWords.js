@@ -53,8 +53,12 @@
                lemma: base.activeWord()
             }, function ( data ) {
                publishWord( data );
-               if ( data.besoz != undefined ) {
-                  ctx.user.besoz( data.besoz );
+               if ( data.success ) {
+                  if ( data.besoz != undefined ) {
+                     ctx.user.besoz( data.besoz );
+                  }
+               } else {
+                  app.dialog.showNoBesoz( 4 );
                }
             } );
          }

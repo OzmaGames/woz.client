@@ -38,7 +38,7 @@
          var model = type;
          model.dependent = model.type == 'starter' ? null :
             model.collection.purchased() ? null : model.collection;
-         model.totalPrice = model.price + ( model.dependent ? model.dependent.price : 0 );
+         model.totalPrice = +model.price + ( model.dependent ? +model.dependent.price : 0 );
 
          app.dialog.show( "notice", {
             model: model,
