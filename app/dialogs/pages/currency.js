@@ -14,13 +14,7 @@
                app.dialog.showBesozBought();
             } );            
          } );
-      }
-
-      ko.computed( function () {
-         if ( !ctx.shop.loading() ) {
-            app.trigger( "dialog:adjust-size" );
-         }
-      } );
+      }      
    }
 
    return new Currency;

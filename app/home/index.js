@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/activator', 'palette', 'api/datacontext', 'dialogs/templates/panel'],
+﻿define(['durandal/app', 'durandal/activator', 'ui/palette', 'api/datacontext', 'dialogs/templates/panel'],
   function (app, activator, palette, ctx, panel) {
 
      var viewChanger = app.on('account:view:change').then(function (viewModel) {

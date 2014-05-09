@@ -123,6 +123,9 @@
            id = isNaN( id ) ? -1 : id * 1;
         }
 
+        model.activeWord( null );
+        model.activeWords( null );
+
         app.on( "game:start", function ( json ) {
            if ( model.tutorialMode() ) {
               router.navigate( 'tutorial/' + json.id, { trigger: false, replace: true } );

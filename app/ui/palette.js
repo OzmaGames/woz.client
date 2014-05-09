@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define('ui/palette', function () {
 
    function Palette() {
       var base = this;

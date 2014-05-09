@@ -1,7 +1,8 @@
-﻿<div>   
+﻿<div>
    <img id="star" src="images/app/star.png" style="display: none;" />
 
    <div id="game-main" data-bind="css: { loading: loading }">
+      <div class="ui-overlay fullscreen transparent top" data-bind="visible: anyTileActive, click: toggleTile"></div>
       <div class="logo page"></div>
       <div id="game-players" data-bind="compose: 'game/players'"></div>
       <!--ko compose: { model: 'game/canvas', mode: 'inline' }--><canvas></canvas><!--/ko-->

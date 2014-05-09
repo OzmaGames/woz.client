@@ -26,6 +26,16 @@
   /* IE9 */
   /* Legacy IOS */
 }
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
 html,
 body,
 ul,
@@ -269,6 +279,12 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.ui-overlay.transparent {
+  background-color: transparent;
+}
+.ui-overlay.top {
+  z-index: 1000000;
 }
 .block {
   display: block;
@@ -1636,7 +1652,7 @@ button .currency {
   position: absolute;
   top: 3em;
   left: 0;
-  width: 243px;
+  width: 237px;
   text-align: right;
   font-size: .8em;
 }
@@ -1885,16 +1901,6 @@ button .currency {
   .dialog .confirm button {
     padding: 14px 20px;
   }
-}
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
 }
 input[type="checkbox"],
 input[type="radio"] {

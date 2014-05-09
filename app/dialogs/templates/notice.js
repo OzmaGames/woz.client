@@ -60,8 +60,8 @@
       this.model.close = this.close;
 
       var base = this;
-      $.when( this.dfd1, this.dfd2 ).then( function () {
-         if ( base.centered ) {
+      $.when( this.dfd1, this.dfd2 ).then( function () {         
+         if ( base.centered ) {            
             base.el.css( { top: 0 } ).show();
             adjust( base.el );
          } else {
@@ -97,7 +97,7 @@
       } ).promise();
    }
 
-   function adjust( el ) {
+   function adjust( el ) {      
       var height = window.innerHeight;
       var top = ( height - el.outerHeight() ) / 2;
       if ( top < 0 ) top = 0;

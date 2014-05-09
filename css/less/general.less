@@ -257,6 +257,14 @@ a {
         height: 100%;
     }
 
+    .ui-overlay.transparent {
+        background-color: transparent;
+    }
+
+    .ui-overlay.top{
+        z-index: 1000000;
+    }
+
 .block {
     display: block;
 }
@@ -979,7 +987,7 @@ a.small {
     min-width: 550px;
     font-size: 15px;
     padding-right: 15px;
-    border:1px solid transparent;
+    border: 1px solid transparent;
 }
 
     .tab .content .table {
@@ -1302,17 +1310,17 @@ a.small {
             background-image: url('../../images/tiles/collections/shop-woz.png');
         }
 
-            &.woz-boost1 {
-                background-image: url('../../images/tiles/collections/shop-woz-booster.png');
-            }
+        &.woz-boost1 {
+            background-image: url('../../images/tiles/collections/shop-woz-booster.png');
+        }
 
         &.nf {
             background-image: url('../../images/tiles/collections/shop-nf.png');
         }
 
-            &.nf-boost1 {
-                background-image: url('../../images/tiles/collections/shop-nf-booster.png');
-            }
+        &.nf-boost1 {
+            background-image: url('../../images/tiles/collections/shop-nf-booster.png');
+        }
 
         &.loc {
             background-image: url('../../images/tiles/collections/shop-loc.png');
@@ -1447,6 +1455,7 @@ button .currency {
     -webkit-transition: opacity .2s linear;
     transition: opacity .2s linear;
 }
-:checked ~ i{
+
+:checked ~ i {
     opacity: .9;
 }

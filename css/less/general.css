@@ -1,4 +1,4 @@
-﻿.curly {
+.curly {
   font-family: GreatVibesRegular !important;
 }
 .enableGPU {
@@ -251,6 +251,12 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.ui-overlay.transparent {
+  background-color: transparent;
+}
+.ui-overlay.top {
+  z-index: 1000000;
 }
 .block {
   display: block;

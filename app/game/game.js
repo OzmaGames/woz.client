@@ -362,6 +362,18 @@
       loading: ctx.loading,
       player: ctx.player,
 
+      anyTileActive: ko.computed( function () {
+         var tiles = ctx.tiles();
+         return tiles.some( function ( t ) { return t.active(); } );
+      } ),
+
+      toggleTile: function(){
+         var tiles = ctx.tiles();
+         var tile = ko.utils.arrayFirst( tiles, function ( t ) { return t.active() } );
+         if ( !tile ) return;
+         app.trigger( "game:tile:toggle", tile );
+      },
+
       allowSwap: ko.computed( function () {
          return isMenuActive() && isPlayerActive() && canSwap() && ( ctx.mode() === '' || ctx.mode() === 'swapWords' ) && !ctx.activeWords();
       } ),

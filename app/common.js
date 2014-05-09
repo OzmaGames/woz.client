@@ -1,7 +1,7 @@
 ﻿"use strict";
 define( ['durandal/system', 'durandal/app', 'plugins/router',
-    'dialogs/_builder', 'api/server/setup', 'api/datacontext', './palette',
-    '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout', 'common.screen'],
+    'dialogs/_builder', 'api/server/setup', 'api/datacontext', 'ui/palette',
+    '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout', 'common.screen', 'helper/Task'],
    function ( system, app, router, Dialog, server, ctx, palette ) {
 
       var loading = ko.observable( false );
@@ -19,7 +19,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
       app.navigate = function ( hash, options ) {
          router.navigate( hash, options );
       }
-
+      
       app.ctx = ctx;
 
       app.dialog = Dialog;
@@ -29,8 +29,8 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
                model: 'dialogs/pages/currency',
                css: 'long',
                closeOnClick: false,
-               fixed: false,
-               centered: false,
+               fixed: true,
+               centered: true,
                modal: true
             } );
          } );         
@@ -97,42 +97,6 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
          isFullscreen ^= 1;
       } );
 
-
-      window.Task = {
-         run: function ( func ) {
-            var base = this;
-            var time = arguments.length == 1 ? 1 : arguments[arguments.length - 1];
-            var args = [];
-            for ( var i = 1; i < arguments.length - 1; i++ ) {
-               args.push( arguments[i] );
-            }
-
-            var thenFunc;
-            setTimeout( function () {
-               var result = func.apply( base, args );
-               if ( thenFunc ) thenFunc( result );
-            }, time );
-
-            return {
-               then: function ( func ) { thenFunc = func; }
-            };
-         },
-         delay: function (ms) {
-            return run( function () { } );
-         },
-         Queue: function () {
-            this.timer = 0;
-
-            this.runAfter = function ( func, ms ) {
-               this.timer += ms;
-
-               var base = this;
-               Task.run( func, this.timer ).then( function () {
-                  base.timer -= ms;
-               } );
-            }
-         }
-      }
       //alert(
       //   'user agent: ' + navigator.userAgent +
       //   '\nplatform: ' + navigator.platform +

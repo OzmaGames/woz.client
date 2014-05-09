@@ -184,7 +184,32 @@
 
    app.on("game:tiles:visible", function (visible) {
       forceVisible(visible);
-   });
+   } );
+
+   app.on( "game:tile:toggle", toggleTile );
+
+   function toggleTile( tile ) {
+      var active = tile.active();
+
+      if ( !active ) {
+         scaleTile( tile, false );
+         setTimeout( function () {
+            if ( tile.isFixed ) {
+               attachInstruction( tile, 0 );
+            }
+            reposTile( tile, true );
+            tile.$mask.css( { scale: 1 } );
+
+            app.scrollUp();
+         }, 0 );
+      } else {
+         setTimeout( scroll, 500 );
+         reposTile( tile, false );
+         tile.$mask.css( { scale: tile.origin.scale } );
+      }
+
+      tile.active( !active );
+   }
 
    return {
       loading: ctx.loading,
@@ -215,28 +240,7 @@
          resize();
       },
 
-      toggleTile: function (tile) {
-         var active = this.active();
-
-         if (!active) {
-            scaleTile(tile, false);
-            setTimeout(function () {
-               if (tile.isFixed) {
-                  attachInstruction(tile, 0);
-               }
-               reposTile(tile, true);
-               tile.$mask.css({ scale: 1 });
-
-               app.scrollUp();
-            }, 0);
-         } else {
-            setTimeout(scroll, 500);
-            reposTile(tile, false);
-            tile.$mask.css({ scale: tile.origin.scale });
-         }
-
-         tile.active(!active);
-      },
+      toggleTile: toggleTile,
 
       help: function (tile, e) {
          if (tile.active()) {
