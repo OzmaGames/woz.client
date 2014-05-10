@@ -1,4 +1,4 @@
-﻿define( ['durandal/app'], function ( app ) {
+﻿define( ['durandal/app', 'api/history'], function ( app, history ) {
 
    return {
       emission: [
@@ -28,10 +28,12 @@
          socket.on( "game:update", function ( data ) {
             console.log( '%cgame:update', 'background: #222; color: #bada55', data );
             app.trigger( "game:update", data );
+            history.pushHistory( { event: "game:update", received: true } );
          } );
          socket.on( "lobby:update", function ( data ) {
             console.log( '%clobby:update', 'background: #222; color: #bada55', data );
             app.trigger( "lobby:update", data );
+            history.pushHistory( { event: "lobby:update", received: true } );
          } );
       },
       custom: {
@@ -58,6 +60,7 @@
             socket.once( "game:start", function ( data ) {
                console.log( '%cgame:start', 'background: #222; color: #bada55', data );
                app.trigger( "game:start", data );
+               history.pushHistory( { event: "game:start", received: true } );
             } );
 
             //game:request, type: "single"/"random"/"friend"

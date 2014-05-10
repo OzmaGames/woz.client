@@ -29,7 +29,9 @@
             <p class="bold">
                Buy
                <span data-bind="if: dependent">both starter and booster</span>
-               <span data-bind="ifnot: dependent, text: 'this ' + type"></span>
+               <span data-bind="if: dependent == null">
+                  <span data-bind="text: 'this ' + type"></span>
+               </span>
                for <span data-bind="text: totalPrice"></span> besoz.
             </p>
          </div>

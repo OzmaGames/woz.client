@@ -68,6 +68,11 @@
                }
                word.originalX = word.x;
                word.originalY = word.y;
+
+               if ( $el.hasClass( 'new' ) ) {
+                  $el.removeClass( 'new' );
+                  word.css = word.css.replace( "new", "" );                  
+               }
             },
 
             dropped: function (e, data) {

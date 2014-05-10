@@ -113,13 +113,13 @@
   z-index: 1;
 }
 .magnet.drag {
-  /*position: fixed !important;*/
+  position: fixed !important;
   z-index: 1000;
-  -moz-transform: scale(1.1) translateZ(1) !important;
-  -ms-transform: scale(1.1) translateZ(1) !important;
-  -o-transform: scale(1.1) translateZ(1) !important;
-  -webkit-transform: scale(1.1) translateZ(1) !important;
-  transform: scale(1.1) translateZ(1) !important;
+  -moz-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  -ms-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  -o-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  -webkit-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  transform: scale(1.1) translate3d(0, 0, 0) !important;
   -moz-animation: none;
   -o-animation: none;
   -webkit-animation: none;

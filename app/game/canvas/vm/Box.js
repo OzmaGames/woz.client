@@ -252,6 +252,7 @@
 
          div.data( "immovable", function () { return pm.phrase.complete.immediate() } );
          div.draggable( {
+            noTask: true,
             usePercentage: false,
             centerBased: false,
             withinEl: $( '#app' ),
@@ -279,7 +280,7 @@
             dropped: function ( e, data ) {
                if ( pm.phrase.complete.immediate() ) return;
                ctx.activeWord( null );
-
+               if ( -.5 < base.angle && base.angle < .5 ) { base.angle = 0; }
                div.addClass( "noTransition" ).css( {
                   rotate: base.angle, scale: .8,
                   left: 0, top: 0,
@@ -288,15 +289,14 @@
                } );
                setTimeout( function () { div.removeClass( "noTransition" ) }, 0 );
 
-               if ( !data.hasMoved ) {
-                  //delete word.lastBox;
+               if ( !data.hasMoved ) {                  
                   pm.removeWordAt( base.index );
                } else {
                   var workspace = $( '#workspace' ).offset();
 
-                  data.top -= data.within.t + data.scrollTopChange;
+                  data.top -= data.within.t;
                   data.left -= data.within.l;
-
+                  
                   if ( workspace.top < data.top + 20 ) {
                      var workspaceWidth = $( '#workspace' ).innerWidth(),
                         workspaceHeight = $( '#workspace' ).innerHeight();
@@ -317,18 +317,8 @@
                         }
                      } );
 
-                     //delete word.lastBox;
                      pm.removeWordAt( base.index );
                   }
-
-                  //div.css({
-                  //   rotate: base.angle, scale: .8,
-                  //   left: 0, top: 0,
-                  //   x: word.tX,
-                  //   y: word.tY,
-                  //});
-                  //word.x = (data.hasMoved ? data.left / 100 : word.x).toFixed(4) * 1;
-                  //word.y = (data.hasMoved ? data.top / 100 : word.y).toFixed(4) * 1;
                }
             }
          } );

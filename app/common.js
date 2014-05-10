@@ -1,7 +1,7 @@
 ﻿"use strict";
 define( ['durandal/system', 'durandal/app', 'plugins/router',
     'dialogs/_builder', 'api/server/setup', 'api/datacontext', 'ui/palette',
-    '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout', 'common.screen', 'helper/Task'],
+    '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout', 'common.screen', 'helper/Task', 'helper/issueTracker'],
    function ( system, app, router, Dialog, server, ctx, palette ) {
 
       var loading = ko.observable( false );
@@ -20,7 +20,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
          router.navigate( hash, options );
       }
       
-      app.ctx = ctx;
+      app.ctx = ctx;      
 
       app.dialog = Dialog;
       app.dialog.showCurrency = function () {

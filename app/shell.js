@@ -1,13 +1,9 @@
-﻿define( ['plugins/router', 'durandal/app'], function ( router, app ) {
+﻿define( ['plugins/router', 'durandal/app', 'api/history'], function ( router, app, history ) {
 
    var connected = ko.observable( false );
    var online = ko.observable( false );
    var errors = ko.observableArray();
    var devMode = ko.observable( false );
-
-   //cnn.connected
-   //  .then(function () { connected(true); })
-   //  .fail(function () { connected(false); });
 
    app.on( "socket:status" ).then( function ( status ) {
       connected( status == "connect" );
@@ -19,7 +15,7 @@
    window.addEventListener( "offline", function () { online( false ); } );
 
    window.addEventListener( "error", function ( e ) {
-      errors.push( e );
+      errors.push( e );      
    } );
 
    return {
@@ -38,7 +34,7 @@
          ko.utils.arrayForEach( errors(), function ( e ) {
             str += e.message;
             str += '\n';
-            str += e.lineno + ' ' + e.filename
+            str += e.lineno + ' ' + e.filename.match( /\/(.*?\.js)/ig )[0]
             str += '\n';
          } );
          return str;

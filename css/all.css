@@ -26,16 +26,6 @@
   /* IE9 */
   /* Legacy IOS */
 }
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
 html,
 body,
 ul,
@@ -1902,6 +1892,16 @@ button .currency {
     padding: 14px 20px;
   }
 }
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
 input[type="checkbox"],
 input[type="radio"] {
   position: absolute;
@@ -3184,13 +3184,13 @@ body > .cloud.fixed .rule {
   z-index: 1;
 }
 .magnet.drag {
-  /*position: fixed !important;*/
+  position: fixed !important;
   z-index: 1000;
-  -moz-transform: scale(1.1) translateZ(1) !important;
-  -ms-transform: scale(1.1) translateZ(1) !important;
-  -o-transform: scale(1.1) translateZ(1) !important;
-  -webkit-transform: scale(1.1) translateZ(1) !important;
-  transform: scale(1.1) translateZ(1) !important;
+  -moz-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  -ms-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  -o-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  -webkit-transform: scale(1.1) translate3d(0, 0, 0) !important;
+  transform: scale(1.1) translate3d(0, 0, 0) !important;
   -moz-animation: none;
   -o-animation: none;
   -webkit-animation: none;

@@ -1,5 +1,5 @@
-﻿define(['socket', 'durandal/app'], function (socket, app) {
-
+﻿define(['socket', 'durandal/app', 'api/history'], function (socket, app, history) {
+   
    var url = "http://wordsdevel.herokuapp.com:80";
    //var url = "http://wordstesting.herokuapp.com:80";
    //var url = "http://localhost:8080";
@@ -14,12 +14,16 @@
       app.trigger( "socket:status", "connect" );
       app.trigger("socket:server", url.match(/devel/gi));
       state = true;
+
+      history.pushHistory( { event: 'connected' } );
    });
 
    socket.on('disconnect', function () {
       console.log("%c" + "disconnected", "background: red; color: white");
       app.trigger("socket:status", "disconnect");
       state = false;
+
+      history.pushHistory( { event: 'disconnected' } );
    });
 
    var server = {
@@ -43,13 +47,15 @@
 
    function addEvent(event, func) {
       event = "server:" + event;
-      app.on(event).then(function (data, callback) {
+      app.on( event ).then( function ( data, callback ) {
          server.connected.then(function () {
-            console.log('%c' + event + ' sent:', 'background: #222; color: #bada55', data);
-            func(data, function (sdata) {
-               console.log('%c' + event + ' received:', 'background: #222; color: #bada55', sdata);
+            console.log( '%c' + event + ' sent:', 'background: #222; color: #bada55', data );
+            history.pushHistory( { event: event, send: true } );
+            func( data, function ( sdata ) {
+               console.log( '%c' + event + ' received:', 'background: #222; color: #bada55', sdata );
+               history.pushHistory( { event: event, received: true } );
                if (callback) callback(sdata);
-            }, socket);
+            }, socket );            
          });
       });
    }
