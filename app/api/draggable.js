@@ -189,9 +189,7 @@
          },
 
          scroll: function () {
-            //if ( !opt.lastEvent ) return;
-            //opt.lastEvent.data.scrollTopChange = opt.parent.scrollTop() - opt.lastEvent.data.scrollTop;
-            //events.mousemove( opt.lastEvent );
+
          },
 
          isWithinBoundaries: function ( e ) {

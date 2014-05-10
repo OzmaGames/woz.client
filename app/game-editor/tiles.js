@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/datacontext', 'api/draggable'], function ( app, ctx ) {
+﻿define( ['durandal/app', 'api/datacontext', 'api/draggable.static'], function ( app, ctx ) {
 
    var animationQueue = [];
 
@@ -76,7 +76,7 @@
          tile.$el = $el;
          tile.$inst = $el.find( '.cloud' );
 
-         tile.$el.draggable( {
+         tile.$el.draggableStatic( {
             withinEl: $el.parent(),
             centerBased: true,
             topLimit: true,
@@ -122,7 +122,7 @@
             }
          } );
 
-         tile.$inst.find( '.rule' ).draggable( {
+         tile.$inst.find( '.rule' ).draggableStatic( {
             withinEl: $( document ),
             centerBased: true,
             usePercentage: false,
