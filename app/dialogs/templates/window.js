@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/draggable'], function (app) {
+﻿define(['durandal/app', 'api/draggable.static'], function (app) {
 
   function Window() {
     this.heading = '';
@@ -53,7 +53,7 @@
       });
     
     if(this.draggable)
-       this.el.draggable({
+       this.el.draggableStatic({
           usePercentage: false,
           topLimit: true,
           withinEl: $('#app')

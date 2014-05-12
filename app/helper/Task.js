@@ -36,7 +36,7 @@
          this.timer = 0;
 
          this.runAfter = function ( func, time ) {
-            this.timer += time;
+            this.timer += (time || 1);
 
             Task.run( func, this.timer, this ).then( function () {
                this.timer -= time;

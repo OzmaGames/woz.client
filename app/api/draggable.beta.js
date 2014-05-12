@@ -110,7 +110,7 @@
             }
          },
 
-         mouseup: function ( e ) {            
+         mouseup: function ( e ) {
             if ( !$el.hasClass( 'drag' ) ) return;
             convertEventForTouch( e );
 
@@ -182,7 +182,7 @@
                   }
                }
             }
-            
+
             opt.dropped( e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange, isWithin: isWithin } );
 
             hasMoved = false;

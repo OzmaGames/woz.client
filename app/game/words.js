@@ -22,21 +22,19 @@
       words: unplayedWords,
 
       binding: function () {
-         //cancels view caching for this module, allowing the triggering of the detached callback
          return { cacheViews: false };
       },
-
-      bindingComplete: function (view) {
-         //showWords()
-      },
-
+      
       detached: function (view) {
-         $('.magnet', view).each(function (i, el) { $(el).data('draggable').dispose() });
+         $( '.magnet', view ).each( function ( i, el ) {
+            var draggable = $( el ).data( 'draggable' );
+            if ( draggable && draggable.dispose ) {
+               draggable.dispose();
+            }            
+         } );
       },
 
-      //reposition each word on the screen and add draggable feature to it
-      afterRender: function (el, word) {
-
+      afterRender: function (el, word) {        
          var $el = $(el);
 
          if (word.originalX === undefined) word.originalX = word.x;
@@ -81,12 +79,12 @@
                word.x = (data.hasMoved ? data.left / 100 : word.x).toFixed(4) * 1;
                word.y = (data.hasMoved ? data.top / 100 : word.y).toFixed(4) * 1;
 
-               if (!word.isPlayed && data.hasMoved) {
+               if ( !word.isPlayed && data.hasMoved ) {
                   word.originalX = word.x;
                   word.originalY = word.y;
 
-                  if (!ctx.tutorialMode()) {
-                     app.trigger("server:game:move-word", {
+                  if ( !ctx.tutorialMode() ) {
+                     app.trigger( "server:game:move-word", {
                         username: ctx.username,
                         gameID: ctx.gameID,
                         word: {
@@ -94,8 +92,10 @@
                            x: word.x,
                            y: word.y
                         }
-                     });
+                     } );
                   }
+               } else if ( word.isPlayed ) {
+                  $el.hide();
                }
             }
          });

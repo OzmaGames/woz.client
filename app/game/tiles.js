@@ -85,18 +85,12 @@
 
       
       if (containerSize.hh > window.innerHeight) {
-         //debugger;
          containerSize.hh = window.innerHeight - 20;
          containerSize.top = -$('#tiles-aspect').position().top;
          containerSize.top += 30;
       } else {
          containerSize.top = 0;
       }
-
-      if (app.el.clientWidth < 900) {
-      //   containerSize.hh += 100;
-      }
-
    }
 
    function scaleTile(tile, animateScale) {
@@ -123,8 +117,10 @@
          });
       }
 
-      if (!animateScale) {
-         setTimeout(function () { tile.$mask.removeClass('noTransition'); }, 1);
+      if ( !animateScale ) {
+         return Task.run( function () {
+            tile.$mask.removeClass( 'noTransition' );
+         } );
       }
    }
 
@@ -133,13 +129,13 @@
       if (containerSize.h == 0) return;
 
       if (centered) {
-         if (containerSize.top) {
-            tile.$el.css({
+         if ( containerSize.top ) {
+            tile.$el.css( {
                x: 0,
                y: containerSize.top
-            });
+            } );
          } else
-            tile.$el.css({ transform: '' });
+            tile.$el.css( { x: 0, y: 0 } );
       } else {
          tile.$el.css({
             x: tile.x * containerSize.w - containerSize.w / 2,
@@ -192,16 +188,16 @@
       var active = tile.active();
 
       if ( !active ) {
-         scaleTile( tile, false );
-         setTimeout( function () {
-            if ( tile.isFixed ) {
-               attachInstruction( tile, 0 );
-            }
-            reposTile( tile, true );
+         scaleTile( tile, false ).thenRun( function () {
             tile.$mask.css( { scale: 1 } );
+         } );
 
-            app.scrollUp();
-         }, 0 );
+         if ( tile.isFixed ) {
+            attachInstruction( tile, 0 );
+         }
+         reposTile( tile, true );
+
+         app.scrollUp();
       } else {
          setTimeout( scroll, 500 );
          reposTile( tile, false );

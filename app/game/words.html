@@ -1,8 +1,8 @@
 ﻿<div id="workspace">
-   <!--ko foreach: {data:words, afterRender: afterRender}--><div class="magnet" data-bind="css: { related: isRelated, selected: isSelected, 'new': css == 'new' }">
+   <!-- ko foreach:{ data: words, afterRender: afterRender } --><div class="magnet" data-bind="css: { related: isRelated, selected: isSelected, 'new': css == 'new' }">
       <span data-bind="text: lemma"></span>
       <!-- ko if:points-->
       <span class="points" data-bind="text: points"></span>
       <!-- /ko -->
-   </div><!--/ko-->
+   </div><!-- /ko-->
 </div>

@@ -1298,6 +1298,16 @@ button .currency {
 :checked ~ i {
   opacity: .9;
 }
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
 .dialog {
   position: fixed;
   z-index: 100;
@@ -1892,16 +1902,6 @@ button .currency {
     padding: 14px 20px;
   }
 }
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
 input[type="checkbox"],
 input[type="radio"] {
   position: absolute;
@@ -2153,6 +2153,7 @@ input[type="search"] {
   width: 100%;
   -moz-appearance: none;
   -webkit-appearance: none;
+  height: 2em;
 }
 .search-box input[type="search"]:focus {
   outline: none;
@@ -2445,6 +2446,7 @@ i.command {
   -moz-background-size: 5em auto;
   background-size: 5em auto;
   /*firefox shit! need 200px*/
+  image-rendering: -moz-crisp-edges;
 }
 i.action {
   background-color: #faf5ef;

@@ -23,12 +23,12 @@
       this.leave = function () {
          console.log( "leave" )
       }
-      this.drop = function () {
+      this.drop = function () {         
          var word = this.lastWord = ctx.activeWord();
 
          if ( !word ) return;
 
-         word.isPlayed = true;
+         word.isPlayed = 1;
          ctx.words.valueHasMutated();
 
          base.word = word;
@@ -46,23 +46,13 @@
                base.message( data.message );
                base.dropped( false );
 
-               base.word.isPlayed = false;
+               base.word.isPlayed = 0;
                ctx.words.valueHasMutated();
-
                return;
             }
             base.activeVersion = ko.observable( data.versions[0] );
             base.versions = ko.observableArray( data.versions );
-
-            //if (data.versions.length > 0) {
-            //   app.trigger("server:game:versions", {
-            //      command: 'set',
-            //      username: ctx.username,
-            //      gameID: ctx.gameID,
-            //      wordID: word.id,
-            //      version: data.versions[0]
-            //   });
-            //}
+            
             base.step( 2 );
          } );
       }

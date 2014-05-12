@@ -50,6 +50,7 @@ i.command {
   -moz-background-size: 5em auto;
   background-size: 5em auto;
   /*firefox shit! need 200px*/
+  image-rendering: -moz-crisp-edges;
 }
 i.action {
   background-color: #faf5ef;

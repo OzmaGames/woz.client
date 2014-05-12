@@ -242,7 +242,7 @@
          //});
       } else {
          //dragged from words
-         magnet = this.wordModel.$el.clone();
+         magnet = this.wordModel.$el.clone().show();
          magnet.css( {
             left: 0,
             top: 0

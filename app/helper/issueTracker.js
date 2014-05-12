@@ -47,7 +47,7 @@
       }
    }   
 
-   history.onError = function (obj) {
+   history.onError = function ( obj ) {      
       model.log( obj );
       model.updateClient( );
    }   
