@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
   font-family: 'CopseRegular';
   font-weight: normal;
   font-style: normal;
@@ -25,6 +25,16 @@
   
   /* IE9 */
   /* Legacy IOS */
+}
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 html,
 body,
@@ -1298,16 +1308,6 @@ button .currency {
 :checked ~ i {
   opacity: .9;
 }
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
 .dialog {
   position: fixed;
   z-index: 100;
@@ -2227,7 +2227,7 @@ p.error {
 p.error {
   margin-bottom: 0 !important;
 }
-/*#region buttons */
+/*# sourceMappingURL=all.css.map */
 button {
   cursor: pointer;
   font-family: CopseRegular;
@@ -2396,7 +2396,7 @@ button.facebook,
   line-height: 50px;
   vertical-align: top;
 }
-/*#endregion */
+/*# sourceMappingURL=all.css.map */
 .button-group button {
   margin-bottom: .5em;
   font-size: .9em;
@@ -3029,12 +3029,18 @@ body > .cloud.fixed .rule {
 #tiles.nf .mask {
   background-image: url('../images/tiles/nf.jpg');
 }
+#tiles.loc .mask {
+  background-image: url('../images/tiles/loc.jpg');
+}
 @media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
   #tiles.woz .mask {
     background-image: url('../images/tiles/woz-b.jpg');
   }
   #tiles.nf .mask {
     background-image: url('../images/tiles/nf-b.jpg');
+  }
+  #tiles.loc .mask {
+    background-image: url('../images/tiles/loc-b.jpg');
   }
 }
 .notice-board {

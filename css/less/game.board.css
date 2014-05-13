@@ -308,12 +308,18 @@ body > .cloud.fixed .rule {
 #tiles.nf .mask {
   background-image: url('../../images/tiles/nf.jpg');
 }
+#tiles.loc .mask {
+  background-image: url('../../images/tiles/loc.jpg');
+}
 @media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
   #tiles.woz .mask {
     background-image: url('../../images/tiles/woz-b.jpg');
   }
   #tiles.nf .mask {
     background-image: url('../../images/tiles/nf-b.jpg');
+  }
+  #tiles.loc .mask {
+    background-image: url('../../images/tiles/loc-b.jpg');
   }
 }
 .notice-board {
