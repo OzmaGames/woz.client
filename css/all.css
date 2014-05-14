@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
   font-family: 'CopseRegular';
   font-weight: normal;
   font-style: normal;
@@ -25,16 +25,6 @@
   
   /* IE9 */
   /* Legacy IOS */
-}
-.curly {
-  font-family: GreatVibesRegular !important;
-}
-.enableGPU {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
 }
 html,
 body,
@@ -1193,6 +1183,10 @@ a.big {
 .table-flex .collection .couple.loc {
   background-image: url('../images/tiles/collections/shop-loc.png');
 }
+.table-flex .collection .couple.loc_boost1,
+.table-flex .collection .couple.loc-boost1 {
+  background-image: url('../images/tiles/collections/shop-loc-booster.png');
+}
 .table-flex .collection.full-row {
   width: 100%;
   padding: 1em;
@@ -1902,6 +1896,16 @@ button .currency {
     padding: 14px 20px;
   }
 }
+.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
 input[type="checkbox"],
 input[type="radio"] {
   position: absolute;
@@ -2227,7 +2231,7 @@ p.error {
 p.error {
   margin-bottom: 0 !important;
 }
-/*# sourceMappingURL=all.css.map */
+/*#region buttons */
 button {
   cursor: pointer;
   font-family: CopseRegular;
@@ -2396,7 +2400,7 @@ button.facebook,
   line-height: 50px;
   vertical-align: top;
 }
-/*# sourceMappingURL=all.css.map */
+/*#endregion */
 .button-group button {
   margin-bottom: .5em;
   font-size: .9em;
