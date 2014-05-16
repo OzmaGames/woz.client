@@ -10,11 +10,11 @@
       <i class="icon-spinner icon-spin" data-bind="css: {active: loading() && words().length == 0}"></i>
    </form>
    <div data-bind="if: words().length">
-      <div class="versions" data-bind="foreach: words">
+      <div class="versions" style="min-height: initial" data-bind="foreach: words">
          <div class="version" data-bind="text: $data, css: {active: $parent.activeWord() == $data}, click: $parent.select"></div>
       </div>
       <button class="blue enableGPU" data-bind="click: done, clickBubble: false, disable: loading() || words().length == 0, css:{'has-currency': !tMode()}">
-         <span class="currency">5</span>
+         <span class="currency">4</span>
          Add Word
       </button>
    </div>

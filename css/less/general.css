@@ -1284,6 +1284,9 @@ button .currency {
 :checked ~ i {
   opacity: .9;
 }
+progress {
+  display: none;
+}
 /*progress:not([value]) {
     visibility: hidden;
 }
@@ -1297,6 +1300,6 @@ progress[value]::-webkit-progress-value {
     background-size: 35px 20px, 100% 100%, 100% 100%;
 }*/
 .toast {
-  font-size: .7em!important;
+  font-size: .7em !important;
 }
 /*# sourceMappingURL=general.css.map */

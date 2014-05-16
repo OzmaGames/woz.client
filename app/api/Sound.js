@@ -35,14 +35,15 @@
 
       this.sounds = dictionary;
       this.play = function ( arr ) {
-         index = Math.floor( Math.random() * arr.length );
-         console.log( index );
-         var clip = createjs.Sound.play( arr[index] );
+         //index = Math.floor( Math.random() * arr.length );
+         //console.log( index );
+         //var clip = createjs.Sound.play( arr[index] );
 
-         toastr.success( clip.src.match( /\/([^\/]*)/ig )[1], null, { timeOut: 5000 } );
+         //toastr.success( clip.src.match( /\/([^\/]*)/ig )[1], null, { timeOut: 5000 } );
       }
       this.load = function () {
-         createjs.Sound.registerManifest( sounds, 'sounds/' );
+         dfd.resolve();
+         //createjs.Sound.registerManifest( sounds, 'sounds/' );
       }
       this.onLoad = function () { };
       this.loaded = dfd.promise();
