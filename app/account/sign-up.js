@@ -27,6 +27,7 @@
       errorMessage: ko.observable(),
 
       signUp: function () {
+         app.Sound.play( app.Sound.sounds.click.button );
          app.loading( true );
 
          var data = {

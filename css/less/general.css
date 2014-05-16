@@ -1284,4 +1284,19 @@ button .currency {
 :checked ~ i {
   opacity: .9;
 }
+/*progress:not([value]) {
+    visibility: hidden;
+}
+
+progress[value]::-webkit-progress-value {
+    background-image: -webkit-linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0,0, 0, .1) 66%, transparent 66%), -webkit-linear-gradient(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, .25)), -webkit-linear-gradient(left, #09c, #f44);
+    border-radius: 2px;
+    -moz-background-size: 35px 20px, 100% 100%, 100% 100%;
+    -o-background-size: 35px 20px, 100% 100%, 100% 100%;
+    -webkit-background-size: 35px 20px, 100% 100%, 100% 100%;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}*/
+.toast {
+  font-size: .7em!important;
+}
 /*# sourceMappingURL=general.css.map */

@@ -83,6 +83,7 @@
                   base.word.isPlayed = false;
                   base.word.isRelated = data.isRelated;
                   base.word.lemma = data.version;
+                  base.word.soundPlayed = false;
                   ctx.words.valueHasMutated();
                   base.ticket( false );
                   base.close();

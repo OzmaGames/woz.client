@@ -6,14 +6,15 @@
     
     var base = this;
     this.close = function (duration) {
-       return $.Deferred(function (dfd) {
+       return $.Deferred( function ( dfd ) {
           if (!base.el) {
              dfd.resolve();
              return;
           }
           if (base.draggable) base.el.data("draggable").dispose();
 
-          base.el.animate({ height: 0, opacity: 0 }, 250).promise()
+          app.Sound.play( app.Sound.sounds.dialog.closing );
+          base.el.animate( { height: 0, opacity: 0 }, 250 ).promise()
              .then(function () { $(this).hide(); dfd.resolve(); });          
        });       
     }
@@ -45,6 +46,8 @@
     this.left = ($(window).innerWidth() - this.el.outerWidth()) / 2
     
     this.top += document.getElementById('app').scrollTop;
+
+    app.Sound.play( app.Sound.sounds.dialog.help );
 
     this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left})
       .transition({ x: -10, opacity: 1 }, 500, 'ease')

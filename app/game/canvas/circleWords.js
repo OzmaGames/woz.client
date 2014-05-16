@@ -34,7 +34,7 @@
          path.add(event.point);
          //path.strokeColor = 'red';
          stars = [];
-         addStarAt(event.point);
+         addStarAt( event.point );
       };
 
       tool.onMouseDrag = function (event) {
@@ -75,6 +75,8 @@
          star.rotate(Math.floor(Math.random() * 360));
          star.scale(.4 + Math.random() * .6);
          star.removeOnUp();
+
+         app.Sound.play( app.Sound.sounds.selectTool );
       };
    }
 

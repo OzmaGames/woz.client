@@ -47,7 +47,8 @@
          });
       },
 
-      login: function (el) {
+      login: function ( el ) {
+         app.Sound.play( app.Sound.sounds.click.button );
          app.loading(true);
 
          var data = {

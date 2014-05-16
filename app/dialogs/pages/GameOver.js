@@ -11,6 +11,7 @@
 
       this.btnSizeAuto = !!data.btnSizeAuto;
       this.showButtons = !data.hideButtons;
+      this.stats = data.stats;
 
       var base = this;
       this.gotoLobby = function () {
@@ -26,26 +27,30 @@
       WON: {
          heading: "Congratulations!",
          content: "You won the game, scoring {{scored}} points.",
-         btnText: "Great!"
+         btnText: "Great!",
+         stats: 'won'
       },
       LOST: {
          heading: "Good luck next time!",
          content: "You lost the game, scoring {{scored}} points.",
-         btnText: "Dismiss!"
+         btnText: "Dismiss!",
+         stats: 'lost'
       },
       SOLO: {
          heading: "Well done!",
          content: "You completed the game board, scoring {{scored}} points.",
          btnText: "Start New Game",
-         target: 'singlePlayer'
+         target: 'singlePlayer',
+         stats: 'won'
       },
       RESIGNED: {
          heading: "The game has ended!",
          content: "Your opponent has resigned from the game. Too bad, but this means you win!",
          btnText: "OK!",
          btnSizeAuto: true,
-         hideButtons: true
-      }
+         hideButtons: true,
+         stats: 'resigned'
+   }
    }
 
    Gameover.WON = function () { return new Gameover( messages.WON ); }

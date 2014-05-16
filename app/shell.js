@@ -1,10 +1,10 @@
-﻿define( ['plugins/router', 'durandal/app', 'api/history'], function ( router, app, history ) {
+﻿define( ['plugins/router', 'durandal/app'], function ( router, app ) {
 
    var connected = ko.observable( false );
    var online = ko.observable( false );
    var errors = ko.observableArray();
    var devMode = ko.observable( false );
-
+   
    app.on( "socket:status" ).then( function ( status ) {
       connected( status == "connect" );
    } );
@@ -17,12 +17,12 @@
    window.addEventListener( "error", function ( e ) {
       errors.push( e );      
    } );
-
+   
    return {
       router: router,
       loading: ko.computed( function () {
          return ( router.isNavigating() || app.loading() ) && !app.inlineLoading();
-      } ),
+      } ),      
       status: {
          cnn: connected,
          online: online,
@@ -47,8 +47,7 @@
       },
 
       activate: function () {
-
-         window.router = router.map( [
+         return router.map( [
             { route: ['', 'home'], moduleId: 'home/index', title: '', nav: true },
             { route: 'test', moduleId: 'home/test', title: 'Test', nav: true },
             { route: 'lobby', moduleId: 'home/lobby/index', title: 'My Games', nav: true },
@@ -79,8 +78,6 @@
          ] ).buildNavigationModel()
           .mapUnknownRoutes( 'error/not-found', 'not-found' )
           .activate();
-
-         return window.router;
       },
       compositionComplete: function () {
          $( '#fixed' ).prependTo( 'body' );

@@ -53,6 +53,7 @@
       base.completeSub = base.phrase.complete.subscribe( function ( complete ) {
          if ( complete ) {
             app.dialog.close( "slipper" );
+            app.Sound.play( app.Sound.sounds.phraseCompleted );
             app.dialog.show( "confirm", {
                modal: true,
                content: 'Do you want to place <br/><b>"' + base.phrase.toString() + '"</b>?',

@@ -35,7 +35,9 @@
          dialog.css({ y: top }).show();
          dialog.css({ y: top - 100, opacity: 0 })
             .transition({ y: top + 10, opacity: 1 })
-            .transition({ y: top });
+            .transition( { y: top } );
+
+         app.Sound.play( app.Sound.sounds.dialog.login );
       },
 
       canDeactivate: function () {

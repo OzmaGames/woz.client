@@ -328,6 +328,7 @@
             doneText: 'Delete', cancelText: 'No'
          } ).then( function ( res ) {
             if ( res == "done" ) {
+               app.Sound.play( app.Sound.sounds.game.del );
                app.trigger( "server:game:resign", {
                   username: ctx.username,
                   gameID: game.gameID,

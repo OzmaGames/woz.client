@@ -6,7 +6,8 @@ requirejs.config({
       'transitions': '../lib/durandal/transitions',      
       'crypto.sha3': '../lib/crypto.sha3',
       'facebook': '//connect.facebook.net/en_US/all',
-      'firebase': '//cdn.firebase.com/js/client/1.0.11/firebase'
+      'firebase': '//cdn.firebase.com/js/client/1.0.11/firebase',
+      'sounds': '../sounds'
    },
    urlArgs: 't' + (new Date).getTime(),
    shim: {
@@ -21,8 +22,8 @@ define('knockout', ko);
 define('socket', io);
 define('paper', paper);
 
-define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocator', 'common'],
-  function (system, app, router, viewLocator) {
+define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocator', 'api/Sound', 'common'],
+  function (system, app, router, viewLocator, Sound) {
      //>>excludeStart("build", true);
      system.debug(true);
      //>>excludeEnd("build");    
@@ -32,12 +33,21 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
      app.configurePlugins({
         router: true
      });
-     
-     app.start().then(function () {
-        viewLocator.useConvention();
-        app.setRoot('shell', null, 'app');        
-     });
 
+     app.Sound = Sound;
+     var loadingBar = $( '#loadingBar' );
+     app.Sound.onLoad = function ( percent ) {
+        loadingBar.val( percent );
+     }
+     app.Sound.load();
+
+     app.Sound.loaded.then( function () {
+        app.start().then( function () {
+           viewLocator.useConvention();
+           app.setRoot( 'shell', null, 'app' );
+        } );
+     } )
+     
      if (navigator && navigator.splashscreen) navigator.splashscreen.hide();
 
      if (document.body.style.backgroundPositionX === undefined) {

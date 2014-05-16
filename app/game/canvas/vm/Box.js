@@ -227,10 +227,12 @@
 
       values.scale = this.scale * .8;
       this._guiElem.stop();
-      this._guiElem.transition( values, 500, 'ease' );
+      this._guiElem.transition( values, 300, 'ease' );
    }
 
    Box.prototype.createElem = function () {
+      app.Sound.play( app.Sound.sounds.word.place );
+
       var div = $( '<div/>', { 'class': 'magnet-placeholder elem' } ), magnet;
 
       if ( this.pathModel.phrase.complete.immediate() || !this.wordModel.$el ) {
@@ -257,6 +259,8 @@
             centerBased: false,
             withinEl: $( '#app' ),
             dragStart: function ( e, within ) {
+               app.Sound.play( app.Sound.sounds.word.lift );
+
                if ( pm.phrase.complete.immediate() ) return;
                ctx.activeWord( word );
 
@@ -290,6 +294,7 @@
                setTimeout( function () { div.removeClass( "noTransition" ) }, 0 );
 
                if ( !data.hasMoved ) {                  
+                  app.Sound.play( app.Sound.sounds.word.placeBack );
                   pm.removeWordAt( base.index );
                } else {
                   var workspace = $( '#workspace' ).offset();
@@ -317,6 +322,7 @@
                         }
                      } );
 
+                     app.Sound.play( app.Sound.sounds.word.placeBack );
                      pm.removeWordAt( base.index );
                   }
                }

@@ -95,6 +95,7 @@
      } );
 
      model.load = function ( id ) {
+        app.Sound.play( app.Sound.sounds.game.loading );
         console.log( "loading game.." );
         app.off( "game:start game:update:ctx game:swap-words" );
         model.loading( true );
@@ -127,6 +128,7 @@
         model.activeWords( null );
 
         app.on( "game:start", function ( json ) {
+           app.Sound.play( app.Sound.sounds.game.unfolding );
            if ( model.tutorialMode() ) {
               router.navigate( 'tutorial/' + json.id, { trigger: false, replace: true } );
 
@@ -335,6 +337,12 @@
                           }
                        } );
                        sub.off();
+
+                       app.Sound.play(
+                           data.stats == 'won' ? app.Sound.sounds.game.overWin :
+                           data.stats == 'lost' ? app.Sound.sounds.game.overLose :
+                           app.Sound.sounds.game.overResigned
+                       );
                     } );
                  } );
 
@@ -359,6 +367,7 @@
                     ( function ( scored ) {
                        var sub;
                        sub = app.on( "game:stars:done" ).then( function () {
+                          app.Sound.play( app.Sound.sounds.scoring.message )
                           app.dialog.show( "alert", {
                              content: "You scored <b>" + scored + "</b> points!",
                              delay: 3000

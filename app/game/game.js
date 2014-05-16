@@ -66,8 +66,9 @@
             return;
          }
       } );
-
       if ( !playerEl ) return;
+
+      app.Sound.play( app.Sound.sounds.scoring.word );
 
       boxes = ko.utils.arrayMap( path.guiBoxes, function ( box ) { return box; } );
 
@@ -142,7 +143,9 @@
             return;
          }
       } );
-
+      app.Sound.play( tile.bonus ?
+         app.Sound.sounds.scoring.bonus :
+         app.Sound.sounds.scoring.bonusMult );
 
       if ( glowingC++ % 2 == 0 ) {
          cloud
@@ -486,7 +489,7 @@
          if ( ctx.gameOver() ) {
             return;
          }
-
+         
          var content = ctx.playerCount == 1 ? "Are you sure you want to delete this game?" : "Are you sure you want to resign?";
          app.dialog.show( "confirm", {
             content: content,
@@ -495,6 +498,9 @@
             cancelText: ctx.playerCount == 1 ? 'Cancel' : 'Cancel'
          } ).then( function ( res ) {
             if ( res != "cancel" ) {
+               if ( ctx.playerCount == 1 ) {
+                  app.Sound.play( app.Sound.sounds.game.del );
+               }
                app.trigger( "server:game:resign", {
                   username: ctx.player.username,
                   gameID: ctx.gameID,

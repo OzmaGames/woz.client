@@ -188,6 +188,8 @@
       var active = tile.active();
 
       if ( !active ) {
+         app.Sound.play( app.Sound.sounds.enlargeTile );
+
          scaleTile( tile, false ).thenRun( function () {
             tile.$mask.css( { scale: 1 } );
          } );
@@ -281,7 +283,7 @@
             UpdateTileInstruction(tile);
             reposTile(tile);
             instructionDoms.push(tile);
-         }, 0);
+         }, 1);
       },
 
       detached: dispose

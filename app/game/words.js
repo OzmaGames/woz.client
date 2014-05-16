@@ -58,10 +58,13 @@
             parent: $('#app'),
 
             dragStart: function () {
+
                if (ctx.mode() == 'swapWords') {
-                  word.isSelected(word.isSelected() ^ 1);
+                  app.Sound.play( app.Sound.sounds.word.select );
+                  word.isSelected( word.isSelected() ^ 1 );
                } else {
-                  ctx.activeWord(word);
+                  app.Sound.play( app.Sound.sounds.word.lift );
+                  ctx.activeWord( word );
                   $el.css({ rotate: 0 });
                }
                word.originalX = word.x;
@@ -102,7 +105,14 @@
 
          if (animationQueue.length == 0) setTimeout(showWords, 100);
 
-         animationQueue.push(function (cb) {
+         animationQueue.push( function ( cb ) {
+            Task.run( function () {
+               if ( !word.soundPlayed ) {
+                  word.soundPlayed = true;
+                  app.Sound.play( app.Sound.sounds.word.show );
+               }
+            }, 200 );
+
             $el.css({
                rotate: word.angle,
                scale: 1,

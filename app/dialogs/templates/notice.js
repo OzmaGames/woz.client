@@ -31,6 +31,8 @@
 
       var base = this;
       this.close = function () {
+         app.Sound.play( app.Sound.sounds.dialog.closing );
+
          duration = duration || 500;
          var dfd = base.el
            .transition( { y: 10 }, duration / 2, 'ease' )
@@ -60,7 +62,8 @@
       this.model.close = this.close;
 
       var base = this;
-      $.when( this.dfd1, this.dfd2 ).then( function () {         
+      $.when( this.dfd1, this.dfd2 ).then( function () {
+         app.Sound.play( app.Sound.sounds.dialog.notice );
          if ( base.centered ) {            
             base.el.css( { top: 0 } ).show();
             adjust( base.el );

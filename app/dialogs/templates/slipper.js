@@ -50,6 +50,8 @@
    }
 
    Slipper.prototype.load = function () {
+      app.Sound.play( app.Sound.sounds.dialog.slipper );
+
       this.el.show().css({ y: -100, opacity: 0 })
            .transition({ y: 10, opacity: 1 }, 500, 'ease')
            .transition({ y: 0 }, 300);

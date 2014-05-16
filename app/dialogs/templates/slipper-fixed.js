@@ -52,13 +52,15 @@
    }
 
    Slipper.prototype.load = function () {
+      app.Sound.play( app.Sound.sounds.dialog.slipper );
+
       var base = this;
       this.el.show().css({ y: -100, display: 'block', opacity: 0 })
         .transition({ y: 10, opacity: 1 }, 500, 'ease')
         .transition({ y: 0 }, 300);
 
       setTimeout(function () {
-         base.el.toggleClass('minimized');
+         base.el.addClass('minimized');
       }, 5000);
    }
 
