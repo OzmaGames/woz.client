@@ -4,7 +4,7 @@
    var online = ko.observable( false );
    var errors = ko.observableArray();
    var devMode = ko.observable( false );
-   
+
    app.on( "socket:status" ).then( function ( status ) {
       connected( status == "connect" );
    } );
@@ -15,14 +15,14 @@
    window.addEventListener( "offline", function () { online( false ); } );
 
    window.addEventListener( "error", function ( e ) {
-      errors.push( e );      
+      errors.push( e );
    } );
-   
+
    return {
       router: router,
       loading: ko.computed( function () {
          return ( router.isNavigating() || app.loading() ) && !app.inlineLoading();
-      } ),      
+      } ),
       status: {
          cnn: connected,
          online: online,
@@ -48,21 +48,22 @@
 
       activate: function () {
          return router.map( [
-            { route: ['', 'home'], moduleId: 'home/index', title: '', nav: true },
-            { route: 'test', moduleId: 'home/test', title: 'Test', nav: true },
+            { route: ['', 'home'], moduleId: 'home/index', title: '' },
+            { route: 'test', moduleId: 'home/test', title: 'Test' },
             { route: 'lobby', moduleId: 'home/lobby/index', title: 'My Games', nav: true },
             { route: 'shop', moduleId: 'home/shop/index', title: 'Shop', nav: true },
-            { route: 'shop/:id', moduleId: 'home/shop/index', title: 'Shop', nav: true },
+            { route: 'shop/:id', moduleId: 'home/shop/index', title: 'Shop' },
             { route: 'settings', moduleId: 'home/settings', title: 'Settings', nav: true },
+            { route: 'sound', moduleId: 'home/sound', title: 'Sound Debugger', nav: true },
             { route: 'newGame', moduleId: 'home/newGame', title: 'New Game', nav: true },
-            { route: 'singlePlayer', moduleId: 'home/singlePlayer', title: 'Loading the game', nav: true },
-            { route: 'nextTutorial', moduleId: 'home/nextTutorial', title: 'Loading the game', nav: true },
-            { route: 'not-found', moduleId: 'error/not-found', title: 'Not Found', nav: true },
-            { route: 'game', moduleId: 'game/game', title: 'Play', nav: true },
-            { route: 'game/:id', moduleId: 'game/game', title: 'Play', nav: true },
+            { route: 'singlePlayer', moduleId: 'home/singlePlayer', title: 'Loading the game' },
+            { route: 'nextTutorial', moduleId: 'home/nextTutorial', title: 'Loading the game' },
+            { route: 'not-found', moduleId: 'error/not-found', title: 'Not Found' },
+            { route: 'game', moduleId: 'game/game', title: 'Play' },
+            { route: 'game/:id', moduleId: 'game/game', title: 'Play' },
             { route: 'tutorial', moduleId: 'game/game', title: 'Tutorial', nav: true },
-            { route: 'tutorial/:id', moduleId: 'game/game', title: 'Tutorial', nav: true },
-            { route: 'game-editor', moduleId: 'game-editor/menu', title: 'Game Editor', nav: true },
+            { route: 'tutorial/:id', moduleId: 'game/game', title: 'Tutorial' },
+            { route: 'game-editor', moduleId: 'game-editor/menu', title: 'Game Editor' },
             {
                title: 'Game Editor - Edit',
                route: 'game-editor/edit/:id',
@@ -72,7 +73,7 @@
                route: 'account*details',
                moduleId: 'account/index',
                title: 'Account Settings',
-               hash: '#account', nav: true
+               hash: '#account'
             },
             { route: 'facebook', moduleId: 'account/oAuth/facebook', title: 'Words of Oz' }
          ] ).buildNavigationModel()

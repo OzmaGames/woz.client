@@ -278,7 +278,7 @@ input[type="search"] {
         width: 100%;
         -moz-appearance: none;
         -webkit-appearance: none;
-        height:2em;
+        height: 2em;
     }
 
         .search-box input[type="search"]:focus {
@@ -571,3 +571,90 @@ button {
     .button-group button:last-child {
         margin-bottom: 0;
     }
+
+.rounded-box() {
+    background-color: @backBoxColor;
+    border: 1px solid @strokeColor;
+    border-radius: 1em;
+    position: absolute;
+    width: 100%;
+    height: 3em;
+    z-index: 1;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#fixed .phrase.drag {
+    .rounded-box();
+    z-index: 100;
+    text-align: center;
+    line-height: 3em;
+}
+
+ul.list {
+    list-style: none;
+
+    li {
+        background-color: @backBoxColor;
+
+        &:hover {
+            background-color: @rowColor;
+        }
+    }
+
+    &.broad {
+        margin: 2em;
+    }
+
+    &.draggable {
+        position: relative;
+
+        li {
+            position: relative;
+            margin: .25em 0;
+            height: 3em;
+            line-height: 3em;
+            border-radius: 1em;
+            border: 1px dashed transparent;
+            background-color: @backBoxColor;
+
+            & .phrase {
+                .rounded-box();
+
+                &.drag {
+                    z-index: 2;
+                }
+            }
+
+                & .phrase:hover {
+                    background-color: @rowColor;
+                }
+
+            .drag &, &.hole {
+                border-color: @strokeColor;
+            }
+
+            &::before {
+                content: "Drop Zone";
+                color: lightgray;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 3em;
+            }
+        }
+    }
+
+    &.drag {
+        li {
+            position: absolute;
+            width: 100%;
+            -moz-transition: all .5s ease-in-out;
+            -o-transition: all .5s ease-in-out;
+            -webkit-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+        }
+    }
+}

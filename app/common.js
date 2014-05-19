@@ -1,8 +1,8 @@
 ﻿"use strict";
 define( ['durandal/system', 'durandal/app', 'plugins/router',
-    'dialogs/_builder', 'api/server/setup', 'api/datacontext', 'ui/palette',
+    'dialogs/_builder', 'api/server/setup', 'api/datacontext', 'api/ui/palette',
     '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout',
-    'common.screen', 'helper/Task', 'helper/issueTracker'],
+    'common.screen', 'api/helper/Task', 'api/helper/issueTracker'],
    function ( system, app, router, Dialog, server, ctx, palette ) {
 
       var loading = ko.observable( false );
@@ -20,12 +20,12 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
       app.navigate = function ( hash, options ) {
          router.navigate( hash, options );
       }
-      
-      app.ctx = ctx;      
+
+      app.ctx = ctx;
 
       app.dialog = Dialog;
       app.dialog.showCurrency = function () {
-         ctx.shop.besozes.load().then( function () {            
+         ctx.shop.besozes.load().then( function () {
             app.dialog.show( "notice", {
                model: 'dialogs/pages/currency',
                css: 'long',
@@ -34,7 +34,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
                centered: true,
                modal: true
             } );
-         } );         
+         } );
       };
       app.dialog.showNoBesoz = function ( besoz ) {
          app.dialog.show( "notice", {
@@ -67,6 +67,16 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
                dfd.reject( false );
             } );
          } ).promise();
+      }
+      app.dialog.showPoem = function () {
+         app.dialog.show( "notice", {
+            model: 'game/poem',
+            css: 'long',
+            closeOnClick: false,
+            fixed: true,
+            centered: true,
+            modal: true
+         } );
       }
 
       app.palette = palette;

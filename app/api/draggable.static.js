@@ -36,19 +36,10 @@
 			mousedown: function ( e ) {
 				e.preventDefault(); // disable selection            
 				e.stopPropagation();
-				$el.addClass( 'drag' );
-
-
-				if ( $el.hasClass( 'new' ) ) {
-					$el.removeClass( 'new' );
-					var wordData = ko.dataFor( $el[0] );
-					if ( wordData && wordData.css ) {
-						wordData.css = wordData.css.replace( "new", "" );
-					}
-				}
+				$el.addClass( 'drag' );				
 
 				convertEventForTouch( e );
-
+				
 				if ( opt.withinEl ) {
 					var height = opt.withinEl[0].scrollHeight, width = opt.withinEl.innerWidth();
 					var padLeft = parseInt( opt.withinEl.css( 'padding-left' ) ),
@@ -92,7 +83,7 @@
 			mouseup: function ( e ) {
 				if ( !$el.hasClass( 'drag' ) ) return;
 				convertEventForTouch( e );
-
+				
 				if ( $.support.touch ) {
 					$el.hide();
 					var evt = document.createEvent( 'TouchEvent' ),
@@ -152,7 +143,7 @@
 
 			mousemove: function ( e ) {
 				convertEventForTouch( e );
-
+				
 				var newTop = e.pageY + e.data.t + e.data.scrollTopChange,
 					newLeft = e.pageX + e.data.l;
 

@@ -8,5 +8,5 @@
 
 /// <reference path="~/lib/intellisense/require.js" />
 /// <reference path="~/lib/intellisense/require-config.js" />
-/// <reference path="~/app/helper/Task.js" />
+/// <reference path="~/app/api/helper/Task.js" />
 /// <reference path="~/lib/firebase.js" />

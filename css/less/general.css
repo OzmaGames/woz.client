@@ -1284,9 +1284,6 @@ button .currency {
 :checked ~ i {
   opacity: .9;
 }
-progress {
-  display: none;
-}
 /*progress:not([value]) {
     visibility: hidden;
 }

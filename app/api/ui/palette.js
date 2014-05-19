@@ -1,4 +1,4 @@
-﻿define( 'ui/palette', function () {
+﻿define( 'api/ui/palette', [], function () {
 
    function Palette() {
       var base = this;
@@ -100,7 +100,7 @@
       this.visible = ko.computed( {
          read: visible,
          write: function ( value ) {
-            if ( ko.isObservable( value ) ) {
+            if ( ko.isObservable( value ) ) {               
                this.visible.dep = ko.computed( function () {
                   visible( value() );
                } );

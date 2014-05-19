@@ -79,7 +79,7 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
         link.rel = "stylesheet";
         link.href = 'css/' + css + '.css';
         document.getElementsByTagName("head")[0].appendChild(link);
-     }
+     }          
      
      window.app = app;
   });

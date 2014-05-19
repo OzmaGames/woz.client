@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/activator', 'ui/palette', 'api/datacontext', 'dialogs/templates/panel'],
+﻿define(['durandal/app', 'durandal/activator', 'api/ui/palette', 'api/datacontext', 'dialogs/templates/panel'],
   function (app, activator, palette, ctx, panel) {
 
      var viewChanger = app.on('account:view:change').then(function (viewModel) {
@@ -14,16 +14,7 @@
      return {
         activate: function () {
            palette.get("menu").visible(false);
-           palette.get("currency").visible(false);
-
-           var base = this;
-           //this.sub = app.on("app:resized:hook").then(function () {
-           //   if (app.el.clientHeight < 2 * document.getElementById('bKey').clientHeight) {
-           //      document.getElementById('fKey').classList.remove("footer");
-           //   } else {
-           //      document.getElementById('fKey').classList.add("footer");
-           //   }
-           //});
+           palette.get("currency").visible(false);           
         },
 
         binding: function () {
@@ -35,8 +26,7 @@
            
         },
 
-        detached: function (view) {
-           //this.sub.off();
+        detached: function (view) {           
            viewChanger.off();
            app.dialog.close("panel");
            palette.get("menu").visible(true);

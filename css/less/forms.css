@@ -510,4 +510,82 @@ button.facebook,
 .button-group button:last-child {
   margin-bottom: 0;
 }
+#fixed .phrase.drag {
+  background-color: #f9f8f4;
+  border: 1px solid #d7bea2;
+  border-radius: 1em;
+  position: absolute;
+  width: 100%;
+  height: 3em;
+  z-index: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 100;
+  text-align: center;
+  line-height: 3em;
+}
+ul.list {
+  list-style: none;
+}
+ul.list li {
+  background-color: #f9f8f4;
+}
+ul.list li:hover {
+  background-color: #f1ebe2;
+}
+ul.list.broad {
+  margin: 2em;
+}
+ul.list.draggable {
+  position: relative;
+}
+ul.list.draggable li {
+  position: relative;
+  margin: .25em 0;
+  height: 3em;
+  line-height: 3em;
+  border-radius: 1em;
+  border: 1px dashed transparent;
+  background-color: #f9f8f4;
+}
+ul.list.draggable li .phrase {
+  background-color: #f9f8f4;
+  border: 1px solid #d7bea2;
+  border-radius: 1em;
+  position: absolute;
+  width: 100%;
+  height: 3em;
+  z-index: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ul.list.draggable li .phrase.drag {
+  z-index: 2;
+}
+ul.list.draggable li .phrase:hover {
+  background-color: #f1ebe2;
+}
+.drag ul.list.draggable li,
+ul.list.draggable li.hole {
+  border-color: #d7bea2;
+}
+ul.list.draggable li::before {
+  content: "Drop Zone";
+  color: lightgray;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3em;
+}
+ul.list.drag li {
+  position: absolute;
+  width: 100%;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
 /*# sourceMappingURL=forms.css.map */

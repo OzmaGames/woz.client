@@ -595,7 +595,7 @@
                } );
             } );
          }
-      }
+      }      
    };
 
    return system.extend( game, {
@@ -622,6 +622,12 @@
             .css( {
                disabled: ko.computed( function () { return !game.allowResign() } )
             } ).visible( !ctx.tutorialMode() );
+         
+         app.palette.add( "connection", "command", "right" )
+          .click( function () {
+             app.dialog.showPoem();
+          } )
+          .visible( ctx.gameOver );
 
          app.palette.add( "swapWords", "action", "left" )
             .click( game.swapWords )
