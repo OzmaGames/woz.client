@@ -2,11 +2,15 @@
 
    var phrases = ctx.paths().map( function ( p ) { return p.phrase.words.sort( function ( a, b ) { return a.index - b.index; } ); } );
 
+   //var interest
+
    return {
       phrases: phrases,
       phraseRender: function ( elem ) {
          var $li = $( elem ).filter( 'li' );
          $ul = $li.parent();
+
+         var carrier = {};
 
          var $phrase = $( '.phrase', $li ).draggable( {
             withinEl: $ul,
@@ -15,38 +19,56 @@
             usePercentage: false,
 
             dragStart: function ( e, within ) {
-               //within.t = -( $li.offset().top - $( 'li:first', $ul ).offset().top ) - 20;
-               //within.b = -( $li.offset().top - $( 'li:last', $ul ).offset().top - $li.height() ) + 20;
-
-               $phrase.css( { width: $phrase.width() } );
-
+               within.t -= 20;
+               within.b += 20;
+               within.r -= 2;
+               
                var h = $ul.height(), w = $ul.width();
 
                $ul.css( { height: h, width: w } );
                $( $( 'li', $ul ).get().reverse() ).each( function () {
                   var posY = $( this ).position().top;
-                  $( this ).css( { y: posY } ).data( { y: posY } );
+                  var phrase = $( this ).css( { y: posY } ).data( { y: posY } ).children( '.phrase' );
+                  phrase.css( { width: phrase.outerWidth() } );
                } );
                $ul.addClass( 'drag' );
 
                $li.addClass( 'hole' );
+
+               carrier = {
+                  offsetY: $phrase.offset().top,
+                  height: $phrase.height()
+               };
             },
 
             dropped: function () {
                $li.removeClass( 'hole' );
 
-               $phrase.css( { top: 0 } );               
+               $phrase.css( { top: 0 } );
             },
 
             move: function ( e, position ) {
-               
-               if ( position.top > 20 && !$li.is( ':last-child' ) ) {
-                  var yThis = $li.data( "y" );
-                  var yNext = $li.next().data( "y" );
+
+               if ( position.top > carrier.offsetY + carrier.height / 1.5 && !$li.is( ':last-of-type' ) ) {
+                  console.log( 'n' );
+                  swap( $li, $li.next() );
+                  $li.insertAfter( $li.next() );
+               } else if ( position.top < carrier.offsetY - carrier.height / 1.5 && !$li.is( ':first-of-type' ) ) {
+                  if (! $li.prev().hasClass( 'fixed' ) ) {
+                     console.log( 'p' );
+                     swap( $li, $li.prev() );
+                     $li.insertBefore( $li.prev() );
+                  }
+               }
+
+               function swap( $li, swapEl ) {
+                  ySwap = swapEl.data( "y" ),
+                  yThis = $li.data( "y" );
                   
-                  $li.css( { y: yNext } );
-                  $li.next().css( { y: yThis } );
-               } else if ( position.top < -20 && !$li.is( ':first-child' ) ) {
+                  $li.css( { y: ySwap } ).data( { y: ySwap } );
+                  swapEl.css( { y: yThis } ).data( { y: yThis } );
+
+                  carrier.offsetY = swapEl.offset().top;
 
                }
 

@@ -583,6 +583,10 @@ button {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
+    &:hover, &:active {
+        background-color: @rowColor;
+    }
 }
 
 #fixed .phrase.drag {
@@ -604,7 +608,8 @@ ul.list {
     }
 
     &.broad {
-        margin: 2em;
+        margin: 1em;
+        margin-bottom: .5em;
     }
 
     &.draggable {
@@ -617,7 +622,7 @@ ul.list {
             line-height: 3em;
             border-radius: 1em;
             border: 1px dashed transparent;
-            background-color: @backBoxColor;
+            background-color: transparent;
 
             & .phrase {
                 .rounded-box();
@@ -627,22 +632,31 @@ ul.list {
                 }
             }
 
-                & .phrase:hover {
-                    background-color: @rowColor;
+            &.hole {
+                /*border-color: @strokeColor;*/
+                &::before {
+                    content: " ";
+                    color: lightgray;
+                    /*background-color: @backBoxColor;*/
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 3em;
                 }
-
-            .drag &, &.hole {
-                border-color: @strokeColor;
             }
 
-            &::before {
-                content: "Drop Zone";
-                color: lightgray;
+            & .text {
                 position: absolute;
-                left: 0;
                 top: 0;
-                width: 100%;
-                height: 3em;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                font-size: 2em;
+            }
+
+            hr {
+                margin-top: 1.5em;
             }
         }
     }
@@ -651,10 +665,13 @@ ul.list {
         li {
             position: absolute;
             width: 100%;
-            -moz-transition: all .5s ease-in-out;
-            -o-transition: all .5s ease-in-out;
-            -webkit-transition: all .5s ease-in-out;
-            transition: all .5s ease-in-out;
+
+            &:not(.fixed) {
+                -moz-transition: all .3s ease-in-out;
+                -o-transition: all .3s ease-in-out;
+                -webkit-transition: all .3s ease-in-out;
+                transition: all .3s ease-in-out;
+            }
         }
     }
 }

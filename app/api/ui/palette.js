@@ -100,12 +100,11 @@
       this.visible = ko.computed( {
          read: visible,
          write: function ( value ) {
-            if ( ko.isObservable( value ) ) {               
-               this.visible.dep = ko.computed( function () {
-                  visible( value() );
+            if ( ko.isSubscribable( value ) ) {
+               value.subscribe( function ( value ) {
+                  visible( value );
                } );
             } else {
-               if ( this.visible.dep ) this.visible.dep.dispose();
                visible( value );
             }
             return base;

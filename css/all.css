@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
   font-family: 'CopseRegular';
   font-weight: normal;
   font-style: normal;
@@ -2246,7 +2246,7 @@ p.error {
 p.error {
   margin-bottom: 0 !important;
 }
-/*# sourceMappingURL=all.css.map */
+/*#region buttons */
 button {
   cursor: pointer;
   font-family: CopseRegular;
@@ -2415,7 +2415,7 @@ button.facebook,
   line-height: 50px;
   vertical-align: top;
 }
-/*# sourceMappingURL=all.css.map */
+/*#endregion */
 .button-group button {
   margin-bottom: .5em;
   font-size: .9em;
@@ -2438,6 +2438,10 @@ button.facebook,
   text-align: center;
   line-height: 3em;
 }
+#fixed .phrase.drag:hover,
+#fixed .phrase.drag:active {
+  background-color: #f1ebe2;
+}
 ul.list {
   list-style: none;
 }
@@ -2448,7 +2452,8 @@ ul.list li:hover {
   background-color: #f1ebe2;
 }
 ul.list.broad {
-  margin: 2em;
+  margin: 1em;
+  margin-bottom: .5em;
 }
 ul.list.draggable {
   position: relative;
@@ -2460,7 +2465,7 @@ ul.list.draggable li {
   line-height: 3em;
   border-radius: 1em;
   border: 1px dashed transparent;
-  background-color: #f9f8f4;
+  background-color: transparent;
 }
 ul.list.draggable li .phrase {
   background-color: #f9f8f4;
@@ -2474,32 +2479,46 @@ ul.list.draggable li .phrase {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+ul.list.draggable li .phrase:hover,
+ul.list.draggable li .phrase:active {
+  background-color: #f1ebe2;
+}
 ul.list.draggable li .phrase.drag {
   z-index: 2;
 }
-ul.list.draggable li .phrase:hover {
-  background-color: #f1ebe2;
-}
-.drag ul.list.draggable li,
 ul.list.draggable li.hole {
-  border-color: #d7bea2;
+  /*border-color: @strokeColor;*/
 }
-ul.list.draggable li::before {
-  content: "Drop Zone";
+ul.list.draggable li.hole::before {
+  content: " ";
   color: lightgray;
+  /*background-color: @backBoxColor;*/
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 3em;
 }
+ul.list.draggable li .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 2em;
+}
+ul.list.draggable li hr {
+  margin-top: 1.5em;
+}
 ul.list.drag li {
   position: absolute;
   width: 100%;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+}
+ul.list.drag li:not(.fixed) {
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .actions {
   background: #faf5ef;

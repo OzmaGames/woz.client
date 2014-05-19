@@ -621,7 +621,9 @@
             .click( game.resign )
             .css( {
                disabled: ko.computed( function () { return !game.allowResign() } )
-            } ).visible( !ctx.tutorialMode() );
+            } ).visible( ko.computed( function () {
+               return !ctx.tutorialMode() && !ctx.gameOver()
+            } ) );
          
          app.palette.add( "connection", "command", "right" )
           .click( function () {
