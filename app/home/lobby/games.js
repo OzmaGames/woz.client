@@ -62,15 +62,14 @@
    ctx.lobby.games.subscribe( function ( games ) {
       onGoings.removeAll();
       archive.removeAll();
+      var storage = ctx.user.storage()
 
       ko.utils.arrayForEach( games, function ( g ) {
          if ( !g.summary ) g.summary = getSummary( g );
 
          if ( !g.resigned ) {
             if ( g.over ) {
-               if ( ctx.user.storage() > archive().length &&
-                        nVisibleGames() > archive().length
-                  ) {
+               if ( storage == 0 || ( storage > archive().length && nVisibleGames() > archive().length ) ) {
                   archive().push( g );
                }
             } else {
@@ -209,6 +208,7 @@
 
    function Games() {
 
+      this.loading = ctx.lobby.loading;
       this.activeGame = ko.observable();
       this.type = ko.observable();
       this.notifications = notifications;
@@ -299,7 +299,7 @@
             return nVisibleNotifications() < ctx.lobby.notifications().length;
          }, 150 * notificationsPerPage );
       };
-      
+
       this.nextPageGames = function () {
          var base = this;
          nVisibleGames( nVisibleGames() + gamesPerPage );
@@ -312,7 +312,7 @@
       this.storage = ctx.user.storage;
 
       this.archiveStorageVisibility = ko.computed( function () {
-         return ctx.user.storage() <= archive().length;
+         return ctx.user.storage() <= archive().length && ctx.user.storage() != 0;
       } );
 
       this.selectGame = function ( game ) {

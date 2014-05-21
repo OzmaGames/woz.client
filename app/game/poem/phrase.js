@@ -1,10 +1,21 @@
-﻿define( 'game/poem', ['api/datacontext', 'api/draggable'], function ( ctx, draggable ) {
+﻿define( 'game/poem/phrase', ['api/datacontext', 'api/draggable'], function ( ctx, draggable ) {
+   
+   var phrases = ctx.paths().map( function ( p, index ) {
+      return {
+         words: p.phrase.words.sort( function ( a, b ) { return a.index - b.index; } ),
+         index: index,
+         excluded: true
+      }
+   } );
 
-   var phrases = ctx.paths().map( function ( p ) { return p.phrase.words.sort( function ( a, b ) { return a.index - b.index; } ); } );
-
-   //var interest
-
+   ctx.poem = {
+      phrases: phrases
+   };
+   
    return {
+      activate: function () {
+
+      },
       phrases: phrases,
       phraseRender: function ( elem ) {
          var $li = $( elem ).filter( 'li' );
@@ -70,6 +81,15 @@
 
                   carrier.offsetY = swapEl.offset().top;
 
+                  dataThis = ko.dataFor( $li[0] );
+                  dataThat = ko.dataFor( swapEl[0] );
+                  if ( dataThat.index != undefined ) {
+                     var tmp = dataThat.index;
+                     dataThat.index = dataThis.index;
+                     dataThis.index = tmp;                     
+                  } else {
+                     dataThis.excluded = swapEl.index() > $li.index()
+                  }
                }
 
                return true;

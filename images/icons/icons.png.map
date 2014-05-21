@@ -1,0 +1,18 @@
+{
+  "images": [
+    {
+      "name": "/images/icons/coins.png",
+      "width": 240,
+      "height": 70,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "name": "/images/icons/storage.png",
+      "width": 240,
+      "height": 70,
+      "offsetX": 0,
+      "offsetY": 70
+    }
+  ]
+}

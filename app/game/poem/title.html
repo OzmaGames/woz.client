@@ -1,0 +1,11 @@
+﻿<p>Give it a title:</p>
+<input type="text" />
+<ul class="broad custom-list">
+   <!-- ko foreach: {data: phrases}-->
+   <li>
+      <div class="phrase" data-bind="foreach: words">
+         <span data-bind="text: word.lemma"></span>
+      </div>
+   </li>
+   <!-- /ko -->
+</ul>

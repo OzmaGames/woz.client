@@ -625,11 +625,11 @@
                return !ctx.tutorialMode() && !ctx.gameOver()
             } ) );
          
-         app.palette.add( "connection", "command", "right" )
-          .click( function () {
-             app.dialog.showPoem();
-          } )
-          .visible( ctx.gameOver );
+         //app.palette.add( "connection", "command", "right" )
+         // .click( function () {
+         //    app.dialog.showPoem();
+         // } )
+         // .visible( ctx.gameOver );
 
          app.palette.add( "swapWords", "action", "left" )
             .click( game.swapWords )

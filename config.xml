@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.ozma.woz"
-        version   = "0.1.2">
+        version   = "0.1.3">
 
     <name>Words of Oz</name>
 
@@ -28,10 +28,10 @@
     <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="3.1.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version"           value="3.3.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
-    <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
+    <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
     <preference name="prerendered-icon"           value="true" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
     <preference name="ios-statusbarstyle"         value="black-opaque" />   <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
     <preference name="detect-data-types"          value="true" />           <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
@@ -46,6 +46,13 @@
     <preference name="SplashScreenDelay" value="5000" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="webviewbounce" value="false" />
+
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
+      <false/>
+    </gap:config-file>
+    <gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
+      <true/>
+    </gap:config-file>
   
   <!-- Plugins -->
 
@@ -75,8 +82,7 @@
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     -->
 
-    <!-- Define app icon for each platform. -->
-    <icon src="images/icon.jpg" />
+    <!-- Define app icon for each platform. -->    
     <icon src="images/icon.jpg"   gap:platform="android"    gap:density="ldpi" />
     <icon src="images/icon.jpg"   gap:platform="android"    gap:density="mdpi" />
     <icon src="images/icon.jpg"   gap:platform="android"    gap:density="hdpi" />
@@ -93,11 +99,11 @@
     <gap:splash src="images/ozma.jpg"  gap:platform="android" gap:density="mdpi" />
     <gap:splash src="images/ozma.jpg"  gap:platform="android" gap:density="hdpi" />
     <gap:splash src="images/ozma.jpg"  gap:platform="android" gap:density="xhdpi" />
-    <!--<gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="320" height="480" />
-    <gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="640" height="960" />
-    <gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="768" height="1024" />
-    <gap:splash src="images/ozma.jpg"  gap:platform="ios"     width="1024" height="768" />
-    <gap:splash src="images/ozma.jpg"  gap:platform="winphone" />-->
+    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="320" height="480" />
+    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="640" height="960" />
+    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="768" height="1024" />
+    <gap:splash src="images/ozma.png"  gap:platform="ios"     width="1024" height="768" />
+    <!--<gap:splash src="images/ozma.jpg"  gap:platform="winphone" />-->
 
     <!--
         Define access to external domains.

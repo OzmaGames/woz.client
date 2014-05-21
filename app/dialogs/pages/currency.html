@@ -4,6 +4,7 @@
    <div class="table-flex" data-bind="foreach: list">
       <div class="row mild-padding">
          <!--ko if: flag--><div class="ribbon" data-bind="text: flag.flag, style: {backgroundColor: flag.colour}"></div><!-- /ko-->
+         <div class="item-icon currency" data-bind="css: 'item-icon-index-' + iconID "></div>
          <span class="besoz"><span data-bind="text: besoz"></span> besoz</span>
          <span class="price"><span data-bind="text: price"></span> USD</span>
          <button class="orange sm pull-right" data-bind="click: $parent.buy">BUY</button>

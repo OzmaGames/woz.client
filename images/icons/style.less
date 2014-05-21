@@ -1,0 +1,39 @@
+﻿@width: 80px;
+@height: 70px;
+
+@displayHeight: 60px;
+@displayWidth: (@displayHeight / @height) * @width;
+
+.item-icon {
+    width: @displayWidth;
+    height: @displayHeight;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-image: url('icons.png');
+    background-repeat: no-repeat;
+    font-size: @displayWidth;
+    display: block;
+    -moz-background-size: 3em auto;
+    background-size: 3em auto;
+    image-rendering: -moz-crisp-edges;
+
+    &.item-icon-index-0 {
+        background-position-x: 0;
+    }
+
+    &.item-icon-index-1 {
+        background-position-x: -1em;
+    }
+
+    &.item-icon-index-2 {
+        background-position-x: -2em;
+    }
+
+    &.currecny{
+
+    }
+    &.storage{
+        background-position-y: -@displayHeight;
+    }
+}

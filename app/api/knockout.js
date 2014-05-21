@@ -211,7 +211,7 @@
             var visible = app.el.clientHeight + MARGIN > lastCh.offset().top;
             if ( visible ) {
                dettach();
-               loadMore.call(vm).then( function ( canLoad ) {
+               loadMore.call( vm ).then( function ( canLoad ) {
                   if ( canLoad ) {
                      attach();
                   }
@@ -243,7 +243,7 @@
 
             if ( typeof obj.nav == "function" ) {
                var dfd = $.Deferred();
-               $( '.content', element ).stop().slideUp().delay( 30 ).promise().then( function () {
+               $( '.content', element ).stop().hide().delay( 30 ).promise().then( function () {
                   if ( index != activeIndex() ) {
                      dfd.reject();
                   } else {
@@ -251,7 +251,7 @@
                   }
                } );
                obj.nav.call( viewModel, index, dfd ).then( function () {
-                  $( '.content', element ).slideDown( 500 ).promise().then( function () {
+                  $( '.content', element ).show().promise().then( function () {
                      $( this ).css( 'height', '' );
                      if ( typeof obj.navEnd == "function" ) {
                         obj.navEnd.call( viewModel, index );

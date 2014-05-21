@@ -416,18 +416,7 @@ button {
         font-size: .8em;
     }
 
-    button.flat {
-        font-weight: bold;
-        border-radius: 5px;
-        margin: 10px 5px;
-        padding: .3em 1em;
-        font-size: .8em;
-        box-shadow: none !important;
-        -webkit-text-shadow: none !important;
-        text-shadow: none !important;
-        letter-spacing: .08em;
-    }
-
+    
     button:hover:not(:disabled) {
         background-position-x: -470px;
     }
@@ -445,6 +434,18 @@ button {
         -o-filter: grayscale(100%);
         filter: grayscale(100%);
         cursor: default;
+    }
+
+    button.flat {
+        font-weight: bold;
+        border-radius: 5px;
+        margin: 10px 5px;
+        padding: .3em 1em;
+        font-size: .8em;
+        box-shadow: none !important;
+        -webkit-text-shadow: none !important;
+        text-shadow: none !important;
+        letter-spacing: .08em;
     }
 
     button.orange {
@@ -596,12 +597,16 @@ button {
     line-height: 3em;
 }
 
-ul.list {
+ul.custom-list {
     list-style: none;
 
     li {
         background-color: @backBoxColor;
-
+        height: 3em;
+        line-height: 3em;
+        margin: .25em 0;
+        border-radius: 1em;
+            
         &:hover {
             background-color: @rowColor;
         }
@@ -618,8 +623,6 @@ ul.list {
         li {
             position: relative;
             margin: .25em 0;
-            height: 3em;
-            line-height: 3em;
             border-radius: 1em;
             border: 1px dashed transparent;
             background-color: transparent;

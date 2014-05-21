@@ -375,17 +375,6 @@ button.sm {
 button.xsm {
   font-size: .8em;
 }
-button.flat {
-  font-weight: bold;
-  border-radius: 5px;
-  margin: 10px 5px;
-  padding: .3em 1em;
-  font-size: .8em;
-  box-shadow: none !important;
-  -webkit-text-shadow: none !important;
-  text-shadow: none !important;
-  letter-spacing: .08em;
-}
 button:hover:not(:disabled) {
   background-position-x: -470px;
 }
@@ -401,6 +390,17 @@ button:disabled {
   -o-filter: grayscale(100%);
   filter: grayscale(100%);
   cursor: default;
+}
+button.flat {
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 10px 5px;
+  padding: .3em 1em;
+  font-size: .8em;
+  box-shadow: none !important;
+  -webkit-text-shadow: none !important;
+  text-shadow: none !important;
+  letter-spacing: .08em;
 }
 button.orange {
   border-color: white;
@@ -529,32 +529,34 @@ button.facebook,
 #fixed .phrase.drag:active {
   background-color: #f1ebe2;
 }
-ul.list {
+ul.custom-list {
   list-style: none;
 }
-ul.list li {
+ul.custom-list li {
   background-color: #f9f8f4;
+  height: 3em;
+  line-height: 3em;
+  margin: .25em 0;
+  border-radius: 1em;
 }
-ul.list li:hover {
+ul.custom-list li:hover {
   background-color: #f1ebe2;
 }
-ul.list.broad {
+ul.custom-list.broad {
   margin: 1em;
   margin-bottom: .5em;
 }
-ul.list.draggable {
+ul.custom-list.draggable {
   position: relative;
 }
-ul.list.draggable li {
+ul.custom-list.draggable li {
   position: relative;
   margin: .25em 0;
-  height: 3em;
-  line-height: 3em;
   border-radius: 1em;
   border: 1px dashed transparent;
   background-color: transparent;
 }
-ul.list.draggable li .phrase {
+ul.custom-list.draggable li .phrase {
   background-color: #f9f8f4;
   border: 1px solid #d7bea2;
   border-radius: 1em;
@@ -566,17 +568,17 @@ ul.list.draggable li .phrase {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-ul.list.draggable li .phrase:hover,
-ul.list.draggable li .phrase:active {
+ul.custom-list.draggable li .phrase:hover,
+ul.custom-list.draggable li .phrase:active {
   background-color: #f1ebe2;
 }
-ul.list.draggable li .phrase.drag {
+ul.custom-list.draggable li .phrase.drag {
   z-index: 2;
 }
-ul.list.draggable li.hole {
+ul.custom-list.draggable li.hole {
   /*border-color: @strokeColor;*/
 }
-ul.list.draggable li.hole::before {
+ul.custom-list.draggable li.hole::before {
   content: " ";
   color: lightgray;
   /*background-color: @backBoxColor;*/
@@ -586,7 +588,7 @@ ul.list.draggable li.hole::before {
   width: 100%;
   height: 3em;
 }
-ul.list.draggable li .text {
+ul.custom-list.draggable li .text {
   position: absolute;
   top: 0;
   left: 0;
@@ -594,14 +596,14 @@ ul.list.draggable li .text {
   bottom: 0;
   font-size: 2em;
 }
-ul.list.draggable li hr {
+ul.custom-list.draggable li hr {
   margin-top: 1.5em;
 }
-ul.list.drag li {
+ul.custom-list.drag li {
   position: absolute;
   width: 100%;
 }
-ul.list.drag li:not(.fixed) {
+ul.custom-list.drag li:not(.fixed) {
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;

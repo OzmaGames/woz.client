@@ -1,9 +1,9 @@
 ﻿define(['socket', 'durandal/app', 'api/history'], function (socket, app, history) {
    
-   var url = "http://wordsdevel.herokuapp.com:80";
+   //var url = "http://wordsdevel.herokuapp.com:80";
    //var url = "http://wordstesting.herokuapp.com:80";
    //var url = "http://localhost:8080";
-   //var url = "http://wozbeta.herokuapp.com:80";
+   var url = "http://wozbeta.herokuapp.com:80";
    
    socket = io.connect(url);   
    

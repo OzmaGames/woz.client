@@ -70,7 +70,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
       }
       app.dialog.showPoem = function () {
          app.dialog.show( "notice", {
-            model: 'game/poem',
+            model: 'game/poem/index',
             css: 'long',
             closeOnClick: false,
             fixed: true,

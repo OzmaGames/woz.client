@@ -6,7 +6,8 @@ requirejs.config({
       'transitions': '../lib/durandal/transitions',      
       'crypto.sha3': '../lib/crypto.sha3',
       'facebook': '//connect.facebook.net/en_US/all',
-      'firebase': '//cdn.firebase.com/js/client/1.0.11/firebase',
+      //'firebase': '//cdn.firebase.com/js/client/1.0.11/firebase',
+      'firebase': '../lib/firebase',
       'sounds': '../sounds'
    },
    urlArgs: 't' + (new Date).getTime(),

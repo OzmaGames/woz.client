@@ -1063,6 +1063,7 @@ a.big {
 }
 .table-flex .ribbon {
   position: absolute;
+  z-index: 2;
   top: 0;
   left: -1em;
   font-family: 'GreatVibesRegular';

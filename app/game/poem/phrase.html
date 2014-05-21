@@ -1,0 +1,18 @@
+﻿<p>Drag your phrases in the order you would like them.</p>
+<ul class="broad custom-list draggable">
+   <li class="fixed">
+      <div class="text curly">Include</div>
+      <hr />
+   </li>
+   <li>
+      <div class="text curly">Exclude</div>
+      <hr />
+   </li>
+   <!-- ko foreach: {data: phrases, afterRender: phraseRender}-->
+   <li>
+      <div class="phrase" data-bind="foreach: words">
+         <span data-bind="text: word.lemma"></span>
+      </div>
+   </li>
+   <!-- /ko -->
+</ul>

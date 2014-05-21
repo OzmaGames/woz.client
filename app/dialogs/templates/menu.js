@@ -7,7 +7,7 @@
      { text: "settings", hash: 'settings' },
      { text: "help", hash: 'help' },
      { text: "tutorial", hash: 'tutorial/new' },
-     { text: "sound", hash: 'sound' }
+     //{ text: "sound", hash: 'sound' }
    ];
 
    function Menu() {

@@ -44,7 +44,8 @@
       this.sounds = soundsKey;
       this.metaSounds = metaSounds;
       this.load = function () {
-         createjs.Sound.registerManifest( manifest, 'sounds/' );
+         //createjs.Sound.registerManifest( manifest, 'sounds/' );
+         dfd.resolve();
       }
       this.onLoad = function () { };
       this.loaded = dfd.promise();
@@ -78,6 +79,7 @@
    }
 
    Sound.prototype.play = function ( arr, noNotify ) {
+      return;
       var key, instance;
       if ( arr.push ) {
          key = arr[Math.floor( Math.random() * arr.length )];

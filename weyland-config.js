@@ -23,6 +23,8 @@ exports.config = function (weyland) {
              'transitions': '../lib/durandal/transitions',
              'crypto.sha3': '../lib/crypto.sha3',
              'facebook': '//connect.facebook.net/en_US/all',
+             'firebase': '../lib/firebase',
+             'sounds': '../sounds',
              'knockout': 'empty:',
              'socket': 'empty:',
              'jquery': 'empty:',
