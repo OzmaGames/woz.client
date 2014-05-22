@@ -73,7 +73,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
             model: 'game/poem/index',
             css: 'long',
             closeOnClick: false,
-            fixed: true,
+            fixed: false,
             centered: true,
             modal: true
          } );
