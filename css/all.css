@@ -2456,6 +2456,9 @@ ul.custom-list li {
 ul.custom-list li:hover {
   background-color: #f1ebe2;
 }
+ul.custom-list.noHover li:hover {
+  background-color: #f9f8f4;
+}
 ul.custom-list.broad {
   margin: 1em;
   margin-bottom: .5em;
@@ -2522,6 +2525,74 @@ ul.custom-list.drag li:not(.fixed) {
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+.slider {
+  position: relative;
+  overflow-x: hidden;
+  width: 100%;
+}
+.slider ul {
+  list-style: none;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  min-height: 50px;
+}
+.slider ul li {
+  -ms-flex: 1 0 100%;
+  flex: 1 0 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.slider .controls .left,
+.slider .controls .right {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  margin-top: 37%;
+  font-size: 30px;
+  height: 1em;
+  width: 1em;
+}
+.slider .controls .left.disabled,
+.slider .controls .right.disabled {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.slider .controls .left {
+  left: 10px;
+  background: url('../images/game/arrow-up.png') no-repeat;
+  background-size: contain;
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+.slider .controls .right {
+  right: 10px;
+  background: url('../images/game/arrow-up.png') no-repeat;
+  background-size: contain;
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.slider .tile {
+  font-size: 400px;
+}
+.slider .tile .text {
+  z-index: 50;
+  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
 }
 .actions {
   background: #faf5ef;

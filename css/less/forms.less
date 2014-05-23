@@ -416,7 +416,7 @@ button {
         font-size: .8em;
     }
 
-    
+
     button:hover:not(:disabled) {
         background-position-x: -470px;
     }
@@ -606,9 +606,15 @@ ul.custom-list {
         line-height: 3em;
         margin: .25em 0;
         border-radius: 1em;
-            
+
         &:hover {
             background-color: @rowColor;
+        }
+    }
+
+    &.noHover {
+        li:hover {
+            background-color: @backBoxColor;
         }
     }
 
@@ -675,6 +681,84 @@ ul.custom-list {
                 -webkit-transition: all .3s ease-in-out;
                 transition: all .3s ease-in-out;
             }
+        }
+    }
+}
+
+@dirLeft: 270;
+@dirRight: 90;
+
+.arrow(@dir) {
+    background: url('../../images/game/arrow-up.png') no-repeat;
+    background-size: contain;
+    -moz-transform: rotate(@dir * 1deg);
+    -ms-transform: rotate(@dir * 1deg);
+    -o-transform: rotate(@dir * 1deg);
+    -webkit-transform: rotate(@dir * 1deg);
+    transform: rotate(@dir * 1deg);
+}
+
+.slider {
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+
+    ul {
+        list-style: none;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        min-height: 50px;
+
+        li {
+            -ms-flex: 1 0 100%;
+            flex: 1 0 100%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .controls {
+        .left, .right {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            margin-top: 37%;
+            font-size: 30px;
+            height: 1em;
+            width: 1em;
+
+            &.disabled {
+                -webkit-filter: grayscale(100%);
+                filter: grayscale(100%);
+            }
+        }
+
+        .left {
+            left: 10px;
+            .arrow(@dirLeft);
+        }
+
+        .right {
+            right: 10px;
+            .arrow(@dirRight);
+        }
+    }
+
+    .tile {
+        font-size: 400px;
+
+        .text {
+            z-index: 50;
+            font-size: 20px;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            text-align: center;
         }
     }
 }

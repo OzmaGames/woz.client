@@ -1,4 +1,4 @@
-﻿define( ['jquery'], function ( $ ) {
+﻿define( [], function (  ) {
 
    $.fn.draggable = function ( opt ) {
       opt = $.extend( {}, $.fn.draggable.defaults, opt );

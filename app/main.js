@@ -32,8 +32,11 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
      app.title = 'Words of Oz';
 
      app.configurePlugins({
-        router: true
-     });
+        router: true,
+        widget: {
+           kinds: ['list', 'slider', 'tile']
+        }
+     } );
 
      app.Sound = Sound;
      var loadingBar = $( '#loadingBar' );

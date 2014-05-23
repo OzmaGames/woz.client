@@ -1,4 +1,4 @@
-﻿define(['api/datacontext', 'jquery', 'api/draggable'], function (ctx, $, draggable) {
+﻿define(['api/datacontext', 'api/draggable'], function (ctx, draggable) {
 
    var boundaries = { l: 0, r: window.innerWidth, t: 0, b: window.innerHeight / 2 };
 

@@ -1,0 +1,13 @@
+﻿<ul class="custom-list broad" data-bind="css: { draggable: settings.draggable, noHover: settings.noHover }">
+   <!-- ko foreach: settings.splitters -->
+   <li class="splitter" data-bind="css: {fixed: fixed}">
+      <div class="text curly" data-bind="text: text"></div>
+      <hr />
+   </li>
+   <!-- /ko -->
+   <!-- ko foreach: {data: settings.items, afterRender: afterRenderItem}-->
+   <li>
+      <div data-part="item" data-bind="text: $data"></div>
+   </li>
+   <!-- /ko -->
+</ul>

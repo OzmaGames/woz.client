@@ -1,4 +1,4 @@
-﻿define( ['jquery'], function ( $ ) {
+﻿define( 'api/draggable.static', [], function () {
 
 	$.fn.draggableStatic = function ( opt ) {
 		opt = $.extend( {}, $.fn.draggableStatic.defaults, opt );

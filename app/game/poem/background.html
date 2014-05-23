@@ -1,0 +1,14 @@
+﻿<div class="pull-right">
+   <label class="sm" style="font-size: 12px">Light color <input type="checkbox" data-bind="checked: lightColor" /><span></span></label>
+</div>
+<div class="clear"></div>
+<div data-bind="slider: {items: tiles }">
+   <div data-part="item" style="height: 430px">
+      <div data-bind="tile: {tile: $data}">
+         <div data-part="text" class="text"
+              data-bind="foreach: $root.phrases, style:{color: $root.lightColor() ? 'white' : 'black'}">
+            <div data-bind="text: phrase"></div>
+         </div>
+      </div>
+   </div>   
+</div>

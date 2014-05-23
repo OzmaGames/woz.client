@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'knockout'], function(router, ko) {
+﻿define(['plugins/router'], function(router) {
     var childRouter = router.createChildRouter()
         .makeRelative({
             moduleId: 'account',

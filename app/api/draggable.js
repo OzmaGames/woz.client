@@ -1,4 +1,4 @@
-﻿define( ['jquery'], function ( $ ) {
+﻿define( 'api/draggable', [], function () {
 
    $.fn.draggable = function ( opt ) {
       opt = $.extend( {}, $.fn.draggable.defaults, opt );
@@ -110,7 +110,7 @@
             }
          },
 
-         mouseup: function ( e ) {            
+         mouseup: function ( e ) {
             if ( !$el.hasClass( 'drag' ) ) return;
             convertEventForTouch( e );
 
@@ -153,7 +153,7 @@
             $el.hide();
             $el.removeClass( 'drag' ).appendTo( startPoint.parent ).css( { top: top, left: left } );
             $el.show();
-            
+
             if ( hasMoved ) {
                $el.addClass( "dragged" );
                if ( top < 0 ) {
@@ -182,7 +182,7 @@
                   }
                }
             }
-            
+
             opt.dropped( e, { top: top, left: left, hasMoved: hasMoved, within: opt.within, scrollTopChange: e.data.scrollTopChange, isWithin: isWithin } );
 
             hasMoved = false;
