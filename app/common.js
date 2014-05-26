@@ -71,10 +71,10 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
       app.dialog.showPoem = function () {
          app.dialog.show( "notice", {
             model: 'game/poem/index',
-            css: 'long',
+            css: 'long top up',
             closeOnClick: false,
             fixed: false,
-            centered: true,
+            centered: false,
             modal: true
          } );
       }

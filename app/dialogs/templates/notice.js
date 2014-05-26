@@ -49,6 +49,11 @@
 
          return dfd;
       }
+
+      app.off( "notice:close" );
+      app.on( "notice:close", function () {
+         base.close();
+      } );
    }
 
    Notice.prototype.activate = function ( data ) {

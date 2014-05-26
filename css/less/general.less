@@ -1206,7 +1206,7 @@ a.small {
 
     .table-flex .ribbon {
         position: absolute;
-        z-index:2;
+        z-index: 2;
         top: 0;
         left: -1em;
         font-family: 'GreatVibesRegular';
@@ -1480,4 +1480,26 @@ progress[value]::-webkit-progress-value {
 
 .toast {
     font-size: .7em !important;
+}
+
+
+.social {
+    font-size: 44px;
+    background: url('../../images/app/social.png') no-repeat;
+    background-size: auto 3em;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+
+    &.fb {
+        background-position: 0 0;
+    }
+
+    &.pn {
+        background-position: 0 -1em;
+    }
+
+    &.tw {
+        background-position: 0 -2em;
+    }
 }

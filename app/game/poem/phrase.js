@@ -2,7 +2,8 @@
 
    ctx.poem = {
       gameID: undefined,
-      phrases: ko.observableArray()
+      phrases: ko.observableArray(),
+      chosenPhrases: ko.observableArray()
    };
 
    var ctor = function () {
@@ -55,6 +56,7 @@
 
    ctor.prototype.deactivate = function () {
       ctx.poem.phrases().sort( function ( a, b ) { return a.index - b.index } );
+      ctx.poem.chosenPhrases( ctx.poem.phrases().filter( function ( p ) { return !p.excluded; } ) );
       //return $( this.el ).transition( { x: -100, opacity: 0} );
    }   
    ctor.prototype.bindingComplete = function ( el ) {
@@ -64,6 +66,7 @@
    ctor.prototype.compositionComplete = function (el) {
       //this.el = el;
       //return $( this.el ).hide().slideDown().promise();
+      //app.trigger( "dialog:adjust-size" );
    }
 
    return ctor;

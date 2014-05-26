@@ -317,6 +317,9 @@
 .dialog .notice.top {
   top: 100px;
 }
+.dialog .notice.top.up {
+  top: 75px;
+}
 .dialog .notice.long {
   padding-left: 1em;
   width: 500px;

@@ -2,7 +2,7 @@
    <label class="sm" style="font-size: 12px">Light color <input type="checkbox" data-bind="checked: lightColor" /><span></span></label>
 </div>
 <div class="clear"></div>
-<div data-bind="slider: {items: tiles }">
+<div data-bind="slider: {items: tiles, selectedItem: tile }">
    <div data-part="item" style="height: 430px">
       <div data-bind="tile: {tile: $data}">
          <div data-part="text" class="poem-container" data-bind="css: $root.lightColor() ? 'light' : 'dark'">
