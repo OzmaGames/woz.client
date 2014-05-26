@@ -1,11 +1,13 @@
-﻿<div class="slider">
+﻿<div class="slider-container">
    <div class="controls">
       <div class="left" data-bind="visible: canLeft(), click: goLeft"></div>
       <div class="right" data-bind="visible: canRight(), click: goRight"></div>
    </div>
-   <ul data-bind="foreach: {data: settings.items, afterRender: afterRenderItem}">
-      <li>
-         <div data-part="item" data-bind="text: $data"></div>
-      </li>
-   </ul>
+   <div class="slider">
+      <ul data-bind="foreach: {data: settings.items, afterRender: afterRenderItem}">
+         <li>
+            <div data-part="item" data-bind="text: $data"></div>
+         </li>
+      </ul>
+   </div>
 </div>

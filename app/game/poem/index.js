@@ -17,6 +17,7 @@
          }
       } );      
       ctx.poem.chosenPhrases = ko.observableArray( p );
+      ctx.poem.title = 'sample title';
 
       return {
          activate: function () {

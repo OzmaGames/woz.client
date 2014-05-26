@@ -6,9 +6,12 @@
      { text: "Shop", hash: 'shop' },
      { text: "settings", hash: 'settings' },
      { text: "help", hash: 'help' },
-     { text: "tutorial", hash: 'tutorial/new' },
-     //{ text: "sound", hash: 'sound' }
+     { text: "tutorial", hash: 'tutorial/new' },     
    ];
+
+   if ( app.ctx.username == 'niklas' ) {
+      items.push( { text: "sound", hash: 'sound' } );
+   }
 
    function Menu() {
       this.images = true;

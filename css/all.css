@@ -2540,13 +2540,67 @@ ul.custom-list.drag li:not(.fixed) {
   min-height: 50px;
 }
 .slider ul li {
+  position: relative;
   -ms-flex: 1 0 100%;
   flex: 1 0 100%;
   display: inline-block;
   vertical-align: middle;
 }
-.slider .controls .left,
-.slider .controls .right {
+.slider .tile {
+  font-size: 400px;
+}
+.slider .tile .poem-container {
+  z-index: 50;
+  font-size: 22px;
+  line-height: 1.5em;
+  width: 100%;
+  height: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  display: table;
+  padding-top: 2em;
+}
+.slider .tile .poem-container .poem {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 30px;
+  padding-bottom: 10px;
+}
+.slider .tile .poem-container,
+.slider .tile .poem-container h1 {
+  -moz-transition: 0.3s color, 0.3s text-shadow;
+  -o-transition: 0.3s color, 0.3s text-shadow;
+  -webkit-transition: 0.3s color, 0.3s text-shadow;
+  transition: 0.3s color, 0.3s text-shadow;
+}
+.slider .tile .poem-container h1 {
+  height: 1em;
+  display: table-row;
+}
+.slider .tile .poem-container.dark {
+  color: #111;
+  text-shadow: 0 0 5px #eee;
+}
+.slider .tile .poem-container.dark h1 {
+  color: black;
+  text-shadow: 0 0 4px #555;
+}
+.slider .tile .poem-container.light {
+  color: #eee;
+  text-shadow: 0 0 5px #111;
+}
+.slider .tile .poem-container.light h1 {
+  color: white;
+  text-shadow: 0 0 4px #aaa;
+}
+.slider-container {
+  position: relative;
+  width: 100%;
+}
+.slider-container .controls .left,
+.slider-container .controls .right {
   position: absolute;
   z-index: 2;
   top: 0;
@@ -2555,12 +2609,12 @@ ul.custom-list.drag li:not(.fixed) {
   height: 1em;
   width: 1em;
 }
-.slider .controls .left.disabled,
-.slider .controls .right.disabled {
+.slider-container .controls .left.disabled,
+.slider-container .controls .right.disabled {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
-.slider .controls .left {
+.slider-container .controls .left {
   left: 10px;
   background: url('../images/game/arrow-up.png') no-repeat;
   background-size: contain;
@@ -2570,7 +2624,7 @@ ul.custom-list.drag li:not(.fixed) {
   -webkit-transform: rotate(270deg);
   transform: rotate(270deg);
 }
-.slider .controls .right {
+.slider-container .controls .right {
   right: 10px;
   background: url('../images/game/arrow-up.png') no-repeat;
   background-size: contain;
@@ -2579,20 +2633,6 @@ ul.custom-list.drag li:not(.fixed) {
   -o-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
-}
-.slider .tile {
-  font-size: 400px;
-}
-.slider .tile .text {
-  z-index: 50;
-  font-size: 20px;
-  width: 100%;
-  height: 100%;
-  padding: 40px;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  text-align: center;
 }
 .actions {
   background: #faf5ef;

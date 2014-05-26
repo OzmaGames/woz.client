@@ -95,7 +95,7 @@
      } );
 
      model.load = function ( id ) {
-        app.Sound.play( app.Sound.sounds.game.loading );
+        var loadingSound = app.Sound.play( app.Sound.sounds.game.loading );
         console.log( "loading game.." );
         app.off( "game:start game:update:ctx game:swap-words" );
         model.loading( true );
@@ -128,6 +128,8 @@
         model.activeWords( null );
 
         app.on( "game:start", function ( json ) {
+           app.Sound.fade( loadingSound );
+           
            app.Sound.play( app.Sound.sounds.game.unfolding );
            if ( model.tutorialMode() ) {
               router.navigate( 'tutorial/' + json.id, { trigger: false, replace: true } );

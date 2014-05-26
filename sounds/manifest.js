@@ -1,11 +1,8 @@
-﻿define( 'sounds/manifest', [], function () {
+define( 'sounds/manifest', [], function () {
    return {
       click: {
          command: [
-            'General menu click/General_menu_click-01.wav',
-            'General menu click/General_menu_click-02.wav',
-            'General menu click/General_menu_click-03.wav',
-            'General menu click/General_menu_click-04.wav'
+            'General menu click/General_menu_click-01.ogg'
          ],
          action: [
             'Activity menu click/Activity_menu_click-01.wav',
@@ -41,7 +38,7 @@
             'Drop down dialogue/Drop_down_dialogue-01.wav'
          ],
          login: [
-            'Login dialogue/Login_dialogue-01.wav'
+            'Login dialogue/Login_dialogue-01.ogg'
          ]
       },
       action: {
@@ -57,8 +54,8 @@
             'Loading a game/Loading_a_game-01.wav'
          ],
          unfolding: [
-            'Unfolding game board/Unfolding_game_board-01.wav',
-            'Unfolding game board/Unfolding_game_board-02.wav'
+            'Unfolding game board/Unfolding_game_board-01.ogg',
+            'Unfolding game board/Unfolding_game_board-02.ogg'
          ],
          overWin: [
             'Game over win/Game_over_win-01.wav',
@@ -78,10 +75,10 @@
          ]
       },
       enlargeTile: [
-         'Enlarge picture tiles/Enlarge_picture_tiles-01.wav',
-         'Enlarge picture tiles/Enlarge_picture_tiles-02.wav',
-         'Enlarge picture tiles/Enlarge_picture_tiles-03.wav',
-         'Enlarge picture tiles/Enlarge_picture_tiles-04.wav'
+         'Enlarge picture tiles/Enlarge_picture_tiles-01.ogg',
+         'Enlarge picture tiles/Enlarge_picture_tiles-02.ogg',
+         'Enlarge picture tiles/Enlarge_picture_tiles-03.ogg',
+         'Enlarge picture tiles/Enlarge_picture_tiles-04.ogg'
       ],
       word: {
          lift: [
@@ -111,17 +108,17 @@
             'Select words by clicking them/Select-words-by-clicking-them-04.wav'
          ],
          show: [
-            'New words appearing-01/New_words_appearing-01.wav',
-            'New words appearing-01/New_words_appearing-02.wav',
-            'New words appearing-01/New_words_appearing-03.wav',
-            'New words appearing-01/New_words_appearing-04.wav',
-            'New words appearing-01/New_words_appearing-05.wav',
-            'New words appearing-01/New_words_appearing-06.wav'
+            'New words appearing-01/New_words_appearing-01.ogg',
+            'New words appearing-01/New_words_appearing-02.ogg',
+            'New words appearing-01/New_words_appearing-03.ogg',
+            'New words appearing-01/New_words_appearing-04.ogg',
+            'New words appearing-01/New_words_appearing-05.ogg',
+            'New words appearing-01/New_words_appearing-06.ogg'
          ]
       },
       scoring: {
          word: [
-            'Scoring for words/Scoring_for_words-01.wav'
+            'Scoring for words/Scoring_for_words-01.ogg'
          ],
          bonus: [
             'Scoring bonus normal/Scoring_bonus_normal-01.wav'

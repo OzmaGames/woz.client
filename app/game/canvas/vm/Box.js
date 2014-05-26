@@ -180,8 +180,8 @@
       var cw = this.pathModel.cw ? ' cw' : '';
 
       div.append(
-        $( '<div/>', { 'class': 'button', title: 'Done!' } ));
-         //.append( $( '<div/>', { 'class': 'tooltip' + cw, text: 'Click me when you are done!' } ).delay( 4000 ).fadeOut( 1000 ) ) );
+        $( '<div/>', { 'class': 'button', title: 'Done!' } ) );
+      //.append( $( '<div/>', { 'class': 'tooltip' + cw, text: 'Click me when you are done!' } ).delay( 4000 ).fadeOut( 1000 ) ) );
 
       div.css( {
          x: this.pathModel.cPoint.x - Box.pathOptions.container.left,
@@ -293,15 +293,12 @@
                } );
                setTimeout( function () { div.removeClass( "noTransition" ) }, 0 );
 
-               if ( !data.hasMoved ) {                  
-                  app.Sound.play( app.Sound.sounds.word.placeBack );
-                  pm.removeWordAt( base.index );
-               } else {
+               if ( data.hasMoved ) {
                   var workspace = $( '#workspace' ).offset();
 
                   data.top -= data.within.t;
                   data.left -= data.within.l;
-                  
+
                   if ( workspace.top < data.top + 20 ) {
                      var workspaceWidth = $( '#workspace' ).innerWidth(),
                         workspaceHeight = $( '#workspace' ).innerHeight();
@@ -323,8 +320,13 @@
                      } );
 
                      app.Sound.play( app.Sound.sounds.word.placeBack );
+                     //word.soundPlaceBack = true;
                      pm.removeWordAt( base.index );
                   }
+               } else {
+                  app.Sound.play( app.Sound.sounds.word.placeBack );
+                  //word.soundPlaceBack = true;
+                  pm.removeWordAt( base.index );
                }
             }
          } );

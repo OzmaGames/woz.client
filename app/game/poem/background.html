@@ -5,10 +5,14 @@
 <div data-bind="slider: {items: tiles }">
    <div data-part="item" style="height: 430px">
       <div data-bind="tile: {tile: $data}">
-         <div data-part="text" class="text"
-              data-bind="foreach: $root.phrases, style:{color: $root.lightColor() ? 'white' : 'black'}">
-            <div data-bind="text: phrase"></div>
+         <div data-part="text" class="poem-container" data-bind="css: $root.lightColor() ? 'light' : 'dark'">
+            <h1 data-bind="text: $root.title"></h1>
+            <div class="poem">
+               <!--ko foreach: $root.phrases -->
+               <div data-bind="text: phrase"></div>
+               <!-- /ko -->
+            </div>            
          </div>
       </div>
-   </div>   
+   </div>
 </div>

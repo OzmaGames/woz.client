@@ -1,19 +1,36 @@
 ﻿<div style="padding:1em">
    <button class="orange" data-bind="click: $root.save">Save</button>
-   <table border="1" cellpadding="0" cellspacing="0">
+   <table border="1" cellpadding="0" cellspacing="0" style=" font-size: 12px; line-height: 20px">
+      <thead>
+         <tr>
+            <th>key</th>
+            <th>filename</th>
+            <th>delay 0 to 500ms</th>
+            <th>volumn 0 to 1</th>
+            <th></th>
+         </tr>
+      </thead>
       <tbody data-bind="foreach: collection">
          <tr>
             <td data-bind="text: key"></td>
             <td>
                <div data-bind="foreach: items">
-                  <div style="display: inline-block; vertical-align: middle;min-width: 600px" data-bind="text: $root.meta($data).src"></div>
-                  <div style="display: inline-block; vertical-align: middle">
-                     <input type="range" min="0" max="1" step=".05" data-bind="value: $root.meta($data).volumn" />
-                  </div>
-                  <div style="display: inline-block; vertical-align: middle">
-                     <button class="blue xsm" data-bind="click: $root.play.bind($root, $data)">Play</button>
-                  </div>
-                  <br />
+                  <div style="min-width: 500px;" data-bind="text: $root.meta($data).src"></div>                  
+               </div>
+            </td>
+            <td>
+               <div data-bind="foreach: items">
+                  <input style="height: 20px;display:block;"  type="range" min="0" max="500" step="50" data-bind="value: $root.meta($data).delay" />                  
+               </div>
+            </td>
+            <td>
+               <div data-bind="foreach: items">                  
+                  <input style="height: 20px;display:block"  type="range" min="0" max="1" step=".05" data-bind="value: $root.meta($data).volumn" />                  
+               </div>
+            </td>
+            <td>
+               <div data-bind="foreach: items">
+                  <button style="display:block" class="blue xsm" data-bind="click: $root.play.bind($root, $data)">Play</button>                  
                </div>
             </td>
          </tr>
