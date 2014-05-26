@@ -243,7 +243,14 @@
 
             if ( typeof obj.nav == "function" ) {
                var dfd = $.Deferred();
-               $( '.content', element ).stop().hide().delay( 30 ).promise().then( function () {
+
+               $( '.content', element ).stop()
+               if ( app.browser.tablet ) {
+                  $( '.content', element ).hide();
+               } else {
+                  $( '.content', element ).slideUp();
+               }
+               $( '.content', element ).delay( 30 ).promise().then( function () {
                   if ( index != activeIndex() ) {
                      dfd.reject();
                   } else {
@@ -251,7 +258,12 @@
                   }
                } );
                obj.nav.call( viewModel, index, dfd ).then( function () {
-                  $( '.content', element ).show().promise().then( function () {
+                  if ( app.browser.tablet ) {
+                     $( '.content', element ).show();
+                  } else {
+                     $( '.content', element ).slideDown();
+                  }
+                  $( '.content', element ).promise().then( function () {
                      $( this ).css( 'height', '' );
                      if ( typeof obj.navEnd == "function" ) {
                         obj.navEnd.call( viewModel, index );
