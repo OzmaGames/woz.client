@@ -37,6 +37,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
          } );
       };
       app.dialog.showNoBesoz = function ( besoz ) {
+         app.Sound.play( app.Sound.sounds.action.functionFailed );
          app.dialog.show( "notice", {
             model: { getBesoz: app.dialog.showCurrency, besoz: besoz },
             view: 'dialogs/pages/noBesoz',
@@ -74,10 +75,13 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
             css: 'long top up',
             closeOnClick: false,
             fixed: false,
-            centered: false,
+            centered: true,
             modal: true
          } );
       }
+      app.dialog.showProfile = function ( besoz ) {
+         app.dialog.show( "profile" );
+      };
 
       app.palette = palette;
       app.palette.get( "menu" ).click( function () { app.dialog.show( "menu" ); } );

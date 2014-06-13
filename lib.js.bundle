@@ -17,6 +17,7 @@
     <file>/lib/paper/paper.js</file>
     <file>/lib/socket.io.js</file>
     <file>/lib/sound.min.js</file>
+    <file>/lib/html2canvas.js</file>
     <file>/lib/toastr/toastr.js</file>
   </files>
 </bundle>

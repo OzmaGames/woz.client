@@ -22,7 +22,7 @@
    }
 
    function draw() {
-      tool = new paper.Tool(), stars = [], path;
+      var tool = new paper.Tool(), stars = [], path;
 
       tool.minDistance = 16;
       tool.maxDistance = 32;
@@ -52,11 +52,13 @@
          var selection = Selection(path, unplayedWords());
 
          if (selection.length < 3) {
-            console.log("Too few words!");
+            console.log( "Too few words!" );
+            app.Sound.play( app.Sound.sounds.action.functionFailed );
             //dfd.reject(selection);
          } else if (selection.length > 9) {
             console.log("Too many words!");
-            app.dialog.show("alert", { content: "Too many words!" });
+            app.Sound.play( app.Sound.sounds.action.functionFailed );
+            app.dialog.show( "alert", { content: "Too many words!" } );
             //dfd.reject(selection);
          } else {
             selection = Sort(selection);

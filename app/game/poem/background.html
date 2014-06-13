@@ -1,17 +1,40 @@
-﻿<div class="pull-right">
-   <label class="sm" style="font-size: 12px">Light color <input type="checkbox" data-bind="checked: lightColor" /><span></span></label>
-</div>
+﻿<input type="text" style="text-align:center" data-bind="value: title, valueUpdate: 'input'" placeholder="Enter a title (optional)" />
 <div class="clear"></div>
 <div data-bind="slider: {items: tiles, selectedItem: tile }">
    <div data-part="item" style="height: 430px">
       <div data-bind="tile: {tile: $data}">
-         <div data-part="text" class="poem-container" data-bind="css: $root.lightColor() ? 'light' : 'dark'">
-            <h1 data-bind="text: $root.title"></h1>
-            <div class="poem">
-               <!--ko foreach: $root.phrases -->
-               <div data-bind="text: phrase"></div>
-               <!-- /ko -->
-            </div>            
+         <div data-part="text">
+            <div class="ctrl">
+               <i class="shade" data-bind="click: $root.action.bind($root, 'shade')"></i>
+               <i class="size" data-bind="click: $root.action.bind($root, 'size')"></i>
+               <i class="color" data-bind="click: $root.switchColor"></i>
+               <div class="box" data-bind="visible: $root.settings.visible">
+                  <button data-bind="click: $root.action.bind($root, null)">
+                     <i class="command close"></i>
+                  </button>
+                  <div class="content" data-bind="with: $root.settings.current">
+                     <i data-bind="css: name"><s>a</s></i>
+                     <i data-bind="css: name"><s>a</s></i>
+                     <div class="teeth" data-bind="foreach: $root.range(min, max)"><div class="tooth"></div></div>
+                     <div class="range">
+                        <input type="range" data-bind="attr:{min: min, max: max}, value: value, valueUpdate: 'input'" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="confiner">
+               <div class="poem-container" data-bind="css: $root.settings.lightColor() ? ('light shade-' + $root.settings.shade.value() ): ('dark shade-'+  $root.settings.shade.value())">
+                  <div class="row" data-bind="css: {none: $root.title() == '' }"></div>
+                  <div class="row" data-bind="css: {none: $root.title() == '' }">
+                     <h1 data-bind="text: $root.title, resizeText: {maxWidth: 220, size: {max: 1.5, min: 1.05 } }"></h1>
+                  </div>
+                  <div class="poem" data-bind="style: {fontSize: $root.settings.size.value() + 'px'}">
+                     <!--ko foreach: $root.phrases -->
+                     <div class="phrase" data-bind="text: phrase"></div>
+                     <!-- /ko -->
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
    </div>

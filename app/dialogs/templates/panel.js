@@ -18,8 +18,14 @@
 
    return {
       activate: function (moduleName) {
-         if (!moduleName) return;
-         this.modelName(moduleName);
+         if ( !moduleName ) return;
+         if ( typeof moduleName !== 'string' ) {
+            this.modelName( moduleName.module );
+            this.modal = true;
+         } else {
+            this.modal = false;
+            this.modelName( moduleName );
+         }
          sub = app.on("app:resized:hook").then(adjust);
       },
 

@@ -214,6 +214,7 @@
       this.notifications = notifications;
 
       this.gotoShopStorage = function () {
+         app.Sound.play( app.Sound.sounds.click.button );
          app.navigate( "shop/storage" );
       }
 
@@ -317,6 +318,8 @@
 
       this.selectGame = function ( game ) {
          if ( game.resigned || ( game.newGame && game.over ) ) return;
+         app.Sound.play( app.Sound.sounds.click.button );
+
          base.activeGame( game );
          app.navigate( "game/" + game.gameID );
       }

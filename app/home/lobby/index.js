@@ -71,12 +71,17 @@
    };
 
    Index.prototype.start = function () {
+      app.Sound.play( app.Sound.sounds.click.button );
       app.navigate( "newGame" );
    };
 
    Index.prototype.binding = function () {
       return { cacheViews: false };
    };
+
+   Index.prototype.attached = function () {
+         app.Sound.play( app.Sound.sounds.pageTransition );
+   }
 
    return Index;
 } );

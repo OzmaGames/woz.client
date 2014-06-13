@@ -1,10 +1,8 @@
 ﻿define( 'game/poem/phrase', ['api/datacontext'], function ( ctx ) {
 
-   ctx.poem = {
-      gameID: undefined,
-      phrases: ko.observableArray(),
-      chosenPhrases: ko.observableArray()
-   };
+   ctx.poem = ctx.poem || {};
+   ctx.poem.phrases = ko.observableArray();
+   ctx.poem.chosenPhrases = ko.observableArray();
 
    var ctor = function () {
       var base = this;
@@ -22,16 +20,23 @@
       } );
 
       this.moved = this.moved.bind( this );
+
+      this.reset = function () {
+         ctx.poem.chosenPhrases.removeAll();
+         ctx.poem.phrases.removeAll();
+         ctx.poem.gameID = null;
+      }
    }
 
    ctor.prototype.activate = function () {
       if ( ctx.poem.gameID != ctx.gameID ) {
          ctx.poem.gameID = ctx.gameID;
          var p = ctx.paths().map( function ( p, index ) {
+            var z = p.phrase.words.sort( function ( a, b ) { return a.index - b.index; } ).map( function ( w ) { return w.word.lemma; } ).join( ' ' );
             return {
-               phrase: p.phrase.words.sort( function ( a, b ) { return a.index - b.index; } ).map( function ( w ) { return w.word.lemma; } ).join( ' ' ),
+               phrase: z,
                index: index,
-               excluded: true
+               excluded: false
             }
          } );
          ctx.poem.phrases( p );
@@ -58,12 +63,12 @@
       ctx.poem.phrases().sort( function ( a, b ) { return a.index - b.index } );
       ctx.poem.chosenPhrases( ctx.poem.phrases().filter( function ( p ) { return !p.excluded; } ) );
       //return $( this.el ).transition( { x: -100, opacity: 0} );
-   }   
+   }
    ctor.prototype.bindingComplete = function ( el ) {
       //this.el = el;
       //return $( this.el ).hide().promise();
    }
-   ctor.prototype.compositionComplete = function (el) {
+   ctor.prototype.compositionComplete = function ( el ) {
       //this.el = el;
       //return $( this.el ).hide().slideDown().promise();
       //app.trigger( "dialog:adjust-size" );

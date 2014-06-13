@@ -6,7 +6,7 @@
          <article>
             <h1>start new game</h1>
             <div class="container group" data-bind="foreach: gameOptions">
-               <label class="radio">
+               <label class="radio" data-bind="click: $root.clicked">
                   <span class="title" data-bind="text: title"></span>
                   <span class="description" data-bind="text: description"></span>
                   <input type="radio" name="gameOption" data-bind="value: id, checked: $root.gameOptionId" /><span></span>

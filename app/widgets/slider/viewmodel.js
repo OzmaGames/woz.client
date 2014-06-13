@@ -8,7 +8,8 @@
 
       var base = this;
 
-      this.index = ko.observable();
+      var index = this.settings.items.indexOf( ko.unwrap( this.settings.selectedItem ) );
+      this.index = ko.observable( index > -1 ? index : 0 );
       this.canLeft = ko.computed( function () { return base.index() > 0 } );
       this.canRight = ko.computed( function () { return base.index() < ko.unwrap( base.settings.items ).length - 1 } );
 
@@ -27,6 +28,8 @@
             base.settings.selectedItem = item;
          }
       } );
+
+      this.index.notifySubscribers();
    };
 
    ctor.prototype.afterRenderItem = function ( elements, item ) {
@@ -46,10 +49,27 @@
 
    }
 
+   ctor.prototype.attached = function ( el ) {      
+      var index = this.index();
+      $( 'li', el ).each( function ( idx ) {
+         if ( idx < index ) {
+            $( this ).hide();
+         }
+      } )
+   }
+
    ctor.prototype.compositionComplete = function ( el ) {
-      var index = this.settings.items.indexOf( ko.unwrap( this.settings.selectedItem ) );
       this.$ul = $( '.slider', el );
-      this.index( index > -1 ? index : 0 );
+      
+      var index = this.index();
+      var left = $( $( 'li', this.$ul )[index] ).width() * index;
+
+      $( 'li', el ).each( function ( idx ) {
+         if ( idx < index ) {
+            $( this ).show();
+         }
+      } );
+      this.$ul.scrollLeft( left );
    }
 
    ctor.prototype.goLeft = function () {

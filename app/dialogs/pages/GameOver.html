@@ -14,5 +14,5 @@
 <div>
    <button class="blue enableGPU" data-bind="text: btnText, click: gotoLobby, clickBubble: false, style:{ width: btnSizeAuto ? 'auto': '220px'}"></button>
    <button class="blue enableGPU" style="width:220px" data-bind="visible: showButtons" disabled>share game board</button>
-   <button class="blue enableGPU" style="width:220px" data-bind="visible: showButtons" disabled>make a poem</button>
+   <button class="blue enableGPU" style="width:220px" data-bind="visible: showButtons, click: showPoem">make a poem</button>
 </div>

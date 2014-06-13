@@ -64,12 +64,14 @@
          }
 
          function publishWord( data ) {
-            
+         
             base.loading( false );
             data.word.css = "new";
             data.words = [data.word];
             data.oldWords = [];
             if ( data.success ) {
+               app.Sound.play( app.Sound.sounds.word.wiggling );
+
                base.ticket( false );
                app.trigger( "game:swap-words", data );
                app.scrollDown();

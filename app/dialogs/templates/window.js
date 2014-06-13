@@ -13,7 +13,7 @@
           }
           if (base.draggable) base.el.data("draggable").dispose();
 
-          app.Sound.play( app.Sound.sounds.dialog.closing );
+          app.Sound.play( app.Sound.sounds.dialog.helpClosing );
           base.el.animate( { height: 0, opacity: 0 }, 250 ).promise()
              .then(function () { $(this).hide(); dfd.resolve(); });          
        });       

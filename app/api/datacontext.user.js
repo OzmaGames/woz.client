@@ -6,7 +6,9 @@
       this.besoz = ko.observable( 0 );
       this.storage = ko.observable( 0 );
       this.level = ko.observable( 0 );
-      this.collections = ko.observableArray();      
+      this.xp = ko.observable( 0 );
+      this.title = ko.observable( '' );
+      this.collections = ko.observableArray();
 
       this.loading = ko.observable( false );
 
@@ -64,6 +66,8 @@
                base.besoz( data.besoz );
                base.level( data.level );
                base.storage( data.storage );
+               base.xp( data.xp );
+               base.title( data.title );
                //base.storage( 5 );
             }
             base.loading( false );

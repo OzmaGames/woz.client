@@ -1478,6 +1478,29 @@ progress[value]::-webkit-progress-value {
     background-size: 35px 20px, 100% 100%, 100% 100%;
 }*/
 
+progress {
+    color: @lightbrown;
+    font-size: .6em;
+    line-height: 1.5em;
+    text-indent: .5em;
+    width: 15em;
+    height: 1.8em;
+    border: 1px solid @brown;
+    background: #fff;
+}
+
+progress::-webkit-progress-value{
+    background: @lightbrown;
+}
+
+progress::-webkit-progress-bar{
+    background: white;
+}
+
+progress::-moz-progress-bar { 
+    background: white; 
+}
+
 .toast {
     font-size: .7em !important;
 }
@@ -1501,5 +1524,12 @@ progress[value]::-webkit-progress-value {
 
     &.tw {
         background-position: 0 -2em;
+    }
+
+    &.disabled{
+                -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
     }
 }

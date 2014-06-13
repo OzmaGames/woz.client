@@ -70,7 +70,7 @@
       $.when( this.dfd1, this.dfd2 ).then( function () {
          app.Sound.play( app.Sound.sounds.dialog.notice );
          if ( base.centered ) {            
-            base.el.css( { top: 0 } ).show();
+            base.el.css( { top: 0 } ).data('centered', true).show();
             adjust( base.el );
          } else {
             base.el.show().css( { y: 0, opacity: 0, scale: 0.8 } )
@@ -105,7 +105,9 @@
       } ).promise();
    }
 
-   function adjust( el ) {      
+   function adjust( el ) {
+      if ( !el.data( 'centered' ) ) return;
+
       var height = window.innerHeight;
       var top = ( height - el.outerHeight() ) / 2;
       if ( top < 0 ) top = 0;
@@ -116,6 +118,10 @@
    app.on( "dialog:adjust-size", function () {
       if ( elem ) adjust( elem );
    } );
+
+   app.on( "app:resized:hook", function () {
+      if ( elem ) adjust( elem );
+   } )
 
    return Notice;
 } );

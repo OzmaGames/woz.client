@@ -41,11 +41,15 @@
       },
 
       start: function () {
+         app.Sound.play( app.Sound.sounds.click.button );
          app.navigate( "newGame" );
       },
 
       binding: function () {
          return { cacheViews: false };
+      },
+      attached: function () {
+         app.Sound.play( app.Sound.sounds.pageTransition );
       }
    }
 });

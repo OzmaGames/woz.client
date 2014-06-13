@@ -1,5 +1,5 @@
-﻿<div class="dialog top-center absolute">
+﻿<div class="dialog top-center" data-bind="css: modal? 'modal': 'absolute' ">
     <div class="ui-overlay"></div>
-    <div class="panel" data-bind="compose: { model: modelName}"></div>
+    <div class="panel" data-bind="compose: { model: modelName}, style: {zIndex: !modal? 'auto': '10'}"></div>
 </div>
 

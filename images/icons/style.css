@@ -10,7 +10,7 @@
   display: block;
   -moz-background-size: 3em auto;
   background-size: 3em auto;
-  image-rendering: -moz-crisp-edges;
+  image-rendering: optimizeQuality;
 }
 .item-icon.item-icon-index-0 {
   background-position-x: 0;

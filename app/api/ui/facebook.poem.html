@@ -1,0 +1,22 @@
+﻿<i class="command close" data-bind="click: close"></i>
+<div class="facebook profile" style="position:static; top: 0">
+   <div class="avatar btn"></div>
+   <div class="avatar" data-bind="style: {backgroundImage: 'url(\''+ user.profileImageSrc +'\')'}"></div>
+   <div class="name" data-bind="text: user.name"></div>
+</div>
+<hr />
+<input type="text" placeholder="Message (optional)" data-bind="value: message" autofocus />
+<img data-bind="attr:{src: poem}" style="max-width: 300px;border-radius: 10px;margin-top: 5px;" />
+<hr />
+<div>
+   <button class="blue sm" data-bind="disable: uploading, click: publish, visible: !uploading()">Publish</button>
+   <div data-bind="visible: uploading() && uploadPercent() != 1">
+      Uploading
+      <progress max="1" data-bind="value: uploadPercent, text: (100 * uploadPercent()).toFixed()"></progress>
+   </div>
+   <div data-bind="visible: uploading() && uploadPercent() == 1">
+      Waiting for facebook...
+   </div>
+</div>
+
+

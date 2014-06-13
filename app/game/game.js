@@ -325,6 +325,7 @@
             if ( anyRelated ) {
                json.path.score.words = related;
                showStars( ctx.player, ctx.lastPath, json.path.score, 1, 1 );
+               app.Sound.play( app.Sound.sounds.scoring.related );
 
                json.path.score.words = all;
                setTimeout( function () {
@@ -370,7 +371,7 @@
          return tiles.some( function ( t ) { return t.active(); } );
       } ),
 
-      toggleTile: function(){
+      toggleTile: function () {
          var tiles = ctx.tiles();
          var tile = ko.utils.arrayFirst( tiles, function ( t ) { return t.active() } );
          if ( !tile ) return;
@@ -489,7 +490,7 @@
          if ( ctx.gameOver() ) {
             return;
          }
-         
+
          var content = ctx.playerCount == 1 ? "Are you sure you want to delete this game?" : "Are you sure you want to resign?";
          app.dialog.show( "confirm", {
             content: content,
@@ -595,7 +596,7 @@
                } );
             } );
          }
-      }      
+      }
    };
 
    return system.extend( game, {
@@ -617,19 +618,18 @@
          }
 
          app.palette.hide( { duration: 0 } );
+         app.palette.add( "poem", "command", "right" )
+          .click( function () {
+             app.dialog.showPoem();
+          } )
+          .visible( ctx.gameOver );
          app.palette.add( "quit", "command", "right" )
             .click( game.resign )
             .css( {
                disabled: ko.computed( function () { return !game.allowResign() } )
             } ).visible( ko.computed( function () {
-               return !ctx.tutorialMode() && !ctx.gameOver()
+               return !ctx.tutorialMode() && !ctx.gameOver();
             } ) );
-         
-         app.palette.add( "connection", "command", "right" )
-          .click( function () {
-             app.dialog.showPoem();
-          } )
-          .visible( ctx.gameOver );
 
          app.palette.add( "swapWords", "action", "left" )
             .click( game.swapWords )

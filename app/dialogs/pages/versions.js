@@ -48,6 +48,8 @@
 
                base.word.isPlayed = 0;
                ctx.words.valueHasMutated();
+
+               app.Sound.play( app.Sound.sounds.action.functionFailed );
                return;
             }
             base.activeVersion = ko.observable( data.versions[0] );

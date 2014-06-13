@@ -201,6 +201,8 @@
 
          app.scrollUp();
       } else {
+         app.Sound.play( app.Sound.sounds.shrinkTile );
+
          setTimeout( scroll, 500 );
          reposTile( tile, false );
          tile.$mask.css( { scale: tile.origin.scale } );

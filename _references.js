@@ -8,6 +8,7 @@
 /// <reference path="~/lib/intellisense/require.js" />
 /// <reference path="~/lib/intellisense/require-config.js" />
 
+/// <reference path="~/lib/html2canvas.js" />
 /// <reference path="~/lib/toastr/toastr.js" />
 
 /// <reference path="~/app/api/helper/Task.js" />

@@ -322,6 +322,8 @@
                      app.Sound.play( app.Sound.sounds.word.placeBack );
                      //word.soundPlaceBack = true;
                      pm.removeWordAt( base.index );
+                  } else {
+                     app.Sound.play( app.Sound.sounds.word.place );
                   }
                } else {
                   app.Sound.play( app.Sound.sounds.word.placeBack );

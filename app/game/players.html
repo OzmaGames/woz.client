@@ -1,6 +1,6 @@
 ﻿<div id="game-players">
-   <div id="players" data-bind="foreach: players(), visible: !loading()">
-      <div class="player enableGPU">
+   <div id="players" data-bind="foreach: players(), visible: !loading()" style="z-index: 2">
+      <div class="player enableGPU" data-bind="click: $root.showProfile">
          <div class="decoration">
             <div class="score">
                <p data-bind="text: score"></p>

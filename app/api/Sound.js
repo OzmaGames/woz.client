@@ -45,6 +45,9 @@
                if ( sounds.val() ) {
                   var collection = sounds.val();
                   for ( var key in collection ) {
+                     if ( !metaSounds[key] ) {
+                        metaSounds[key] = { volumn: 1, delay: 0 };
+                     }
                      metaSounds[key].volumn = collection[key].volumn;
                      metaSounds[key].delay = collection[key].delay;
                   }
@@ -94,8 +97,9 @@
 
    Sound.prototype.play = function ( arr, noNotify ) {
       if ( !soundSystem ) return;
-
+      
       var key, instance;
+      if ( arr.push && arr.length == 0 ) return;
       if ( arr.push ) {
          var index = 0;
          do {
@@ -118,8 +122,8 @@
             instance.play();
          }, delay );
       }
-      
-      if ( !noNotify && app.ctx.username == 'niklas') {
+
+      if ( !noNotify && app.ctx.username == 'niklas' ) {
          toastr.success( instance.src.split( /\//ig )[2], null, { timeOut: 5000 } );
       }
 

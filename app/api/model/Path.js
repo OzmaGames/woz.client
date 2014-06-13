@@ -241,6 +241,7 @@
          for ( var i = 0; i < words.length; i++ ) {
             words[i].word.isPlayed = 0;
             delete words[i].word.lastBox;
+            delete words[i].word.soundPlayed;
          }
          base.phrase._complete( false );
          base.phrase.words.removeAll();

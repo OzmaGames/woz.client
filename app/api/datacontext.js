@@ -331,7 +331,7 @@
                              app.dialog.show( "notice", {
                                 model: {
                                    message: json.stats.level,
-                                   imageName: 'images/game/level/' + json.stats.level.toLowerCase() + '.png'
+                                   imageName: 'images/game/level/' + json.stats.title.toLowerCase() + '.png'
                                 }, view: "dialogs/pages/LevelUp"
                              } ).then( function () {
                                 app.navigate( data.target );

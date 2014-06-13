@@ -181,6 +181,40 @@
       }
    };
 
+   ko.bindingHandlers["resizeText"] = {
+      init: function ( element, valueAccessor, allBindingsAccessor, viewModel ) {
+         var maxWidth = valueAccessor().maxWidth,
+             maxSize = valueAccessor().size.max,
+             minSize = valueAccessor().size.min, size = maxSize, lastWidth = 0;
+         var observable = allBindingsAccessor().text;
+
+         var subscription = observable.subscribe( function () {
+            //Task.run( function () {
+               var el, width = ( el = $( element ) ).width();
+               while ( width > maxWidth && size > minSize ) {
+                  size -= .025;
+                  width = el.css( { 'fontSize': size + 'em' } ).width();
+                  lastWidth = width;
+               }
+               if ( lastWidth > width ) {
+                  size = maxSize;
+                  width = el.css( { 'fontSize': size + 'em' } ).width();
+
+                  while ( width > maxWidth && size > minSize ) {
+                     size -= .025;
+                     width = el.css( { 'fontSize': size + 'em' } ).width();
+                     lastWidth = width;
+                  }
+               }
+            //} );
+         } );
+
+         ko.utils.domNodeDisposal.addDisposeCallback( element, function () {
+            subscription.dispose();
+         } );
+      }
+   }
+
    ko.bindingHandlers["search"] = {
       init: function ( element, valueAccessor, allBindingsAccessor, viewModel ) {
          element.addEventListener( "search", function ( e ) {
@@ -233,6 +267,8 @@
                $( this ).data( 'index', index );
             } ).click( function () {
                activeIndex( $( this ).data( 'index' ) );
+
+               app.Sound.play( app.Sound.sounds.click.button );
             } );
 
          var sub = activeIndex.subscribe( function ( index ) {

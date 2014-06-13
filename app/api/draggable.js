@@ -62,7 +62,7 @@
                opt.within.r += startPoint.w / 2;
             }
 
-            opt.dragStart.call( this, e, opt.within );
+            opt.dragStart.call( this, e, opt.within, startPoint );
 
             if ( !immovable() ) {
                var pointerMove = $.support.touch ? "touchmove" : "mousemove";
@@ -146,11 +146,12 @@
             var isWithin = events.isWithinBoundaries( e ), topExceeded = false;
             var top = isWithin ? ( e.data.t + e.pageY ) : ( $el.position().top ),
                 left = isWithin ? ( e.data.l + e.pageX ) : ( $el.position().left );
+            var related = (startPoint.dropzone ? startPoint.dropzone : startPoint.parent);
 
-            top -= startPoint.parent.offset().top;
-            left -= startPoint.parent.offset().left;
+            top -= related.offset().top;
+            left -= related.offset().left;
 
-            $el.hide();
+            $el.hide();            
             $el.removeClass( 'drag' ).appendTo( startPoint.parent ).css( { top: top, left: left } );
             $el.show();
 

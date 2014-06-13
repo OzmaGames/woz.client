@@ -38,11 +38,15 @@
 
       var base = this;
       this.done = function () {
+         app.Sound.play( app.Sound.sounds.click.button );
          base.close("done");
+         app.Sound.play( app.Sound.sounds.dialog.confirmClosing );
       }
 
       this.cancel = function () {
+         app.Sound.play( app.Sound.sounds.click.button );
          base.close("cancel");
+         app.Sound.play( app.Sound.sounds.dialog.confirmClosing );
       }
 
       this.close = function (command) {
@@ -78,7 +82,8 @@
 
    Confirm.prototype.load = function () {
       var base = this;
-      base.el.addClass('transit0-25').css({ y: 0, opacity: 1 });
+      app.Sound.play( app.Sound.sounds.dialog.confirm );
+      base.el.addClass( 'transit0-25' ).css( { y: 0, opacity: 1 } );
       base.el.one($.support.transitionEnd, function () { 
          base.el.css({ y: 10 }, 200);
          base.el.one($.support.transitionEnd, function () {
@@ -89,7 +94,7 @@
 
    Confirm.prototype.canDeactivate = function () {
       var base = this;   
-      return $.Deferred(function (dfd) {
+      return $.Deferred( function ( dfd ) {
          if (base.el) {
             base.close()
             base.el.promise().then(function () { dfd.resolve(true); });

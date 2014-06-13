@@ -21,6 +21,10 @@
             }
          } );
       }
+
+      this.showPoem = function () {
+         app.dialog.showPoem();
+      }
    }
 
    var messages = {

@@ -73,6 +73,8 @@
                   word.y = ( data.hasMoved ? data.top / 100 : word.y ).toFixed( 4 ) * 1;
 
                   if ( !word.isPlayed && data.hasMoved ) {
+                     app.Sound.play( app.Sound.sounds.word.placeBack );
+
                      word.originalX = word.x;
                      word.originalY = word.y;
 

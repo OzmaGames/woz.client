@@ -16,6 +16,8 @@
 
       this.close = function () {
          base.onChange.off();
+         app.Sound.play( app.Sound.sounds.dialog.helpClosing );
+
          return $.Deferred(function (dfd) { dfd.resolve(); });
       }
 
@@ -33,6 +35,8 @@
 
    Tutorial.prototype.attached = function (el) {
       this.el = $('.tutorial', el);
+
+      app.Sound.play( app.Sound.sounds.dialog.help );
 
       this.el.css({ x: 100, opacity: 0, top: this.top, left: this.left })
         .transition({ x: -10, opacity: 1 }, 500, 'ease')

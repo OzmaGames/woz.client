@@ -53,7 +53,13 @@
       friendListMode: ko.observable( mode.list ),
       searchLoading: ko.observable( false ),
       activeFriend: ko.observable(),
+      clicked: function () {
+         app.Sound.play( app.Sound.sounds.click.button );
+         return true;
+      },
       friendSelected: function ( friend ) {
+         app.Sound.play( app.Sound.sounds.click.button );
+
          if ( this.activeFriend() == friend ) {
             this.activeFriend( null );
          } else if ( friend.isFriend ) {
@@ -71,6 +77,8 @@
          app.palette.dispose();
       },
       collectionClicked: function ( collection ) {
+         app.Sound.play( app.Sound.sounds.click.button );
+
          if ( collection.shortName == 'more' ) {
             app.navigate( 'shop' );
          }
@@ -79,7 +87,12 @@
       binding: function () {
          return { cacheViews: false };
       },
+      attached: function () {
+         app.Sound.play( app.Sound.sounds.pageTransition );
+      },
       addFriend: function ( friend ) {
+         app.Sound.play( app.Sound.sounds.click.button );
+
          var base = this;
          app.trigger( "server:friends", {
             username: ctx.username, command: 'add', friendUsername: friend.username
@@ -88,6 +101,8 @@
          } );
       },
       removeFriend: function ( friend ) {
+         app.Sound.play( app.Sound.sounds.click.button );
+
          var base = this;
          app.trigger( "server:friends", {
             username: ctx.username, command: 'delete', friendUsername: friend.username
@@ -98,6 +113,8 @@
          } );
       },
       start: function () {
+         app.Sound.play( app.Sound.sounds.click.button );
+
          if ( vm.startEnable() ) {
             var gameOptionId = this.gameOptionId();
 

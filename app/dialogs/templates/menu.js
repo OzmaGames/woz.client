@@ -40,7 +40,8 @@
 
       this.items = items;
 
-      this.nav = function (item) {
+      this.nav = function ( item ) {
+         app.Sound.play( app.Sound.sounds.click.button );
          router.navigate(item.hash);
       };
    }
@@ -60,7 +61,7 @@
    };
 
    Menu.prototype.load = function () {
-      //app.Sound.play( app.Sound.sounds.dialog.menu );
+      app.Sound.play( app.Sound.sounds.dialog.menu );
       var base = this;
       this.el.show().css({ x: 100, opacity: 0, top: '100px' })
         .transition({ x: -10, opacity: 1 }, 400, 'ease')

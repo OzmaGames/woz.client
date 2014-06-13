@@ -205,3 +205,39 @@ i.command.quit {
     i.command.quit.disabled {
         background-position: -3em -9em;
     }
+
+i.command.poem {
+    background-position: 0 -10em;
+}
+
+    i.command.poem:hover {
+        background-position: -1em -10em;
+    }
+
+    i.command.poem:active {
+        background-position: -2em -10em;
+    }
+
+    i.command.poem.disabled {
+        background-position: -3em -10em;
+    }
+
+
+.item-icon.item-icon-index-0 {
+  background-position: 0 0;
+}
+.item-icon.item-icon-index-1 {
+  background-position: -1em 0;
+}
+.item-icon.item-icon-index-2 {
+  background-position: -2em 0;
+}
+.item-icon.storage.item-icon-index-0 {
+  background-position: 0 -60px;
+}
+.item-icon.storage.item-icon-index-1 {
+  background-position: -1em -60px;
+}
+.item-icon.storage.item-icon-index-2 {
+  background-position: -2em -60px;
+}

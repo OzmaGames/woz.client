@@ -23,7 +23,10 @@
 
         compositionComplete: function () {
            app.trigger("account:view:change", "account/login");
-           
+        },
+
+        attached: function () {
+           app.Sound.play( app.Sound.sounds.pageTransition );
         },
 
         detached: function (view) {           
