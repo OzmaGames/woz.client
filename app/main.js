@@ -58,6 +58,10 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
         loadCSS('_sprites');
      }
 
+     if ( !app.support.flex ) {
+        loadCSS( '_flex' );
+     }
+     
      if (document.body.style.MozAppearance !== undefined) {
         loadCSS('_firefox');
      }

@@ -4,8 +4,8 @@
       <div class="right" data-bind="visible: canRight(), click: goRight"></div>
    </div>
    <div class="slider">
-      <ul data-bind="foreach: {data: settings.items, afterRender: afterRenderItem}">
-         <li>
+      <ul data-bind="foreach: {data: settings.items, afterRender: afterRenderItem}, style: {width: !flex ? settings.items().length * 100 + '%': '' }">
+         <li data-bind="style: {width: !$parent.flex ? 100 / $parent.settings.items().length + '%': '' }">
             <div data-part="item" data-bind="text: $data"></div>
          </li>
       </ul>

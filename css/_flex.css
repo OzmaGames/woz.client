@@ -1,0 +1,11 @@
+﻿.slider ul{
+    display: table;
+}
+.slider ul li{
+    display: table-cell;
+    width: 100%;
+}
+
+.tile .ctrl .box .content .teeth{
+    display: table-cell;    
+}

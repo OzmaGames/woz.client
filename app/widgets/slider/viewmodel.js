@@ -12,6 +12,7 @@
       this.index = ko.observable( index > -1 ? index : 0 );
       this.canLeft = ko.computed( function () { return base.index() > 0 } );
       this.canRight = ko.computed( function () { return base.index() < ko.unwrap( base.settings.items ).length - 1 } );
+      this.flex = app.support.flex;
 
       this.indexSub = this.index.subscribe( function () {
          var index = base.index();
