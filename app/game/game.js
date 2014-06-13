@@ -618,11 +618,11 @@
          }
 
          app.palette.hide( { duration: 0 } );
-         //app.palette.add( "poem", "command", "right" )
-         // .click( function () {
-         //    app.dialog.showPoem();
-         // } )
-         // .visible( ctx.gameOver );
+         app.palette.add( "poem", "command", "right" )
+          .click( function () {
+             app.dialog.showPoem();
+          } )
+          .visible( ctx.gameOver );
          app.palette.add( "quit", "command", "right" )
             .click( game.resign )
             .css( {

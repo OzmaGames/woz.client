@@ -2,17 +2,13 @@ define( 'sounds/manifest', [], function () {
    return {
       click: {
          command: [
-            'General menu click/General_menu_click-01.ogg'
+            //'General menu click/General_menu_click-01.ogg'
          ],
          action: [
-            'Activity menu click/Activity_menu_click-01.ogg',
-            'Activity menu click/Activity_menu_click-02.ogg',
-            'Activity menu click/Activity_menu_click-03.ogg',
-            'Activity menu click/Activity_menu_click-04.ogg'
+            'Activity menu click/Activity_menu_click-01.ogg'
          ],
          button: [
-            'Button click/Button_click-01.wav',
-            'Button click/Button_click-02.wav'
+         	'Click button/click_button-01.ogg'
          ]
       },
       notification: [
@@ -20,31 +16,29 @@ define( 'sounds/manifest', [], function () {
       ],
       dialog: {
          closing: [
-            'Closing a dialogue/Closing_a_dialogue-01.wav'
-         ],
-         notice: [
-            'When a paper dialogue shows/When_a_paper_dialogue_shows-01.ogg',
-            'When a paper dialogue shows/When_a_paper_dialogue_shows-02.wav',
-            'When a paper dialogue shows/When_a_paper_dialogue_shows-03.wav',
-            'When a paper dialogue shows/When_a_paper_dialogue_shows-04.wav'
-         ],
-         help: [
-            'When a help dialogue shows/When_a_help_dialogue_shows-01.ogg',
-            'When a help dialogue shows/When_a_help_dialogue_shows-02.ogg',
-            'When a help dialogue shows/When_a_help_dialogue_shows-03.ogg',
-            'When a help dialogue shows/When_a_help_dialogue_shows-04.ogg'
-         ],
-         helpClosing: [
+            'Closing a dialogue/Closing_a_dialogue-03.ogg',
+            'Closing a dialogue/Closing_a_dialogue-04.ogg'
 
          ],
+         notice: [
+            'When a paper dialogue shows/When_a_paper_dialogue_shows-02.ogg'
+         ],
+         help: [
+            'Dialog Help Open/dialog_help_Open-01.ogg'
+         ],
+         helpClosing: [
+         	'Dialog help Closing/dialog_help_Closing-01.ogg'
+         ],
          menu: [
+         	'Dialog Menu/Dialog_Menu-01.ogg'
 
          ],
          confirm: [
+         	'Confirm Dialog/Confirm_dialog-01.ogg'
 
          ],
          confirmClosing: [
-
+         	'Confirm Dialog Closing/confirm_dialog_closing-01.ogg'
          ],
          slipper: [
             'Drop down dialogue/Drop_down_dialogue-01.ogg'
@@ -67,17 +61,17 @@ define( 'sounds/manifest', [], function () {
       },
       game: {
          loading: [
-            'Loading a game/Loading_a_game-01.wav'
+            'Loading a game/Loading_a_game-01.ogg',
+            'Loading a game/Loading_a_game-02.ogg',
+            'Loading a game/Loading_a_game-03.ogg'
          ],
          unfolding: [
             'Unfolding game board/Unfolding_game_board-01.ogg',
             'Unfolding game board/Unfolding_game_board-02.ogg'
          ],
          overWin: [
-            'Game over win/Game_over_win-01.wav',
-            'Game over win/Game_over_win-02.wav',
-            'Game over win/Game_over_win-03.wav',
-            'Game over win/Game_over_win-04.wav'
+            'Game over win/Game_over_win-01.ogg'
+
          ],
          overLose: [
             'Game over lose/Game_over_lose-01.wav'
@@ -95,10 +89,7 @@ define( 'sounds/manifest', [], function () {
          'Enlarge picture tiles/Enlarge_picture_tiles-02.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-03.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-04.ogg',
-         'Enlarge picture tiles/Enlarge_picture_tiles-05.ogg',
-         'Enlarge picture tiles/Enlarge_picture_tiles-06.ogg',
-         'Enlarge picture tiles/Enlarge_picture_tiles-07.ogg',
-         'Enlarge picture tiles/Enlarge_picture_tiles-08.ogg'
+
       ],
       shrinkTile: [
       		'Shrink picture tiles/Shrink_picture_tiles-01.ogg',
@@ -109,7 +100,8 @@ define( 'sounds/manifest', [], function () {
          lift: [
             'Lift word/Lift_word-01.ogg',
             'Lift word/Lift_word-02.ogg',
-            'Lift word/Lift_word-03.wav'
+            'Lift word/Lift_word-03.ogg',
+            'Lift word/Lift_word-04.ogg'
          ],
          place: [
             'Place word on game board/Place_word_on_game_board-01.wav',
@@ -127,10 +119,7 @@ define( 'sounds/manifest', [], function () {
             'Place word back on workspace/Place_word_back_on_workspace-06.wav'
          ],
          select: [
-            'Select words by clicking them/Select-words-by-clicking-them-01.wav',
-            'Select words by clicking them/Select-words-by-clicking-them-02.wav',
-            'Select words by clicking them/Select-words-by-clicking-them-03.wav',
-            'Select words by clicking them/Select-words-by-clicking-them-04.wav'
+         	'Word Select/word_select-01.ogg'
          ],
          show: [
             'New words appearing-01/New_words_appearing-01.ogg',
@@ -149,13 +138,13 @@ define( 'sounds/manifest', [], function () {
             'Scoring for words/Scoring_for_words-01.ogg'
          ],
          bonus: [
-            'Scoring bonus normal/Scoring_bonus_normal-01.wav'
+            'Scoring bonus normal/Scoring_bonus_normal-01.ogg'
          ],
          bonusMult: [
-            'Scoring bonus multiplyer/Scoring_bonus_multiplyer-01.wav'
+            'Scoring bonus multiplyer/Scoring_bonus_multiplyer-01.ogg'
          ],
          message: [
-            'score_result_message/score_result_message-01.wav'
+            'score_result_message/score_result_message-01.ogg'
          ]
       },
       selectTool: [
@@ -177,7 +166,11 @@ define( 'sounds/manifest', [], function () {
       ],
       //loading new screen (same for all screens accept game screen)
       pageTransition: [
-
+      	//'pageTransition/page_Transition-02.ogg'
+      	 'Enlarge picture tiles/Enlarge_picture_tiles-05.ogg',
+         'Enlarge picture tiles/Enlarge_picture_tiles-06.ogg',
+         'Enlarge picture tiles/Enlarge_picture_tiles-07.ogg',
+         'Enlarge picture tiles/Enlarge_picture_tiles-08.ogg'
       ]
    };
 } )
