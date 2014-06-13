@@ -1347,10 +1347,7 @@ a.small {
 }
 
     .table-flex .collection.disabled, .table-flex .row.disabled {
-        -webkit-filter: grayscale(100%);
-        -moz-filter: grayscale(100%);
-        -o-filter: grayscale(100%);
-        filter: grayscale(100%);
+        .grayscale;
     }
 
 @media only screen and (max-width: 900px) {
@@ -1489,17 +1486,17 @@ progress {
     background: #fff;
 }
 
-progress::-webkit-progress-value{
-    background: @lightbrown;
-}
+    progress::-webkit-progress-value {
+        background: @lightbrown;
+    }
 
-progress::-webkit-progress-bar{
-    background: white;
-}
+    progress::-webkit-progress-bar {
+        background: white;
+    }
 
-progress::-moz-progress-bar { 
-    background: white; 
-}
+    progress::-moz-progress-bar {
+        background: @lightbrown;
+    }
 
 .toast {
     font-size: .7em !important;
@@ -1526,10 +1523,7 @@ progress::-moz-progress-bar {
         background-position: 0 -2em;
     }
 
-    &.disabled{
-                -webkit-filter: grayscale(100%);
-        -moz-filter: grayscale(100%);
-        -o-filter: grayscale(100%);
-        filter: grayscale(100%);
+    &.disabled {
+        .grayscale;
     }
 }

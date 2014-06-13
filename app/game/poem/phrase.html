@@ -1,6 +1,8 @@
-﻿<p>Drag the phrases in the order you like. <br />Drag a phrase below the line to exclude from the poem.</p>
-<div style="min-height:450px; display:table; width:100%">
-   <div style="display:table-cell; vertical-align:top" data-bind="list: {items: phrases, draggable: true, splitters: splitters, moved: moved}">
-      <div data-part="item" class="phrase" data-bind="text: phrase"></div>
+﻿<div style="min-height:450px;">
+   <p>Drag the phrases in the order you like. <br />Drag a phrase below the line to exclude from the poem.</p>
+   <div style="display:table; width:100%">
+      <div style="display:table-cell; vertical-align:top" data-bind="list: {items: phrases, draggable: true, splitters: splitters, moved: moved}">
+         <div data-part="item" class="phrase" data-bind="text: phrase"></div>
+      </div>
    </div>
 </div>

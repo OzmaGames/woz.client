@@ -1,7 +1,9 @@
-﻿define( 'api/Sound', ['sounds/manifest', 'firebase'], function ( manifest ) {
-   var fb = new Firebase( "https://flickering-fire-3516.firebaseio.com/ozma/woz/sounds" );
+﻿define( 'api/Sound', ['sounds/manifest', 'sounds/manifest.meta'/*, 'firebase'*/], function ( manifest, manifestMeta ) {
+   var fb = null;
+   //fb = new Firebase( "https://flickering-fire-3516.firebaseio.com/ozma/woz/sounds" );
 
-   var soundSystem = false;
+
+   var soundSystem = true;   
 
    function Sound( collection ) {
       var manifest = [];
@@ -41,22 +43,29 @@
          if ( soundSystem ) {
             createjs.Sound.registerManifest( manifest, 'sounds/' );
 
-            fb.on( "value", function ( sounds ) {
-               if ( sounds.val() ) {
-                  var collection = sounds.val();
-                  for ( var key in collection ) {
-                     if ( !metaSounds[key] ) {
-                        metaSounds[key] = { volumn: 1, delay: 0 };
-                     }
-                     metaSounds[key].volumn = collection[key].volumn;
-                     metaSounds[key].delay = collection[key].delay;
+            if ( fb ) {
+               fb.on( "value", function ( sounds ) {
+                  if ( sounds.val() ) {
+                     foo( sounds.val() );
                   }
-
-                  firebaseDFD.resolve();
-               }
-            } );
+               } );
+            } else {
+               foo( manifestMeta );               
+            }
          } else {
             dfd.resolve();
+            firebaseDFD.resolve();
+         }
+
+         function foo( collection ) {
+            for ( var key in collection ) {
+               if ( !metaSounds[key] ) {
+                  metaSounds[key] = { volumn: 1, delay: 0 };
+               }
+               metaSounds[key].volumn = collection[key].volumn;
+               metaSounds[key].delay = collection[key].delay;
+            }
+
             firebaseDFD.resolve();
          }
       }

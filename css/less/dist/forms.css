@@ -385,11 +385,13 @@ button:disabled {
   border-color: lightgray !important;
   box-shadow: 0 0.1em 0.5em 0.4em rgba(128, 128, 128, 0.4) inset, 0 -0.9em 1em 0.01em rgba(1, 1, 1, 0.2) inset, 0 0.7em 0.3em 0.1em rgba(255, 255, 255, 0.5) inset !important;
   background-position-x: 1410px;
+  cursor: default;
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   filter: grayscale(100%);
-  cursor: default;
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+  /* Firefox 10+, Firefox on Android */
 }
 button.flat {
   font-weight: bold;
@@ -781,7 +783,11 @@ ul.custom-list.draggable li.hole::before {
 .slider-container .controls .left.disabled,
 .slider-container .controls .right.disabled {
   -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
   filter: grayscale(100%);
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+  /* Firefox 10+, Firefox on Android */
 }
 .slider-container .controls .left {
   left: 10px;
@@ -943,7 +949,7 @@ ul.custom-list.draggable li.hole::before {
   border-radius: 5px;
   box-shadow: inset 0 0 5px rgba(152, 107, 49, 0.5);
   background-color: #986b31;
-  height: 10px;
+  height: 2px;
 }
 .tile .ctrl .box .content input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none !important;
