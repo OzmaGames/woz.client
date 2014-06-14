@@ -108,6 +108,7 @@
       if ( !soundSystem ) return;
       
       var key, instance;
+      if ( !arr ) return;
       if ( arr.push && arr.length == 0 ) return;
       if ( arr.push ) {
          var index = 0;
