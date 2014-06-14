@@ -22,8 +22,9 @@
         "shop:collections",
         "user:info",
         "shop:besoz",
-        "shop:storage"
-      ],
+        "shop:storage",
+        "account:fb"
+   ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {
             console.log( '%cgame:update', 'background: #222; color: #bada55', data );

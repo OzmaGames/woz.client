@@ -6,7 +6,8 @@
          return $.Deferred(function (dfd) {
             FB.api('/me', function (response) {
                console.log(response);
-               dfd.resolve(response);
+               dfd.resolve( response );
+               app.facebook.profile = response;
             });
          });
       },
