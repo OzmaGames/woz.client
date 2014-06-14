@@ -3,7 +3,7 @@
    //fb = new Firebase( "https://flickering-fire-3516.firebaseio.com/ozma/woz/sounds" );
 
 
-   var soundSystem = true;   
+   var soundSystem = false;   
 
    function Sound( collection ) {
       var manifest = [];
