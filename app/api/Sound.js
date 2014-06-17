@@ -39,7 +39,7 @@
 
       this.sounds = soundsKey;
       this.metaSounds = metaSounds;
-      this.load = function () {
+      this.load = function () {         
          if ( soundSystem ) {
             createjs.Sound.registerManifest( manifest, 'sounds/' );
 

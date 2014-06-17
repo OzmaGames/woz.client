@@ -430,7 +430,6 @@ button {
         box-shadow: 0 .1em .5em .4em rgba(128, 128, 128, .4) inset,0 -.9em 1em .01em rgba(1, 1, 1, .2) inset, 0 .7em .3em .1em rgba(255, 255, 255, .5) inset !important;
         background-position-x: 1410px;
         cursor: default;
-
         .grayscale;
     }
 
@@ -718,7 +717,7 @@ ul.custom-list {
         display: flex;
         -ms-flex-flow: row nowrap;
         flex-flow: row nowrap;
-        min-height: 50px;        
+        min-height: 50px;
 
         li {
             position: relative;
@@ -1041,6 +1040,10 @@ ul.custom-list {
                 height: 2px;
                 vertical-align: middle;
             }
+
+                input[type=range]:focus {
+                    outline: none !important;
+                }
 
             input[type='range']::-moz-range-track {
                 -moz-appearance: none;

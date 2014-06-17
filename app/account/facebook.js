@@ -43,7 +43,7 @@
          var data = {
             fbToken: app.facebook.authResponse,
             username: this.username(),
-            email: this.email() ? this.email : false
+            email: this.email() ? this.email() : false
          };
 
          var base = this;

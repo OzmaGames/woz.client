@@ -944,6 +944,9 @@ ul.custom-list.draggable li.hole::before {
   height: 2px;
   vertical-align: middle;
 }
+.tile .ctrl .box .content input[type=range]:focus {
+  outline: none !important;
+}
 .tile .ctrl .box .content input[type='range']::-moz-range-track {
   -moz-appearance: none;
   border-radius: 5px;

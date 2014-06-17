@@ -9,7 +9,7 @@
                <i class="size" data-bind="click: $root.action.bind($root, 'size')"></i>
                <i class="color" data-bind="click: $root.switchColor"></i>
                <div class="box" data-bind="visible: $root.settings.visible">
-                  <button data-bind="click: $root.action.bind($root, null)">
+                  <button data-bind="click: $root.action.bind($root, null)" tabindex="-1">
                      <i class="command close"></i>
                   </button>
                   <div class="content" data-bind="with: $root.settings.current">
@@ -17,7 +17,7 @@
                      <i data-bind="css: name"><s>a</s></i>
                      <div class="teeth" data-bind="foreach: $root.range(min, max)"><div class="tooth"></div></div>
                      <div class="range">
-                        <input type="range" data-bind="attr:{min: min, max: max}, value: value, valueUpdate: 'input'" />
+                        <input type="range" tabindex="-1" data-bind="attr:{min: min, max: max}, value: value, valueUpdate: 'input'" />
                      </div>
                   </div>
                </div>

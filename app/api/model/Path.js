@@ -99,8 +99,7 @@
                         }
 
                         var relatedWord = ko.utils.arrayFirst( model.unplayedWords(), function ( w ) { return w.isRelated; } );
-                        if ( relatedWord ) {
-                           //return cancel( 'This tutorial requires you to use the related word. Please try again.' );
+                        if ( relatedWord ) {                           
                            return setTimeout( function () {
                               cancel( bubble.showOne( bubble.relatedWords() ) );
                            }, 500 );
@@ -114,7 +113,19 @@
                               cancel( bubble.showOne( bubble.bonusFor( tile, tile.bubble || null ) ) );
                            }, 500 );
                         }
-                        
+
+                        if ( model.gameID == 3 && ( ctx.paths()[0].phrase.complete.immediate() != ctx.paths()[1].phrase.complete.immediate() ) ) {
+                           var tile = model.tiles()[1];
+
+                           var sWords = model.words().filter( function ( w ) { return w.lemma[0] == 's' && w.isPlayed } );
+
+                           if ( sWords.length > 1 ) {
+                              return setTimeout( function () {
+                                 cancel( bubble.showOne( bubble.bonusFor( tile, "You need words starting with <br> 'S' in both phrases to get <br> all the bonuses." ) ) );
+                              }, 500 );
+                           }
+                        }
+
                         if ( model.gameID == 5 && ( model.tickets.versions() && model.tickets.addWords() && model.tickets.swapWords() ) ) {
                            return cancel( 'Please use at least one of the action items from the left menu to complete this tutorial.' );
                         }

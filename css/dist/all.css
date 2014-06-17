@@ -2907,6 +2907,9 @@ ul.custom-list.draggable li.hole::before {
   height: 2px;
   vertical-align: middle;
 }
+.tile .ctrl .box .content input[type=range]:focus {
+  outline: none !important;
+}
 .tile .ctrl .box .content input[type='range']::-moz-range-track {
   -moz-appearance: none;
   border-radius: 5px;
@@ -3219,6 +3222,11 @@ i.command.currency:active {
 i.command.currency:active,
 i.command.currency.active {
   /*background-image: url('../../images/game/currency-active.png');*/
+}
+i.action.inline {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 25px;
 }
 #game-main {
   background-image: url(../../images/app/background.jpg);

@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/constants'/*, './oAuth/FB'*/], function ( app, constants, FB ) {
+﻿define( ['durandal/app', 'api/constants', './oAuth/FB'], function ( app, constants, FB ) {
 
    function updateProfile() {
       $( 'button.facebook' ).transition( { y: -50 } );
@@ -7,7 +7,7 @@
 
    return window.page = {
       loading: app.loading,
-      facebookLogin: false,
+      facebookLogin: true,
 
       username: ko.observable().extend( {
          required: "You need to enter you username or e-mail",

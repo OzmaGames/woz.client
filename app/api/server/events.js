@@ -23,7 +23,8 @@
         "user:info",
         "shop:besoz",
         "shop:storage",
-        "account:fb"
+        "account:fb",
+        "account:delete"
    ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {

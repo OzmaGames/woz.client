@@ -4,7 +4,7 @@
          return $('<div/>').get(0);
       },
       activate: function () {         
-         app.navigate('tutorial/next');
+         app.navigate( 'tutorial/next', { replace: true, trigger: true } );
       }
    }
 });

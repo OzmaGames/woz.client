@@ -261,4 +261,9 @@ i.command.currency:active,
 i.command.currency.active {
   /*background-image: url('../../images/game/currency-active.png');*/
 }
+i.action.inline {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 25px;
+}
 /*# sourceMappingURL=icons.css.map */

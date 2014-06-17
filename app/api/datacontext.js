@@ -147,6 +147,7 @@
                     }
                  } );
               }
+              json.description = json.description.replace( '<b>select tool</b>', '<b>select tool </b><i class="action circleWords inline"></i>' );
               model.tutorialObject( json );
               localStorage.setItem( "tutorial-index", json.id );
 
