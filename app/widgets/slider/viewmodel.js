@@ -75,10 +75,12 @@
 
    ctor.prototype.goLeft = function () {
       this.index( this.index() - 1 );
+      app.Sound.play( app.Sound.sounds.poem.imageSwip );
    }
 
    ctor.prototype.goRight = function () {
       this.index( this.index() + 1 );
+      app.Sound.play( app.Sound.sounds.poem.imageSwip );
    }
 
    return ctor;

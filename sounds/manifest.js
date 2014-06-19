@@ -11,9 +11,6 @@ define( 'sounds/manifest', [], function () {
          	'Click button/click_button-01.ogg'
          ]
       },
-      notification: [
-         'Getting a notification/Getting_a_notification-01.wav'
-      ],
       dialog: {
          closing: [
             'Closing a dialogue/Closing_a_dialogue-03.ogg',
@@ -52,11 +49,11 @@ define( 'sounds/manifest', [], function () {
             'Action success/Action_success-01.wav'
          ],
          fail: [
-            'Action fail/Action_fail-01.wav'
+            //'Action fail/Action_fail-01.wav'
          ],
          //function fails - like when there are no versions.
          functionFailed: [
-
+         	'Action Failed/action_functionFailed-01.ogg'
          ]
       },
       game: {
@@ -74,7 +71,7 @@ define( 'sounds/manifest', [], function () {
 
          ],
          overLose: [
-            'Game over lose/Game_over_lose-01.wav'
+            'Game over lose/Game_over_lose-01.ogg'
          ],
          overResigned: [
             'Game over the other player resigned/Game_over_the_other_player_resigned-01.wav'
@@ -130,6 +127,9 @@ define( 'sounds/manifest', [], function () {
             'New words appearing-01/New_words_appearing-06.ogg'
          ],
          wiggling: [
+         	'Wiggly Word/wiggly_word-01.ogg'
+         ],
+         related: [
 
          ]
       },
@@ -161,16 +161,44 @@ define( 'sounds/manifest', [], function () {
       phraseCompleted: [
          'Sentence completed/Sentence_completed-01.ogg'
       ],
-      lobbyLoading: [
-
-      ],
       //loading new screen (same for all screens accept game screen)
       pageTransition: [
       	//'pageTransition/page_Transition-02.ogg'
-      	 'Enlarge picture tiles/Enlarge_picture_tiles-05.ogg',
+      	'Enlarge picture tiles/Enlarge_picture_tiles-05.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-06.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-07.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-08.ogg'
-      ]
+      ],
+      lobbyLoading: [
+         //when switching tabs, and the animation for showing the items starts
+         //duration: 300ms
+      	'Lobby Loading/lobby_loading-01.ogg',
+      	'Lobby Loading/lobby_loading-02.ogg',
+      	'Lobby Loading/lobby_loading-03.ogg',
+      	'Lobby Loading/lobby_loading-04.ogg'
+      ],      
+      notification: [
+         //when in lobby and new notification comes in (the number of unseen notification changes)
+         //is played once per item. we can do it once per all?
+         //ex: changing from 1 to 3 plays the sound 2 times
+         'Getting a notification/Getting_a_notification-01.wav'
+      ],
+      poem: {
+         phraseDrag: [
+
+         ],
+         phraseSwap: [
+
+         ],
+         phraseDrop: [
+
+         ],
+         range: [
+            //Slider tick (when you move the slider one step)
+         ],
+         imageSwip: [
+            //Image swipe (changing background image)
+         ]
+      }
    };
 } )

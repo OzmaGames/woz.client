@@ -1,13 +1,8 @@
 ﻿<div>
    <div class="table-flex" data-bind="loadMore: nextPageNotifications">
-      <!--ko template: {foreach: notifications, afterAdd: notifications.show}-->
+      <!--ko template: {foreach: notifications, afterAdd: notifications.show, afterRender: notifications.render}-->
       <div class="row mild-padding no-shadow rightRibbon" style="max-width:520px"
            data-bind="html: notificationSummary, css:{won: won, newGame: newGame, resigned: resigned, over: over, unseen: !seen }, click: $root.selectGame"></div>
-      <!-- /ko -->
-      <!--<div class="row mild-padding" style="max-width:520px" data-bind="click: nextPage, fadeVisible: hasNextPage">
-         <div style="text-align:center; text-decoration:underline">
-            click here to load more..
-         </div>
-      </div>-->
+      <!-- /ko -->      
    </div>
 </div>

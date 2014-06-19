@@ -25,6 +25,13 @@
    var tiles = ko.observableArray();
    var emptyTile = {};
 
+   function playRangeSound() {
+      app.Sound.play( app.Sound.sounds.poem.range );
+   }
+
+   ctx.poem.settings.size.value.subscribe( playRangeSound );
+   ctx.poem.settings.shade.value.subscribe( playRangeSound );
+
    var ctor = function () {
       this.heading = 'Background and settings';
       this.valid = ko.observable( true );
@@ -40,15 +47,19 @@
    }
 
    ctor.prototype.action = function ( settingName ) {
+      app.Sound.play( app.Sound.sounds.click.button );
+
       this.settings.visible( !!settingName );
       this.settings.current( settingName ? this.settings[settingName] : this.settings.size );
    }
 
    ctor.prototype.switchColor = function () {
       ctx.poem.settings.lightColor( ctx.poem.settings.lightColor() ^ true );
+
+      app.Sound.play( app.Sound.sounds.click.button );
    }
 
-   ctor.prototype.range = function ( min, max ) {
+   ctor.prototype.range = function ( min, max ) {      
       var output = [];
       while ( min != max ) {
          output.push( min++ );

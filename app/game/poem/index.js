@@ -37,14 +37,34 @@
             var pg = page();
             return pg && pg.valid ? pg.valid() : false;
          } ).extend( { throttle: 150 } ),
-         next: function () {            
+         next: function () {
+            app.Sound.play( app.Sound.sounds.click.button );
+
             if ( index >= pages.length - 1 ) {
+               this.save();
                app.trigger( "notice:close" );
             } else {
                page( pages[++index] );
             }
          },
+         save: function () {
+            var model = {};
+            model.phraseIDs = ctx.poem.chosenPhrases().map( function ( p ) { return p.id } );
+            model.gameID = ctx.poem.gameID;
+            model.username = ctx.username;
+            model.title = ctx.poem.title();
+            model.tileID = ctx.poem.tile().id;
+            model.settings = {
+               size: ctx.poem.settings.size.value(),
+               shadow: ctx.poem.settings.shade.value(),
+               light: ctx.poem.settings.lightColor(),
+            }
+            model.command = "set";
+            app.trigger( "server:user:poem", model );
+         },
          back: function () {
+            app.Sound.play( app.Sound.sounds.click.button );
+
             page( pages[--index] );
          }
       };

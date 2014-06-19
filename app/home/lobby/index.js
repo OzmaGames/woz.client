@@ -2,11 +2,10 @@
 
    var gamesDFD = $.Deferred();
 
-   function Index() {      
+   function Index() {
       this.loading = ko.observable( false );
       this.loadingData = ctx.lobby.loading;
       this.unseens = ctx.lobby.unseens;
-      this.mode = ko.observable();
 
       this.activeTab = 0;
       this.compose = ko.observable( {
@@ -16,7 +15,7 @@
       } )
    }
 
-   Index.prototype._navigate = function ( tabIndex ) {      
+   Index.prototype._navigate = function ( tabIndex ) {
       if ( tabIndex == 0 ) {
          parser.loadOnGoing();
       } else if ( tabIndex == 1 ) {
@@ -24,19 +23,17 @@
       } else if ( tabIndex == 2 ) {
          parser.loadArchive();
       }
-
+   
       this.compose().view =
-         tabIndex == 0 ? 'home/lobby/games' :
-         tabIndex == 1 ? 'home/lobby/notifications' :
-                          'home/lobby/games';
+         tabIndex == 1 ? 'home/lobby/notifications' : 'home/lobby/games';
 
       this.compose.valueHasMutated();
-
-      this.mode( tabIndex );
 
       sessionStorage.setItem( "lobby", tabIndex );
 
       this.loading( false );
+
+      return $.Deferred( function ( dfd ) { Task.run( function () { dfd.resolve(); }, 100 ); } );
    }
 
    Index.prototype.navEnd = function ( index ) {
@@ -54,7 +51,7 @@
    };
 
    Index.prototype.navigate = function ( tabIndex, dfd ) {
-      this.loading( true );      
+      this.loading( true );
       return dfd.then( this._navigate.bind( this ) );
    };
 
@@ -80,7 +77,7 @@
    };
 
    Index.prototype.attached = function () {
-         app.Sound.play( app.Sound.sounds.pageTransition );
+      app.Sound.play( app.Sound.sounds.pageTransition );
    }
 
    return Index;

@@ -634,28 +634,28 @@
                return !ctx.tutorialMode() && !ctx.gameOver();
             } ) );
 
-         app.palette.add( "swapWords", "action", "left" )
+         app.palette.add( "swapWords", "action", "left", undefined, "Swap Words" )
             .click( game.swapWords )
             .css( {
                cancel: ko.computed( function () { return game.mode() === 'swapWords' } ),
                disabled: ko.computed( function () { return !game.allowSwap() } )
             } );
 
-         app.palette.add( "circleWords", "action", "left" )
+         app.palette.add( "circleWords", "action", "left", undefined, "Select Tool" )
             .click( game.circleWords )
             .css( {
                cancel: ko.computed( function () { return game.mode() == 'circleWords' || ctx.activeWords() } ),
                disabled: ko.computed( function () { return !game.allowCircle() } )
             } );
 
-         app.palette.add( "addWords", "action", "left" )
+         app.palette.add( "addWords", "action", "left", undefined, "Add Word")
             .click( game.addWords )
             .css( {
                cancel: ko.computed( function () { return game.mode() === 'addWords' } ),
                disabled: ko.computed( function () { return !game.allowAddWords() } )
             } );
 
-         app.palette.add( "versions", "action", "left" )
+         app.palette.add( "versions", "action", "left", undefined, "Version" )
             .click( game.versions )
             .css( {
                cancel: ko.computed( function () { return game.mode() === 'versions' } ),

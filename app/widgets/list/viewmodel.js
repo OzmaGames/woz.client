@@ -104,13 +104,17 @@
             $li.addClass( 'hole' );
 
             carrier = updateCarrier( $li, carrier );
+
+            app.Sound.play( app.Sound.sounds.poem.phraseDrag );
          },
 
          dropped: function () {
             $li.removeClass( 'hole' );
             Task.run( function () {
                $phrase.css( { top: $li.data( 'top' ) } );
-            } )            
+            } );
+
+            app.Sound.play( app.Sound.sounds.poem.phraseDrop );
          },
 
          move: function ( e, position ) {            
@@ -148,6 +152,8 @@
                   var dataThis = ko.dataFor( $li[0] );
                   var dataThat = ko.dataFor( swapEl[0] );
                   base.settings.moved( dataThis, dataThat, $li.index(), swapEl.index() );
+
+                  app.Sound.play( app.Sound.sounds.poem.phraseSwap);
                }
             }
 

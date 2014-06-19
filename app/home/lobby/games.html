@@ -9,7 +9,7 @@
       <h1 data-bind="text: title, visible: !$root.loading() || games().length != 0" class="archive"></h1>
       <!-- ko if: games().length -->
       <div data-bind1="css: {'container y scroll games': $root.type() == 'archive'}">
-         <div class="table" data-bind="template: {foreach: games, afterAdd: $root.forGames.show}">
+         <div class="table" data-bind="template: {foreach: games, afterAdd: $root.forGames.show, afterRender: $root.forGames.render}">
             <div class="game-item" data-bind="click: $root.selectGame, css: {unseen: !seenOngoing}">
                <div class="cell left">
                   <div class="subCell">

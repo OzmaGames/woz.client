@@ -1,6 +1,6 @@
 ﻿define( 'api/datacontext.lobby', ['durandal/app', './datacontext.storage'], function ( app, Storage ) {
 
-   var version = 0.45;
+   var version = 0.46;
 
    Object.beget = ( function ( Function ) {
       return function ( Object ) {
@@ -47,6 +47,8 @@
             if ( game.playerCount == 2 ) {
                var exist = ko.utils.arrayFirst( notifications, function ( ntf ) { return ntf.gameID == game.gameID; } );
                if ( !exist ) {
+                  app.Sound.play( app.Sound.sounds.notification );
+
                   notifications.push( game );
                   if ( !game.isPlayerCreator ) {
                      var copy = Object.beget( game );
@@ -63,6 +65,7 @@
       } );
 
       function pullGames() {
+         //debugger;
          //if ( base.loading() ) return;
 
          var since = storage.since.load();
@@ -87,7 +90,6 @@
 
          if ( _user = user, _user.online ) {
             storage = new Storage( "lobby[" + _user.username + "]", version, { "games": [], "since": 0 } );
-            pullGames();
          }
       }
 
@@ -95,6 +97,7 @@
 
       app.on( "account:login" ).then( function ( json ) {
          userAuthenticated( { username: json.username, online: 1 } );
+         pullGames();
       } );
 
       app.on( "lobby:update" ).then( function () {

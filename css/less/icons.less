@@ -34,6 +34,29 @@
             margin-bottom: 0px;
         }
 
+        .actions .btn::after {
+            content: attr(title);
+            position: absolute;
+            background-color: @backBoxColor;
+            border: 1px solid @strokeColor;
+            height: 1.5em;
+            line-height: 1.5em;
+            display: block;
+            top: 7px;
+            right: -100px;
+            width: 100px;
+            border-radius: 5px;
+            opacity: 0;
+            -moz-transition: .3s all ease-in-out;
+            -o-transition: .3s all ease-in-out;
+            -webkit-transition: .3s all ease-in-out;
+            transition: .3s all ease-in-out;
+        }
+        .actions .btn:hover::after{
+            opacity: 100;
+            right: -110px;
+        }
+
 i.action, i.command {
     display: block;
     border-radius: 3px;
@@ -296,5 +319,5 @@ i.command.currency {
 i.action.inline {
     display: inline-block;
     vertical-align: middle;
-    font-size: 25px;    
+    font-size: 25px;
 }

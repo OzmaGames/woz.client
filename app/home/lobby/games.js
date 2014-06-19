@@ -11,14 +11,36 @@
       if ( elem.nodeType === 1 ) {
          $( elem ).hide();
          notifications.queue.runAfter( function () {
+            //console.log( 'loading lobby' );
+            //app.Sound.play( app.Sound.sounds.notification );
             $( elem ).slideDown()
          }, 150 );
       }
    }
+   notifications.render = function ( elem ) {
+      //debugger;
+      forGames.queue.runAfter( function () {
+         if ( this.timer == 1 ) {
+            console.log( 'loading lobby' );
+            app.Sound.play( app.Sound.sounds.lobbyLoading );
+         }
+      }, 1 );
+   }
 
    var forGames = {};
    forGames.queue = new Task.Queue();
+   forGames.render = function ( elem ) {
+      //debugger;
+      forGames.queue.runAfter( function () {
+         if ( this.timer == 1 ) {
+            console.log( 'loading lobby' );
+            app.Sound.play( app.Sound.sounds.lobbyLoading );
+         }
+      }, 1 );
+
+   }
    forGames.show = function ( elem ) {
+      //debugger;
       //if ( elem.nodeType === 1 ) {
       //   $( elem ).hide();
       //   forGames.queue.runAfter( function () {
@@ -208,6 +230,9 @@
 
    function Games() {
 
+      this.getView = function () {
+         return $( '<div/>' ).get( 0 );
+      };
       this.loading = ctx.lobby.loading;
       this.activeGame = ko.observable();
       this.type = ko.observable();

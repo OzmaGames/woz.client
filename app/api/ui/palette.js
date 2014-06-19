@@ -41,7 +41,7 @@
       };
 
       this.add = function () {
-         var icon = new Palette.Icon( arguments[0], arguments[1], arguments[2], arguments[3] );
+         var icon = new Palette.Icon( arguments[0], arguments[1], arguments[2], arguments[3], arguments[4] );
          base.items.push( icon );
          base.adjustPalettes();
          return icon;
@@ -70,12 +70,13 @@
       app.on( "app:resized" ).then( function () { base.adjustPalettes() } );
    }
 
-   Palette.Icon = function ( name, type, place, content ) {
+   Palette.Icon = function ( name, type, place, content, title ) {
       var base = this;
 
       this.name = name;
       this.type = type || "command";
       this.place = place || "fixed";
+      this.title = title || "";
       this.content = ko.observable( content || "" );
 
       var clickEvent, visible = ko.observable( true ),

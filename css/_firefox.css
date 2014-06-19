@@ -25,3 +25,15 @@
 .tile .ctrl .box .content .teeth {
     left: 5.3em;
 }
+
+::-moz-focus-inner {
+    border: 0 !important;
+}
+
+input::-moz-focus-inner { 
+  border: 0 !important; 
+}
+
+input[type="range"], input[type="range"]:focus, input[type="range"]:active {
+    outline: 0 !important;
+}

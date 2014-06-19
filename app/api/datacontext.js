@@ -132,7 +132,8 @@
            
            app.Sound.play( app.Sound.sounds.game.unfolding );
            if ( model.tutorialMode() ) {
-              router.navigate( 'tutorial/' + json.id, { trigger: false, replace: true } );
+              history.replaceState( null, "", "#tutorial/" + json.id );
+              //router.navigate( 'tutorial/' + json.id, { trigger: false, replace: true } );
 
               json.skip = function () {
                  app.dialog.show( "confirm", {
@@ -152,7 +153,8 @@
               localStorage.setItem( "tutorial-index", json.id );
 
            } else {
-              router.navigate( 'game/' + json.id, { trigger: false, replace: true } );
+              history.replaceState( null, "", "#game/" + json.id );
+              //router.navigate( 'game/' + json.id, { trigger: false, replace: true } );
            }
 
            model.loadingStatus( "Starting The Game..." );
@@ -340,7 +342,7 @@
                           }
                        } );
                        sub.off();
-
+                       
                        app.Sound.play(
                            data.stats == 'won' ? app.Sound.sounds.game.overWin :
                            data.stats == 'lost' ? app.Sound.sounds.game.overLose :

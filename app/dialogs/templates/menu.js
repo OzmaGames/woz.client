@@ -2,13 +2,13 @@
 
    var items = [
      { text: "New Game", hash: 'newGame' },
-     { text: "Shop", hash: 'shop' },
+     { text: "Shop",     hash: 'shop' },
      { text: "My Games", hash: 'lobby' },
      { text: "My Poems", hash: 'poems' },
      { text: "settings", hash: 'settings' },
-     { text: "help", hash: 'help' },
      { text: "tutorial", hash: 'tutorial/new' },
-     { text: "Logout", hash: 'account/logout' }
+     { text: "help",     hash: 'help' },
+     { text: "Logout",   hash: 'account/logout' }
    ];
 
    if ( app.ctx.username == 'niklas' ) {

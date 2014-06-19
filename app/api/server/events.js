@@ -21,10 +21,11 @@
         "user:collections",
         "shop:collections",
         "user:info",
+        "user:poem",
         "shop:besoz",
         "shop:storage",
         "account:fb",
-        "account:delete"
+        "account:delete",
    ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {
