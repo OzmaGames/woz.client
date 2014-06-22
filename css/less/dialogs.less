@@ -8,6 +8,10 @@
     .dialog.absolute {
         position: absolute;
         z-index: 10;
+
+        &.ontop {
+            z-index: 11;
+        }
     }
 
     .dialog.low {
@@ -151,6 +155,12 @@
     -o-transition: width .5s ease, padding .5s ease;
     -webkit-transition: width .5s ease, padding .5s ease;
     transition: width .5s ease, padding .5s ease;
+
+    &.right {
+        right: -30px;
+        width: 350px;
+        height: 165px;
+    }
 }
 
     .dialog .slipper .btnCommand {
@@ -673,4 +683,43 @@
         .dialog .confirm button {
             padding: 14px 20px;
         }
+}
+
+
+.profile {
+    font-size: 20px;    
+
+    .title {
+        .curly;
+        font-size: 28px;
+        margin: .5em;
+    }
+
+    .xp {
+        height: 70px;
+    }
+
+    .level {
+        margin-bottom: 1em;
+    }
+
+    .pic {
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        width: 1em;
+        height: 1em;
+        font-size: 80px;
+        box-shadow: 0 0 4px 2px white;
+    }
+
+    .level-icon {
+        position: absolute;
+        top: 50px;
+        right: 40px;
+        width: 100px;
+        height: 140px;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
 }

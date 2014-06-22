@@ -16,6 +16,9 @@
   position: absolute;
   z-index: 10;
 }
+.dialog.absolute.ontop {
+  z-index: 11;
+}
 .dialog.low {
   z-index: 99;
 }
@@ -140,6 +143,11 @@
   -o-transition: width .5s ease, padding .5s ease;
   -webkit-transition: width .5s ease, padding .5s ease;
   transition: width .5s ease, padding .5s ease;
+}
+.dialog .slipper.right {
+  right: -30px;
+  width: 350px;
+  height: 165px;
 }
 .dialog .slipper .btnCommand {
   position: absolute;
@@ -604,5 +612,37 @@
   .dialog .confirm button {
     padding: 14px 20px;
   }
+}
+.profile {
+  font-size: 20px;
+}
+.profile .title {
+  font-family: GreatVibesRegular !important;
+  font-size: 28px;
+  margin: .5em;
+}
+.profile .xp {
+  height: 70px;
+}
+.profile .level {
+  margin-bottom: 1em;
+}
+.profile .pic {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  width: 1em;
+  height: 1em;
+  font-size: 80px;
+  box-shadow: 0 0 4px 2px white;
+}
+.profile .level-icon {
+  position: absolute;
+  top: 50px;
+  right: 40px;
+  width: 100px;
+  height: 140px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 /*# sourceMappingURL=dialogs.css.map */

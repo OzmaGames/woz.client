@@ -80,7 +80,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
          } );
       }
       app.dialog.showProfile = function ( besoz ) {
-         app.dialog.show( "profile" );
+         app.dialog.show( "slipper-profile" );
       };
 
       app.palette = palette;

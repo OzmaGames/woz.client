@@ -135,6 +135,10 @@
             app.dialog.show( "alert", { content: 'Please select a friend to continue.' } );
          }
 
+      },
+      toShop: function () {
+         app.Sound.play( app.Sound.sounds.click.button );
+         app.navigate( "shop" )
       }
    }
 
