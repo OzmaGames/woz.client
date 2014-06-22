@@ -4,7 +4,7 @@
       var pages = [new p1, new p2, new p3], index = 0;
 
       var page = activator.create();
-      
+
       var heading = ko.computed( function () {
          var pg = page();
          return pg && pg.heading ? pg.heading : 'Make a poem!';
@@ -15,10 +15,10 @@
          return pg && pg.btnNextCaption ? pg.btnNextCaption : 'Next >';
       } );
 
-      
+
       //pages[0].activate(); var i = 2;
       //ctx.poem.chosenPhrases( ctx.poem.phrases().filter( function () { return i--; }) );
-            
+
 
       return {
          activate: function () {
@@ -54,11 +54,10 @@
             model.username = ctx.username;
             model.title = ctx.poem.title();
             model.tileID = ctx.poem.tile().id;
-            model.settings = {
-               size: ctx.poem.settings.size.value(),
-               shadow: ctx.poem.settings.shade.value(),
-               light: ctx.poem.settings.lightColor(),
-            }
+            model.imageID = ctx.poem.tile().imageID;
+            model.size = ctx.poem.settings.size.value();
+            model.shadow = ctx.poem.settings.shade.value();
+            model.light = ctx.poem.settings.lightColor();
             model.command = "set";
             app.trigger( "server:user:poem", model );
          },
