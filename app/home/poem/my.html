@@ -1,0 +1,13 @@
+﻿<div style="font-size: 18px">
+   <span class="loader-bar center" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
+   <div class="table-flex" data-bind="foreach: list">
+      <div class="row mild-padding" style="max-width:520px">
+         <!--ko if: flag--><div class="ribbon" data-bind="text: flag.flag, style: {backgroundColor: flag.colour}"></div><!-- /ko-->
+         <div class="item-icon currency" data-bind="css: 'item-icon-index-' + iconID "></div>
+         <span class="besoz"><span data-bind="text: besoz"></span> besoz</span>
+         <span class="price"><span data-bind="text: price"></span> USD</span>
+         <button class="orange xsm pull-right" data-bind="click: $parent.buy">BUY</button>
+         <span class="discount" data-bind="if: discount, text:discount"></span>
+      </div>
+   </div>
+</div>

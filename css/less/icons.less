@@ -42,6 +42,7 @@
             height: 1.5em;
             line-height: 1.5em;
             display: block;
+            visibility: hidden;
             top: 7px;
             right: -100px;
             width: 100px;
@@ -54,6 +55,7 @@
         }
 
         .actions .btn:hover::after {
+            visibility: visible;
             opacity: 100;
             right: -110px;
         }
@@ -332,7 +334,7 @@ i.icon {
     }
 }
 
-.row button {
+.row button.command {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -357,11 +359,12 @@ i.icon {
         border: 1px solid @strokeColor;
         height: 1.5em;
         line-height: 1.5em;
-        display: block;
         top: 12px;
         left: -60px;
         width: 60px;
         border-radius: 5px;
+        display: block;
+        visibility: hidden;
         opacity: 0;
         -moz-transition: .3s all ease-in-out;
         -o-transition: .3s all ease-in-out;
@@ -370,6 +373,7 @@ i.icon {
     }
 
     &[title]:hover:after {
+        visibility: visible;
         opacity: 100;
         left: -70px;
     }

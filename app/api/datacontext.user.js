@@ -7,6 +7,7 @@
       this.storage = ko.observable( 0 );
       this.level = ko.observable( 0 );
       this.xp = ko.observable( 0 );
+      this.xpMax = ko.observable( 100 );
       this.title = ko.observable( '' );
       this.collections = ko.observableArray();
 
@@ -67,6 +68,7 @@
                base.level( data.level );
                base.storage( data.storage );
                base.xp( data.xp );
+               base.xpMax( data.xpMax || 100 );
                base.title( data.title );
                //base.storage( 5 );
             }

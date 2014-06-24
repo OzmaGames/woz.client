@@ -1,0 +1,17 @@
+﻿<div style="font-size: 18px">
+   <p style="max-width:520px;margin-left:1em; text-align:center">
+      You currently have space for <span class="bold" data-bind="text: (storage() ? storage(): 'unlimited')"></span> games in your archive. Get more space for your archived games!
+   </p>
+   <span class="loader-bar pull-right" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
+   <div class="table-flex" data-bind="foreach: list">
+      <div class="row mild-padding" style="max-width:520px" data-bind="css: {disabled: $root.storage() >= storage && (storage != 0 || storage == $root.storage()) || $root.storage() == 0}">
+         <!--ko if: flag--><div class="ribbon" data-bind="text: flag.flag, style: {backgroundColor: flag.colour}"></div><!-- /ko-->
+         <div class="item-icon storage" data-bind="css: 'item-icon-index-' + iconID "></div>
+         <span class="besoz" data-bind="text: text"></span>
+         <span class="price" style="width:150px"><span data-bind="text: price"></span> besoz</span>
+         <!--ko ifnot: $root.storage() >= storage && (storage != 0 || storage == $root.storage()) || $root.storage() == 0-->
+         <button class="orange xsm pull-right" data-bind="click: $parent.buy">BUY</button>
+         <!-- /ko -->
+      </div>
+   </div>
+</div>

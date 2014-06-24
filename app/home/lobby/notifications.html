@@ -5,7 +5,7 @@
            data-bind="css:{won: won, newGame: newGame, resigned: resigned, over: over, unseen: !seen }, click: $root.selectGame">
          <span data-bind="html: notificationSummary"></span>
          <!-- ko if: newGame && !over -->
-         <button class="sp pull-right" title="block" data-bind="click: $root.blockUser"><i class="icon block"></i></button>
+         <button class="sp command" title="block" data-bind="click: $root.blockUser"><i class="icon block"></i></button>
          <!-- /ko -->      
       </div>
       <!-- /ko -->      

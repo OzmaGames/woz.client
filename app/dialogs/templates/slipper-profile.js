@@ -3,6 +3,7 @@
    function Slipper() {
       this.level = user.level;
       this.xp = user.xp;
+      this.xpMax = user.xpMax;
       this.username = app.ctx.username;
       this.title = user.title;
       this.images = true;
@@ -34,7 +35,7 @@
    }
 
    Slipper.prototype.bindingComplete = function (el) {
-      this.el = $('.slipper', el).hide();
+      this.el = $('.profile', el).hide();
 
       this.__dialog__.settings.bindingComplete(el);
    }

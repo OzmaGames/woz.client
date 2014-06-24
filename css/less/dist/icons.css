@@ -44,6 +44,7 @@
   height: 1.5em;
   line-height: 1.5em;
   display: block;
+  visibility: hidden;
   top: 7px;
   right: -100px;
   width: 100px;
@@ -55,6 +56,7 @@
   transition: 0.3s all ease-in-out;
 }
 .actions .btn:hover::after {
+  visibility: visible;
   opacity: 100;
   right: -110px;
 }
@@ -295,7 +297,7 @@ i.icon.block {
   background-image: url(../../../images/app/block.png);
   font-size: 40px;
 }
-.row button {
+.row button.command {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -303,14 +305,14 @@ i.icon.block {
   border-left: 1px solid #f1ebe2;
   background: linear-gradient(0, #f1ebe2 0, #ffffff 100%);
 }
-.row button:hover {
+.row button.command:hover {
   box-shadow: none;
   background: linear-gradient(0, #f1ebe2 60%, #ffffff 100%);
 }
-.row button:active {
+.row button.command:active {
   background: linear-gradient(180deg, #f1ebe2 60%, #ffffff 100%);
 }
-.row button[title]:after {
+.row button.command[title]:after {
   content: attr(title);
   position: absolute;
   color: #986b31;
@@ -318,34 +320,36 @@ i.icon.block {
   border: 1px solid #d7bea2;
   height: 1.5em;
   line-height: 1.5em;
-  display: block;
   top: 12px;
   left: -60px;
   width: 60px;
   border-radius: 5px;
+  display: block;
+  visibility: hidden;
   opacity: 0;
   -moz-transition: 0.3s all ease-in-out;
   -o-transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.row button[title]:hover:after {
+.row button.command[title]:hover:after {
+  visibility: visible;
   opacity: 100;
   left: -70px;
 }
-.row button.sp {
+.row button.command.sp {
   top: -1px;
   bottom: -1px;
   right: .6em;
 }
-.row button:before {
+.row button.command:before {
   content: '';
   display: inline-block;
   height: 100%;
   vertical-align: middle;
   margin-right: -0.25em;
 }
-.row button i {
+.row button.command i {
   display: inline-block;
   vertical-align: middle;
 }

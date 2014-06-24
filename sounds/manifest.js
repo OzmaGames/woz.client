@@ -46,7 +46,7 @@ define( 'sounds/manifest', [], function () {
       },
       action: {
          success: [
-            'Action success/Action_success-01.wav'
+            'Action success/Action_success-01.ogg'
          ],
          fail: [
             //'Action fail/Action_fail-01.wav'
@@ -74,7 +74,7 @@ define( 'sounds/manifest', [], function () {
             'Game over lose/Game_over_lose-01.ogg'
          ],
          overResigned: [
-            'Game over the other player resigned/Game_over_the_other_player_resigned-01.wav'
+            'Game over lose/Game_over_lose-01.ogg'
          ],
          del: [
             'Delete Game/Delete_game-01.wav',
@@ -130,7 +130,7 @@ define( 'sounds/manifest', [], function () {
          	'Wiggly Word/wiggly_word-01.ogg'
          ],
          related: [
-
+         	'Wiggly Word/wiggly_word-01.ogg'
          ]
       },
       scoring: {
@@ -164,7 +164,7 @@ define( 'sounds/manifest', [], function () {
       //loading new screen (same for all screens accept game screen)
       pageTransition: [
       	//'pageTransition/page_Transition-02.ogg'
-      	'Enlarge picture tiles/Enlarge_picture_tiles-05.ogg',
+      	 'Enlarge picture tiles/Enlarge_picture_tiles-05.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-06.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-07.ogg',
          'Enlarge picture tiles/Enlarge_picture_tiles-08.ogg'
@@ -174,30 +174,44 @@ define( 'sounds/manifest', [], function () {
          //duration: 300ms
       	'Lobby Loading/lobby_loading-01.ogg',
       	'Lobby Loading/lobby_loading-02.ogg',
-      	'Lobby Loading/lobby_loading-03.ogg',
-      	'Lobby Loading/lobby_loading-04.ogg'
+      	'Lobby Loading/lobby_loading-03.ogg'
+      	
       ],      
       notification: [
          //when in lobby and new notification comes in (the number of unseen notification changes)
          //is played once per item. we can do it once per all?
          //ex: changing from 1 to 3 plays the sound 2 times
-         'Getting a notification/Getting_a_notification-01.wav'
+         'Getting a notification/Getting_a_notification-01.ogg'
       ],
       poem: {
          phraseDrag: [
+         	'Lift word/Lift_word-01.ogg',
+            'Lift word/Lift_word-02.ogg',
+            'Lift word/Lift_word-03.ogg',
+            'Lift word/Lift_word-04.ogg'
 
          ],
          phraseSwap: [
+         	'Move phrase up and down/move_phrase_up_and_down-01.ogg'
 
          ],
          phraseDrop: [
-
+         	'Place word on game board/Place_word_on_game_board-01.wav',
+            'Place word on game board/Place_word_on_game_board-02.wav',
+            'Place word on game board/Place_word_on_game_board-03.wav',
+            'Place word on game board/Place_word_on_game_board-04.wav',
+            'Place word on game board/Place_word_on_game_board-05.wav'
          ],
          range: [
             //Slider tick (when you move the slider one step)
+            'Slider Tick/slider_tick-01.ogg'
          ],
          imageSwip: [
             //Image swipe (changing background image)
+            'Image swipe/image_swipe-01.ogg',
+            'Image swipe/image_swipe-02.ogg',
+            'Image swipe/image_swipe-03.ogg',
+            'Image swipe/image_swipe-04.ogg'
          ]
       }
    };

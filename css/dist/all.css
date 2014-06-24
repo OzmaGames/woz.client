@@ -1497,9 +1497,6 @@ progress::-moz-progress-bar {
   top: -30px;
   background-image: url(../../images/app/slipper-background.png);
   background-position: center bottom;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   text-align: center;
   line-height: 120%;
@@ -1510,11 +1507,6 @@ progress::-moz-progress-bar {
   -webkit-transition: width .5s ease, padding .5s ease;
   transition: width .5s ease, padding .5s ease;
 }
-.dialog .slipper.right {
-  right: -30px;
-  width: 350px;
-  height: 165px;
-}
 .dialog .slipper .btnCommand {
   position: absolute;
   bottom: 20px;
@@ -1522,9 +1514,6 @@ progress::-moz-progress-bar {
   width: 30px;
   height: 18px;
   background-image: url(../../images/game/ArrowMinimize_Btn.png);
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   -moz-transition: all 0.5s 0.1s ease-in-out;
   -o-transition: all 0.5s 0.1s ease-in-out;
@@ -1963,9 +1952,6 @@ progress::-moz-progress-bar {
 }
 .select-pic {
   background: url(../../images/game/select.png) center center no-repeat;
-  -moz-background-size: auto 100%;
-  -o-background-size: auto 100%;
-  -webkit-background-size: auto 100%;
   background-size: auto 100%;
   width: 100%;
   height: 100px;
@@ -1979,33 +1965,51 @@ progress::-moz-progress-bar {
     padding: 14px 20px;
   }
 }
-.profile {
+.dialog .profile:not(.facebook) {
   font-size: 20px;
+  position: relative;
+  top: -30px;
+  right: 0;
+  width: 350px;
+  height: 200px;
+  z-index: 11;
+  margin: 0 auto;
+  background-image: url(../../images/game/profile-infobox.png);
+  background-size: 100% 100%;
+  text-align: center;
+  line-height: 120%;
+  padding: 40px 30px 20px 30px;
+  cursor: pointer;
 }
-.profile .title {
+.dialog .profile:not(.facebook) .title {
   font-family: GreatVibesRegular !important;
   font-size: 28px;
   margin: .5em;
+  margin-bottom: 0;
 }
-.profile .xp {
+.dialog .profile:not(.facebook) .username {
+  margin-top: .3em;
+}
+.dialog .profile:not(.facebook) .xp {
   height: 70px;
+  margin: .3em;
 }
-.profile .level {
+.dialog .profile:not(.facebook) .level {
   margin-bottom: 1em;
 }
-.profile .pic {
+.dialog .profile:not(.facebook) .pic {
   position: absolute;
-  top: 50px;
-  left: 20px;
+  top: 90px;
+  left: 30px;
   width: 1em;
   height: 1em;
   font-size: 80px;
   box-shadow: 0 0 4px 2px white;
 }
-.profile .level-icon {
+.dialog .profile:not(.facebook) .level-icon {
   position: absolute;
-  top: 50px;
-  right: 40px;
+  top: 60px;
+  right: 15px;
   width: 100px;
   height: 140px;
   background-size: contain;
@@ -3046,6 +3050,7 @@ ul.custom-list.draggable li.hole::before {
   height: 1.5em;
   line-height: 1.5em;
   display: block;
+  visibility: hidden;
   top: 7px;
   right: -100px;
   width: 100px;
@@ -3057,6 +3062,7 @@ ul.custom-list.draggable li.hole::before {
   transition: 0.3s all ease-in-out;
 }
 .actions .btn:hover::after {
+  visibility: visible;
   opacity: 100;
   right: -110px;
 }
@@ -3297,7 +3303,7 @@ i.icon.block {
   background-image: url(../../images/app/block.png);
   font-size: 40px;
 }
-.row button {
+.row button.command {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -3305,14 +3311,14 @@ i.icon.block {
   border-left: 1px solid #f1ebe2;
   background: linear-gradient(0, #f1ebe2 0, #ffffff 100%);
 }
-.row button:hover {
+.row button.command:hover {
   box-shadow: none;
   background: linear-gradient(0, #f1ebe2 60%, #ffffff 100%);
 }
-.row button:active {
+.row button.command:active {
   background: linear-gradient(180deg, #f1ebe2 60%, #ffffff 100%);
 }
-.row button[title]:after {
+.row button.command[title]:after {
   content: attr(title);
   position: absolute;
   color: #986b31;
@@ -3320,34 +3326,36 @@ i.icon.block {
   border: 1px solid #d7bea2;
   height: 1.5em;
   line-height: 1.5em;
-  display: block;
   top: 12px;
   left: -60px;
   width: 60px;
   border-radius: 5px;
+  display: block;
+  visibility: hidden;
   opacity: 0;
   -moz-transition: 0.3s all ease-in-out;
   -o-transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.row button[title]:hover:after {
+.row button.command[title]:hover:after {
+  visibility: visible;
   opacity: 100;
   left: -70px;
 }
-.row button.sp {
+.row button.command.sp {
   top: -1px;
   bottom: -1px;
   right: .6em;
 }
-.row button:before {
+.row button.command:before {
   content: '';
   display: inline-block;
   height: 100%;
   vertical-align: middle;
   margin-right: -0.25em;
 }
-.row button i {
+.row button.command i {
   display: inline-block;
   vertical-align: middle;
 }
@@ -3409,9 +3417,6 @@ hr {
   background-image: url(../../images/game/score-background.png);
   background-position: center center;
   background-repeat: no-repeat;
-  -moz-background-size: auto 100%;
-  -o-background-size: auto 100%;
-  -webkit-background-size: auto 100%;
   background-size: auto 100%;
   min-width: 80px;
 }
@@ -3425,6 +3430,48 @@ hr {
 .player .name {
   font-family: Cambria, CopseRegular;
   text-align: center;
+}
+.xp-circle {
+  font-size: 70px;
+  width: 1em;
+  height: 1em;
+  background: url(../../images/game/profile-star.png) no-repeat center center;
+  background-size: 75%;
+  margin: 0 auto;
+  position: relative;
+}
+.xp-circle .sector {
+  position: absolute;
+  top: 0;
+  left: 4.5em;
+  font-size: 0.1em;
+  width: 1em;
+  height: 5em;
+  -moz-transform-origin: bottom center;
+  -ms-transform-origin: bottom center;
+  -o-transform-origin: bottom center;
+  -webkit-transform-origin: bottom center;
+  transform-origin: bottom center;
+  /*-webkit-transform: rotate(13.84deg);*/
+}
+.xp-circle .sector .circle {
+  font-size: 0.66666667em;
+  background-color: #f1e8d5;
+  border: 1px solid rgba(207, 169, 114, 0.3);
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+}
+.xp-circle .sector .circle.active {
+  background-color: #cfa972;
+}
+.xp-circle .text {
+  position: absolute;
+  font-size: .4em;
+  line-height: 2.5em;
+  color: #986b31;
+  text-align: center;
+  width: 100%;
 }
 #gameboard {
   position: relative;

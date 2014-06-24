@@ -51,7 +51,7 @@
             { route: ['', 'home'], moduleId: 'home/index', title: '' },
             { route: 'test', moduleId: 'home/test', title: 'Test' },
             { route: 'lobby', moduleId: 'home/lobby/index', title: 'My Games', nav: true },
-            { route: 'poems', moduleId: 'home/poems', title: 'My Poems', nav: true },
+            { route: 'poems', moduleId: 'home/poem/index', title: 'My Poems', nav: true },
             { route: 'shop', moduleId: 'home/shop/index', title: 'Shop', nav: true },
             { route: 'shop/:id', moduleId: 'home/shop/index', title: 'Shop' },
             { route: 'settings', moduleId: 'home/settings', title: 'Settings', nav: true },

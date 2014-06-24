@@ -34,7 +34,7 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
      app.configurePlugins({
         router: true,
         widget: {
-           kinds: ['list', 'slider', 'tile']
+           kinds: ['list', 'slider', 'tile', 'xp']
         }
      } );
 

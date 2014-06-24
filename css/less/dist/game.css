@@ -66,9 +66,6 @@ hr {
   background-image: url(../../../images/game/score-background.png);
   background-position: center center;
   background-repeat: no-repeat;
-  -moz-background-size: auto 100%;
-  -o-background-size: auto 100%;
-  -webkit-background-size: auto 100%;
   background-size: auto 100%;
   min-width: 80px;
 }
@@ -82,5 +79,47 @@ hr {
 .player .name {
   font-family: Cambria, CopseRegular;
   text-align: center;
+}
+.xp-circle {
+  font-size: 70px;
+  width: 1em;
+  height: 1em;
+  background: url(../../../images/game/profile-star.png) no-repeat center center;
+  background-size: 75%;
+  margin: 0 auto;
+  position: relative;
+}
+.xp-circle .sector {
+  position: absolute;
+  top: 0;
+  left: 4.5em;
+  font-size: 0.1em;
+  width: 1em;
+  height: 5em;
+  -moz-transform-origin: bottom center;
+  -ms-transform-origin: bottom center;
+  -o-transform-origin: bottom center;
+  -webkit-transform-origin: bottom center;
+  transform-origin: bottom center;
+  /*-webkit-transform: rotate(13.84deg);*/
+}
+.xp-circle .sector .circle {
+  font-size: 0.66666667em;
+  background-color: #f1e8d5;
+  border: 1px solid rgba(207, 169, 114, 0.3);
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+}
+.xp-circle .sector .circle.active {
+  background-color: #cfa972;
+}
+.xp-circle .text {
+  position: absolute;
+  font-size: .4em;
+  line-height: 2.5em;
+  color: #986b31;
+  text-align: center;
+  width: 100%;
 }
 /*# sourceMappingURL=game.css.map */

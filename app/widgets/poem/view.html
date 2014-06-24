@@ -1,0 +1,19 @@
+﻿<div class="slider">
+   <div data-bind="tile: {tile: tile()}" style="height: 422px" class="poem-mask">
+      <div data-part="text">
+         <div class="confiner">
+            <div class="poem-container" data-bind="css: $root.settings.lightColor() ? ('light shade-' + $root.settings.shade.value() ): ('dark shade-'+  $root.settings.shade.value())">
+               <div class="row" data-bind="css: {none: $root.title() == '' }"></div>
+               <div class="row" data-bind="css: {none: $root.title() == '' }">
+                  <h1 data-bind="text: $root.title, resizeText: {maxWidth: 220, size: {max: 1.5, min: 1.05 } }"></h1>
+               </div>
+               <div class="poem" data-bind="style: {fontSize: $root.settings.size.value() + 'px'}">
+                  <!--ko foreach: $root.phrases -->
+                  <div class="phrase" data-bind="text: phrase"></div>
+                  <!-- /ko -->
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
