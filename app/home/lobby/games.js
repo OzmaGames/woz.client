@@ -349,21 +349,6 @@
          app.navigate( "game/" + game.gameID );
       }
 
-      this.blockUser = function ( game, e ) {
-         e.preventDefault();
-         e.stopPropagation();
-
-         if ( game.newGame && !game.over ) {
-            var model = { command: 'add' };
-            model.foeUsername = game.getOpponent().username;
-            model.username = ctx.username;
-
-            app.trigger( 'server:foes', model, function ( json ) {
-
-            } );
-         }
-      }
-
       this.resign = function ( game ) {
          var base = this;
          app.dialog.show( "confirm", {

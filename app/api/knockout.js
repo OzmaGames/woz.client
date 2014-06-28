@@ -188,6 +188,10 @@
              minSize = valueAccessor().size.min, size = maxSize, lastWidth = 0;
          var observable = allBindingsAccessor().text;
 
+         if ( !ko.isObservable( observable ) ) {
+            observable = ko.observable( observable );
+         }
+
          var subscription = observable.subscribe( function () {
             //Task.run( function () {
                var el, width = ( el = $( element ) ).width();

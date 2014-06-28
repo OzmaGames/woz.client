@@ -10,8 +10,9 @@
       this.xpMax = ko.observable( 100 );
       this.title = ko.observable( '' );
       this.collections = ko.observableArray();
+      this.friends = ko.observableArray();
 
-      this.loading = ko.observable( false );
+      this.loading = ko.observable( 0 );
 
       this.buyBesoz = function ( amount ) {
          return shop.besozes.buy( _user, { amount: amount } ).then( function () {
@@ -25,7 +26,7 @@
          return shop.collections.buy( _user, { type: type, name: name } ).then( function () {
             pullData();
          } ).fail( function () {
-            
+
          } );
       }
 
@@ -41,6 +42,10 @@
          pullData();
       }
 
+      this.friends.load = loadFriends;
+      this.friends.has = isFriendWith;
+      this.friends.search = searchFriends;
+
       app.on( "account:login" ).then( function ( json ) {
          userAuthenticated( { username: json.username, online: 1 } );
       } );
@@ -52,11 +57,12 @@
 
          if ( base.username = user.username, _user = user, _user.online ) {
             pullData();
+            loadFriends();
          }
       }
 
       function pullData() {
-         base.loading( true );
+         base.loading( base.loading() + 1 );
 
          app.trigger( "server:user:info", { username: base.username }, function ( data ) {
             if ( data.success ) {
@@ -72,8 +78,44 @@
                base.title( data.title );
                //base.storage( 5 );
             }
-            base.loading( false );
+            base.loading( base.loading() - 1 );
          } );
+      }
+
+      function loadFriends() {
+         base.loading( base.loading() + 1 );
+
+         return $.Deferred( function ( dfd ) {
+            app.trigger( "server:friends", { username: base.username, command: 'getAll' }, function ( data ) {
+               if ( data.success ) {
+                  data.friends.sort( function ( a, b ) { return a.username > b.username; } )
+                  data.friends.forEach( function ( f ) {
+                     f.isFriend = true;
+                  } )
+                  base.friends( data.friends );
+                  dfd.resolve( data.friends );
+               }               
+               base.loading( base.loading() - 1 );
+            } );
+         } );
+      }
+
+      function searchFriends( query ) {
+         return $.Deferred( function ( dfd ) {
+            app.trigger( "server:friends", { username: base.username, command: 'search', friendUsername: query }, function ( data ) {
+               if ( data.users ) {
+                  data.users.forEach( function ( user ) {
+                     user.isFriend = isFriendWith( user.username ) ? true : false;
+                  } );
+               }
+
+               dfd.resolve( data.users );
+            } );
+         } )
+      }
+
+      function isFriendWith( username ) {
+         return base.friends().some( function ( f ) { return f.username == username } )
       }
    }
 

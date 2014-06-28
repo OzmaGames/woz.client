@@ -1,0 +1,54 @@
+﻿@import '_variables.less';
+
+
+.has-tooltip(@size, @top: 12px, @left: true) {
+    &[data-title]:after {
+        content: attr(data-title);
+        position: absolute;
+        color: @textColor;
+        background-color: @backBoxColor;
+        border: 1px solid @strokeColor;
+        height: 1.5em;
+        line-height: 1.5em;
+        top: @top;
+        width: @size;
+        border-radius: 5px;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        -moz-transition: .3s all ease-in-out;
+        -o-transition: .3s all ease-in-out;
+        -webkit-transition: .3s all ease-in-out;
+        transition: .3s all ease-in-out;
+    }
+
+    &[data-title]:hover:after {
+        visibility: visible;
+        opacity: 100;        
+    }
+}
+
+    .has-tooltip(@size, @top: 12px, @left: true ) when (@left = true) {
+        &[data-title]:after {
+            left: -@size;
+        }
+
+        &[data-title]:hover:after {
+            left: -(@size+10);
+        }
+    }
+
+    .has-tooltip(@size, @top: 12px, @left: true ) when (@left = false) {
+        &[data-title]:after {
+            right: -@size;
+        }
+
+        &[data-title]:hover:after {
+            right: -(@size+10);
+        }
+    }
+
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/

@@ -1,4 +1,4 @@
-﻿define( 'api/helper/facebook', ['api/helper/Canvas', 'facebook'], function ( Canvas ) {
+﻿define( 'api/helper/facebook', ['api/helper/Canvas', 'api/helper/CanvasCapture', 'facebook'], function ( Canvas, CanvasCapture ) {
 
    var auth = { accessToken: "", expiresIn: 0, signedRequest: "", userID: "" };
    var permissions = {
@@ -86,7 +86,7 @@
 
       PublishImage.prototype.publishImageUI = function ( canvas ) {
          var base = this;
-
+         
          base.canvas = canvas;
          base.poemImageSrc( Canvas.toDataURL( canvas ) );
 

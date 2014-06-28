@@ -3,10 +3,7 @@
       <!--ko template: {foreach: notifications, afterAdd: notifications.show, afterRender: notifications.render}-->
       <div class="row mild-padding no-shadow rightRibbon" style="max-width:520px"
            data-bind="css:{won: won, newGame: newGame, resigned: resigned, over: over, unseen: !seen }, click: $root.selectGame">
-         <span data-bind="html: notificationSummary"></span>
-         <!-- ko if: newGame && !over -->
-         <button class="sp command" title="block" data-bind="click: $root.blockUser"><i class="icon block"></i></button>
-         <!-- /ko -->      
+         <span data-bind="html: notificationSummary"></span>         
       </div>
       <!-- /ko -->      
    </div>

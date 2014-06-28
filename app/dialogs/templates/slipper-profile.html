@@ -5,6 +5,10 @@
       <div class="xp" data-bind="xp: { value: xp, max: xpMax }"></div>
       <div class="level"> Level <span data-bind="text: level"></span></div>
       <div class="pic"></div>
+      <div class="cmd" data-bind="visible: !owner">
+         <i class="icon addFriend" title="Add Friend" data-bind="click: $root.addFriend"></i>
+         <i class="icon block" title="Block User" data-bind="click: $root.blockUser"></i>
+      </div>
       <div class="level-icon" data-bind="style:{ backgroundImage: 'url(\'images/game/level/' + title().toLowerCase() + '.png\')' }"></div>
    </div>
 </div>

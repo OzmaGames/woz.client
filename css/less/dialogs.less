@@ -672,12 +672,12 @@
 
 
 .dialog .profile:not(.facebook) {
-    font-size: 20px;
+    font-size: 16px;
     position: relative;
     top: -30px;
     right: 0;
-    width: 350px;
-    height: 200px;
+    width: 300px;
+    height: 170px;
     z-index: 11;
     margin: 0 auto;
     background-image: url('../../images/game/profile-infobox.png');
@@ -689,7 +689,7 @@
 
     .title {
         .curly;
-        font-size: 28px;
+        font-size: 1.45em;
         margin: .5em;
         margin-bottom: 0;
     }
@@ -709,19 +709,75 @@
 
     .pic {
         position: absolute;
-        top: 90px;
-        left: 30px;
+        top: 47px;
+        left: 27px;
         width: 1em;
         height: 1em;
-        font-size: 80px;
+        font-size: 60px;
         box-shadow: 0 0 4px 2px white;
+
+        button {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+    }
+
+    .cmd {
+        position: absolute;
+        bottom: 1.5em;
+        left: 1.5em;
+        display: block;
+        width: 100%;
+        height: 80px;
+        text-align: left;
+
+        i {
+            display: block;
+            font-size: 40px;
+            position: relative;
+
+            &[title]:after {
+                font-size: 12px;
+                font-style: normal;
+                content: attr(title);
+                position: absolute;
+                color: @textColor;
+                background-color: @backBoxColor;
+                border: 1px solid @strokeColor;
+                height: 1.5em;
+                line-height: 1.5em;
+                top: 9px;
+                right: -70px;
+                width: 75px;
+                border-radius: 5px;
+                display: block;
+                visibility: hidden;
+                text-align: center;
+                opacity: 0;
+                -moz-transition: .3s all ease-in-out;
+                -o-transition: .3s all ease-in-out;
+                -webkit-transition: .3s all ease-in-out;
+                transition: .3s all ease-in-out;
+            }
+
+            &[title]:hover:after {
+                visibility: visible;
+                opacity: 100;
+                right: -75px;
+            }
+        }
+
+            i.addFriend {
+                left: 0px;
+            }
     }
 
     .level-icon {
         position: absolute;
-        top: 60px;
-        right: 15px;
-        width: 100px;
+        top: 50px;
+        right: 10px;
+        width: 80px;
         height: 140px;
         background-size: contain;
         background-repeat: no-repeat;

@@ -8,7 +8,7 @@
 
    model.toBlob = function (canvas) {      
       return toBlob( model.toDataURL(canvas) );
-   }
+   }   
    
    return model;
 

@@ -52,7 +52,6 @@ hr {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   /*should be the same as for paletes*/
-  -webkit-text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
   text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
 }
 .player {
@@ -116,8 +115,8 @@ hr {
 }
 .xp-circle .text {
   position: absolute;
-  font-size: .4em;
-  line-height: 2.5em;
+  font-size: .3em;
+  line-height: 3.3em;
   color: #986b31;
   text-align: center;
   width: 100%;

@@ -54,7 +54,7 @@
             model.username = ctx.username;
             model.title = ctx.poem.title();
             model.tileID = ctx.poem.tile().id;
-            model.imageID = ctx.poem.tile().imageID;
+            model.imageID = Number(ctx.poem.tile().imageID);
             model.size = ctx.poem.settings.size.value();
             model.shadow = ctx.poem.settings.shade.value();
             model.light = ctx.poem.settings.lightColor();

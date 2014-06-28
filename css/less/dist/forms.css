@@ -333,7 +333,7 @@ p.error {
 p.error {
   margin-bottom: 0 !important;
 }
-/*# sourceMappingURL=forms.css.map */
+/*#region buttons */
 button {
   cursor: pointer;
   font-family: CopseRegular;
@@ -504,7 +504,7 @@ button.facebook,
   line-height: 50px;
   vertical-align: top;
 }
-/*# sourceMappingURL=forms.css.map */
+/*#endregion */
 .button-group button {
   margin-bottom: .5em;
   font-size: .9em;
@@ -725,6 +725,7 @@ ul.custom-list.draggable li.hole::before {
   max-width: 300px;
   overflow: hidden;
   padding: .4em;
+  text-transform: none !important;
 }
 .slider .tile .poem-container.dark {
   color: #39270d;

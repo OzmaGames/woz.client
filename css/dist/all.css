@@ -292,9 +292,6 @@ a {
 .loading-image {
   overflow: visible;
   background: url(../../images/app/loading.png) no-repeat center center;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  -webkit-background-size: contain;
   background-size: contain;
   width: 100%;
   height: 192px;
@@ -1966,12 +1963,12 @@ progress::-moz-progress-bar {
   }
 }
 .dialog .profile:not(.facebook) {
-  font-size: 20px;
+  font-size: 16px;
   position: relative;
   top: -30px;
   right: 0;
-  width: 350px;
-  height: 200px;
+  width: 300px;
+  height: 170px;
   z-index: 11;
   margin: 0 auto;
   background-image: url(../../images/game/profile-infobox.png);
@@ -1983,7 +1980,7 @@ progress::-moz-progress-bar {
 }
 .dialog .profile:not(.facebook) .title {
   font-family: GreatVibesRegular !important;
-  font-size: 28px;
+  font-size: 1.45em;
   margin: .5em;
   margin-bottom: 0;
 }
@@ -1999,18 +1996,68 @@ progress::-moz-progress-bar {
 }
 .dialog .profile:not(.facebook) .pic {
   position: absolute;
-  top: 90px;
-  left: 30px;
+  top: 47px;
+  left: 27px;
   width: 1em;
   height: 1em;
-  font-size: 80px;
+  font-size: 60px;
   box-shadow: 0 0 4px 2px white;
+}
+.dialog .profile:not(.facebook) .pic button {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 5px;
+}
+.dialog .profile:not(.facebook) .cmd {
+  position: absolute;
+  bottom: 1.5em;
+  left: 1.5em;
+  display: block;
+  width: 100%;
+  height: 80px;
+  text-align: left;
+}
+.dialog .profile:not(.facebook) .cmd i {
+  display: block;
+  font-size: 40px;
+  position: relative;
+}
+.dialog .profile:not(.facebook) .cmd i[title]:after {
+  font-size: 12px;
+  font-style: normal;
+  content: attr(title);
+  position: absolute;
+  color: #986b31;
+  background-color: #f9f8f4;
+  border: 1px solid #d7bea2;
+  height: 1.5em;
+  line-height: 1.5em;
+  top: 9px;
+  right: -70px;
+  width: 75px;
+  border-radius: 5px;
+  display: block;
+  visibility: hidden;
+  text-align: center;
+  opacity: 0;
+  -moz-transition: 0.3s all ease-in-out;
+  -o-transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  transition: 0.3s all ease-in-out;
+}
+.dialog .profile:not(.facebook) .cmd i[title]:hover:after {
+  visibility: visible;
+  opacity: 100;
+  right: -75px;
+}
+.dialog .profile:not(.facebook) .cmd i.addFriend {
+  left: 0px;
 }
 .dialog .profile:not(.facebook) .level-icon {
   position: absolute;
-  top: 60px;
-  right: 15px;
-  width: 100px;
+  top: 50px;
+  right: 10px;
+  width: 80px;
   height: 140px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -2340,7 +2387,7 @@ p.error {
 p.error {
   margin-bottom: 0 !important;
 }
-/*# sourceMappingURL=all.css.map */
+/*#region buttons */
 button {
   cursor: pointer;
   font-family: CopseRegular;
@@ -2511,7 +2558,7 @@ button.facebook,
   line-height: 50px;
   vertical-align: top;
 }
-/*# sourceMappingURL=all.css.map */
+/*#endregion */
 .button-group button {
   margin-bottom: .5em;
   font-size: .9em;
@@ -2732,6 +2779,7 @@ ul.custom-list.draggable li.hole::before {
   max-width: 300px;
   overflow: hidden;
   padding: .4em;
+  text-transform: none !important;
 }
 .slider .tile .poem-container.dark {
   color: #39270d;
@@ -3014,6 +3062,10 @@ ul.custom-list.draggable li.hole::before {
 .tile .ctrl .box .content i.shade:last-of-type s {
   text-shadow: 1px 1px 3px #666, 0px 0px 0px #666;
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 .actions {
   background: #faf5ef;
   padding: 5px;
@@ -3042,28 +3094,33 @@ ul.custom-list.draggable li.hole::before {
 .actions .btn:last-child {
   margin-bottom: 0px;
 }
-.actions .btn::after {
-  content: attr(title);
+.actions .btn[data-title]:after {
+  content: attr(data-title);
   position: absolute;
+  color: #986b31;
   background-color: #f9f8f4;
   border: 1px solid #d7bea2;
   height: 1.5em;
   line-height: 1.5em;
-  display: block;
-  visibility: hidden;
   top: 7px;
-  right: -100px;
   width: 100px;
   border-radius: 5px;
+  display: block;
+  visibility: hidden;
   opacity: 0;
   -moz-transition: 0.3s all ease-in-out;
   -o-transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.actions .btn:hover::after {
+.actions .btn[data-title]:hover:after {
   visibility: visible;
   opacity: 100;
+}
+.actions .btn[data-title]:after {
+  right: -100px;
+}
+.actions .btn[data-title]:hover:after {
   right: -110px;
 }
 i.action,
@@ -3244,9 +3301,6 @@ i.xxsm {
 i.command.addFriend {
   background-image: url(../../images/game/add-friend.png);
   background-position: 0 0 !important;
-  -moz-background-size: 2em auto;
-  -o-background-size: 2em auto;
-  -webkit-background-size: 2em auto;
   background-size: 2em auto;
 }
 i.command.addFriend:active,
@@ -3256,9 +3310,6 @@ i.command.addFriend:hover {
 i.command.find {
   background-image: url(../../images/game/find.png);
   background-position: 0 0 !important;
-  -moz-background-size: 2em auto !important;
-  -o-background-size: 2em auto !important;
-  -webkit-background-size: 2em auto !important;
   background-size: 2em auto !important;
 }
 i.command.find:active,
@@ -3295,12 +3346,17 @@ i.action.inline {
 i.icon {
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center center;
   width: 1em;
   height: 1em;
   display: inline-block;
 }
 i.icon.block {
   background-image: url(../../images/app/block.png);
+  font-size: 40px;
+}
+i.icon.addFriend {
+  background-image: url(../../images/app/add-player.png);
   font-size: 40px;
 }
 .row button.command {
@@ -3318,8 +3374,8 @@ i.icon.block {
 .row button.command:active {
   background: linear-gradient(180deg, #f1ebe2 60%, #ffffff 100%);
 }
-.row button.command[title]:after {
-  content: attr(title);
+.row button.command[data-title]:after {
+  content: attr(data-title);
   position: absolute;
   color: #986b31;
   background-color: #f9f8f4;
@@ -3327,7 +3383,6 @@ i.icon.block {
   height: 1.5em;
   line-height: 1.5em;
   top: 12px;
-  left: -60px;
   width: 60px;
   border-radius: 5px;
   display: block;
@@ -3338,9 +3393,14 @@ i.icon.block {
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.row button.command[title]:hover:after {
+.row button.command[data-title]:hover:after {
   visibility: visible;
   opacity: 100;
+}
+.row button.command[data-title]:after {
+  left: -60px;
+}
+.row button.command[data-title]:hover:after {
   left: -70px;
 }
 .row button.command.sp {
@@ -3403,7 +3463,6 @@ hr {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   /*should be the same as for paletes*/
-  -webkit-text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
   text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
 }
 .player {
@@ -3467,8 +3526,8 @@ hr {
 }
 .xp-circle .text {
   position: absolute;
-  font-size: .4em;
-  line-height: 2.5em;
+  font-size: .3em;
+  line-height: 3.3em;
   color: #986b31;
   text-align: center;
   width: 100%;
@@ -4127,6 +4186,138 @@ body > .cloud.fixed .rule {
   -o-transform-origin: center;
   -webkit-transform-origin: center;
   transform-origin: center;
+}
+.poem-page {
+  max-width: 905px;
+  text-align: left;
+}
+.poem-page .cell {
+  position: relative;
+  display: inline-block;
+  background-color: #f7f3e9;
+  border: 1px solid #aa8350;
+  border-radius: 3px;
+  margin: 5px;
+  width: 400px;
+  height: 400px;
+  vertical-align: middle;
+}
+.poem-page .cell[data-title] {
+  margin-top: 30px;
+}
+.poem-page .cell[data-title]:before {
+  content: attr(data-title);
+  position: absolute;
+  top: -19px;
+  /*font-size:20px;*/
+  line-height: 20px;
+  left: -1px;
+  right: -1px;
+  color: #f7f3e9;
+  background-color: #aa8350;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  border-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  text-align: center;
+  font-size: 15px;
+}
+.poem-page .cell button {
+  border: 1px solid #d7bea2;
+  background: #f1e8d5;
+  color: #986b31;
+  position: absolute;
+  z-index: 12;
+}
+.poem-page .cell button.share {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 2px 5px;
+  margin: 5px;
+  font-family: Cambria;
+  top: 0;
+  left: 0;
+  -moz-transition: background .3s;
+  -o-transition: background .3s;
+  -webkit-transition: background .3s;
+  transition: background .3s;
+}
+.poem-page .cell button.right {
+  background-color: inherit;
+  border: none;
+  font-size: 25px;
+  top: 0;
+  right: 0;
+  margin: 5px;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  box-shadow: none;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.poem-page .cell button.right:hover {
+  /*background-color: inherit !important;
+                    -moz-transform: scale3d(1.1,1.1,1);
+                    -ms-transform: scale3d(1.1,1.1,1);
+                    -o-transform: scale3d(1.1,1.1,1);
+                    -webkit-transform: scale3d(1.1,1.1,1);
+                    transform: scale3d(1.1,1.1,1);*/
+}
+.poem-page .cell button.right:active {
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  -webkit-transform: none;
+  transform: none;
+}
+.poem-page .cell button .tooltip {
+  position: absolute;
+  top: 1.3em;
+  left: -2px;
+  border: 1px solid #d7bea2;
+  background-color: #f9f8f4;
+  border-radius: 3px;
+  visibility: hidden;
+  opacity: 0;
+  -moz-transition: opacity .3s;
+  -o-transition: opacity .3s;
+  -webkit-transition: opacity .3s;
+  transition: opacity .3s;
+}
+.poem-page .cell button:hover {
+  background: #f9f8f4;
+}
+.poem-page .cell button:hover .tooltip {
+  visibility: visible;
+  opacity: 100;
+}
+.poem-page .cell .slider {
+  padding: 0 40px 20px 0;
+  -moz-transform: scale3d(0.9, 0.9, 1);
+  -ms-transform: scale3d(0.9, 0.9, 1);
+  -o-transform: scale3d(0.9, 0.9, 1);
+  -webkit-transform: scale3d(0.9, 0.9, 1);
+  transform: scale3d(0.9, 0.9, 1);
+  -moz-transform-origin: left top;
+  -ms-transform-origin: left top;
+  -o-transform-origin: left top;
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+}
+.poem-page .cell .slider.clean {
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  -webkit-transform: none;
+  transform: none;
 }
 @keyframes blink-shadow {
   

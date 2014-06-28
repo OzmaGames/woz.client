@@ -8,6 +8,10 @@
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 .actions {
   background: #faf5ef;
   padding: 5px;
@@ -36,28 +40,33 @@
 .actions .btn:last-child {
   margin-bottom: 0px;
 }
-.actions .btn::after {
-  content: attr(title);
+.actions .btn[data-title]:after {
+  content: attr(data-title);
   position: absolute;
+  color: #986b31;
   background-color: #f9f8f4;
   border: 1px solid #d7bea2;
   height: 1.5em;
   line-height: 1.5em;
-  display: block;
-  visibility: hidden;
   top: 7px;
-  right: -100px;
   width: 100px;
   border-radius: 5px;
+  display: block;
+  visibility: hidden;
   opacity: 0;
   -moz-transition: 0.3s all ease-in-out;
   -o-transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.actions .btn:hover::after {
+.actions .btn[data-title]:hover:after {
   visibility: visible;
   opacity: 100;
+}
+.actions .btn[data-title]:after {
+  right: -100px;
+}
+.actions .btn[data-title]:hover:after {
   right: -110px;
 }
 i.action,
@@ -238,9 +247,6 @@ i.xxsm {
 i.command.addFriend {
   background-image: url(../../../images/game/add-friend.png);
   background-position: 0 0 !important;
-  -moz-background-size: 2em auto;
-  -o-background-size: 2em auto;
-  -webkit-background-size: 2em auto;
   background-size: 2em auto;
 }
 i.command.addFriend:active,
@@ -250,9 +256,6 @@ i.command.addFriend:hover {
 i.command.find {
   background-image: url(../../../images/game/find.png);
   background-position: 0 0 !important;
-  -moz-background-size: 2em auto !important;
-  -o-background-size: 2em auto !important;
-  -webkit-background-size: 2em auto !important;
   background-size: 2em auto !important;
 }
 i.command.find:active,
@@ -289,12 +292,17 @@ i.action.inline {
 i.icon {
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center center;
   width: 1em;
   height: 1em;
   display: inline-block;
 }
 i.icon.block {
   background-image: url(../../../images/app/block.png);
+  font-size: 40px;
+}
+i.icon.addFriend {
+  background-image: url(../../../images/app/add-player.png);
   font-size: 40px;
 }
 .row button.command {
@@ -312,8 +320,8 @@ i.icon.block {
 .row button.command:active {
   background: linear-gradient(180deg, #f1ebe2 60%, #ffffff 100%);
 }
-.row button.command[title]:after {
-  content: attr(title);
+.row button.command[data-title]:after {
+  content: attr(data-title);
   position: absolute;
   color: #986b31;
   background-color: #f9f8f4;
@@ -321,7 +329,6 @@ i.icon.block {
   height: 1.5em;
   line-height: 1.5em;
   top: 12px;
-  left: -60px;
   width: 60px;
   border-radius: 5px;
   display: block;
@@ -332,9 +339,14 @@ i.icon.block {
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.row button.command[title]:hover:after {
+.row button.command[data-title]:hover:after {
   visibility: visible;
   opacity: 100;
+}
+.row button.command[data-title]:after {
+  left: -60px;
+}
+.row button.command[data-title]:hover:after {
   left: -70px;
 }
 .row button.command.sp {

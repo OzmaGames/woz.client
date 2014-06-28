@@ -1,13 +1,33 @@
 ﻿<div style="font-size: 18px">
    <span class="loader-bar center" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
-   <div class="table-flex" data-bind="foreach: list">
-      <div class="row mild-padding" style="max-width:520px">
-         <!--ko if: flag--><div class="ribbon" data-bind="text: flag.flag, style: {backgroundColor: flag.colour}"></div><!-- /ko-->
-         <div class="item-icon currency" data-bind="css: 'item-icon-index-' + iconID "></div>
-         <span class="besoz"><span data-bind="text: besoz"></span> besoz</span>
-         <span class="price"><span data-bind="text: price"></span> USD</span>
-         <button class="orange xsm pull-right" data-bind="click: $parent.buy">BUY</button>
-         <span class="discount" data-bind="if: discount, text:discount"></span>
-      </div>
+   <div class="poem-page" data-bind="foreach: {data: list, afterRender: afterRender}">
+      <div class="cell">
+         <button class="share">
+            share
+            <div class="tooltip">
+               <i class="social fb" data-bind="click: $root.facebook"></i>
+               <i class="social pn disabled"></i>
+               <i class="social tw disabled"></i>
+            </div>
+         </button>
+         <button class="right icon-trash" data-bind="click: $root.remove"></button>
+         <div class="slider">
+            <div data-bind="tile: {tile: {imageName: imageName }}" style="height: 422px" class="poem-mask">
+               <div data-part="text">
+                  <div class="confiner" data-bind="with: $parent">
+                     <div class="poem-container" data-bind="css: 'light shade-2'">
+                        <div class="row" data-bind="css: {none: title == '' }"></div>
+                        <div class="row" data-bind="css: {none: title == '' }">
+                           <h1 data-bind="text: title, resizeText: {maxWidth: 220, size: {max: 1.5, min: 1.05 } }"></h1>
+                        </div>
+                        <div class="poem" data-bind="style: {fontSize: size + 'px'}, foreach: poemString">
+                           <div class="phrase" data-bind="text: $data"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>      
    </div>
 </div>

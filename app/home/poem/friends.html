@@ -1,17 +1,25 @@
 ﻿<div style="font-size: 18px">
-   <p style="max-width:520px;margin-left:1em; text-align:center">
-      You currently have space for <span class="bold" data-bind="text: (storage() ? storage(): 'unlimited')"></span> games in your archive. Get more space for your archived games!
-   </p>
-   <span class="loader-bar pull-right" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
-   <div class="table-flex" data-bind="foreach: list">
-      <div class="row mild-padding" style="max-width:520px" data-bind="css: {disabled: $root.storage() >= storage && (storage != 0 || storage == $root.storage()) || $root.storage() == 0}">
-         <!--ko if: flag--><div class="ribbon" data-bind="text: flag.flag, style: {backgroundColor: flag.colour}"></div><!-- /ko-->
-         <div class="item-icon storage" data-bind="css: 'item-icon-index-' + iconID "></div>
-         <span class="besoz" data-bind="text: text"></span>
-         <span class="price" style="width:150px"><span data-bind="text: price"></span> besoz</span>
-         <!--ko ifnot: $root.storage() >= storage && (storage != 0 || storage == $root.storage()) || $root.storage() == 0-->
-         <button class="orange xsm pull-right" data-bind="click: $parent.buy">BUY</button>
-         <!-- /ko -->
+   <span class="loader-bar center" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
+   <div class="poem-page" data-bind="foreach: {data: list, afterRender: afterRender}">
+      <div class="cell" data-title="Ali">
+         <button class="right icon-heart" data-bind="click: $root.like"></button>
+         <div class="slider">
+            <div data-bind="tile: {tile: {imageName: imageName }}" style="height: 422px" class="poem-mask">
+               <div data-part="text">
+                  <div class="confiner" data-bind="with: $parent">
+                     <div class="poem-container" data-bind="css: 'light shade-2'">
+                        <div class="row" data-bind="css: {none: title == '' }"></div>
+                        <div class="row" data-bind="css: {none: title == '' }">
+                           <h1 data-bind="text: title, resizeText: {maxWidth: 220, size: {max: 1.5, min: 1.05 } }"></h1>
+                        </div>
+                        <div class="poem" data-bind="style: {fontSize: size + 'px'}, foreach: poemString">
+                           <div class="phrase" data-bind="text: $data"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 </div>
