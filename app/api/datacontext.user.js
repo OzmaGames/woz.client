@@ -45,6 +45,7 @@
       this.friends.load = loadFriends;
       this.friends.has = isFriendWith;
       this.friends.search = searchFriends;
+      this.friends.add = addFriend;
 
       app.on( "account:login" ).then( function ( json ) {
          userAuthenticated( { username: json.username, online: 1 } );
@@ -94,7 +95,7 @@
                   } )
                   base.friends( data.friends );
                   dfd.resolve( data.friends );
-               }               
+               }
                base.loading( base.loading() - 1 );
             } );
          } );
@@ -110,6 +111,15 @@
                }
 
                dfd.resolve( data.users );
+            } );
+         } )
+      }
+
+      function addFriend( username ) {
+         return $.Deferred( function ( dfd ) {
+            app.trigger( "server:friends", { username: base.username, command: 'add', friendUsername: username }, function (json) {
+               dfd.resolve( json );
+               loadFriends();
             } );
          } )
       }

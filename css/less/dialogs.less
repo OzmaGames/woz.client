@@ -1,4 +1,6 @@
 @import '_variables.less';
+@import 'tooltip.less';
+            
 
 .dialog {
     position: fixed;
@@ -736,36 +738,9 @@
             display: block;
             font-size: 40px;
             position: relative;
-
-            &[title]:after {
-                font-size: 12px;
-                font-style: normal;
-                content: attr(title);
-                position: absolute;
-                color: @textColor;
-                background-color: @backBoxColor;
-                border: 1px solid @strokeColor;
-                height: 1.5em;
-                line-height: 1.5em;
-                top: 9px;
-                right: -70px;
-                width: 75px;
-                border-radius: 5px;
-                display: block;
-                visibility: hidden;
-                text-align: center;
-                opacity: 0;
-                -moz-transition: .3s all ease-in-out;
-                -o-transition: .3s all ease-in-out;
-                -webkit-transition: .3s all ease-in-out;
-                transition: .3s all ease-in-out;
-            }
-
-            &[title]:hover:after {
-                visibility: visible;
-                opacity: 100;
-                right: -75px;
-            }
+            
+            .has-tooltip(75px, 9px, false, 12px);
+            
         }
 
             i.addFriend {

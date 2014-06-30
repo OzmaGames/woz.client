@@ -8,6 +8,10 @@
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 .dialog {
   position: fixed;
   z-index: 100;
@@ -659,33 +663,38 @@
   font-size: 40px;
   position: relative;
 }
-.dialog .profile:not(.facebook) .cmd i[title]:after {
-  font-size: 12px;
-  font-style: normal;
-  content: attr(title);
+.dialog .profile:not(.facebook) .cmd i[data-title]:after {
+  content: attr(data-title);
   position: absolute;
+  text-align: center;
   color: #986b31;
   background-color: #f9f8f4;
   border: 1px solid #d7bea2;
   height: 1.5em;
   line-height: 1.5em;
   top: 9px;
-  right: -70px;
   width: 75px;
   border-radius: 5px;
   display: block;
   visibility: hidden;
-  text-align: center;
   opacity: 0;
   -moz-transition: 0.3s all ease-in-out;
   -o-transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.dialog .profile:not(.facebook) .cmd i[title]:hover:after {
+.dialog .profile:not(.facebook) .cmd i[data-title]:not(.disabled):hover:after {
   visibility: visible;
   opacity: 100;
+}
+.dialog .profile:not(.facebook) .cmd i[data-title]:after {
   right: -75px;
+}
+.dialog .profile:not(.facebook) .cmd i[data-title]:hover:after {
+  right: -85px;
+}
+.dialog .profile:not(.facebook) .cmd i[data-title]:after {
+  font-size: 12px;
 }
 .dialog .profile:not(.facebook) .cmd i.addFriend {
   left: 0px;

@@ -45,9 +45,6 @@ i.action, i.command {
     height: 1em;
     background-image: url('../../images/app/icons.png');
     cursor: pointer;
-    -o-background-size: 5em auto;
-    -webkit-background-size: 5em auto;
-    -moz-background-size: 5em auto;
     background-size: 5em auto; /*firefox shit! need 200px*/
     image-rendering: -moz-crisp-edges;
 }
@@ -180,9 +177,6 @@ i.command.green {
 i.command.fullscreen {
     background-image: url('../../images/game/fullscreen.png');
     background-position: 0 0 !important;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
     background-size: cover;
 }
 
@@ -197,9 +191,6 @@ i.command.close {
     top: 10px;
     right: 10px;
     background-image: url('../../images/game/Close_Btn.png');
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
     background-size: cover;
 }
 
@@ -220,9 +211,6 @@ i.command.close {
 i.command.delete {
     background-image: url('../../images/game/Close_Btn.png');
     background-position: 0 0 !important;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
     background-size: cover;
 }
 
@@ -308,6 +296,10 @@ i.icon {
     &.addFriend {
         background-image: url('../../images/app/add-player.png');
         font-size: 40px;
+    }
+
+    &.disabled{
+        .grayscale;
     }
 }
 

@@ -1371,6 +1371,10 @@ progress::-moz-progress-bar {
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
   /* Firefox 10+, Firefox on Android */
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 .dialog {
   position: fixed;
   z-index: 100;
@@ -2022,33 +2026,38 @@ progress::-moz-progress-bar {
   font-size: 40px;
   position: relative;
 }
-.dialog .profile:not(.facebook) .cmd i[title]:after {
-  font-size: 12px;
-  font-style: normal;
-  content: attr(title);
+.dialog .profile:not(.facebook) .cmd i[data-title]:after {
+  content: attr(data-title);
   position: absolute;
+  text-align: center;
   color: #986b31;
   background-color: #f9f8f4;
   border: 1px solid #d7bea2;
   height: 1.5em;
   line-height: 1.5em;
   top: 9px;
-  right: -70px;
   width: 75px;
   border-radius: 5px;
   display: block;
   visibility: hidden;
-  text-align: center;
   opacity: 0;
   -moz-transition: 0.3s all ease-in-out;
   -o-transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.dialog .profile:not(.facebook) .cmd i[title]:hover:after {
+.dialog .profile:not(.facebook) .cmd i[data-title]:not(.disabled):hover:after {
   visibility: visible;
   opacity: 100;
+}
+.dialog .profile:not(.facebook) .cmd i[data-title]:after {
   right: -75px;
+}
+.dialog .profile:not(.facebook) .cmd i[data-title]:hover:after {
+  right: -85px;
+}
+.dialog .profile:not(.facebook) .cmd i[data-title]:after {
+  font-size: 12px;
 }
 .dialog .profile:not(.facebook) .cmd i.addFriend {
   left: 0px;
@@ -3062,10 +3071,6 @@ ul.custom-list.draggable li.hole::before {
 .tile .ctrl .box .content i.shade:last-of-type s {
   text-shadow: 1px 1px 3px #666, 0px 0px 0px #666;
 }
-/*.aaa{
-    .has-tooltip(60px);
-
-}*/
 .actions {
   background: #faf5ef;
   padding: 5px;
@@ -3097,6 +3102,7 @@ ul.custom-list.draggable li.hole::before {
 .actions .btn[data-title]:after {
   content: attr(data-title);
   position: absolute;
+  text-align: center;
   color: #986b31;
   background-color: #f9f8f4;
   border: 1px solid #d7bea2;
@@ -3113,7 +3119,7 @@ ul.custom-list.draggable li.hole::before {
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.actions .btn[data-title]:hover:after {
+.actions .btn[data-title]:not(.disabled):hover:after {
   visibility: visible;
   opacity: 100;
 }
@@ -3132,9 +3138,6 @@ i.command {
   height: 1em;
   background-image: url(../../images/app/icons.png);
   cursor: pointer;
-  -o-background-size: 5em auto;
-  -webkit-background-size: 5em auto;
-  -moz-background-size: 5em auto;
   background-size: 5em auto;
   /*firefox shit! need 200px*/
   image-rendering: -moz-crisp-edges;
@@ -3245,9 +3248,6 @@ i.command.green {
 i.command.fullscreen {
   background-image: url(../../images/game/fullscreen.png);
   background-position: 0 0 !important;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
 }
 i.command.fullscreen.active {
@@ -3260,9 +3260,6 @@ i.command.close {
   top: 10px;
   right: 10px;
   background-image: url(../../images/game/Close_Btn.png);
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
 }
 i.command.close:hover,
@@ -3280,9 +3277,6 @@ i.command.close.compact {
 i.command.delete {
   background-image: url(../../images/game/Close_Btn.png);
   background-position: 0 0 !important;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
 }
 i.command.delete:active,
@@ -3359,6 +3353,14 @@ i.icon.addFriend {
   background-image: url(../../images/app/add-player.png);
   font-size: 40px;
 }
+i.icon.disabled {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+  /* Firefox 10+, Firefox on Android */
+}
 .row button.command {
   position: absolute;
   top: 0;
@@ -3377,6 +3379,7 @@ i.icon.addFriend {
 .row button.command[data-title]:after {
   content: attr(data-title);
   position: absolute;
+  text-align: center;
   color: #986b31;
   background-color: #f9f8f4;
   border: 1px solid #d7bea2;
@@ -3393,7 +3396,7 @@ i.icon.addFriend {
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
-.row button.command[data-title]:hover:after {
+.row button.command[data-title]:not(.disabled):hover:after {
   visibility: visible;
   opacity: 100;
 }

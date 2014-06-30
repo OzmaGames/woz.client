@@ -124,9 +124,7 @@
       app.Sound.play( app.Sound.sounds.click.button );
 
       var base = this;
-      app.trigger( "server:friends", {
-         username: ctx.username, command: 'add', friendUsername: friend.username
-      }, function () {
+      ctx.user.friends.add( friend.username ).then( function ( json ) {
          base.query( '' );
       } );
    };

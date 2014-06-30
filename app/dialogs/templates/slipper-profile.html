@@ -1,4 +1,5 @@
 ﻿<div class="dialog top-right modal">
+   <div class="ui-overlay transparent" data-bind="click: close"></div>
    <div class="profile" data-bind="click: close">
       <div class="title" data-bind="text: title"></div>
       <div class="username" data-bind="text: username"></div>
@@ -6,8 +7,8 @@
       <div class="level"> Level <span data-bind="text: level"></span></div>
       <div class="pic"></div>
       <div class="cmd" data-bind="visible: !owner">
-         <i class="icon addFriend" title="Add Friend" data-bind="click: $root.addFriend"></i>
-         <i class="icon block" title="Block User" data-bind="click: $root.blockUser"></i>
+         <i class="icon addFriend" data-title="Add Friend" data-bind="click: $root.addFriend, css:{disabled: $root.isFriend}"></i>
+         <i class="icon block" data-title="Block User" data-bind="click: $root.blockUser, css:{disabled: $root.isFriend}"></i>
       </div>
       <div class="level-icon" data-bind="style:{ backgroundImage: 'url(\'images/game/level/' + title().toLowerCase() + '.png\')' }"></div>
    </div>

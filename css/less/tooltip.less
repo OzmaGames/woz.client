@@ -5,6 +5,7 @@
     &[data-title]:after {
         content: attr(data-title);
         position: absolute;
+        text-align: center;
         color: @textColor;
         background-color: @backBoxColor;
         border: 1px solid @strokeColor;
@@ -22,9 +23,9 @@
         transition: .3s all ease-in-out;
     }
 
-    &[data-title]:hover:after {
+    &[data-title]:not(.disabled):hover:after {
         visibility: visible;
-        opacity: 100;        
+        opacity: 100;
     }
 }
 
@@ -48,6 +49,13 @@
         }
     }
 
+.has-tooltip(@size, @top, @left, @fontSize) {
+    .has-tooltip(@size, @top, @left);
+
+    &[data-title]:after {
+        font-size: @fontSize;
+    }
+}
 /*.aaa{
     .has-tooltip(60px);
 

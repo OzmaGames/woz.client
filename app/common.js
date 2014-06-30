@@ -79,8 +79,8 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
             modal: true
          } );
       }
-      app.dialog.showProfile = function ( besoz ) {
-         app.dialog.show( "slipper-profile" );
+      app.dialog.showProfile = function ( username ) {
+         app.dialog.show( "slipper-profile", { username: username } );
       };
 
       app.palette = palette;
