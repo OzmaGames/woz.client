@@ -1,4 +1,4 @@
-﻿define( 'game/tutorial', ['durandal/app', 'dialogs/_constants', 'api/datacontext.storage'], function ( app, consts, Storage ) {
+﻿define( 'game/tutorial', ['durandal/app', 'dialogs/_constants', 'api/context/storage'], function ( app, consts, Storage ) {
    TUT = consts.TUT;
 
    var APP = document.getElementById( "app" );

@@ -48,7 +48,7 @@
 
       activate: function () {
          return router.map( [
-            { route: ['', 'home'], moduleId: 'home/index', title: '' },
+            { route: ['', 'login', 'login/:route'], moduleId: 'home/index', title: '' },            
             { route: 'test', moduleId: 'home/test', title: 'Test' },
             { route: 'lobby', moduleId: 'home/lobby/index', title: 'My Games', nav: true },
             { route: 'poems', moduleId: 'home/poem/index', title: 'My Poems', nav: true },

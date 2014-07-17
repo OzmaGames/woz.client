@@ -21,7 +21,7 @@ requirejs.config({
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 define('socket', io);
-define('paper', paper);
+define('paper', paper );
 
 define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocator', 'api/Sound', 'common'],
   function (system, app, router, viewLocator, Sound) {

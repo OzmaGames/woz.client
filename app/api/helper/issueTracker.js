@@ -1,5 +1,5 @@
-﻿define( 'api/helper/issueTracker', ['api/history', 'firebase'], function ( history ) {
-   return;
+﻿define( 'api/helper/issueTracker', ['api/helper/history', 'firebase'], function ( history ) {
+   //return;
 
    var fb = new Firebase( "https://flickering-fire-3516.firebaseio.com/ozma/woz/issues" );
    var guid = ( function () {

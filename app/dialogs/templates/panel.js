@@ -22,9 +22,11 @@
          if ( typeof moduleName !== 'string' ) {
             this.modelName( moduleName.module );
             this.modal = true;
+            this.css = moduleName.css;
          } else {
             this.modal = false;
             this.modelName( moduleName );
+            this.css = '';
          }
          sub = app.on("app:resized:hook").then(adjust);
       },
@@ -48,7 +50,11 @@
 
       canDeactivate: function () {
          sub.off();
-         return this.el.fadeOut("fast").promise()
+         if ( this.el ) {
+            return this.el.fadeOut( "fast" ).promise()
+         } else {
+            return true;
+         }
       },
 
       modelName: ko.observable(),

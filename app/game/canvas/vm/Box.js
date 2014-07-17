@@ -231,7 +231,8 @@
    }
 
    Box.prototype.createElem = function () {
-      app.Sound.play( app.Sound.sounds.word.place );
+      if ( !this.wordModel._noPlaceSound )
+         app.Sound.play( app.Sound.sounds.word.place );
 
       var div = $( '<div/>', { 'class': 'magnet-placeholder elem' } ), magnet;
 

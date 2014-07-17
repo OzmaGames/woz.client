@@ -1,6 +1,6 @@
 ﻿define( 'api/datacontext',
   ['durandal/system', 'plugins/router', 'durandal/app', 'api/constants', 'dialogs/_constants', 'api/model/Path',
-     'api/datacontext.lobby', 'api/datacontext.user', 'api/datacontext.shop'],
+     'api/context/lobby', 'api/context/user', 'api/context/shop'],
   function ( system, router, app, consts, DIALOGS, Path, ctxLobby, ctxUser, ctxShop ) {
 
      app.on( "game:update" ).then( function ( data ) { app.trigger( "game:update:ctx", data ) } );
@@ -46,16 +46,61 @@
         size: ko.observable( 30 )
      };
 
-     model.username = sessionStorage.getItem( "username" ) || "ali";
-     app.trigger( "user:authenticated", { username: model.username, online: 1 } );
+     app.ctx = model;
 
-     app.on( 'account:login', function ( res ) {
-        if ( res.success ) {
-           model.username = res.username;
+     model.username = localStorage.getItem( "username" );
+     model.token = localStorage.getItem( "token" );
+     model.auth = $.Deferred( function ( dfd ) {
+        app.trigger( "server:user:info", { targetUsername: model.username }, function ( json ) {
+           if ( json.success ) {
+              app.trigger( "user:authenticated", { username: model.username, online: 1 } );
+              dfd.resolve();
+           } else {
+              var next = location.hash.substr( 1 );
+              if ( next != "" && !next.match( /login/ig ) && next.indexOf('/') == -1 ) {
+                 app.navigate( 'login/' + next );
+              } else {
+                 app.navigate( 'login' );
+              }
+              dfd.reject();
+           }
 
-           sessionStorage.removeItem( "lobby" );
-           sessionStorage.setItem( "username", model.username );
-        }
+           app.on( 'access:forbidden', function ( eventName ) {
+              console.log( 'access forbidden called' );
+              model.auth = $.Deferred( function ( dfd ) { dfd.reject() } ).promise();
+              app.navigate( 'account/logout' );
+           } );
+        } );
+     } ).promise();
+
+     model.logout = function () {
+        model.auth = $.Deferred( function ( dfd ) {
+           dfd.reject();
+
+           app.loading( false );
+           model.loading( false );
+           model.token = null;
+           localStorage.removeItem( "token" );
+           app.navigate( '', { replace: true, trigger: true } );
+
+        } ).promise();
+     }
+
+     app.on( 'toContext:account:login', function ( res ) {
+        model.auth = $.Deferred( function ( dfd ) {
+           if ( res.success ) {
+              model.username = res.username;
+              model.token = res.token;
+
+              sessionStorage.removeItem( "lobby" );
+              localStorage.setItem( "username", model.username );
+              localStorage.setItem( "token", model.token );
+
+              dfd.resolve();
+           } else {
+              dfd.reject();
+           }
+        } ).promise();
      } );
 
      model._gameOver = ko.observable( false );
@@ -128,8 +173,9 @@
         model.activeWords( null );
 
         app.on( "game:start", function ( json ) {
+           if ( json.success == false ) return;
            app.Sound.fade( loadingSound );
-           
+
            app.Sound.play( app.Sound.sounds.game.unfolding );
            if ( model.tutorialMode() ) {
               history.replaceState( null, "", "#tutorial/" + json.id );
@@ -342,7 +388,7 @@
                           }
                        } );
                        sub.off();
-                       
+
                        app.Sound.play(
                            data.stats == 'won' ? app.Sound.sounds.game.overWin :
                            data.stats == 'lost' ? app.Sound.sounds.game.overLose :
@@ -393,6 +439,7 @@
               if ( json.path ) {
                  var path = ko.utils.arrayFirst( model.paths(), function ( path ) { return path.id == json.path.id } );
                  path.phrase.update( json.path.phrase );
+                 path.phrase.id = json.path.phraseID;
               }
 
               if ( json.words ) {

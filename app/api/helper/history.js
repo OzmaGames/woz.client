@@ -1,4 +1,4 @@
-﻿define( 'api/history', [], function () {
+﻿define( 'api/helper/history', [], function () {
 
    var arr = [];
 

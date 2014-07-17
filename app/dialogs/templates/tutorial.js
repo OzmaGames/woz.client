@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/draggable'], function (app) {
+﻿define(['durandal/app', 'api/helper/draggable'], function (app) {
 
    function Tutorial() {
       this.heading = '';

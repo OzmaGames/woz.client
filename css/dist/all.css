@@ -36,6 +36,10 @@
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 html,
 body,
 ul,
@@ -79,7 +83,6 @@ h5,
 h6 {
   font-family: CopseRegular;
   font-weight: normal;
-  -webkit-text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
   text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
   cursor: default;
 }
@@ -504,6 +507,39 @@ a.big {
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
 }
+.grid ul.list li .btn[data-title]:after {
+  content: attr(data-title);
+  position: absolute;
+  text-align: center;
+  color: #986b31;
+  background-color: #f9f8f4;
+  border: 1px solid #d7bea2;
+  height: 1.5em;
+  line-height: 1.5em;
+  top: 10px;
+  width: 50px;
+  border-radius: 5px;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  -moz-transition: 0.3s all ease-in-out;
+  -o-transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  transition: 0.3s all ease-in-out;
+}
+.grid ul.list li .btn[data-title]:not(.disabled):hover:after {
+  visibility: visible;
+  opacity: 100;
+}
+.grid ul.list li .btn[data-title]:after {
+  left: -50px;
+}
+.grid ul.list li .btn[data-title]:hover:after {
+  left: -60px;
+}
+.grid ul.list li .btn[data-title]:after {
+  font-size: 12px;
+}
 .grid ul.list li .btn i {
   display: inline-block;
 }
@@ -585,6 +621,9 @@ a.big {
 }
 .pic.loc {
   background-image: url(../../images/tiles/collections/loc.png);
+}
+.pic.vin {
+  background-image: url(../../images/tiles/collections/vin.png);
 }
 .pic.more {
   background-image: url(../../images/tiles/collections/more.png);
@@ -732,6 +771,14 @@ a.big {
 }
 .font-smaller {
   font-size: .9em;
+}
+.description .desc {
+  line-height: 1.2em;
+  max-height: 3.7em;
+  overflow-y: hidden;
+  -ms-text-overflow: ellipsis ellipsis;
+  -o-text-overflow: ellipsis ellipsis;
+  text-overflow: ellipsis ellipsis;
 }
 .font-bigger {
   font-size: 1.1em;
@@ -1107,7 +1154,7 @@ a.big {
   box-shadow: inset #666666 0 0 10px -3px;
 }
 .table-flex .ribbon.yellow {
-  background-color: #f5cf76;
+  background-color: #f6c34d;
 }
 .table-flex .ribbon.blue {
   background-color: #5cb0c6;
@@ -1156,6 +1203,7 @@ a.big {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 0.7em 0;
 }
 .table-flex .collection .description {
   display: inline-block;
@@ -1169,9 +1217,6 @@ a.big {
   height: 150px;
   background-position: center center;
   background-repeat: no-repeat;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  -webkit-background-size: contain;
   background-size: contain;
   vertical-align: middle;
   font-size: 1.5em;
@@ -1181,6 +1226,12 @@ a.big {
 }
 .table-flex .collection .couple.woz-boost1 {
   background-image: url(../../images/tiles/collections/shop-woz-booster.png);
+}
+.table-flex .collection .couple.vin {
+  background-image: url(../../images/tiles/collections/shop-vin.png);
+}
+.table-flex .collection .couple.vin-boost1 {
+  background-image: url(../../images/tiles/collections/shop-vin-booster.png);
 }
 .table-flex .collection .couple.nf {
   background-image: url(../../images/tiles/collections/shop-nf.png);
@@ -1371,10 +1422,14 @@ progress::-moz-progress-bar {
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
   /* Firefox 10+, Firefox on Android */
 }
-/*.aaa{
-    .has-tooltip(60px);
-
-}*/
+.absolute-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
 .dialog {
   position: fixed;
   z-index: 100;
@@ -1830,6 +1885,9 @@ progress::-moz-progress-bar {
   width: 20em;
   margin: 0 auto;
 }
+.dialog .panel.payment {
+  width: 800px;
+}
 .dialog .panel h1 {
   font-weight: normal;
   font-size: 1.5em;
@@ -2086,9 +2144,6 @@ input[type="checkbox"] + span {
   padding: 1px;
   overflow: hidden;
   background-image: linear-gradient(90deg, #f5cf76 50%, #e5d7bd 50%), linear-gradient(rgba(0, 0, 0, 0.1), transparent);
-  -moz-background-size: 200% 100%;
-  -o-background-size: 200% 100%;
-  -webkit-background-size: 200% 100%;
   background-size: 200% 100%;
   background-position: 100% 0;
   -moz-transition-duration: .4s;
@@ -2121,7 +2176,6 @@ input[type="checkbox"] + span:before {
   background: white;
   box-shadow: -1px -1px 5px 0.02px #ffffff inset, -0.1em -0.2em 0.7em 0.4em #cfa972 inset, 1px 1px 0.5em rgba(0, 0, 0, 0.9);
   color: #986B31;
-  -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   text-indent: -2.5em;
 }
@@ -2210,9 +2264,6 @@ label .pic {
   left: -10px;
   bottom: -10px;
   width: 90px;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  -webkit-background-size: contain;
   background-size: contain;
   background-position: left center;
   background-repeat: no-repeat;
@@ -2223,9 +2274,6 @@ label .pic span {
   height: 45px;
   border-radius: 100%;
   border: 3px solid white;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
 }
 label:last-child {
@@ -2415,14 +2463,13 @@ button.centered {
   margin: 0 auto;
   margin-bottom: .5em;
 }
-button:hover {
+button:not(.orange):not(.blue):not(.facebook):hover {
   box-shadow: 0 0 4px #986B31;
 }
 button.orange,
 button.blue {
   font-size: 1.4em;
   padding: .3em 1em;
-  -webkit-text-shadow: 0 0 2px white;
   text-shadow: 0 0 2px white;
   color: white;
   text-transform: uppercase;
@@ -2463,14 +2510,43 @@ button.flat {
   padding: .3em 1em;
   font-size: .8em;
   box-shadow: none !important;
-  -webkit-text-shadow: none !important;
   text-shadow: none !important;
   letter-spacing: .08em;
 }
 button.orange {
   border-color: white;
   background-color: #ECB661;
-  box-shadow: 0 -0.9em 1em 0.01em rgba(192, 157, 108, 0.5) inset, 0 0.2em 0.5em 0.2em rgba(230, 157, 95, 0.7) inset, 0 0.8em 0.5em 0.1em rgba(255, 255, 255, 0.5) inset;
+  /*box-shadow: 0 -.9em 1em .01em rgba(192, 157, 108, .5) inset,
+             0 .2em .5em .2em rgba(230, 157, 95, .7) inset,
+             0 .8em .5em .1em rgba(255, 255, 255, .5) inset;*/
+  /*box-shadow: 0 0.3em 0.5em 0.2em rgba(230, 157, 95, 0.7) inset, 0 0.7em 0.7em 0.1em rgba(255, 255, 255, 0.5) inset,-.1em 0em 0.6em 0.11em rgba(255,255,255, 0.5) inset;*/
+  position: relative;
+  z-index: 0;
+}
+button.orange:not(.flat):before {
+  content: "";
+  position: absolute;
+  top: 0.2em;
+  left: 0.2em;
+  right: 0.2em;
+  bottom: 1.3em;
+  z-index: -1;
+  background: #f6efe5;
+  box-shadow: 0 0 3px 1px white;
+  border-radius: .2em;
+  opacity: 0.3;
+}
+button.orange:not(.flat):after {
+  content: "";
+  position: absolute;
+  top: .5em;
+  left: 0.2em;
+  right: 0.2em;
+  bottom: .2em;
+  z-index: -2;
+  border-radius: 0.3em;
+  background: linear-gradient(0, #f5c994, #f1944e 30%);
+  opacity: .5;
 }
 button.orange:active:not(:disabled) {
   box-shadow: 0 0.1em 0.5em 0.4em rgba(186, 132, 86, 0.7) inset, 0 0.7em 0.3em 0.1em rgba(255, 255, 255, 0.5) inset;
@@ -2506,9 +2582,6 @@ button.menuItem {
 }
 button.facebook {
   background-image: url(../../images/app/facebook-button.png);
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  -webkit-background-size: contain;
   background-size: contain;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -2520,7 +2593,6 @@ button.facebook {
   padding: 1em;
   padding-left: 3em;
   color: #4B5EA2;
-  -webkit-text-shadow: 0 0 3px rgba(44, 119, 186, 0.2);
   text-shadow: 0 0 3px rgba(44, 119, 186, 0.2);
 }
 button.facebook:hover,
@@ -2551,9 +2623,6 @@ button.facebook,
   display: inline-block;
   width: 50px;
   height: 50px;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
   margin: 0 1em;
   float: right;
@@ -3187,6 +3256,19 @@ i.command.accept {
 }
 i.command.menu {
   background-position: 0 -5em;
+  top: 30px;
+  position: relative;
+  /*font-style: normal;
+    .has-tooltip(50px, 12px, true, 12px );
+
+    &[data-title]:after {
+        
+        left: -40px;
+    }
+
+    &[data-title]:hover:after {
+        left: -50px;
+    }*/
 }
 i.command.connection,
 i.command.fullscreen {
@@ -3319,10 +3401,11 @@ i.command.currency {
   height: 80px;
   margin-left: -20px;
   color: #986B31;
-  font-size: 13px;
+  font-size: 14px;
   text-shadow: 0 0 1px #986B31;
   line-height: 53px;
   text-align: center;
+  font-style: normal;
 }
 i.command.currency:hover,
 i.command.currency:active {
@@ -3472,6 +3555,10 @@ hr {
   float: left;
   margin-left: 20px;
   color: #996b2d;
+  cursor: pointer;
+}
+.player:hover .name {
+  text-decoration: underline;
 }
 .player .decoration {
   position: relative;
@@ -3832,6 +3919,9 @@ body > .cloud.fixed .rule {
 #tiles.woz .mask {
   background-image: url(../../images/tiles/woz.jpg);
 }
+#tiles.vin .mask {
+  background-image: url(../../images/tiles/vin.jpg);
+}
 #tiles.nf .mask {
   background-image: url(../../images/tiles/nf.jpg);
 }
@@ -3841,6 +3931,9 @@ body > .cloud.fixed .rule {
 @media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
   #tiles.woz .mask {
     background-image: url(../../images/tiles/woz-b.jpg);
+  }
+  #tiles.vin .mask {
+    background-image: url(../../images/tiles/vin-b.jpg);
   }
   #tiles.nf .mask {
     background-image: url(../../images/tiles/nf-b.jpg);
@@ -4212,7 +4305,6 @@ body > .cloud.fixed .rule {
   content: attr(data-title);
   position: absolute;
   top: -19px;
-  /*font-size:20px;*/
   line-height: 20px;
   left: -1px;
   right: -1px;
@@ -4226,6 +4318,24 @@ body > .cloud.fixed .rule {
   border-bottom-right-radius: 0;
   text-align: center;
   font-size: 15px;
+  font-weight: bold;
+  text-shadow: none;
+}
+.poem-page .cell .footer {
+  position: absolute;
+  bottom: 0;
+  left: .5em;
+  right: .5em;
+  line-height: 1.5em;
+  font-size: .9em;
+}
+.poem-page .cell .footer .likes {
+  display: inline-block;
+}
+.poem-page .cell .footer .date {
+  display: inline-block;
+  position: absolute;
+  right: 0;
 }
 .poem-page .cell button {
   border: 1px solid #d7bea2;
@@ -4260,13 +4370,14 @@ body > .cloud.fixed .rule {
   -webkit-transition: all .3s;
   transition: all .3s;
   box-shadow: none;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  -moz-transform: scale3d(0.9, 0.9, 0.9);
+  -ms-transform: scale3d(0.9, 0.9, 0.9);
+  -o-transform: scale3d(0.9, 0.9, 0.9);
+  -webkit-transform: scale3d(0.9, 0.9, 0.9);
+  transform: scale3d(0.9, 0.9, 0.9);
 }
 .poem-page .cell button.right:hover {
+  box-shadow: none;
   /*background-color: inherit !important;
                     -moz-transform: scale3d(1.1,1.1,1);
                     -ms-transform: scale3d(1.1,1.1,1);

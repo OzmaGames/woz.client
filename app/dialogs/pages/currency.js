@@ -9,11 +9,14 @@
       ctx.shop.besozes.load();
 
       this.buy = function ( item ) {
-         ctx.user.buyBesoz( item.besoz ).then( function () {
-            app.dialog.close("notice").then( function () {
-               app.dialog.showBesozBought();
-            } );            
-         } );
+
+         app.dialog.show( "panel", { module: 'api/ui/paymentwall', fixed: true, css: 'payment' } );
+
+         //ctx.user.buyBesoz( item.besoz ).then( function () {
+         //   app.dialog.close("notice").then( function () {
+         //      app.dialog.showBesozBought();
+         //   } );            
+         //} );
       }      
    }
 

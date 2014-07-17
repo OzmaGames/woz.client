@@ -1,13 +1,21 @@
 ﻿<div style="font-size: 18px">
-   <span class="loader-bar center" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
-   <div class="poem-page" data-bind="foreach: {data: list, afterRender: afterRender}">
-      <div class="cell" data-title="Ali">
-         <button class="right icon-heart" data-bind="click: $root.like"></button>
+   <span class="loader-bar" style="position:absolute; right: 0" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
+   <div class="poem-page" data-bind="foreach: {data: visibleList, afterRender: afterRender}, loadMore: $root.loadNextPage">
+      <div class="cell" data-bind="attr: {'data-title': username}">
+         <button class="right" data-bind="click: $root.like, css: (liked() ? 'icon-heart': 'icon-heart-empty') "></button>
+         <div class="footer">
+            <div class="likes">
+               <span class="icon-heart"></span>
+               <span data-bind="text: likes"></span> like this               
+            </div>
+            <div class="date" data-bind="date: creationDate"></div>
+         </div>
          <div class="slider">
             <div data-bind="tile: {tile: {imageName: imageName }}" style="height: 422px" class="poem-mask">
                <div data-part="text">
                   <div class="confiner" data-bind="with: $parent">
-                     <div class="poem-container" data-bind="css: 'light shade-2'">
+                     <div class="poem-container"
+                          data-bind="css: light ? ('light shade-' + shadow ): ('dark shade-'+  shadow)">
                         <div class="row" data-bind="css: {none: title == '' }"></div>
                         <div class="row" data-bind="css: {none: title == '' }">
                            <h1 data-bind="text: title, resizeText: {maxWidth: 220, size: {max: 1.5, min: 1.05 } }"></h1>

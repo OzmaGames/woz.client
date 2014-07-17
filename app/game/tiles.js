@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/datacontext', 'api/draggable'], function (app, ctx) {
+﻿define(['durandal/app', 'api/datacontext', 'api/helper/draggable'], function (app, ctx) {
 
    var instructionDoms = [], topPadding = 15;
    var RADIUS = 75;

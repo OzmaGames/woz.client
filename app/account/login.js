@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/constants', './oAuth/FB'], function ( app, constants, FB ) {
+﻿define( ['durandal/app', 'api/datacontext', 'api/constants', './oAuth/FB'], function ( app, ctx, constants, FB ) {
 
    function updateProfile() {
       $( 'button.facebook' ).transition( { y: -50 } );
@@ -8,7 +8,9 @@
    function ctor() {
       this.loading = app.loading;
       this.facebookLogin = true;
-      this.username = ko.observable().extend( {
+      this.hasUsername = ( ctx.username && ctx.username.length > 2 && ctx.username.length < 20 );
+
+      this.username = ko.observable( this.hasUsername ? ctx.username : '' ).extend( {
          required: "You need to enter you username or e-mail",
          stringLength: { minLength: 3, message: "Incorrect e-mail or username" }
       } );
@@ -45,6 +47,7 @@
                updateProfile();
 
                app.trigger( "server:account:fb", { fbToken: app.facebook.authResponse }, function ( res ) {
+                  app.loading( false );
                   if ( res.success && !res.username ) {
                      app.trigger( 'account:view:change', 'account/facebook' );
                   } else if ( res.success ) {
@@ -52,13 +55,19 @@
                      app.ctx.needTutorial = res.tutorial || false;
 
                      app.dialog.close( "panel" );
+
+                     app.trigger( 'toContext:account:login', res );
                      app.trigger( 'account:login', res );
 
                      if ( app.ctx.needTutorial ) {
                         app.navigate( "tutorial" );
                         //app.trigger("server:tutorial:start", { username: res.username });
                      } else {
-                        app.navigate( "lobby" );
+                        if ( ctx.nextRoute ) {
+                           app.navigate( ctx.nextRoute );
+                        } else {
+                           app.navigate( "lobby" );
+                        }                        
                      }
                   }
                } );
@@ -86,13 +95,18 @@
             app.ctx.needTutorial = res.tutorial || false;
 
             app.dialog.close( "panel" );
+            app.trigger( 'toContext:account:login', res );
             app.trigger( 'account:login', res );
 
             if ( app.ctx.needTutorial ) {
                app.navigate( "tutorial" );
                //app.trigger("server:tutorial:start", { username: res.username });
             } else {
-               app.navigate( "lobby" );
+               if ( ctx.nextRoute ) {
+                  app.navigate( ctx.nextRoute );
+               } else {
+                  app.navigate( "lobby" );
+               }
             }
          } else {
             base.errorMessage( res.message );

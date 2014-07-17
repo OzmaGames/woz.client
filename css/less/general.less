@@ -1,4 +1,5 @@
 ﻿@import '_variables.less';
+@import 'tooltip.less';
 
 html, body, ul, button, h1, h2, h3, h4, h5, p {
     padding: 0;
@@ -32,7 +33,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: CopseRegular;
     font-weight: normal;
-    -webkit-text-shadow: 0 0 1px @textShadowColor;
     text-shadow: 0 0 1px @textShadowColor;
     cursor: default;
 }
@@ -523,6 +523,8 @@ a.small {
             border-left: 1px solid @rowColor;
             border-bottom-right-radius: 5px;
             border-top-right-radius: 5px;
+
+            .has-tooltip(50px, 10px, true, 12px);
         }
 
             .grid ul.list li .btn i {
@@ -620,6 +622,10 @@ a.small {
 
 .pic.loc {
     background-image: url('../../images/tiles/collections/loc.png');
+}
+
+.pic.vin {
+    background-image: url('../../images/tiles/collections/vin.png');
 }
 
 .pic.more {
@@ -794,6 +800,15 @@ a.small {
 
 .font-smaller {
     font-size: .9em;
+}
+
+.description .desc {
+    line-height: 1.2em;
+    max-height: 3.7em;
+    overflow-y: hidden;
+    -ms-text-overflow: ellipsis ellipsis;
+    -o-text-overflow: ellipsis ellipsis;
+    text-overflow: ellipsis ellipsis;
 }
 
 .font-bigger {
@@ -1223,7 +1238,7 @@ a.small {
     }
 
         .table-flex .ribbon.yellow {
-            background-color: @yellow;
+            background-color: @darkYellow;
         }
 
         .table-flex .ribbon.blue {
@@ -1283,6 +1298,7 @@ a.small {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    padding: 0.7em 0;
 
     & .description {
         display: inline-block;
@@ -1297,9 +1313,6 @@ a.small {
         height: 150px;
         background-position: center center;
         background-repeat: no-repeat;
-        -moz-background-size: contain;
-        -o-background-size: contain;
-        -webkit-background-size: contain;
         background-size: contain;
         vertical-align: middle;
         font-size: 1.5em;
@@ -1310,6 +1323,14 @@ a.small {
 
         &.woz-boost1 {
             background-image: url('../../images/tiles/collections/shop-woz-booster.png');
+        }
+
+        &.vin {
+            background-image: url('../../images/tiles/collections/shop-vin.png');
+        }
+
+        &.vin-boost1 {
+            background-image: url('../../images/tiles/collections/shop-vin-booster.png');
         }
 
         &.nf {
@@ -1523,4 +1544,10 @@ progress {
     &.disabled {
         .grayscale;
     }
+}
+
+
+.absolute-center {
+    .absolute-full;
+    margin: auto;
 }

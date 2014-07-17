@@ -1,6 +1,6 @@
-﻿define( 'api/datacontext.lobby', ['durandal/app', './datacontext.storage'], function ( app, Storage ) {
+﻿define( 'api/context/lobby', ['durandal/app', './storage'], function ( app, Storage ) {
 
-   var version = 0.46;
+   var version = 0.50;
 
    Object.beget = ( function ( Function ) {
       return function ( Object ) {
@@ -9,6 +9,7 @@
       }
    } )( function () { } );
 
+   return new Lobby();
 
    function Lobby() {
       var base = this, _user, storage;
@@ -47,7 +48,7 @@
             if ( game.playerCount == 2 ) {
                var exist = ko.utils.arrayFirst( notifications, function ( ntf ) { return ntf.gameID == game.gameID; } );
                if ( !exist ) {
-                  app.Sound.play( app.Sound.sounds.notification );
+                  if ( !game.seen ) app.Sound.play( app.Sound.sounds.notification );
 
                   notifications.push( game );
                   if ( !game.isPlayerCreator ) {
@@ -65,9 +66,9 @@
       } );
 
       function pullGames() {
-         //debugger;
+         if ( !storage ) return;
          //if ( base.loading() ) return;
-
+         
          var since = storage.since.load();
 
          if ( since && !base.games().length ) {
@@ -77,8 +78,12 @@
 
          base.loading( true );
          app.trigger( "server:lobby", { username: _user.username, modDate: since }, function ( data ) {
-            if ( data.success && data.games.length ) {
-               publishGames( data.games );
+            
+            if ( data.success ) {
+               removeGames( data.deletedIDs );
+               if ( data.games.length ) {
+                  publishGames( data.games );
+               }                          
             }
             base.loading( false );
          } );
@@ -162,6 +167,31 @@
          } );
       }
 
+      function removeGames( ids ) {
+         if ( !ids || ids.length == 0 ) return;
+         var localGames = storage.games.load();
+
+         var refreshNeeded = false;
+         while ( ids.length ) {
+            var id = ids.pop();
+            for ( var i = 0; i < localGames.length; i++ ) {
+               if ( localGames[i].gameID == id ) {
+                  localGames.splice( i, 1 );
+                  refreshNeeded = true;
+                  break;
+               }
+            }
+         }
+
+         storage.games.save( localGames );
+
+         if ( refreshNeeded ) {            
+            base.games.removeAll();
+            base.notifications.removeAll();
+            base.games( polish( storage.games.loadCopy() ) );
+         }
+      }
+
       function publishGames( games ) {
          var localGames = storage.games.load(), hasChanges = false;
 
@@ -179,8 +209,8 @@
             var localGame = ko.utils.arrayFirst( localGames, function ( localGame ) {
                return localGame.gameID == game.gameID;
             } );
-            
-            if ( localGame ) {               
+
+            if ( localGame ) {
                oldSeen = localGame.seen;
                updateGameInfo( localGame, game );
             } else {
@@ -223,6 +253,7 @@
       }
 
       function saveChanges() {
+         if ( !storage ) return;
          var localGames = storage.games.load(), games = base.games();
 
          for ( var i = 0; i < localGames.length; i++ ) {
@@ -307,5 +338,5 @@
       }
    }
 
-   return new Lobby();
+
 } );

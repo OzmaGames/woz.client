@@ -10,9 +10,9 @@
 <p>or</p>
 
 <form data-bind="verifiableSubmit: login">
-   <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username, disable: loading" autofocus autocorrect="off" autocapitalize="off" />
+   <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username, disable: loading, attr: { autofocus: !hasUsername }" autocorrect="off" autocapitalize="off" />
    <span class="error" data-bind="text: username.validationMessage"></span>
-   <input type="password" placeholder="Password" data-bind="verifiableValue: password, disable: loading" />
+   <input type="password" placeholder="Password" data-bind="verifiableValue: password, disable: loading, attr: { autofocus: hasUsername }" />
    <span class="error" data-bind="text: password.validationMessage"></span>
 
    <p class="error" data-bind="text: errorMessage"></p>

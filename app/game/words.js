@@ -1,4 +1,4 @@
-﻿define( ['api/datacontext', 'api/draggable'], function ( ctx, draggable ) {
+﻿define( ['api/datacontext', 'api/helper/draggable'], function ( ctx, draggable ) {
 
    var unplayedWords = ctx.unplayedWords;
    var qSet = [];

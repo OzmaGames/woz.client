@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'api/draggable.static'], function (app) {
+﻿define(['durandal/app', 'api/helper/draggable.static'], function (app) {
 
   function Window() {
     this.heading = '';

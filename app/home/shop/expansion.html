@@ -11,11 +11,11 @@
                <div class="description">
                   <div class="upper font-smaller" data-bind="text: type"></div>
                   <div class="bold italic font-bigger" data-bind="text: longName"></div>
-                  <div class="font-smaller" data-bind="text: description"></div>
-                  <div>
+                  <div class="font-smaller desc" data-bind="text: description"></div>
+                  <i>
                      Tiles: <span data-bind="text: nImages"></span>,
                      New Words: <span data-bind="text: nWords"></span>
-                  </div>
+                  </i>
                   <div data-bind="if: !purchased()">
                      <button class="orange sm" data-bind="click: $root.buy, disable: $root.loading">BUY</button>
                   </div>
@@ -30,11 +30,11 @@
                <div class="description">
                   <div class="upper font-smaller" data-bind="text: type"></div>
                   <div class="bold italic font-bigger" data-bind="text: longName"></div>
-                  <div class="font-smaller" data-bind="text: description"></div>
-                  <div>
+                  <div class="font-smaller desc" data-bind="text: description"></div>
+                  <i>
                      Tiles: <span data-bind="text: nImages"></span>,
                      New Words: <span data-bind="text: nWords"></span>
-                  </div>
+                  </i>
                   <div data-bind="if: !purchased()">
                      <button class="orange sm" data-bind="click: $root.buy, disable: $root.loading">BUY</button>
                   </div>

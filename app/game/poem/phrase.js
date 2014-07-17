@@ -35,7 +35,7 @@
             var z = p.phrase.words.sort( function ( a, b ) { return a.index - b.index; } ).map( function ( w ) { return w.word.lemma; } ).join( ' ' );
             return {
                phrase: z,
-               id: p.id,
+               id: p.phrase.id,
                index: index,
                excluded: false
             }

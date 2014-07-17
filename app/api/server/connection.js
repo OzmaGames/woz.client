@@ -1,64 +1,99 @@
-﻿define(['durandal/app', 'api/history'], function (app, history) {
-   
+﻿define( ['durandal/app', 'api/helper/history', 'api/helper/Log'], function ( app, history, LOG ) {
+
    var url = "http://wordsdevel.herokuapp.com:80";
    //var url = "http://wordstesting.herokuapp.com:80";
    //var url = "http://localhost:8080";
    //var url = "http://wozbeta.herokuapp.com:80";
-   
-   var socket = io.connect(url);   
-   
+
+   var socket = io.connect( url );
+
    var state;
 
-   socket.on('connect', function () {
-      console.log("%c" + "connected", "background: green; color: white");
+   //var Log = LOG.getLog(LOG.themes.)
+
+   socket.on( 'connect', function () {
+      LOG.instance.log( "connected", null, LOG.themes.green );
+
       app.trigger( "socket:status", "connect" );
-      app.trigger("socket:server", url.match(/devel/gi));
+      app.trigger( "socket:server", url.match( /devel/gi ) );
       state = true;
 
       history.pushHistory( { event: 'connected' } );
-   });
+   } );
 
-   socket.on('disconnect', function () {
-      console.log("%c" + "disconnected", "background: red; color: white");
-      app.trigger("socket:status", "disconnect");
+   socket.on( 'disconnect', function () {
+      LOG.instance.log( "disconnected", null, LOG.themes.red );
+
+      app.trigger( "socket:status", "disconnect" );
       state = false;
 
       history.pushHistory( { event: 'disconnected' } );
-   });
+   } );
 
    var server = {
       addEvent: addEvent,
-      addEmission: function (event) {
-         addEvent(event, function (data, callback, socket) {
-            socket.emit(event, data, callback);
-         });
+      addEmission: function ( event ) {
+         addEvent( event, function ( data, callback, socket ) {
+            socket.emit( event, data, callback );
+         } );
       },
+      addToken: addToken,
       socket: socket,
-      connected: $.Deferred(function (dfd) {
-         if (state) dfd.resolve();
-         app.on("socket:status", resolve, dfd);
+      connected: $.Deferred( function ( dfd ) {
+         if ( state ) dfd.resolve();
+         app.on( "socket:status", resolve, dfd );
 
-         function resolve(status) {
-            if (status == 'connect') dfd.resolve();
-            app.off("socket:status", resolve, dfd);
+         function resolve( status ) {
+            if ( status == 'connect' ) dfd.resolve();
+            app.off( "socket:status", resolve, dfd );
          }
-      }).promise()
+      } ).promise()
    }
 
-   function addEvent(event, func) {
+   function addEvent( event, func ) {
       event = "server:" + event;
       app.on( event ).then( function ( data, callback ) {
-         server.connected.then(function () {
-            console.log( '%c' + event + ' sent:', 'background: #222; color: #bada55', data );
+
+         addToken( event, data );
+
+         server.connected.then( function () {
+            LOG.instance.log( event + ' sent', data, LOG.themes.black );
+
             history.pushHistory( { event: event, send: true } );
             func( data, function ( sdata ) {
-               console.log( '%c' + event + ' received:', 'background: #222; color: #bada55', sdata );
                history.pushHistory( { event: event, received: true } );
-               if (callback) callback(sdata);
-            }, socket );            
-         });
-      });
+
+               LOG.instance.log( event + ' received', sdata, LOG.themes.black );
+               if ( sdata.success !== true ) {
+                  LOG.instance.log( event, 'success failed', LOG.themes.warn );
+                  if ( sdata.code == 403 ) {
+                     LOG.instance.log( event, '403 forbidden', LOG.themes.red );
+                     app.trigger( 'access:forbidden', event );
+                     history.pushHistory( { forbidden: true, event: event, request: data, response: sdata } );                     
+                  }
+               }
+
+               if ( callback ) {
+                  if ( !( sdata.success === false && sdata.code === 403 ) || event == "server:user:info" ) {
+                     callback( sdata );
+                  }
+               }
+            }, socket );
+         } );
+      } );
+   }
+
+   function addToken( event, json ) {
+      //if ( event.match( /account/i ) ) return;
+      if ( app.ctx ) {
+         if ( !( 'username' in json ) ) {
+            json.username = app.ctx.username;
+         }
+         json.token = app.ctx.token;
+      } else {
+         LOG.instance.log( "* " + event, json, LOG.themes.warn );
+      }
    }
 
    return server;
-});
+} );

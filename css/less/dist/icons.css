@@ -128,6 +128,19 @@ i.command.accept {
 }
 i.command.menu {
   background-position: 0 -5em;
+  top: 30px;
+  position: relative;
+  /*font-style: normal;
+    .has-tooltip(50px, 12px, true, 12px );
+
+    &[data-title]:after {
+        
+        left: -40px;
+    }
+
+    &[data-title]:hover:after {
+        left: -50px;
+    }*/
 }
 i.command.connection,
 i.command.fullscreen {
@@ -260,10 +273,11 @@ i.command.currency {
   height: 80px;
   margin-left: -20px;
   color: #986B31;
-  font-size: 13px;
+  font-size: 14px;
   text-shadow: 0 0 1px #986B31;
   line-height: 53px;
   text-align: center;
+  font-style: normal;
 }
 i.command.currency:hover,
 i.command.currency:active {

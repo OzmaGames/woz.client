@@ -27,17 +27,19 @@
          });
       },
 
-      activate: function (id) {
-         app.trigger("game:dispose");
-         app.dialog.closeAll();
-         app.palette.dispose();
+      activate: function ( id ) {
+         return ctx.auth.then( function () {
+            app.trigger( "game:dispose" );
+            app.dialog.closeAll();
+            app.palette.dispose();
 
-         if (!sessionStorage.getItem("shop")) {
-            sessionStorage.setItem("shop", 0);
-         } else {
-            id = id || "";
-            this.activeTab = id.match( /storage/ig ) ? 1 : 0;
-         }
+            if ( !sessionStorage.getItem( "shop" ) ) {
+               sessionStorage.setItem( "shop", 0 );
+            } else {
+               id = id || "";
+               this.activeTab = id.match( /storage/ig ) ? 1 : 0;
+            }
+         } );
       },
 
       start: function () {

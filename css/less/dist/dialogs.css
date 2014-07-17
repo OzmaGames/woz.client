@@ -467,6 +467,9 @@
   width: 20em;
   margin: 0 auto;
 }
+.dialog .panel.payment {
+  width: 800px;
+}
 .dialog .panel h1 {
   font-weight: normal;
   font-size: 1.5em;

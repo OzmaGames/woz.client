@@ -1,4 +1,4 @@
-﻿define( 'api/datacontext.storage', [], function () {
+﻿define( 'api/context/storage', [], function () {
 
    function Storage( prefixProvider, version, names ) {
       var base = this, cache = {};

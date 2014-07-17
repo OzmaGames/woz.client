@@ -15,16 +15,16 @@
          return pg && pg.btnNextCaption ? pg.btnNextCaption : 'Next >';
       } );
 
-
       //pages[0].activate(); var i = 2;
       //ctx.poem.chosenPhrases( ctx.poem.phrases().filter( function () { return i--; }) );
 
-
       return {
          activate: function () {
-            pages.forEach( function ( p ) { p.reset() } );
-            pages[0].activate();
-            page( pages[index = 0] );
+            return ctx.auth.then( function () {
+               pages.forEach( function ( p ) { p.reset() } );
+               pages[0].activate();
+               page( pages[index = 0] );
+            } );            
          },
          heading: heading,
          btnNextCaption: btnNextCaption,
@@ -53,13 +53,17 @@
             model.gameID = ctx.poem.gameID;
             model.username = ctx.username;
             model.title = ctx.poem.title();
-            model.tileID = ctx.poem.tile().id;
-            model.imageID = Number(ctx.poem.tile().imageID);
+            model.tileID = ctx.poem.tile().id == undefined ? false : ctx.poem.tile().id;
+            //model.imageID = Number(ctx.poem.tile().imageID);
             model.size = ctx.poem.settings.size.value();
             model.shadow = ctx.poem.settings.shade.value();
             model.light = ctx.poem.settings.lightColor();
             model.command = "set";
-            app.trigger( "server:user:poem", model );
+            app.trigger( "server:user:poem", model, function ( json ) {
+               app.dialog.show( "alert", {
+                  content: json.success ? 'Your poem has been saved!' : 'Oh, Something went wrong!'
+               } );
+            } );
          },
          back: function () {
             app.Sound.play( app.Sound.sounds.click.button );

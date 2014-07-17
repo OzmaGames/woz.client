@@ -30,7 +30,6 @@
   content: attr(data-title);
   position: absolute;
   top: -19px;
-  /*font-size:20px;*/
   line-height: 20px;
   left: -1px;
   right: -1px;
@@ -44,6 +43,24 @@
   border-bottom-right-radius: 0;
   text-align: center;
   font-size: 15px;
+  font-weight: bold;
+  text-shadow: none;
+}
+.poem-page .cell .footer {
+  position: absolute;
+  bottom: 0;
+  left: .5em;
+  right: .5em;
+  line-height: 1.5em;
+  font-size: .9em;
+}
+.poem-page .cell .footer .likes {
+  display: inline-block;
+}
+.poem-page .cell .footer .date {
+  display: inline-block;
+  position: absolute;
+  right: 0;
 }
 .poem-page .cell button {
   border: 1px solid #d7bea2;
@@ -78,13 +95,14 @@
   -webkit-transition: all .3s;
   transition: all .3s;
   box-shadow: none;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  -moz-transform: scale3d(0.9, 0.9, 0.9);
+  -ms-transform: scale3d(0.9, 0.9, 0.9);
+  -o-transform: scale3d(0.9, 0.9, 0.9);
+  -webkit-transform: scale3d(0.9, 0.9, 0.9);
+  transform: scale3d(0.9, 0.9, 0.9);
 }
 .poem-page .cell button.right:hover {
+  box-shadow: none;
   /*background-color: inherit !important;
                     -moz-transform: scale3d(1.1,1.1,1);
                     -ms-transform: scale3d(1.1,1.1,1);

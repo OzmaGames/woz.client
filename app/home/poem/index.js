@@ -23,10 +23,12 @@
          });
       },
 
-      activate: function (id) {
-         app.trigger("game:dispose");
-         app.dialog.closeAll();
-         app.palette.dispose();         
+      activate: function ( id ) {
+         return ctx.auth.then( function () {
+            app.trigger( "game:dispose" );
+            app.dialog.closeAll();
+            app.palette.dispose();
+         } );
       },
 
       start: function () {

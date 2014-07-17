@@ -58,6 +58,10 @@ hr {
   float: left;
   margin-left: 20px;
   color: #996b2d;
+  cursor: pointer;
+}
+.player:hover .name {
+  text-decoration: underline;
 }
 .player .decoration {
   position: relative;

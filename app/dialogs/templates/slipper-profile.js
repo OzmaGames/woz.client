@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/datacontext.user'], function ( app, user ) {
+﻿define( ['durandal/app', 'api/context/user'], function ( app, user ) {
 
    function Slipper() {
       this.owner = false;
@@ -7,7 +7,7 @@
       this.xpMax = ko.observable();
       this.username = ko.observable();
       this.title = ko.observable( '' );
-      this.isFriend = ko.observable(false);
+      this.isFriend = ko.observable( false );
       this.images = true;
 
       var base = this;
@@ -35,9 +35,7 @@
          app.Sound.play( app.Sound.sounds.click.button );
 
          var base = this;
-         app.trigger( "server:friends", {
-            username: ctx.username, command: 'add', friendUsername: base.username()
-         }, function ( json ) {           
+         user.friends.add( base.username() ).then( function ( json ) {
             app.dialog.show( "alert", {
                content: json.success ?
                   base.username() + ' is now your friend.' : 'Oh, Something went wrong!'
@@ -53,9 +51,7 @@
          app.Sound.play( app.Sound.sounds.click.button );
 
          var base = this;
-         app.trigger( "server:friends", {
-            username: ctx.username, command: 'delete', friendUsername: base.username()
-         }, function (json) {
+         user.friends.del( base.username() ).then( function ( json ) {
             app.dialog.show( "alert", {
                content: json.success ?
                   base.username() + ' has been unfriended.' : 'Oh, Something went wrong!'
@@ -67,19 +63,29 @@
          e.stopPropagation();
 
          if ( this.isFriend() || this.owner ) return;
-         this.isFriend( true );
-
+         
          app.Sound.play( app.Sound.sounds.click.button );
 
-         var model = { command: 'add' };
-         model.foeUsername = base.username();
-         model.username = ctx.username;
+         var base = this;
+         app.dialog.confirm( "Are you sure you want to block <b>" + base.username() + "</b>? <br> " + base.username() + " will not be able to start a game with you anymore!", {
+            doneText: 'YES',
+            cancelText: 'NO',
+            modal: true
+         } ).then( function () {
+            user.block.add( base.username() ).then( function ( json ) {
+               if ( json.success ) this.isFriend( true );
 
-         app.trigger( 'server:foes', model, function ( json ) {
-            app.dialog.show( "alert", {
-               content: json.success ?
-                  model.foeUsername + ' has been blocked.' : 'Oh, Something went wrong!'
-            } );
+               app.dialog.show( "alert", {
+                  content: json.success ?
+                     base.username() + ' has been blocked.' : 'Oh, Something went wrong!'
+               } );
+
+               if ( json.success ) {
+                  app.navigate( 'lobby' );
+               } else {
+                  base.isFriend( false );
+               }
+            } )
          } );
       }
    }
@@ -93,7 +99,7 @@
       var base = this;
       if ( data && data.username && data.username != app.ctx.username ) {
          this.owner = false;
-         app.trigger( "server:user:info", { username: data.username }, function ( data ) {
+         app.trigger( "server:user:info", { username: app.ctx.username, targetUsername: data.username }, function ( data ) {
             base.level( data.level );
             base.xp( data.xp );
             base.xpMax( data.xpMax );

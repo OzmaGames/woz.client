@@ -27,7 +27,7 @@
       errorMessage: ko.observable(),
 
       activate: function () {
-         this.username( app.facebook.profile.username );
+         this.username( app.facebook.profile.username.replace('.', '') );
       },
 
       gologin: function () {
@@ -55,6 +55,8 @@
                res.username = data.username;
                localStorage.removeItem( "tutorial" );
                app.dialog.close( "panel" );
+
+               app.trigger( 'toContext:account:login', res );
                app.trigger( 'account:login', res );
 
                app.fromSignUp = true;

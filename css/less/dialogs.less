@@ -1,6 +1,6 @@
 @import '_variables.less';
 @import 'tooltip.less';
-            
+
 
 .dialog {
     position: fixed;
@@ -514,6 +514,10 @@
     padding: 20px 20px 20px 20px;
     width: 20em;
     margin: 0 auto;
+
+    &.payment {
+        width: 800px;
+    }
 }
 
     .dialog .panel h1 {
@@ -738,9 +742,7 @@
             display: block;
             font-size: 40px;
             position: relative;
-            
             .has-tooltip(75px, 9px, false, 12px);
-            
         }
 
             i.addFriend {

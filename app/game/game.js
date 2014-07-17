@@ -602,68 +602,72 @@
    return system.extend( game, {
       noTransite: true,
       activate: function ( id ) {
-         app.loading( true );
+         return ctx.auth.then( function () {
 
-         app.trigger( "game:dispose" );
-         app.palette.dispose();
-         app.dialog.closeAll();
+            app.loading( true );
 
-         if ( app.fromSignUp ) {
-            setTimeout( function () {
-               app.dialog.show( "notice", { view: "dialogs/pages/welcome", modal: true } ).then( function () {
-                  delete app.fromSignUp;
-                  showScroll();
+            app.trigger( "game:dispose" );
+            app.palette.dispose();
+            app.dialog.closeAll();
+
+            if ( app.fromSignUp ) {
+               setTimeout( function () {
+                  app.dialog.show( "notice", { view: "dialogs/pages/welcome", modal: true } ).then( function () {
+                     delete app.fromSignUp;
+                     showScroll();
+                  } );
+               }, 200 );
+            }
+
+            app.palette.hide( { duration: 0 } );
+            app.palette.add( "poem", "command", "right" )
+             .click( function () {
+                app.dialog.showPoem();
+             } )
+             .visible( ko.computed( function () {
+                return ctx.gameOver() && !ctx.tutorialMode();
+             } ) );
+
+            app.palette.add( "quit", "command", "right" )
+               .click( game.resign )
+               .css( {
+                  disabled: ko.computed( function () { return !game.allowResign() } )
+               } ).visible( ko.computed( function () {
+                  return !ctx.tutorialMode() && !ctx.gameOver();
+               } ) );
+
+            app.palette.add( "swapWords", "action", "left", undefined, "Swap Words" )
+               .click( game.swapWords )
+               .css( {
+                  cancel: ko.computed( function () { return game.mode() === 'swapWords' } ),
+                  disabled: ko.computed( function () { return !game.allowSwap() } )
                } );
-            }, 200 );
-         }
 
-         app.palette.hide( { duration: 0 } );
-         app.palette.add( "poem", "command", "right" )
-          .click( function () {
-             app.dialog.showPoem();
-          } )
-          .visible( ko.computed( function () {
-             return ctx.gameOver() && !ctx.tutorialMode();
-          } ) );
+            app.palette.add( "circleWords", "action", "left", undefined, "Select Tool" )
+               .click( game.circleWords )
+               .css( {
+                  cancel: ko.computed( function () { return game.mode() == 'circleWords' || ctx.activeWords() } ),
+                  disabled: ko.computed( function () { return !game.allowCircle() } )
+               } );
 
-         app.palette.add( "quit", "command", "right" )
-            .click( game.resign )
-            .css( {
-               disabled: ko.computed( function () { return !game.allowResign() } )
-            } ).visible( ko.computed( function () {
-               return !ctx.tutorialMode() && !ctx.gameOver();
-            } ) );
+            app.palette.add( "addWords", "action", "left", undefined, "Add Word" )
+               .click( game.addWords )
+               .css( {
+                  cancel: ko.computed( function () { return game.mode() === 'addWords' } ),
+                  disabled: ko.computed( function () { return !game.allowAddWords() } )
+               } );
 
-         app.palette.add( "swapWords", "action", "left", undefined, "Swap Words" )
-            .click( game.swapWords )
-            .css( {
-               cancel: ko.computed( function () { return game.mode() === 'swapWords' } ),
-               disabled: ko.computed( function () { return !game.allowSwap() } )
-            } );
+            app.palette.add( "versions", "action", "left", undefined, "Version" )
+               .click( game.versions )
+               .css( {
+                  cancel: ko.computed( function () { return game.mode() === 'versions' } ),
+                  disabled: ko.computed( function () { return !game.allowVersions() } )
+               } );
 
-         app.palette.add( "circleWords", "action", "left", undefined, "Select Tool" )
-            .click( game.circleWords )
-            .css( {
-               cancel: ko.computed( function () { return game.mode() == 'circleWords' || ctx.activeWords() } ),
-               disabled: ko.computed( function () { return !game.allowCircle() } )
-            } );
+            ctx.unload();
+            ctx.load( id );
 
-         app.palette.add( "addWords", "action", "left", undefined, "Add Word")
-            .click( game.addWords )
-            .css( {
-               cancel: ko.computed( function () { return game.mode() === 'addWords' } ),
-               disabled: ko.computed( function () { return !game.allowAddWords() } )
-            } );
-
-         app.palette.add( "versions", "action", "left", undefined, "Version" )
-            .click( game.versions )
-            .css( {
-               cancel: ko.computed( function () { return game.mode() === 'versions' } ),
-               disabled: ko.computed( function () { return !game.allowVersions() } )
-            } );
-
-         ctx.unload();
-         ctx.load( id );
+         } );
       },
 
       binding: function () {

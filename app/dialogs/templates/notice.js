@@ -112,7 +112,7 @@
       var top = ( height - el.outerHeight() ) / 2;
       if ( top < 0 ) top = 0;
 
-      el.transition( { y: top } );
+      el.transition( { y: top, scale: .99 } );
    }
 
    app.on( "dialog:adjust-size", function () {

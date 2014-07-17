@@ -1,24 +1,35 @@
 ﻿define( ['durandal/app', 'api/datacontext', 'api/helper/facebook', 'api/helper/CanvasCapture'], function ( app, ctx, facebook, CanvasCapture ) {
+   
+   var PoemPerPage = 6;
+   var nVisiblePoems = ko.observable( PoemPerPage );
 
    function ctor() {
-      this.loading = ko.observable();
-      this.list = ko.observableArray();
+      var base = this;
+
+      this.loading = ctx.user.poems.loading;
+      this.list = ctx.user.poems.mine;
+      this.visibleList = ko.computed( function () {
+         var max = nVisiblePoems();
+
+         return ko.utils.arrayFilter( base.list(), function ( item ) {
+            return --max >= 0;
+         } );
+      } );
    }
 
    ctor.prototype.activate = function () {
       var base = this;
 
-      app.loading( true );
+      ctx.user.poems.load( true );      
+   }
 
-      app.trigger( "server:user:poem", { username: ctx.username }, function ( json ) {
-         if ( json.success ) {
-            json.poems.forEach( function ( poem ) {
-               poem.imageName = 'images/tiles/' + poem.collection + '/' + poem.imageID + '.jpg';
-            } )
-            base.list( json.poems );
-         }
-         app.loading( false );
-      } );
+   ctor.prototype.loadNextPage = function () {
+      var base = this;
+      nVisiblePoems( nVisiblePoems() + PoemPerPage );
+
+      return Task.run.call( this, function () {
+         return nVisiblePoems() < base.list().length;
+      }, 150 * PoemPerPage );
    }
 
    ctor.prototype.remove = function ( poem ) {
@@ -27,13 +38,11 @@
          cancelText: 'NO',
          modal: true
       } ).then( function () {
-         app.loading( true );
-         app.trigger( "server:user:poem", { username: ctx.username, command: 'delete', id: poem.id }, function ( json ) {
+         ctx.user.poems.del( poem.id ).then( function (json) {
             if ( json.success ) {
                poem.$el.hide( 400, function () { $( this ).remove() } );
             }
-            app.loading( false );
-         } );
+         } );         
       } );
    }
 

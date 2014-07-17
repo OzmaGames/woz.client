@@ -45,7 +45,7 @@ hr {
     -moz-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
     -webkit-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out; /*should be the same as for paletes*/    
+    transition: all .3s ease-in-out; /*should be the same as for paletes*/
     text-shadow: 0 0 1px rgba(152, 107, 49,.5);
 }
 
@@ -53,6 +53,13 @@ hr {
     float: left;
     margin-left: 20px;
     color: #996b2d;
+    cursor: pointer;
+
+    &:hover {
+        .name {
+            text-decoration: underline;
+        }
+    }
 }
 
     .player .decoration {

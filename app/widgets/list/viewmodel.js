@@ -1,4 +1,4 @@
-﻿define( 'widgets/list/viewmodel', ['durandal/composition', 'api/draggable'], function ( composition, draggable ) {
+﻿define( 'widgets/list/viewmodel', ['durandal/composition', 'api/helper/draggable'], function ( composition, draggable ) {
 
    var ctor = function () { };
 

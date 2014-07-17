@@ -1,4 +1,4 @@
-﻿define( 'api/draggable', [], function () {
+﻿define( 'api/helper/draggable', [], function () {
 
    $.fn.draggable = function ( opt ) {
       opt = $.extend( {}, $.fn.draggable.defaults, opt );

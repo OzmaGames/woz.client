@@ -1,33 +1,43 @@
 ﻿define( ['durandal/app', 'api/datacontext', 'api/helper/facebook', 'api/helper/CanvasCapture'], function ( app, ctx, facebook, CanvasCapture ) {
 
+   var PoemPerPage = 6;
+   var nVisiblePoems = ko.observable( PoemPerPage );
+
    function ctor() {
-      this.loading = ko.observable();
-      this.list = ko.observableArray();
+      var base = this;
+
+      this.loading = ctx.user.poems.loading;
+      this.list = ctx.user.poems.friends;
+      this.visibleList = ko.computed( function () {
+         var max = nVisiblePoems();
+
+         return ko.utils.arrayFilter( base.list(), function ( item ) {
+            return --max >= 0;
+         } );
+      } );
    }
 
    ctor.prototype.activate = function () {
       var base = this;
 
-      app.loading( true );
+      ctx.user.poems.load();
+   }
 
-      app.trigger( "server:user:poem", { username: ctx.username, command: 'friends' }, function ( json ) {
-         if ( json.success ) {
-            json.poems.forEach( function ( poem ) {
-               poem.imageName = 'images/tiles/' + poem.collection + '/' + poem.imageID + '.jpg';
-            } )
-            base.list( json.poems );
-         }
-         app.loading( false );
-      } );
+   ctor.prototype.loadNextPage = function () {
+      var base = this;
+      nVisiblePoems( nVisiblePoems() + PoemPerPage );
+
+      return Task.run.call( this, function () {
+         return nVisiblePoems() < base.list().length;
+      }, 150 * PoemPerPage );
    }
 
    ctor.prototype.like = function ( poem ) {
-      app.loading( true );
-      app.trigger( "server:user:poem", { username: ctx.username, command: 'like', id: poem.id }, function ( json ) {
-         if ( json.success ) {
-            //poem.$el.hide( 400, function () { $( this ).remove() } );
-         }
-         app.loading( false );
+      ( poem.liked ? ctx.user.poems.unlike( poem.id ) : ctx.user.poems.like( poem.id ) ).then( function ( json ) {
+         poem.liked = !poem.liked;
+         //var index = ctx.user.poems.friends.indexOf( poem );
+         //ctx.user.poems.friends.splice( index, 1 );
+         //ctx.user.poems.friends.splice( index, 0, poem );
       } );
    }
 

@@ -3,29 +3,38 @@
    function AddWords() {
       this.loading = ko.observable( false );
       this.message = ko.observable();
-      this.words = ko.observableArray();
+      this.words = ko.observableArray([]);
       this.activeWord = ko.observable();
       this.lemma = ko.observable();
+      this.searched = ko.observable('');
 
       this.tMode = ctx.tutorialMode;
 
       var base = this;
+
+      this.suggest = function () {
+         app.trigger( "server:game:suggest-word", { lemma: base.searched() }, function ( json ) {
+            app.dialog.show( 'alert', { content: 'Thanks for your suggestion! We will consider your word in future!' } );
+         } );
+         base.close();
+      }
 
       this.search = function () {
          this.loading( true );
 
          base.lemma( base.lemma().trim() );
 
-         app.trigger( "server:game:search-word", {
-            username: ctx.username,
+         app.trigger( "server:game:search-word", {            
             lemma: base.lemma()
          }, function ( data ) {
             //data.words = ['word1', 'word2', 'word3'];
-
+            base.searched( base.lemma() );
             base.loading( false );
             if ( data.words.length == 0 ) {
-               data.message = data.message || '<p>Sorry! <b>{word}</b> does not exist in our database at the moment.</p>';
+               data.message = data.message || 'Sorry! <b>{word}</b> does not exist in our database at the moment.';
                base.message( data.message.replace( '{word}', base.lemma() ) );
+               base.words( [] );
+               base.activeWord( undefined );
                return;
             }
             base.activeWord( data.words[0] );

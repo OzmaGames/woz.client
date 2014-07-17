@@ -56,15 +56,17 @@
    };
 
    Index.prototype.activate = function () {
-      app.trigger( "game:dispose" );
-      app.dialog.closeAll();
-      app.palette.dispose();
+      return ctx.auth.then( function () {
+         app.trigger( "game:dispose" );
+         app.dialog.closeAll();
+         app.palette.dispose();
 
-      if ( !sessionStorage.getItem( "lobby" ) ) {
-         sessionStorage.setItem( "lobby", 0 );
-      } else {
-         this.activeTab = sessionStorage.getItem( "lobby" );
-      }
+         if ( !sessionStorage.getItem( "lobby" ) ) {
+            sessionStorage.setItem( "lobby", 0 );
+         } else {
+            this.activeTab = sessionStorage.getItem( "lobby" );
+         }
+      });
    };
 
    Index.prototype.start = function () {

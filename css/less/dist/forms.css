@@ -23,9 +23,6 @@ input[type="checkbox"] + span {
   padding: 1px;
   overflow: hidden;
   background-image: linear-gradient(90deg, #f5cf76 50%, #e5d7bd 50%), linear-gradient(rgba(0, 0, 0, 0.1), transparent);
-  -moz-background-size: 200% 100%;
-  -o-background-size: 200% 100%;
-  -webkit-background-size: 200% 100%;
   background-size: 200% 100%;
   background-position: 100% 0;
   -moz-transition-duration: .4s;
@@ -58,7 +55,6 @@ input[type="checkbox"] + span:before {
   background: white;
   box-shadow: -1px -1px 5px 0.02px #ffffff inset, -0.1em -0.2em 0.7em 0.4em #cfa972 inset, 1px 1px 0.5em rgba(0, 0, 0, 0.9);
   color: #986B31;
-  -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   text-indent: -2.5em;
 }
@@ -147,9 +143,6 @@ label .pic {
   left: -10px;
   bottom: -10px;
   width: 90px;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  -webkit-background-size: contain;
   background-size: contain;
   background-position: left center;
   background-repeat: no-repeat;
@@ -160,9 +153,6 @@ label .pic span {
   height: 45px;
   border-radius: 100%;
   border: 3px solid white;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
 }
 label:last-child {
@@ -352,14 +342,13 @@ button.centered {
   margin: 0 auto;
   margin-bottom: .5em;
 }
-button:hover {
+button:not(.orange):not(.blue):not(.facebook):hover {
   box-shadow: 0 0 4px #986B31;
 }
 button.orange,
 button.blue {
   font-size: 1.4em;
   padding: .3em 1em;
-  -webkit-text-shadow: 0 0 2px white;
   text-shadow: 0 0 2px white;
   color: white;
   text-transform: uppercase;
@@ -400,14 +389,43 @@ button.flat {
   padding: .3em 1em;
   font-size: .8em;
   box-shadow: none !important;
-  -webkit-text-shadow: none !important;
   text-shadow: none !important;
   letter-spacing: .08em;
 }
 button.orange {
   border-color: white;
   background-color: #ECB661;
-  box-shadow: 0 -0.9em 1em 0.01em rgba(192, 157, 108, 0.5) inset, 0 0.2em 0.5em 0.2em rgba(230, 157, 95, 0.7) inset, 0 0.8em 0.5em 0.1em rgba(255, 255, 255, 0.5) inset;
+  /*box-shadow: 0 -.9em 1em .01em rgba(192, 157, 108, .5) inset,
+             0 .2em .5em .2em rgba(230, 157, 95, .7) inset,
+             0 .8em .5em .1em rgba(255, 255, 255, .5) inset;*/
+  /*box-shadow: 0 0.3em 0.5em 0.2em rgba(230, 157, 95, 0.7) inset, 0 0.7em 0.7em 0.1em rgba(255, 255, 255, 0.5) inset,-.1em 0em 0.6em 0.11em rgba(255,255,255, 0.5) inset;*/
+  position: relative;
+  z-index: 0;
+}
+button.orange:not(.flat):before {
+  content: "";
+  position: absolute;
+  top: 0.2em;
+  left: 0.2em;
+  right: 0.2em;
+  bottom: 1.3em;
+  z-index: -1;
+  background: #f6efe5;
+  box-shadow: 0 0 3px 1px white;
+  border-radius: .2em;
+  opacity: 0.3;
+}
+button.orange:not(.flat):after {
+  content: "";
+  position: absolute;
+  top: .5em;
+  left: 0.2em;
+  right: 0.2em;
+  bottom: .2em;
+  z-index: -2;
+  border-radius: 0.3em;
+  background: linear-gradient(0, #f5c994, #f1944e 30%);
+  opacity: .5;
 }
 button.orange:active:not(:disabled) {
   box-shadow: 0 0.1em 0.5em 0.4em rgba(186, 132, 86, 0.7) inset, 0 0.7em 0.3em 0.1em rgba(255, 255, 255, 0.5) inset;
@@ -443,9 +461,6 @@ button.menuItem {
 }
 button.facebook {
   background-image: url(../../../images/app/facebook-button.png);
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  -webkit-background-size: contain;
   background-size: contain;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -457,7 +472,6 @@ button.facebook {
   padding: 1em;
   padding-left: 3em;
   color: #4B5EA2;
-  -webkit-text-shadow: 0 0 3px rgba(44, 119, 186, 0.2);
   text-shadow: 0 0 3px rgba(44, 119, 186, 0.2);
 }
 button.facebook:hover,
@@ -488,9 +502,6 @@ button.facebook,
   display: inline-block;
   width: 50px;
   height: 50px;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
   margin: 0 1em;
   float: right;

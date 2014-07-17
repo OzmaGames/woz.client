@@ -18,8 +18,12 @@
          Add Word
       </button>
    </div>
-   <div data-bind="ifnot: words().length">
+   <div data-bind="if: words().length === 0 && searched">
       <br />
-      <div data-bind="html: message"></div>
+      <p>
+         Sorry! <b data-bind="text: searched"></b> does not exist in our database at the moment.
+         Would you like us to consider this word in future?
+      </p>
+      <button class="blue flat" style="font-size:.91em" data-bind="click: suggest">Yes, suggest this word!</button>
    </div>
 </div>

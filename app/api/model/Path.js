@@ -1,4 +1,17 @@
-﻿define( ['durandal/app', 'api/constants', 'api/utils', 'paper'], function ( app, constants, utils ) {
+﻿define( ['durandal/app', 'api/constants', 'paper'], function ( app, constants ) {
+
+   var utils = {
+      find: function ( arr, data ) {
+         for ( var i = 0; i < arr.length; i++ )
+            if ( match( arr[i], data ) ) return arr[i];
+      }
+   }
+
+   function match( item, data ) {
+      for ( var key in data )
+         if ( item[key] != data[key] ) return false;
+      return true;
+   }
 
    function Path( model, id, nWords, startTile, endTile, cw, phrase ) {
       var base = this;
@@ -35,8 +48,9 @@
          }
 
          ko.utils.arrayForEach( words || [], function ( word ) {
+            word._noPlaceSound = true;
             base.addWord( word, undefined, true );
-         } );         
+         } );
       }
 
       var isComplete = function () {
@@ -99,7 +113,7 @@
                         }
 
                         var relatedWord = ko.utils.arrayFirst( model.unplayedWords(), function ( w ) { return w.isRelated; } );
-                        if ( relatedWord ) {                           
+                        if ( relatedWord ) {
                            return setTimeout( function () {
                               cancel( bubble.showOne( bubble.relatedWords() ) );
                            }, 500 );
@@ -304,6 +318,7 @@
       if ( phrase ) {
          //setTimeout(function (data) {
          base.phrase.update( phrase.words );
+         base.phrase.id = phrase.id;
          //}, 100, { base: base, words: phrase.words });
       }
    }

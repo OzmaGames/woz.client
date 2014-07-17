@@ -8,6 +8,10 @@
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 html,
 body,
 ul,
@@ -51,7 +55,6 @@ h5,
 h6 {
   font-family: CopseRegular;
   font-weight: normal;
-  -webkit-text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
   text-shadow: 0 0 1px rgba(152, 107, 49, 0.5);
   cursor: default;
 }
@@ -476,6 +479,39 @@ a.big {
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
 }
+.grid ul.list li .btn[data-title]:after {
+  content: attr(data-title);
+  position: absolute;
+  text-align: center;
+  color: #986b31;
+  background-color: #f9f8f4;
+  border: 1px solid #d7bea2;
+  height: 1.5em;
+  line-height: 1.5em;
+  top: 10px;
+  width: 50px;
+  border-radius: 5px;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  -moz-transition: 0.3s all ease-in-out;
+  -o-transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  transition: 0.3s all ease-in-out;
+}
+.grid ul.list li .btn[data-title]:not(.disabled):hover:after {
+  visibility: visible;
+  opacity: 100;
+}
+.grid ul.list li .btn[data-title]:after {
+  left: -50px;
+}
+.grid ul.list li .btn[data-title]:hover:after {
+  left: -60px;
+}
+.grid ul.list li .btn[data-title]:after {
+  font-size: 12px;
+}
 .grid ul.list li .btn i {
   display: inline-block;
 }
@@ -557,6 +593,9 @@ a.big {
 }
 .pic.loc {
   background-image: url(../../../images/tiles/collections/loc.png);
+}
+.pic.vin {
+  background-image: url(../../../images/tiles/collections/vin.png);
 }
 .pic.more {
   background-image: url(../../../images/tiles/collections/more.png);
@@ -704,6 +743,14 @@ a.big {
 }
 .font-smaller {
   font-size: .9em;
+}
+.description .desc {
+  line-height: 1.2em;
+  max-height: 3.7em;
+  overflow-y: hidden;
+  -ms-text-overflow: ellipsis ellipsis;
+  -o-text-overflow: ellipsis ellipsis;
+  text-overflow: ellipsis ellipsis;
 }
 .font-bigger {
   font-size: 1.1em;
@@ -1079,7 +1126,7 @@ a.big {
   box-shadow: inset #666666 0 0 10px -3px;
 }
 .table-flex .ribbon.yellow {
-  background-color: #f5cf76;
+  background-color: #f6c34d;
 }
 .table-flex .ribbon.blue {
   background-color: #5cb0c6;
@@ -1128,6 +1175,7 @@ a.big {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 0.7em 0;
 }
 .table-flex .collection .description {
   display: inline-block;
@@ -1141,9 +1189,6 @@ a.big {
   height: 150px;
   background-position: center center;
   background-repeat: no-repeat;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  -webkit-background-size: contain;
   background-size: contain;
   vertical-align: middle;
   font-size: 1.5em;
@@ -1153,6 +1198,12 @@ a.big {
 }
 .table-flex .collection .couple.woz-boost1 {
   background-image: url(../../../images/tiles/collections/shop-woz-booster.png);
+}
+.table-flex .collection .couple.vin {
+  background-image: url(../../../images/tiles/collections/shop-vin.png);
+}
+.table-flex .collection .couple.vin-boost1 {
+  background-image: url(../../../images/tiles/collections/shop-vin-booster.png);
 }
 .table-flex .collection .couple.nf {
   background-image: url(../../../images/tiles/collections/shop-nf.png);
@@ -1342,5 +1393,13 @@ progress::-moz-progress-bar {
   filter: grayscale(100%);
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
   /* Firefox 10+, Firefox on Android */
+}
+.absolute-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
 /*# sourceMappingURL=general.css.map */

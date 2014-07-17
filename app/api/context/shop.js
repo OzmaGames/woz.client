@@ -1,4 +1,4 @@
-﻿define( 'api/datacontext.shop', ['durandal/app', './datacontext.storage'], function ( app, Storage ) {
+﻿define( 'api/context/shop', ['durandal/app', './storage'], function ( app, Storage ) {
 
    var version = 0.1, rDFD = $.Deferred().resolve().promise();
 
@@ -12,7 +12,7 @@
          if ( base.collections().length ) return true;
 
          base.loading( true );
-         app.trigger( "server:shop:collections", {}, function ( data ) {
+         app.trigger( "server:shop:collections", {username: ctx.username}, function ( data ) {
             ko.utils.arrayForEach( data, function ( d ) {
                d.price = +d.price;
             } );

@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/datacontext', 'api/draggable.static'], function ( app, ctx ) {
+﻿define( ['durandal/app', 'api/datacontext', 'api/helper/draggable.static'], function ( app, ctx ) {
 
    var animationQueue = [];
 

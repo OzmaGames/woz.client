@@ -41,14 +41,17 @@
             app.loading( false );
 
             if ( res.success ) {
-               res.username = data.username;
-               localStorage.removeItem( "tutorial" );
-               app.dialog.close( "panel" );
-               app.trigger( 'account:login', res );
+               app.trigger( "server:account:login", data, function ( res ) {
+                  res.username = data.username;
+                  localStorage.removeItem( "tutorial" );
+                  app.dialog.close( "panel" );
 
-               app.fromSignUp = true;               
-               app.navigate( "tutorial" );
+                  app.trigger( 'toContext:account:login', res );
+                  app.trigger( 'account:login', res );
 
+                  app.fromSignUp = true;
+                  app.navigate( "tutorial" );
+               } );               
             } else {
                base.errorMessage( res.message );
             }

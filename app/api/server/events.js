@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/history'], function ( app, history ) {
+﻿define( ['durandal/app', 'api/helper/history', 'api/helper/Log'], function ( app, history, LOG ) {
 
    return {
       emission: [
@@ -26,16 +26,16 @@
         "shop:storage",
         "account:fb",
         "account:delete",
-        "foes"        
-   ],
+        "foes"
+      ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {
-            console.log( '%cgame:update', 'background: #222; color: #bada55', data );
+            LOG.instance.log( 'game:update', data, LOG.themes.black );
             app.trigger( "game:update", data );
             history.pushHistory( { event: "game:update", received: true } );
          } );
          socket.on( "lobby:update", function ( data ) {
-            console.log( '%clobby:update', 'background: #222; color: #bada55', data );
+            LOG.instance.log( 'lobby:update', data, LOG.themes.black );            
             app.trigger( "lobby:update", data );
             history.pushHistory( { event: "lobby:update", received: true } );
          } );
@@ -61,37 +61,28 @@
          },
 
          "game:queue": function ( data, callback, socket ) {
-            socket.once( "game:start", function ( data ) {
-               console.log( '%cgame:start', 'background: #222; color: #bada55', data );
+            socket.once( "game:start", function ( data ) {               
+               LOG.instance.log( 'game:start', data, LOG.themes.black );
                app.trigger( "game:start", data );
                history.pushHistory( { event: "game:start", received: true } );
             } );
-
-            //game:request, type: "single"/"random"/"friend"
+            
             if ( data.friendUsername ) {
-               data.type = "friend";
-               //socket.emit("game:friend", data, callback);
+               data.type = "friend";               
             } else {
                if ( data.playerCount == 1 ) {
                   data.type = "single";
                } else {
                   data.type = "random";
                }
-               delete data.friendUsername;
-               //socket.emit("game:queue", data, callback);
+               delete data.friendUsername;               
             }
             delete data.playerCount;
 
-            console.log( data );
             socket.emit( "game:request", data, callback );
          },
 
          "tutorial:start": function ( data, callback, socket ) {
-            //socket.once("game:start", function (data) {
-            //   console.log('%cgame:start', 'background: #222; color: #bada55', data);
-            //   app.trigger("game:start", data);
-            //});
-
             socket.emit( "tutorial:start", data, function ( game ) {
                ko.utils.arrayForEach( game.tiles, function ( tile ) {
                   tile.instruction = tile.instruction || tile.shortDescription || "";

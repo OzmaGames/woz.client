@@ -1,6 +1,6 @@
 ﻿define( ['durandal/app', 'durandal/activator', 'api/ui/palette', 'api/datacontext', 'dialogs/templates/panel'],
   function ( app, activator, palette, ctx, panel ) {
-    
+
      function viewChange( viewModel ) {
         app.loading( true );
         app.dialog.show( "panel", viewModel, {
@@ -9,15 +9,25 @@
               app.loading( false );
            }
         } );
-
      }
 
      return {
-        activate: function () {
+        activate: function ( route ) {
            palette.get( "menu" ).visible( false );
            palette.get( "currency" ).visible( false );
 
            this.viewChanger = app.on( 'account:view:change' ).then( viewChange );
+
+           ctx.nextRoute = route;
+
+           //return $.Deferred( function ( dfd ) {
+           //   ctx.auth.then( function () {
+           //      dfd.reject();
+           //      app.navigate('lobby');
+           //   }, function () {
+           //      dfd.resolve();
+           //   } );
+           //} ); 
         },
 
         binding: function () {
@@ -37,6 +47,6 @@
            app.dialog.close( "panel" );
            palette.get( "menu" ).visible( true );
            palette.get( "currency" ).visible( true );
-        }        
+        }
      }
   } );
