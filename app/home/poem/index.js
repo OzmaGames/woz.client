@@ -33,7 +33,7 @@
 
       start: function () {
          app.Sound.play( app.Sound.sounds.click.button );
-         app.navigate( "newGame" );
+         app.navigate( "lobby" );
       },
 
       binding: function () {

@@ -1,7 +1,11 @@
 ﻿<div style="font-size: 18px">
    <span class="loader-bar" style="position:absolute; right: 0" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
    <div class="poem-page" data-bind="foreach: {data: visibleList, afterRender: afterRender}, loadMore: $root.loadNextPage">
-      <div class="cell" data-bind="attr: {'data-title': username}">
+      <div class="cell withTitle">
+         <div class="title">
+            <span class="username" data-bind="text: username"></span>
+            <span class="opponent" data-bind="if: opponent"> with <span data-bind="text: opponent"></span></span>
+         </div>
          <button class="right" data-bind="click: $root.like, css: (liked() ? 'icon-heart': 'icon-heart-empty') "></button>
          <div class="footer">
             <div class="likes">

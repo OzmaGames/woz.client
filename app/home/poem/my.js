@@ -46,9 +46,16 @@
       } );
    }
 
+   var q = new Task.Queue();
    ctor.prototype.afterRender = function ( el, poem ) {
       poem.$el = $( el[1] );
       poem.$slider = $( '.slider', poem.$el );
+
+      q.runAfter( function () {
+         if ( this.timer == 1 ) {
+            app.Sound.play( app.Sound.sounds.lobbyLoading );
+         }
+      }, 1 );
    }
 
    ctor.prototype.facebook = function ( item ) {

@@ -2,12 +2,12 @@
    ko.bindingHandlers["fadeVisible"] = {
       init: function ( element, valueAccessor, allBindingsAccessor ) {
          var value = valueAccessor();
-         $( element ).toggle( ko.utils.unwrapObservable( value ) );
+         $( element ).toggle( ko.unwrap( value ) );
       },
       update: function ( element, valueAccessor, allBindingsAccessor ) {
          var value = valueAccessor(), fadeIn, fadeOut;
          others = allBindingsAccessor();
-
+         
          if ( others.duration === undefined ) {
             others.duration = value.duration;
          }
@@ -21,16 +21,25 @@
             }
          }
 
-         ko.utils.unwrapObservable( value ) ?
-           $( element ).fadeIn( fadeIn ) :
-           $( element ).fadeOut( fadeOut );
+         if ( others.duration && others.duration.type == 'transition' ) {
+            console.log( ko.unwrap( value ), element );
+            if ( ko.unwrap( value ) ) {
+               $( element ).stop().show().transition( { opacity: 1 }, fadeIn, 'ease', function () { } );
+            } else {
+               $( element ).stop().transition( { opacity: 0 }, fadeOut, 'ease', function () { $( this ).hide(); } );
+            }
+         } else {
+            ko.unwrap( value ) ?
+              $( element ).fadeIn( fadeIn ) :
+              $( element ).fadeOut( fadeOut );
+         }
       }
    };
 
    ko.bindingHandlers["dVisible"] = {
       init: function ( element, valueAccessor, allBindingsAccessor ) {
          var value = valueAccessor();
-         $( element ).toggle( ko.utils.unwrapObservable( value ) );
+         $( element ).toggle( ko.unwrap( value ) );
       },
       update: function ( element, valueAccessor, allBindingsAccessor ) {
          var value = valueAccessor(), fadeIn, fadeOut;
@@ -51,7 +60,7 @@
             fadeIn = fadeOut = 0;
          }
 
-         var isActive = ko.utils.unwrapObservable( value );
+         var isActive = ko.unwrap( value );
 
          setTimeout( function () {
             $( element ).toggle( isActive );
@@ -194,22 +203,22 @@
 
          var subscription = observable.subscribe( function () {
             //Task.run( function () {
-               var el, width = ( el = $( element ) ).width();
+            var el, width = ( el = $( element ) ).width();
+            while ( width > maxWidth && size > minSize ) {
+               size -= .025;
+               width = el.css( { 'fontSize': size + 'em' } ).width();
+               lastWidth = width;
+            }
+            if ( lastWidth > width ) {
+               size = maxSize;
+               width = el.css( { 'fontSize': size + 'em' } ).width();
+
                while ( width > maxWidth && size > minSize ) {
                   size -= .025;
                   width = el.css( { 'fontSize': size + 'em' } ).width();
                   lastWidth = width;
                }
-               if ( lastWidth > width ) {
-                  size = maxSize;
-                  width = el.css( { 'fontSize': size + 'em' } ).width();
-
-                  while ( width > maxWidth && size > minSize ) {
-                     size -= .025;
-                     width = el.css( { 'fontSize': size + 'em' } ).width();
-                     lastWidth = width;
-                  }
-               }
+            }
             //} );
          } );
 
@@ -284,7 +293,7 @@
             if ( typeof obj.nav == "function" ) {
                var dfd = $.Deferred();
 
-               $( '.content', element ).stop()
+               $( '.content', element ).stop();
                if ( app.browser.tablet ) {
                   $( '.content', element ).hide();
                } else {

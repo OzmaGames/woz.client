@@ -15,7 +15,6 @@ define( 'sounds/manifest', [], function () {
          closing: [
             'Closing a dialogue/Closing_a_dialogue-03.ogg',
             'Closing a dialogue/Closing_a_dialogue-04.ogg'
-
          ],
          notice: [
             'When a paper dialogue shows/When_a_paper_dialogue_shows-02.ogg'
@@ -77,8 +76,8 @@ define( 'sounds/manifest', [], function () {
             'Game over lose/Game_over_lose-01.ogg'
          ],
          del: [
-            'Delete Game/Delete_game-01.wav',
-            'Delete Game/Delete_game-02.wav'
+            'Delete Game/Delete_game-01.ogg',
+            'Delete Game/Delete_game-02.ogg'
          ]
       },
       enlargeTile: [
@@ -101,19 +100,19 @@ define( 'sounds/manifest', [], function () {
             'Lift word/Lift_word-04.ogg'
          ],
          place: [
-            'Place word on game board/Place_word_on_game_board-01.wav',
-            'Place word on game board/Place_word_on_game_board-02.wav',
-            'Place word on game board/Place_word_on_game_board-03.wav',
-            'Place word on game board/Place_word_on_game_board-04.wav',
-            'Place word on game board/Place_word_on_game_board-05.wav'
+            'Place word on game board/Place_word_on_game_board-01.ogg',
+            'Place word on game board/Place_word_on_game_board-02.ogg',
+            'Place word on game board/Place_word_on_game_board-03.ogg',
+            'Place word on game board/Place_word_on_game_board-04.ogg',
+            'Place word on game board/Place_word_on_game_board-05.ogg'
          ],
          placeBack: [
-            'Place word back on workspace/Place_word_back_on_workspace-01.wav',
-            'Place word back on workspace/Place_word_back_on_workspace-02.wav',
-            'Place word back on workspace/Place_word_back_on_workspace-03.wav',
-            'Place word back on workspace/Place_word_back_on_workspace-04.wav',
-            'Place word back on workspace/Place_word_back_on_workspace-05.wav',
-            'Place word back on workspace/Place_word_back_on_workspace-06.wav'
+            'Place word back on workspace/Place_word_back_on_workspace-01.ogg',
+            'Place word back on workspace/Place_word_back_on_workspace-02.ogg',
+            'Place word back on workspace/Place_word_back_on_workspace-03.ogg',
+            'Place word back on workspace/Place_word_back_on_workspace-04.ogg',
+            'Place word back on workspace/Place_word_back_on_workspace-05.ogg',
+            'Place word back on workspace/Place_word_back_on_workspace-06.ogg'
          ],
          select: [
          	'Word Select/word_select-01.ogg'
@@ -196,11 +195,11 @@ define( 'sounds/manifest', [], function () {
 
          ],
          phraseDrop: [
-         	'Place word on game board/Place_word_on_game_board-01.wav',
-            'Place word on game board/Place_word_on_game_board-02.wav',
-            'Place word on game board/Place_word_on_game_board-03.wav',
-            'Place word on game board/Place_word_on_game_board-04.wav',
-            'Place word on game board/Place_word_on_game_board-05.wav'
+         	'Place word on game board/Place_word_on_game_board-01.ogg',
+            'Place word on game board/Place_word_on_game_board-02.ogg',
+            'Place word on game board/Place_word_on_game_board-03.ogg',
+            'Place word on game board/Place_word_on_game_board-04.ogg',
+            'Place word on game board/Place_word_on_game_board-05.ogg'
          ],
          range: [
             //Slider tick (when you move the slider one step)

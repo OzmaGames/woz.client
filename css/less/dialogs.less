@@ -326,183 +326,196 @@
     /*min-height: 177px;*/
     background-image: url('../../images/app/notice-background.png');
     background-repeat: no-repeat;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
     text-align: center;
     padding: 2em;
     padding-bottom: 2.5em;
-    cursor: pointer;
     font-family: cambria, CopseRegular;
+    font-size: 1em;
+    line-height: 1.3em;
+    cursor: default;
+}
+
+.dialog.clickable .notice {
+    cursor: pointer;
+}
+
+.dialog .notice.top {
+    top: 100px;
+}
+
+    .dialog .notice.top.up {
+        top: 25px;
+    }
+
+.dialog .notice.long {
+    padding-left: 1em;
+    width: 500px;
+    background-image: url('../../images/app/notice-long-background.png');
+}
+
+    .dialog .notice.long .close {
+        right: 30px !important;
+        top: 20px !important;
+    }
+
+    .dialog .notice.long .row {
+        text-align: left;
+    }
+
+    .dialog .notice.long .besoz, .table-flex .besoz {
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: bold;
+        width: 200px;
+        text-align: right;
+        line-height: 1.75em;
+    }
+
+    .dialog .notice.long .price, .table-flex .price {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100px;
+        text-align: right;
+        line-height: 1.75em;
+    }
+
+    .dialog .notice.long .discount, .table-flex .discount {
+        font-style: italic;
+        position: absolute;
+        top: 3em;
+        left: 0;
+        width: 237px;
+        text-align: right;
+        font-size: .8em;
+    }
+
+.dialog .notice h1 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.dialog .notice h2 {
+    margin: 1em;
+    font-size: 1.25em;
+}
+
+.dialog .notice h3 {
+    margin: 1em;
+    font-size: 1em;
+}
+
+.dialog .notice p {
     font-size: 1em;
     line-height: 1.3em;
 }
 
-    .dialog .notice.top {
-        top: 100px;
+.dialog .notice a {
+    font-size: .9em;
+}
+
+.dialog .notice button:not(.btn) {
+    margin-top: .5em;
+    font-size: 0.9em;
+}
+
+.dialog .notice .score {
+    font-size: 1.2em;
+}
+
+.dialog .notice .wand-stars {
+    background: url('../../images/game/wand-stars.png') no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-size: 450px 100%;
+    background-position: -4px 12px;
+}
+
+.dialog .notice .xp-container {
+    line-height: 2em;
+}
+
+    .dialog .notice .xp-container .xp {
+        font-size: 2em;
+        font-weight: bold;
+        /*text-shadow: 1px 1px 3px;*/
     }
 
-        .dialog .notice.top.up {
-            top: 25px;
-        }
-
-    .dialog .notice.long {
-        padding-left: 1em;
-        width: 500px;
-        background-image: url('../../images/app/notice-long-background.png');
+    .dialog .notice .xp-container .symbol {
+        font-size: 1em;
     }
 
-        .dialog .notice.long .close {
-            right: 30px !important;
-            top: 20px !important;
-        }
+.dialog .notice .wand {
+    background-position: center right;
+}
 
-        .dialog .notice.long .row {
-            text-align: left;
-        }
+.dialog .notice .badge {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    width: 80px;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    -webkit-background-size: 100% auto;
+    background-size: 100% auto;
+    height: 120px;
+    background-repeat: no-repeat;
+}
 
-        .dialog .notice.long .besoz, .table-flex .besoz {
-            display: inline-block;
-            vertical-align: middle;
-            font-weight: bold;
-            width: 200px;
-            text-align: right;
-            line-height: 1.75em;
-        }
+.dialog .notice .versions {
+    margin: .5em 0 1em 0;
+    min-height: 5em;
+    font-size: 1.1em;
+}
 
-        .dialog .notice.long .price, .table-flex .price {
-            display: inline-block;
-            vertical-align: middle;
-            width: 100px;
-            text-align: right;
-            line-height: 1.75em;
-        }
+.dialog .notice .version {
+    display: inline-block;
+    font-weight: bold;
+    width: 165px;
+    margin: 5px;
+    line-height: 2em;
+    text-align: center;
+    border: 1px dashed transparent;
+}
 
-        .dialog .notice.long .discount, .table-flex .discount {
-            font-style: italic;
-            position: absolute;
-            top: 3em;
-            left: 0;
-            width: 237px;
-            text-align: right;
+    .dialog .notice .version.active {
+        background: url('../../images/game/Checkmark_Btn_Test2.png') left center no-repeat;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        -webkit-background-size: contain;
+        background-size: contain;
+        /*border-radius: 1em;
+            border-color: #976b2c;*/
+    }
+
+.dialog .notice .dropzone {
+    border: 3px dashed rgba(152, 107, 49,.5);
+    color: darkgrey;
+    height: 150px;
+    border-radius: 1em;
+    text-align: center;
+    /*line-height: 150px;*/
+    display: table-cell;
+    width: 375px;
+    vertical-align: middle;
+    padding: 0 .5em;
+}
+
+    .dialog .notice .dropzone:hover {
+        border-color: @strokeColor;
+    }
+
+    .dialog .notice .dropzone p {
+        color: @textColor;
+    }
+
+        .dialog .notice .dropzone p.sm {
             font-size: .8em;
         }
-
-    .dialog .notice h1 {
-        font-size: 1.5em;
-        margin-bottom: 1em;
-    }
-
-    .dialog .notice h2 {
-        margin: 1em;
-        font-size: 1.25em;
-    }
-
-    .dialog .notice h3 {
-        margin: 1em;
-        font-size: 1em;
-    }
-
-    .dialog .notice p {
-        font-size: 1em;
-        line-height: 1.3em;
-    }
-
-    .dialog .notice a {
-        font-size: .9em;
-    }
-
-    .dialog .notice button:not(.btn) {
-        margin-top: .5em;
-        font-size: 0.9em;
-    }
-
-    .dialog .notice .score {
-        font-size: 1.2em;
-    }
-
-    .dialog .notice .xp-container {
-        line-height: 2em;
-    }
-
-        .dialog .notice .xp-container .xp {
-            font-size: 2em;
-            font-weight: bold;
-            /*text-shadow: 1px 1px 3px;*/
-        }
-
-        .dialog .notice .xp-container .symbol {
-            font-size: 1em;
-        }
-
-    .dialog .notice .wand {
-        background-position: center right;
-    }
-
-    .dialog .notice .badge {
-        position: absolute;
-        right: 10px;
-        top: 100px;
-        width: 80px;
-        -moz-background-size: 100% auto;
-        -o-background-size: 100% auto;
-        -webkit-background-size: 100% auto;
-        background-size: 100% auto;
-        height: 120px;
-        background-repeat: no-repeat;
-    }
-
-    .dialog .notice .versions {
-        margin: .5em 0 1em 0;
-        min-height: 5em;
-        font-size: 1.1em;
-    }
-
-    .dialog .notice .version {
-        display: inline-block;
-        font-weight: bold;
-        width: 165px;
-        margin: 5px;
-        line-height: 2em;
-        text-align: center;
-        border: 1px dashed transparent;
-    }
-
-        .dialog .notice .version.active {
-            background: url('../../images/game/Checkmark_Btn_Test2.png') left center no-repeat;
-            -moz-background-size: contain;
-            -o-background-size: contain;
-            -webkit-background-size: contain;
-            background-size: contain;
-            /*border-radius: 1em;
-            border-color: #976b2c;*/
-        }
-
-    .dialog .notice .dropzone {
-        border: 3px dashed rgba(152, 107, 49,.5);
-        color: darkgrey;
-        height: 150px;
-        border-radius: 1em;
-        text-align: center;
-        /*line-height: 150px;*/
-        display: table-cell;
-        width: 375px;
-        vertical-align: middle;
-        padding: 0 .5em;
-    }
-
-        .dialog .notice .dropzone:hover {
-            border-color: @strokeColor;
-        }
-
-        .dialog .notice .dropzone p {
-            color: @textColor;
-        }
-
-            .dialog .notice .dropzone p.sm {
-                font-size: .8em;
-            }
 
 .dialog .panel {
     position: relative;

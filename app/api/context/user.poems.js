@@ -68,8 +68,9 @@
                poem.likes = poem.likes || 0;
                poem.liked = poem.liked || false;
                poem.creationDate = poem.creationDate || 0;
+               poem.opponent = poem.opponent || '';               
             } )
-            json.poems.sort( function ( a, b ) { return b.id - a.id; } );
+            json.poems.sort( function ( a, b ) { return b.creationDate - a.creationDate; } );
 
             if ( mine )
                update( model.mine, json.poems, ['likes', 'liked'] );
@@ -81,7 +82,7 @@
    }
 
    function loadOnSuccess( json ) {
-      if ( json.success ) load( true );
+      if ( json.success ) load( false );
       return json;
    }
 
@@ -94,11 +95,23 @@
    }
 
    function like( id ) {
-      return API( 'like', { id: id } ).then( loadOnSuccess );
+      return API( 'like', { id: id } ).then( function ( json ) {
+         if ( json.success ) {
+            var poems = model.friends().filter( function ( poem ) { return poem.id == id } );
+            poems[0].likes( json.likes );
+            poems[0].liked( true );
+         }
+      } );
    }
 
    function unlike( id ) {
-      return API( 'unlike', { id: id } ).then( loadOnSuccess );;
+      return API( 'unlike', { id: id } ).then( function ( json ) {
+         if ( json.success ) {
+            var poems = model.friends().filter( function ( poem ) { return poem.id == id } );
+            poems[0].likes( json.likes );
+            poems[0].liked( false );
+         }
+      } );
    }
 
    function API( command, options ) {

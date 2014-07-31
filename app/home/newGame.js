@@ -37,7 +37,7 @@
       this.gameOptionId = ko.observable( 0 );
       this.collections = ctx.user.collections;
       this.collection = ko.observable( 'woz' );
-      this.friends = ko.observableArray([]);
+      this.friends = ko.observableArray( [] );
       this.query = ko.observable( '' );
       this.friendListMode = ko.observable( mode.list );
       this.searchLoading = ko.observable( false );
@@ -51,9 +51,9 @@
       var vm = this;
       vm.query.subscribe( function ( query ) {
          if ( !query ) {
-            ctx.user.friends.load().then( function ( friends ) {               
+            ctx.user.friends.load().then( function ( friends ) {
                vm.friends( friends );
-            } );            
+            } );
          }
       } );
       vm.query.notifySubscribers();
@@ -123,6 +123,10 @@
    ctor.prototype.attached = function () {
       app.Sound.play( app.Sound.sounds.pageTransition );
    };
+
+   ctor.prototype.invite = function () {
+      app.dialog.showInvite();
+   }
 
    ctor.prototype.addFriend = function ( friend ) {
       app.Sound.play( app.Sound.sounds.click.button );

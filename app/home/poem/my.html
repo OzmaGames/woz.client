@@ -11,6 +11,13 @@
             </div>
          </button>
          <button class="right icon-trash" data-bind="click: $root.remove"></button>
+         <div class="footer">
+            <div class="likes">
+               <span class="icon-heart"></span>
+               <span data-bind="text: likes"></span> like this
+            </div>
+            <div class="date" data-bind="date: creationDate"></div>
+         </div>
          <div class="slider">
             <div data-bind="tile: {tile: {imageName: imageName }}" style="height: 422px" class="poem-mask">
                <div data-part="text">

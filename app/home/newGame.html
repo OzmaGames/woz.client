@@ -13,7 +13,10 @@
                   <i data-bind="css: className"></i>
                </label>
             </div>
-            <h1>choose friend</h1>
+            <h1>
+               choose friend
+               <span class="invite" data-bind="click:invite"><i class="icon-envelope-alt"></i> Invite a friend</span>
+            </h1>
             <div class="container group ">
                <div class="input-box">
                   <input type="search" placeholder="Search for a friend" data-bind="value: query, valueUpdate: 'afterkeydown', search: queryChanged" autocorrect="off" autocapitalize="off" />

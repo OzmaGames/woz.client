@@ -1230,7 +1230,7 @@ a.big {
 .table-flex .collection .couple.vin {
   background-image: url(../../images/tiles/collections/shop-vin.png);
 }
-.table-flex .collection .couple.vin-boost1 {
+.table-flex .collection .couple.dream {
   background-image: url(../../images/tiles/collections/shop-vin-booster.png);
 }
 .table-flex .collection .couple.nf {
@@ -1429,6 +1429,21 @@ progress::-moz-progress-bar {
   right: 0;
   bottom: 0;
   margin: auto;
+}
+.invite {
+  font-size: 12px !important;
+  float: right;
+  cursor: pointer;
+  line-height: 2em;
+  margin-right: 1em;
+}
+.payment-icon {
+  background-image: url(../../images/app/payment.png);
+  width: 100%;
+  height: 2em;
+  background-repeat: no-repeat;
+  margin-left: 1em;
+  margin-top: -1em;
 }
 .dialog {
   position: fixed;
@@ -1721,17 +1736,17 @@ progress::-moz-progress-bar {
   /*min-height: 177px;*/
   background-image: url(../../images/app/notice-background.png);
   background-repeat: no-repeat;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   text-align: center;
   padding: 2em;
   padding-bottom: 2.5em;
-  cursor: pointer;
   font-family: cambria, CopseRegular;
   font-size: 1em;
   line-height: 1.3em;
+  cursor: default;
+}
+.dialog.clickable .notice {
+  cursor: pointer;
 }
 .dialog .notice.top {
   top: 100px;
@@ -1803,6 +1818,17 @@ progress::-moz-progress-bar {
 }
 .dialog .notice .score {
   font-size: 1.2em;
+}
+.dialog .notice .wand-stars {
+  background: url(../../images/game/wand-stars.png) no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-size: 450px 100%;
+  background-position: -4px 12px;
 }
 .dialog .notice .xp-container {
   line-height: 2em;
@@ -4298,11 +4324,10 @@ body > .cloud.fixed .rule {
   height: 400px;
   vertical-align: middle;
 }
-.poem-page .cell[data-title] {
+.poem-page .cell.withTitle {
   margin-top: 30px;
 }
-.poem-page .cell[data-title]:before {
-  content: attr(data-title);
+.poem-page .cell.withTitle .title {
   position: absolute;
   top: -19px;
   line-height: 20px;
@@ -4320,6 +4345,10 @@ body > .cloud.fixed .rule {
   font-size: 15px;
   font-weight: bold;
   text-shadow: none;
+}
+.poem-page .cell.withTitle .title .opponent {
+  font-weight: normal;
+  font-size: 10px;
 }
 .poem-page .cell .footer {
   position: absolute;
@@ -4432,6 +4461,9 @@ body > .cloud.fixed .rule {
   -o-transform: none;
   -webkit-transform: none;
   transform: none;
+}
+.poem-page .cell .slider .tile {
+  cursor: default !important;
 }
 @keyframes blink-shadow {
   

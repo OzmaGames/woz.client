@@ -1,8 +1,8 @@
-﻿define( 'api/Sound', ['sounds/manifest', 'sounds/manifest.meta', 'firebase'], function ( manifest, manifestMeta ) {
+﻿define( 'api/Sound', ['api/helper/Log', 'sounds/manifest', 'sounds/manifest.meta', 'firebase'], function ( LOG, manifest, manifestMeta ) {
    var fb = null;
    //fb = new Firebase( "https://flickering-fire-3516.firebaseio.com/ozma/woz/sounds" );
 
-   var soundSystem = false;   
+   var soundSystem = false;
 
    function Sound( collection ) {
       var manifest = [];
@@ -38,18 +38,20 @@
 
       this.sounds = soundsKey;
       this.metaSounds = metaSounds;
-      this.load = function () {         
+      this.load = function () {
          if ( soundSystem ) {
+            createjs.Sound.alternateExtensions = ["mp3"];
             createjs.Sound.registerManifest( manifest, 'sounds/' );
 
             if ( fb ) {
-               fb.on( "value", function ( sounds ) {                  
+               fb.on( "value", function ( sounds ) {
+                  //console.log( JSON.stringify( sounds.val() ) );
                   if ( sounds.val() ) {
                      foo( sounds.val() );
                   }
                } );
             } else {
-               foo( manifestMeta );               
+               foo( manifestMeta );
             }
          } else {
             dfd.resolve();
@@ -104,11 +106,11 @@
    }
 
    Sound.prototype.play = function ( arr, noNotify ) {
-      if ( !soundSystem ) return;
+      LOG.instance.log( 'Play Sound', arr, LOG.themes.sound );      
+
+      if ( !soundSystem || !arr || ( arr.push && arr.length == 0 ) ) return;
       
       var key, instance;
-      if ( !arr ) return;
-      if ( arr.push && arr.length == 0 ) return;
       if ( arr.push ) {
          var index = 0;
          do {

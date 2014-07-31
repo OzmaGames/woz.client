@@ -23,11 +23,10 @@
   height: 400px;
   vertical-align: middle;
 }
-.poem-page .cell[data-title] {
+.poem-page .cell.withTitle {
   margin-top: 30px;
 }
-.poem-page .cell[data-title]:before {
-  content: attr(data-title);
+.poem-page .cell.withTitle .title {
   position: absolute;
   top: -19px;
   line-height: 20px;
@@ -45,6 +44,10 @@
   font-size: 15px;
   font-weight: bold;
   text-shadow: none;
+}
+.poem-page .cell.withTitle .title .opponent {
+  font-weight: normal;
+  font-size: 10px;
 }
 .poem-page .cell .footer {
   position: absolute;
@@ -157,5 +160,8 @@
   -o-transform: none;
   -webkit-transform: none;
   transform: none;
+}
+.poem-page .cell .slider .tile {
+  cursor: default !important;
 }
 /*# sourceMappingURL=page.css.map */

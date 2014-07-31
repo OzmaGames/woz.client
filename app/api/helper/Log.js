@@ -4,7 +4,8 @@
       black: 'background: #222; color: #bada55',
       green: 'background: green; color: white',
       red: 'background: red; color: white',
-      warn: 'background: orange; color: white'
+      warn: 'background: orange; color: white',
+      sound: 'background: blue; color: white'
    }
 
    function Log( theme ) {

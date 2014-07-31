@@ -374,8 +374,11 @@
                           data.noRedirect = true; //dont redirect
                        }
 
-                       console.log( data )
-                       app.dialog.show( "notice", { model: data, view: 'dialogs/pages/GameOver' } ).then( function () {
+                       if ( ctx.playerCount == 2 ) {
+                          data.noRedirect = true;
+                       }
+                       
+                       app.dialog.show( "notice", { model: data, view: 'dialogs/pages/GameOver', closeOnClick: false } ).then( function () {
                           if ( json.stats.levelUp ) {
                              app.dialog.show( "notice", {
                                 model: {
@@ -383,7 +386,7 @@
                                    imageName: 'images/game/level/' + json.stats.title.toLowerCase() + '.png'
                                 }, view: "dialogs/pages/LevelUp"
                              } ).then( function () {
-                                app.navigate( data.target );
+                                if ( ctx.playerCount == 1 ) app.navigate( data.target );
                              } );
                           }
                        } );

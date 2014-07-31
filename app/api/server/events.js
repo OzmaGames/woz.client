@@ -26,7 +26,8 @@
         "shop:storage",
         "account:fb",
         "account:delete",
-        "foes"
+        "foes",
+        "user:suggest"
       ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {

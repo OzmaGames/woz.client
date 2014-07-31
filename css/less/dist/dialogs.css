@@ -303,17 +303,17 @@
   /*min-height: 177px;*/
   background-image: url(../../../images/app/notice-background.png);
   background-repeat: no-repeat;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
   text-align: center;
   padding: 2em;
   padding-bottom: 2.5em;
-  cursor: pointer;
   font-family: cambria, CopseRegular;
   font-size: 1em;
   line-height: 1.3em;
+  cursor: default;
+}
+.dialog.clickable .notice {
+  cursor: pointer;
 }
 .dialog .notice.top {
   top: 100px;
@@ -385,6 +385,17 @@
 }
 .dialog .notice .score {
   font-size: 1.2em;
+}
+.dialog .notice .wand-stars {
+  background: url(../../../images/game/wand-stars.png) no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-size: 450px 100%;
+  background-position: -4px 12px;
 }
 .dialog .notice .xp-container {
   line-height: 2em;

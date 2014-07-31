@@ -33,17 +33,24 @@
    }
 
    ctor.prototype.like = function ( poem ) {
-      ( poem.liked ? ctx.user.poems.unlike( poem.id ) : ctx.user.poems.like( poem.id ) ).then( function ( json ) {
-         poem.liked = !poem.liked;
+      ( poem.liked() ? ctx.user.poems.unlike( poem.id ) : ctx.user.poems.like( poem.id ) ).then( function ( json ) {         
          //var index = ctx.user.poems.friends.indexOf( poem );
          //ctx.user.poems.friends.splice( index, 1 );
          //ctx.user.poems.friends.splice( index, 0, poem );
       } );
    }
 
+   var q = new Task.Queue();
+
    ctor.prototype.afterRender = function ( el, poem ) {
       poem.$el = $( el[1] );
       poem.$slider = $( '.slider', poem.$el );
+
+      q.runAfter( function () {
+         if ( this.timer == 1 ) {
+            app.Sound.play( app.Sound.sounds.lobbyLoading );
+         }
+      }, 1 );
    }
 
    ctor.prototype.facebook = function ( item ) {

@@ -3,18 +3,21 @@
    function AddWords() {
       this.loading = ko.observable( false );
       this.message = ko.observable();
-      this.words = ko.observableArray([]);
+      this.words = ko.observableArray( [] );
       this.activeWord = ko.observable();
       this.lemma = ko.observable();
-      this.searched = ko.observable('');
+      this.searched = ko.observable( '' );
 
       this.tMode = ctx.tutorialMode;
 
       var base = this;
 
       this.suggest = function () {
-         app.trigger( "server:game:suggest-word", { lemma: base.searched() }, function ( json ) {
-            app.dialog.show( 'alert', { content: 'Thanks for your suggestion! We will consider your word in future!' } );
+         app.trigger( "server:user:suggest", { lemma: base.searched() }, function ( json ) {
+            app.dialog.show( 'alert', {
+               content: $( '<div/>' ).css( 'fontSize', '20px' )
+                  .html( 'Thanks for your suggestion. <br> We will consider your word in future!' )[0].outerHTML, delay: 5000
+            } );
          } );
          base.close();
       }
@@ -24,7 +27,7 @@
 
          base.lemma( base.lemma().trim() );
 
-         app.trigger( "server:game:search-word", {            
+         app.trigger( "server:game:search-word", {
             lemma: base.lemma()
          }, function ( data ) {
             //data.words = ['word1', 'word2', 'word3'];
@@ -73,7 +76,7 @@
          }
 
          function publishWord( data ) {
-         
+
             base.loading( false );
             data.word.css = "new";
             data.words = [data.word];

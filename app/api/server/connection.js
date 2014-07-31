@@ -54,7 +54,10 @@
       event = "server:" + event;
       app.on( event ).then( function ( data, callback ) {
 
-         addToken( event, data );
+         if ( !addToken( event, data ) ) {
+            LOG.instance.log( event, 'invalid request!', LOG.themes.warn );
+            return;
+         }
 
          server.connected.then( function () {
             LOG.instance.log( event + ' sent', data, LOG.themes.black );
@@ -89,9 +92,15 @@
          if ( !( 'username' in json ) ) {
             json.username = app.ctx.username;
          }
+
+         if ( json.username == undefined ) return false;
+
          json.token = app.ctx.token;
+
+         return true;
       } else {
          LOG.instance.log( "* " + event, json, LOG.themes.warn );
+         return false;
       }
    }
 

@@ -83,6 +83,15 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
          app.dialog.show( "slipper-profile", { username: username } );
       };
 
+      app.dialog.showInvite = function () {
+         app.dialog.show( "notice", {
+            model: 'dialogs/pages/invite',
+            closeOnClick: false
+         } ).then( function () {
+            
+         } );
+      }
+
       app.palette = palette;
       app.palette.get( "menu" ).click( function () { app.dialog.show( "menu" ); } );
       app.palette.get( "currency" ).click( app.dialog.showCurrency ).content = ctx.user.besoz;

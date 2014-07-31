@@ -16,11 +16,10 @@
         height: @boxSize;
         vertical-align: middle;
 
-        &[data-title] {
+        &.withTitle {
             margin-top: 30px;
 
-            &:before {
-                content: attr(data-title);
+            .title {
                 position: absolute;
                 top: -19px;
                 line-height: 20px;
@@ -38,6 +37,11 @@
                 font-size: 15px;
                 font-weight: bold;
                 text-shadow: none;
+
+                .opponent {
+                    font-weight: normal;
+                    font-size: 10px;
+                }
             }
         }
 
@@ -163,6 +167,10 @@
                 -o-transform: none;
                 -webkit-transform: none;
                 transform: none;
+            }
+
+            .tile {
+                cursor: default !important;
             }
         }
     }
