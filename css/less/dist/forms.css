@@ -458,6 +458,44 @@ button.menuItem {
   padding: .5em 1em;
   width: 15em;
   text-align: left;
+  position: relative;
+  padding-left: 2.2em;
+}
+button.menuItem i {
+  background: url(../../../images/app/menu.png) no-repeat;
+  font-size: 60px;
+  width: 25px;
+  height: 30px;
+  background-size: 200px 30px;
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  left: 5px;
+  top: 4px;
+}
+button.menuItem i.mi-new {
+  background-position: 0 0;
+}
+button.menuItem i.mi-shop {
+  background-position: -25px 0;
+}
+button.menuItem i.mi-lobby {
+  background-position: -50px 0;
+}
+button.menuItem i.mi-poems {
+  background-position: -75px 0;
+}
+button.menuItem i.mi-settings {
+  background-position: -100px 0;
+}
+button.menuItem i.mi-tutorial {
+  background-position: -125px 0;
+}
+button.menuItem i.mi-help {
+  background-position: -150px 0;
+}
+button.menuItem i.mi-logout {
+  background-position: -175px 0;
 }
 button.facebook {
   background-image: url(../../../images/app/facebook-button.png);

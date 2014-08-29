@@ -1,7 +1,10 @@
 ﻿<div class="dialog top-right modal">
     <div class="ui-overlay transparent" data-bind="click: close"></div>
     <div class="menu" data-bind="click: close, foreach: items">
-        <button class="menuItem float left" data-bind="click: $root.nav, text: text"></button>
+        <button class="menuItem float left" data-bind="click: $root.nav">
+            <span data-bind="text: text"></span>
+            <i data-bind="css: icon"></i>
+        </button>
         <div class="clear"></div>
     </div>
 </div>

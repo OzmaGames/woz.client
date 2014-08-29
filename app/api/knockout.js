@@ -1,4 +1,4 @@
-﻿define( function () {
+﻿define( ['durandal/system'], function ( system ) {
    ko.bindingHandlers["fadeVisible"] = {
       init: function ( element, valueAccessor, allBindingsAccessor ) {
          var value = valueAccessor();
@@ -7,7 +7,7 @@
       update: function ( element, valueAccessor, allBindingsAccessor ) {
          var value = valueAccessor(), fadeIn, fadeOut;
          others = allBindingsAccessor();
-         
+
          if ( others.duration === undefined ) {
             others.duration = value.duration;
          }
@@ -284,6 +284,10 @@
                app.Sound.play( app.Sound.sounds.click.button );
             } );
 
+         $( element ).addClass( 'anim anim-hidden' );
+
+         var animDuration = 500;
+
          var sub = activeIndex.subscribe( function ( index ) {
             for ( var i = 0; i < items.length; i++ ) {
                items[i].classList.remove( 'active' );
@@ -293,27 +297,35 @@
             if ( typeof obj.nav == "function" ) {
                var dfd = $.Deferred();
 
-               $( '.content', element ).stop();
-               if ( app.browser.tablet ) {
-                  $( '.content', element ).hide();
-               } else {
-                  $( '.content', element ).slideUp();
-               }
-               $( '.content', element ).delay( 30 ).promise().then( function () {
+               $( element ).removeClass( 'anim-visible' ).delay( animDuration ).promise().then( function () {
                   if ( index != activeIndex() ) {
                      dfd.reject();
                   } else {
                      dfd.resolve( index );
                   }
                } );
-               obj.nav.call( viewModel, index, dfd ).then( function () {
-                  if ( app.browser.tablet ) {
-                     $( '.content', element ).show();
-                  } else {
-                     $( '.content', element ).slideDown();
-                  }
-                  $( '.content', element ).promise().then( function () {
-                     $( this ).css( 'height', '' );
+
+               var compose = obj.nav.call( viewModel, index, dfd );
+               if ( !compose.then ) {
+                  $.Deferred( function ( dfd2 ) {
+                     system.acquire( compose.moduleId ).then( function ( module ) {
+                        var model = system.resolveObject( module );
+                        var oldFn = model.compositionComplete;
+
+                        model.compositionComplete = function () {
+                           if ( oldFn ) oldFn.apply( model, arguments );
+                           dfd2.resolve();
+                        }
+
+                        dfd.then( function () {
+                           compose.acquired( model );
+                        } );
+                     } );
+                  } ).promise( compose );
+               }
+
+               compose.then( function () {
+                  $( element ).addClass( 'anim-visible' ).delay( animDuration ).promise().then( function () {
                      if ( typeof obj.navEnd == "function" ) {
                         obj.navEnd.call( viewModel, index );
                      }

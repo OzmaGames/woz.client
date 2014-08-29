@@ -21,10 +21,6 @@
     url('../fonts/cambria/cambria.svg#Cambria') format('svg'); /* Legacy IOS */
 }
 
-* {
-    padding: 0;
-    margin: 0;
-}
 
 html {
     text-rendering: optimizeLegibility;
@@ -35,19 +31,19 @@ html {
     user-select: none;
     font-family: 'Cambria', 'CopseRegular';
     cursor: default;
+    color: #986b31;
 }
 
 html, body {
+    padding: 0;
+    margin: 0;
 }
 
 body {
-    overflow-x: hidden;
-    overflow-y: auto;
+    /*overflow-x: hidden;
+    overflow-y: auto;*/
     background-color: #f1e8d5;
     background: url('../images/background-small.jpg') no-repeat fixed #f1e8d5 center center;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
 }
 
@@ -65,22 +61,15 @@ a {
 
 .logo {
     background: url('../images/logo.png') no-repeat;
-    -moz-background-size: 100% auto;
-    -o-background-size: 100% auto;
-    -webkit-background-size: 100% auto;
     background-size: 100% auto;
     background-position: center top;
 }
 
     .logo.page {
         width: 100%;
-        height: 80px;
-        margin-top: 10px;
+        height: 90px;
         z-index: 1;
         background: url('../images/logo-small.png') no-repeat center center;
-        -moz-background-size: auto 100%;
-        -o-background-size: auto 100%;
-        -webkit-background-size: auto 100%;
         background-size: auto 100%;
         margin-bottom: 1em;
     }
@@ -138,9 +127,8 @@ button {
 }
 
     button.orange, button.blue {
-        font-size: 1em;
+        font-size: 1.4em;
         padding: .3em 1em;
-        -webkit-text-shadow: 0 0 2px white;
         text-shadow: 0 0 2px white;
         color: white;
         text-transform: uppercase;
@@ -167,7 +155,7 @@ button {
     button.blue {
         border-color: #b7dbe7;
         background-color: #62B6CC;
-        background-position: 0 0;
+        background-position-y: -156px;
         box-shadow: 0 -.9em 1em .01em rgba(183, 219, 231, .5) inset, 0 .2em .5em .2em #54A8C0 inset, 0 .8em .5em .1em rgba(255, 255, 255, .5) inset;
     }
 
@@ -236,9 +224,6 @@ button {
 
     .tile.girl {
         background: url('../images/girl.jpg') no-repeat center center;
-        -moz-background-size: contain;
-        -o-background-size: contain;
-        -webkit-background-size: contain;
         background-size: contain;
     }
 
@@ -265,9 +250,6 @@ button {
         content: "";
         display: block;
         background: url('../images/wand.png') no-repeat center center;
-        -moz-background-size: contain;
-        -o-background-size: contain;
-        -webkit-background-size: contain;
         background-size: contain;
         width: 250px;
         height: 250px;
@@ -276,52 +258,11 @@ button {
         bottom: -4.5em;
     }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation: portrait), only screen and (max-width: 480px) {
-    .tile {
-        width: 300px;
-        height: 300px;
-    }
 
-        .tile .card {
-            margin-top: 150px;
-        }
-
-        .tile input {
-            margin-left: 15px;
-        }
-
-        .tile button {
-            margin-left: 75px;
-        }
-
-    .card.bottom {
-        height: 85px;
-    }
-
-    .tile::after {
-        width: 200px;
-        height: 200px;
-    }
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.1), only screen (min-resolution: 1.1dppx) {
-    .logo.page {
-        background-image: url('../images/logo.png');
-    }
-}
-
-@media only screen and (min-width : 1380px), only screen and (-webkit-min-device-pixel-ratio: 1.1), only screen (min-resolution: 1.1dppx) {
-    body {
-        background-image: url('../images/background.jpg');
-    }
-}
 
 
 .ozma {
     background: url('../images/ozma.png') no-repeat center center;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    -webkit-background-size: contain;
     background-size: contain;
     height: 100px;
 }
@@ -347,6 +288,56 @@ p {
     word-spacing: 2px;
     padding: 0 1em;
 }
+
+    p.sm {
+        font-size: .8em;
+    }
+
+.allcaps {
+    text-transform: uppercase;
+}
+
+.video {
+    margin: 0 auto;
+    display: block;
+}
+
+.light {
+    width: 100%;
+    display: block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255,.5);
+    padding: 1em;
+}
+
+    .light p {
+        font-family: Cambria;
+    }
+
+        .light p:first-child {
+            margin-top: 0;
+        }
+
+.box600 {
+    max-width: 650px;
+    text-align: left;
+    margin: 0 auto;
+    padding: 0 10px;
+    margin-top: 1em;
+}
+
+    .box600 p {
+        text-align: left;
+        padding: 0;
+        font-family: CopseRegular;
+    }
+
+.bold {
+    font-weight: bold;
+}
+
 
 
 .card:not(.active) .back .loader-bar, .loaded .loader-bar {
@@ -408,6 +399,196 @@ p {
 
 .loaded .visibleOnLoad {
     visibility: visible;
+}
+
+nav {
+    min-width: 330px;
+    height: 40px;
+}
+
+    nav a {
+        color: #986b31;
+        font-size: 22px;
+        text-transform: uppercase;
+        margin: 0 .5em;
+        line-height: 57px;
+    }
+
+        nav a:first-child {
+            margin-left: 1.5em;
+        }
+
+        nav a:visited {
+            color: #986b31;
+        }
+
+.social {
+    width: 140px;
+    font-size: 5px;
+    margin: 1em 1em 0 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+    .social a {
+        margin: 0 !important;
+    }
+
+.s-fb, .s-tw, .s-pt {
+    display: inline-block;
+    width: 44px;
+    height: 45px;
+    background-image: url('../images/social.png');
+}
+
+.s-fb {
+    background-position: 0 0;
+}
+
+.s-pt {
+    background-position: 0 -45px;
+}
+
+.s-tw {
+    background-position: 0 -90px;
+}
+
+.star {
+    background: url(../images/soon.png) no-repeat;
+    background-size: contain;
+    width: 150px;
+    height: 150px;
+    display: block;
+    padding: 40px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+    .star.main {
+        position: absolute;
+        bottom: 0;
+        left: -175px;
+    }
+
+
+
+header {
+    width: 100%;
+    color: white;
+    background-color: #986b31;
+    text-align: center;
+    padding: .5em;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-family: CopseRegular;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: 480px;
+    opacity: .5;
+}
+
+footer {
+    position: relative;
+    height: 200px;
+    color: #77452C;
+    text-align: left;
+    padding: 2em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url(../images/ozma.png) no-repeat #C9BCAB;
+    background-size: 200px auto;
+    background-position: center right;
+}
+
+    footer a, footer a:visited {
+        color: #77452C;
+        margin-right: 1em;
+    }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+    footer p {
+        text-align: left;
+        color: inherit;
+        font-family: Cambria;
+    }
+
+    footer .lang {
+        font-weight: bold;
+    }
+
+.hideOnShrink {
+}
+
+@media only screen and (max-width: 725px) {
+    .hideOnShrink {
+        display: block;
+        height: 0;
+        color: transparent;
+    }
+
+    .star.main {
+        top: -40px;
+        bottom: auto;
+        left: -65px;
+        z-index: -1;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation: portrait), only screen and (max-width: 480px) {
+
+    .tile {
+        width: 300px;
+        height: 300px;
+    }
+
+        .tile .card {
+            margin-top: 150px;
+        }
+
+        .tile input {
+            margin-left: 15px;
+        }
+
+        .tile button {
+            margin-left: 75px;
+        }
+
+    .card.bottom {
+        height: 85px;
+    }
+
+    .tile::after {
+        width: 200px;
+        height: 200px;
+    }
+
+    nav {
+        height: 115px;
+    }
+
+    .social {
+        position: relative;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.1), only screen (min-resolution: 1.1dppx) {
+    .logo.page {
+        background-image: url('../images/logo.png');
+    }
+}
+
+@media only screen and (min-width : 1380px), only screen and (-webkit-min-device-pixel-ratio: 1.1), only screen (min-resolution: 1.1dppx) {
+    body {
+        background-image: url('../images/background.jpg');
+    }
 }
 
 @-webkit-keyframes slidein {
@@ -497,28 +678,4 @@ p {
         -webkit-transform: translateX(15em);
         transform: translateX(15em);
     }
-}
-
-.social {
-    width: 140px;
-    margin: 0 auto;
-}
-
-.s-fb, .s-tw, .s-pt {
-    display: inline-block;
-    width: 44px;
-    height: 45px;
-    background-image: url('../images/social.png');
-}
-
-.s-fb {
-    background-position: 0 0;
-}
-
-.s-pt {
-    background-position: 0 -45px;
-}
-
-.s-tw {
-    background-position: 0 -90px;
 }

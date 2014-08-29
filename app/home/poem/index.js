@@ -1,7 +1,7 @@
-﻿define(['durandal/app', 'api/datacontext'], function (app, ctx) {
+﻿define( ['durandal/app', 'durandal/system', 'api/datacontext'], function ( app, system, ctx ) {
 
    return {
-      loading: ko.observable(false),
+      loading: ko.observable( false ),
 
       module: ko.observable(),
 
@@ -9,18 +9,17 @@
 
       close: function () { },
 
-      navigate: function (tabIndex, dfd) {
+      navigate: function ( tabIndex, dfd ) {
          var base = this;
-         base.loading(true);
+         base.loading( true );
 
-         tabIndex *= 1;
-
-         return dfd.then(function () {
-            //base.module(null);
-            base.module( tabIndex === 0 ? 'home/poem/my' : 'home/poem/friends' );
-            
-            base.loading(false);
-         });
+         return {
+            moduleId: ( +tabIndex === 0 ) ? 'home/poem/my' : 'home/poem/friends',
+            acquired: function ( model ) {
+               base.loading( false );
+               base.module( model );
+            }
+         }
       },
 
       activate: function ( id ) {
@@ -44,4 +43,4 @@
          app.Sound.play( app.Sound.sounds.pageTransition );
       }
    }
-});
+} );

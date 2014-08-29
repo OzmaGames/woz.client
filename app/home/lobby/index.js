@@ -31,8 +31,9 @@
 
       sessionStorage.setItem( "lobby", tabIndex );
 
-      this.loading( false );
-
+      var base = this;
+      base.loading( false );
+      
       return $.Deferred( function ( dfd ) { Task.run( function () { dfd.resolve(); }, 100 ); } );
    }
 

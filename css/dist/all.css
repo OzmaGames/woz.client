@@ -930,13 +930,7 @@ a.big {
   background-image: url(../../images/app/tabs/main.png);
   background-repeat: no-repeat;
   background-position: 0 1.7em;
-  -moz-background-size: 2em auto;
-  -o-background-size: 2em auto;
-  -webkit-background-size: 2em auto;
   background-size: 2em auto;
-}
-.grid.big .tab {
-  max-width: none;
 }
 .tab .content {
   position: relative;
@@ -951,6 +945,33 @@ a.big {
 }
 .tab .content .cell.left {
   min-width: initial;
+}
+.tab.anim .content {
+  overflow: hidden;
+  position: absolute;
+  -moz-transition: all 600ms;
+  -o-transition: all 600ms;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+}
+.tab.anim.anim-hidden .content {
+  -moz-transform: translateY(-1em) translateZ(1px);
+  -ms-transform: translateY(-1em) translateZ(1px);
+  -o-transform: translateY(-1em) translateZ(1px);
+  -webkit-transform: translateY(-1em) translateZ(1px);
+  transform: translateY(-1em) translateZ(1px);
+  opacity: 0;
+}
+.tab.anim.anim-visible .content {
+  -moz-transform: translateY(0) translateZ(1px);
+  -ms-transform: translateY(0) translateZ(1px);
+  -o-transform: translateY(0) translateZ(1px);
+  -webkit-transform: translateY(0) translateZ(1px);
+  transform: translateY(0) translateZ(1px);
+  opacity: 1;
+}
+.grid.big .tab {
+  max-width: none;
 }
 .tab nav {
   text-transform: uppercase;
@@ -1393,6 +1414,39 @@ progress::-webkit-progress-bar {
 }
 progress::-moz-progress-bar {
   background: #cfa972;
+}
+.progressBarDecor {
+  width: 200px;
+  height: 71px;
+  background-image: url(../../images/app/loading-decor.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 27px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 10px auto;
+}
+.progressBarDecor .inner {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid #8F692B;
+  box-shadow: 0 0 1px 1px #A98F54;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+}
+.progressBarDecor .inner progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
 }
 .toast {
   font-size: .7em !important;
@@ -2605,6 +2659,44 @@ button.menuItem {
   padding: .5em 1em;
   width: 15em;
   text-align: left;
+  position: relative;
+  padding-left: 2.2em;
+}
+button.menuItem i {
+  background: url(../../images/app/menu.png) no-repeat;
+  font-size: 60px;
+  width: 25px;
+  height: 30px;
+  background-size: 200px 30px;
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  left: 5px;
+  top: 4px;
+}
+button.menuItem i.mi-new {
+  background-position: 0 0;
+}
+button.menuItem i.mi-shop {
+  background-position: -25px 0;
+}
+button.menuItem i.mi-lobby {
+  background-position: -50px 0;
+}
+button.menuItem i.mi-poems {
+  background-position: -75px 0;
+}
+button.menuItem i.mi-settings {
+  background-position: -100px 0;
+}
+button.menuItem i.mi-tutorial {
+  background-position: -125px 0;
+}
+button.menuItem i.mi-help {
+  background-position: -150px 0;
+}
+button.menuItem i.mi-logout {
+  background-position: -175px 0;
 }
 button.facebook {
   background-image: url(../../images/app/facebook-button.png);
