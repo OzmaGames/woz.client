@@ -265,19 +265,112 @@ i.command.find:hover {
   background-position: -1em 0 !important;
 }
 i.command.currency {
-  background-image: url(../../../images/game/currency.png);
+  background-image: url(../../../images/game/currency-bg.png);
   background-size: contain;
-  background-position: 3px 0 !important;
+  background-position: 9px 4px !important;
   background-repeat: no-repeat;
   width: 80px;
   height: 80px;
   margin-left: -20px;
   color: #986B31;
-  font-size: 14px;
+  font-size: 18px;
   text-shadow: 0 0 1px #986B31;
   line-height: 53px;
   text-align: center;
   font-style: normal;
+  position: relative;
+  display: block;
+}
+i.command.currency:after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  bottom: 0;
+  left: 22px;
+  background: url(../../../images/game/currency-wand.png) no-repeat;
+  background-size: contain;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -moz-transform-origin: -15% 75%;
+  -ms-transform-origin: -15% 75%;
+  -o-transform-origin: -15% 75%;
+  -webkit-transform-origin: -15% 75%;
+  transform-origin: -15% 75%;
+  -moz-animation: none;
+  -o-animation: none;
+  -webkit-animation: none;
+  animation: none;
+}
+i.command.currency:hover:after {
+  -moz-animation: currency ease-in-out 1s infinite;
+  -o-animation: currency ease-in-out 1s infinite;
+  -webkit-animation: currency ease-in-out 1s infinite;
+  animation: currency ease-in-out 1s infinite;
+}
+@-webkit-keyframes currency {
+  from {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  20% {
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+  50% {
+    -ms-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+  to {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+@-moz-keyframes currency {
+  from {
+    -moz-transform: rotate(0);
+  }
+  20% {
+    -moz-transform: rotate(-10deg);
+  }
+  50% {
+    -moz-transform: rotate(15deg);
+  }
+  to {
+    -moz-transform: rotate(0);
+  }
+}
+@keyframes currency {
+  from {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+  20% {
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+  50% {
+    -ms-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+  to {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
 }
 i.command.currency:hover,
 i.command.currency:active {

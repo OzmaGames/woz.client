@@ -98,6 +98,9 @@ h3 {
 a {
   cursor: pointer;
 }
+a:visited {
+  color: #986b31;
+}
 .strong {
   font-weight: bold;
 }
@@ -803,10 +806,7 @@ a.big {
   width: 2.5em;
   height: 2.5em;
   padding-left: .5em;
-  background-image: url(../../images/game/chat.png);
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
+  /*background-image: url('../../images/game/chat.png');*/
   background-size: 100% 100%;
 }
 .game-item .box .chat > div {
@@ -1459,6 +1459,9 @@ progress::-moz-progress-bar {
   height: 1em;
   display: inline-block;
 }
+.social.clickable {
+  cursor: pointer;
+}
 .social.fb {
   background-position: 0 0;
 }
@@ -1475,6 +1478,7 @@ progress::-moz-progress-bar {
   filter: grayscale(100%);
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
   /* Firefox 10+, Firefox on Android */
+  cursor: default;
 }
 .absolute-center {
   position: absolute;
@@ -1688,9 +1692,6 @@ progress::-moz-progress-bar {
   width: 150px;
   right: -10px;
   background-image: url(../../images/app/menu-background.png);
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
   text-align: center;
   line-height: 120%;
@@ -1899,16 +1900,14 @@ progress::-moz-progress-bar {
   background-position: center right;
 }
 .dialog .notice .badge {
-  position: absolute;
-  right: 10px;
-  top: 100px;
-  width: 80px;
-  -moz-background-size: 100% auto;
-  -o-background-size: 100% auto;
-  -webkit-background-size: 100% auto;
-  background-size: 100% auto;
-  height: 120px;
+  background-position: 292px 57px;
+  background-size: auto 120px;
   background-repeat: no-repeat;
+}
+.dialog .notice .wand-left {
+  background: url(../../images/app/wand.png) no-repeat;
+  background-position: -0.9em 0.8em;
+  background-size: 200px auto;
 }
 .dialog .notice .versions {
   margin: .5em 0 1em 0;
@@ -1965,7 +1964,7 @@ progress::-moz-progress-bar {
   width: 20em;
   margin: 0 auto;
 }
-.dialog .panel.payment {
+.dialog .panel.wide {
   width: 800px;
 }
 .dialog .panel h1 {
@@ -2962,6 +2961,9 @@ ul.custom-list.draggable li.hole::before {
   height: .01em;
   line-height: .01em;
 }
+.slider .tile .poem-container .row.none h1 {
+  padding: 0;
+}
 .slider .tile .poem-container,
 .slider .tile .poem-container h1 {
   -moz-transition: 0.3s color, 0.3s text-shadow;
@@ -3061,10 +3063,10 @@ ul.custom-list.draggable li.hole::before {
   transform: rotate(90deg);
 }
 .poem-mask {
-  background: url(../less/images/game/poem-mask.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
+  /*background: url('../../images/game/poem-mask.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;*/
 }
 .tile .ctrl i {
   font-size: 40px;
@@ -3511,19 +3513,112 @@ i.command.find:hover {
   background-position: -1em 0 !important;
 }
 i.command.currency {
-  background-image: url(../../images/game/currency.png);
+  background-image: url(../../images/game/currency-bg.png);
   background-size: contain;
-  background-position: 3px 0 !important;
+  background-position: 9px 4px !important;
   background-repeat: no-repeat;
   width: 80px;
   height: 80px;
   margin-left: -20px;
   color: #986B31;
-  font-size: 14px;
+  font-size: 18px;
   text-shadow: 0 0 1px #986B31;
   line-height: 53px;
   text-align: center;
   font-style: normal;
+  position: relative;
+  display: block;
+}
+i.command.currency:after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  bottom: 0;
+  left: 22px;
+  background: url(../../images/game/currency-wand.png) no-repeat;
+  background-size: contain;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -moz-transform-origin: -15% 75%;
+  -ms-transform-origin: -15% 75%;
+  -o-transform-origin: -15% 75%;
+  -webkit-transform-origin: -15% 75%;
+  transform-origin: -15% 75%;
+  -moz-animation: none;
+  -o-animation: none;
+  -webkit-animation: none;
+  animation: none;
+}
+i.command.currency:hover:after {
+  -moz-animation: currency ease-in-out 1s infinite;
+  -o-animation: currency ease-in-out 1s infinite;
+  -webkit-animation: currency ease-in-out 1s infinite;
+  animation: currency ease-in-out 1s infinite;
+}
+@-webkit-keyframes currency {
+  from {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  20% {
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+  50% {
+    -ms-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+  to {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+@-moz-keyframes currency {
+  from {
+    -moz-transform: rotate(0);
+  }
+  20% {
+    -moz-transform: rotate(-10deg);
+  }
+  50% {
+    -moz-transform: rotate(15deg);
+  }
+  to {
+    -moz-transform: rotate(0);
+  }
+}
+@keyframes currency {
+  from {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+  20% {
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+  50% {
+    -ms-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+  to {
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
 }
 i.command.currency:hover,
 i.command.currency:active {
@@ -4404,6 +4499,7 @@ body > .cloud.fixed .rule {
 .poem-page {
   max-width: 905px;
   text-align: left;
+  position: relative;
 }
 .poem-page .cell {
   position: relative;
@@ -4517,6 +4613,7 @@ body > .cloud.fixed .rule {
   position: absolute;
   top: 1.3em;
   left: -2px;
+  line-height: 0;
   border: 1px solid #d7bea2;
   background-color: #f9f8f4;
   border-radius: 3px;

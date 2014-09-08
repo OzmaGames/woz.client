@@ -70,6 +70,9 @@ h3 {
 a {
   cursor: pointer;
 }
+a:visited {
+  color: #986b31;
+}
 .strong {
   font-weight: bold;
 }
@@ -775,10 +778,7 @@ a.big {
   width: 2.5em;
   height: 2.5em;
   padding-left: .5em;
-  background-image: url(../../../images/game/chat.png);
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
+  /*background-image: url('../../images/game/chat.png');*/
   background-size: 100% 100%;
 }
 .game-item .box .chat > div {
@@ -1431,6 +1431,9 @@ progress::-moz-progress-bar {
   height: 1em;
   display: inline-block;
 }
+.social.clickable {
+  cursor: pointer;
+}
 .social.fb {
   background-position: 0 0;
 }
@@ -1447,6 +1450,7 @@ progress::-moz-progress-bar {
   filter: grayscale(100%);
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
   /* Firefox 10+, Firefox on Android */
+  cursor: default;
 }
 .absolute-center {
   position: absolute;

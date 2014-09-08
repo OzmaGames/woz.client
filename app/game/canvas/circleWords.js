@@ -1,176 +1,178 @@
 ﻿define(['durandal/system', 'durandal/app', 'api/datacontext', 'paper'], function (system, app, ctx, Paper) {
 
-   var unplayedWords = ctx.unplayedWords, tool, dfd;
+    var unplayedWords = ctx.unplayedWords, tool, dfd;
 
-   circleWords = {
-      load: function () {
-         dfd = system.defer();         
-         app.trigger("app:force-resize");
-         unload();
-         draw();
+    circleWords = {
+        load: function () {
+            dfd = system.defer();
+            app.trigger("app:force-resize");
+            unload();
+            draw();
 
-         return dfd.promise();
-      },
-      unload: unload
-   };
+            return dfd.promise();
+        },
+        unload: unload
+    };
 
-   return circleWords;
+    return circleWords;
 
-   function unload() {
-      $('canvas').unbind('mouseup');
-      paper.tool.remove();
-   }
+    function unload() {
+        $('canvas').unbind('mouseup');
+        paper.tool.remove();
+    }
 
-   function draw() {
-      var tool = new paper.Tool(), stars = [], path;
+    function draw() {
+        var tool = new paper.Tool(), stars = [], path;
 
-      tool.minDistance = 16;
-      tool.maxDistance = 32;
+        tool.minDistance = 16;
+        tool.maxDistance = 32;
 
-      tool.onMouseDown = function (event) {
-         event.event.preventDefault();
+        tool.onMouseDown = function (event) {
+            event.event.preventDefault();
 
-         path = new paper.Path();
-         path.add(event.point);
-         //path.strokeColor = 'red';
-         stars = [];
-         addStarAt( event.point );
-      };
+            path = new paper.Path();
+            path.add(event.point);
+            //path.strokeColor = 'red';
+            stars = [];
+            addStarAt(event.point);
+        };
 
-      tool.onMouseDrag = function (event) {
-         event.event.preventDefault();
+        tool.onMouseDrag = function (event) {
+            event.event.preventDefault();
 
-         path.add(event.point);
-         addStarAt(event.point);         
-      };
-      
-      tool.onMouseUp = function (event) {         
+            path.add(event.point);
+            addStarAt(event.point);
+        };
 
-         if (path.length == 0) return;
-         path.closePath();
+        tool.onMouseUp = function (event) {
 
-         var selection = Selection(path, unplayedWords());
+            if (path.length == 0) return;
+            path.closePath();
 
-         if (selection.length < 3) {
-            console.log( "Too few words!" );
-            app.Sound.play( app.Sound.sounds.action.functionFailed );
-            //dfd.reject(selection);
-         } else if (selection.length > 9) {
-            console.log("Too many words!");
-            app.Sound.play( app.Sound.sounds.action.functionFailed );
-            app.dialog.show( "alert", { content: "Too many words!" } );
-            //dfd.reject(selection);
-         } else {
-            selection = Sort(selection);
-            dfd.resolve(selection);
-         }
-         path.remove();
-         app.trigger("app:force-resize");
-      };
+            var selection = Selection(path, unplayedWords());
 
-      //$('canvas').bind('mouseup', tool.onMouseUp);
+            if (ctx.gameOver()) {
 
-      addStarAt = function (point) {
-         star = new paper.Raster("star");
-
-         star.position = point;
-         star.rotate(Math.floor(Math.random() * 360));
-         star.scale(.4 + Math.random() * .6);
-         star.removeOnUp();
-
-         app.Sound.play( app.Sound.sounds.selectTool );
-      };
-   }
-
-   function Sort(words) {
-      var result = [];
-
-      words.sort(sortX);
-
-      while (words.length) {
-         result.push(topLeft(words));
-      }
-      return result;
-
-      function topLeft(words) {
-         upper = words[0], slightY = 0;
-         for (var i = 1; i < words.length; i++) {
-            var word = words[i],
-                diffY = upper.y - word.y;
-            if (diffY - slightY > 0.06) {
-               if (upper.x - word.x > 0.06) {
-
-               }
-               upper = word;
-               slightY = 0;
-            } else if (diffY > 0) {
-               slightY += diffY;
+            } else if (selection.length < 3) {
+                console.log("Too few words!");
+                app.Sound.play(app.Sound.sounds.action.functionFailed);
+                //dfd.reject(selection);
+            } else if (selection.length > 9) {
+                console.log("Too many words!");
+                app.Sound.play(app.Sound.sounds.action.functionFailed);
+                app.dialog.show("alert", { content: "Too many words!" });
+                //dfd.reject(selection);
+            } else {
+                selection = Sort(selection);
+                dfd.resolve(selection);
             }
-         }
-         words.splice(words.indexOf(upper), 1);
-         return upper;
-      }
+            path.remove();
+            app.trigger("app:force-resize");
+        };
 
-      function sortX(a, b) { return a.x - b.x; };
-      function sortY(a, b) { return a.y - b.y; };
+        //$('canvas').bind('mouseup', tool.onMouseUp);
 
-      var rows = [[]];
-      var count = 1;
-      var total = words[0].y;
-      var average = words[0].y;
-      var iterator = 0;
+        addStarAt = function (point) {
+            star = new paper.Raster("star");
 
-      rows[0].push(words[0]);
+            star.position = point;
+            star.rotate(Math.floor(Math.random() * 360));
+            star.scale(.4 + Math.random() * .6);
+            star.removeOnUp();
 
-      for (var i = 0; i < words.length; i++) {
-         if (Math.abs(words[i].y - average) > 0.06) {
-            var row = [];
-            rows.push(row);
+            app.Sound.play(app.Sound.sounds.selectTool);
+        };
+    }
 
-            iterator++;
-            rows[iterator].push(words[i]);
+    function Sort(words) {
+        var result = [];
 
-            count = 1;
-            total = words[i].y;
-            average = words[i].y;
-         } else {
-            count++;
-            total = total + words[i].y;
-            average = total / count;
+        words.sort(sortX);
 
-            rows[iterator].push(words[i]);
-         }
-      }
+        while (words.length) {
+            result.push(topLeft(words));
+        }
+        return result;
 
-      words = [];
+        function topLeft(words) {
+            upper = words[0], slightY = 0;
+            for (var i = 1; i < words.length; i++) {
+                var word = words[i],
+                    diffY = upper.y - word.y;
+                if (diffY - slightY > 0.06) {
+                    if (upper.x - word.x > 0.06) {
 
-      for (var i = 0; i < rows.length; i++) {
-         rows[i].sort(function (a, b) {
+                    }
+                    upper = word;
+                    slightY = 0;
+                } else if (diffY > 0) {
+                    slightY += diffY;
+                }
+            }
+            words.splice(words.indexOf(upper), 1);
+            return upper;
+        }
+
+        function sortX(a, b) { return a.x - b.x; };
+        function sortY(a, b) { return a.y - b.y; };
+
+        var rows = [[]];
+        var count = 1;
+        var total = words[0].y;
+        var average = words[0].y;
+        var iterator = 0;
+
+        rows[0].push(words[0]);
+
+        for (var i = 0; i < words.length; i++) {
+            if (Math.abs(words[i].y - average) > 0.06) {
+                var row = [];
+                rows.push(row);
+
+                iterator++;
+                rows[iterator].push(words[i]);
+
+                count = 1;
+                total = words[i].y;
+                average = words[i].y;
+            } else {
+                count++;
+                total = total + words[i].y;
+                average = total / count;
+
+                rows[iterator].push(words[i]);
+            }
+        }
+
+        words = [];
+
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].sort(function (a, b) {
+                return a.x - b.x;
+            });
+
+            for (var j = 0; j < rows[i].length; j++) {
+                words.push(rows[i][j]);
+            }
+        }
+
+        return words;
+    }
+
+    function BasicSort(words) {
+        return words.sort(function (a, b) {
             return a.x - b.x;
-         });
+        });
+    }
 
-         for (var j = 0; j < rows[i].length; j++) {
-            words.push(rows[i][j]);
-         }
-      }
+    function Selection(path, words) {
+        var top = $('#app').scrollTop();
 
-      return words;
-   }
+        return ko.utils.arrayFilter(words, function (word) {
+            var cx = word.$el.offset().left + word.$el.innerWidth() / 2;
+            var cy = word.$el.offset().top + top + word.$el.innerHeight() / 2;
 
-   function BasicSort(words) {
-      return words.sort(function (a, b) {
-         return a.x - b.x;
-      });
-   }
-
-   function Selection(path, words) {
-      var top = $('#app').scrollTop();
-      
-      return ko.utils.arrayFilter(words, function (word) {
-         var cx = word.$el.offset().left + word.$el.innerWidth() / 2;
-         var cy = word.$el.offset().top + top + word.$el.innerHeight() / 2;
-         
-         return path.contains(cx, cy);
-      });
-   }
+            return path.contains(cx, cy);
+        });
+    }
 });

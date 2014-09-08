@@ -29,10 +29,10 @@
 
             //$( document.body ).append( $( canvas ).css( { position: 'fixed' } ) );
             //console.log( canvas.toDataURL() );
-
+            
             var i = 0;
             var back = new Image(), mask = new Image(), hasTile = !!imageName;
-            back.onload = mask.onload = function () { draw( i++ ); };
+            back.onload = mask.onload = function () { draw(i++); };
             back.src = imageName || 'images/game/poem-mask-empty.jpg';
             mask.src = hasTile ? 'images/game/poem-mask.png' : 'images/game/poem-mask-empty.jpg';
 
@@ -60,7 +60,7 @@
                   cx.stroke();
                } else {
                   cx.drawImage( mask, 0, 0, MASK.width, MASK.heigh );
-                  cx.drawImage( mem.canvas, MASK.left, MASK.top, MASK.innerCircleDiam, MASK.innerCircleDiam );
+                  cx.drawImage( mem.canvas, MASK.left, MASK.top - 70, MASK.innerCircleDiam, MASK.innerCircleDiam );
                }
 
                //facebook.PublishImage.publishImageUI( canvas );

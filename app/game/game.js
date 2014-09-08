@@ -31,11 +31,17 @@
 
 
    $( document ).keydown( function ( e ) {
-      if ( location.hash.match( /game/gi ) ) {
-         if ( e.keyCode == 84 ) {
-            //t
-            //localStorage.removeItem("tutorial");
-            //tutorial.show();
+       if (location.hash.match(/game/gi)) {
+           
+         if ( e.keyCode == 80 ) {
+            //p
+             var path = ctx.paths().filter(function (path) { return !path.phrase.complete.immediate(); })[0];
+             if (path) {
+                 var n = path.nWords || 3;
+                 ctx.unplayedWords().filter(function () { return n-- > 0; }).forEach(function (word) {
+                     path.addWord(word);
+                 });                 
+             }
          } else if ( e.keyCode == 83 ) {
             //s
             //showScroll();

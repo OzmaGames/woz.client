@@ -761,6 +761,9 @@ ul.custom-list.draggable li.hole::before {
   height: .01em;
   line-height: .01em;
 }
+.slider .tile .poem-container .row.none h1 {
+  padding: 0;
+}
 .slider .tile .poem-container,
 .slider .tile .poem-container h1 {
   -moz-transition: 0.3s color, 0.3s text-shadow;
@@ -860,10 +863,10 @@ ul.custom-list.draggable li.hole::before {
   transform: rotate(90deg);
 }
 .poem-mask {
-  background: url(../images/game/poem-mask.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
+  /*background: url('../../images/game/poem-mask.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;*/
 }
 .tile .ctrl i {
   font-size: 40px;

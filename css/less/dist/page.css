@@ -11,6 +11,7 @@
 .poem-page {
   max-width: 905px;
   text-align: left;
+  position: relative;
 }
 .poem-page .cell {
   position: relative;
@@ -124,6 +125,7 @@
   position: absolute;
   top: 1.3em;
   left: -2px;
+  line-height: 0;
   border: 1px solid #d7bea2;
   background-color: #f9f8f4;
   border-radius: 3px;

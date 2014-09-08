@@ -1,41 +1,41 @@
 ﻿<div style="font-size: 18px">
-   <span class="loader-bar" style="position:absolute; right:0" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
-   <div class="poem-page" data-bind="foreach: {data: visibleList, afterRender: afterRender}, loadMore: $root.loadNextPage">
-      <div class="cell">
-         <button class="share">
-            share
-            <div class="tooltip">
-               <i class="social fb" data-bind="click: $root.facebook"></i>
-               <i class="social pn disabled"></i>
-               <i class="social tw disabled"></i>
+    <span class="loader-bar" style="position:absolute; right:0" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
+    <div class="poem-page" data-bind="foreach: {data: visibleList, afterRender: afterRender}, loadMore: $root.loadNextPage">
+        <div class="cell">
+            <button class="share">
+                share
+                <div class="tooltip">
+                    <i class="social fb" data-bind="click: $root.facebook"></i>
+                    <i class="social pn disabled"></i>
+                    <i class="social tw disabled"></i>
+                </div>
+            </button>
+            <button class="right" data-bind="click: $root.remove"><i class="command delete xsm"></i></button>
+            <div class="footer">
+                <div class="likes">
+                    <span class="icon-heart"></span>
+                    <span data-bind="text: likes"></span> like this
+                </div>
+                <div class="date" data-bind="date: creationDate"></div>
             </div>
-         </button>
-         <button class="right icon-trash" data-bind="click: $root.remove"></button>
-         <div class="footer">
-            <div class="likes">
-               <span class="icon-heart"></span>
-               <span data-bind="text: likes"></span> like this
-            </div>
-            <div class="date" data-bind="date: creationDate"></div>
-         </div>
-         <div class="slider">
-            <div data-bind="tile: {tile: {imageName: imageName }}" style="height: 422px" class="poem-mask">
-               <div data-part="text">
-                  <div class="confiner" data-bind="with: $parent">
-                     <div class="poem-container"
-                          data-bind="css: light ? ('light shade-' + shadow ): ('dark shade-'+  shadow)">
-                        <div class="row" data-bind="css: {none: title == '' }"></div>
-                        <div class="row" data-bind="css: {none: title == '' }">
-                           <h1 data-bind="text: title, resizeText: {maxWidth: 220, size: {max: 1.5, min: 1.05 } }"></h1>
+            <div class="slider">
+                <div data-bind="tile: {tile: {imageName: imageName }}" style="height: 422px" class="poem-mask">
+                    <div data-part="text">
+                        <div class="confiner" data-bind="with: $parent">
+                            <div class="poem-container"
+                                 data-bind="css: light ? ('light shade-' + shadow ): ('dark shade-'+  shadow)">
+                                <div class="row" data-bind="css: {none: title == '' }"></div>
+                                <div class="row" data-bind="css: {none: title == '' }">
+                                    <h1 data-bind="text: title, resizeText: {maxWidth: 220, size: {max: 1.5, min: 1.05 } }"></h1>
+                                </div>
+                                <div class="poem" data-bind="style: {fontSize: size + 'px'}, foreach: poemString">
+                                    <div class="phrase" data-bind="text: $data"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="poem" data-bind="style: {fontSize: size + 'px'}, foreach: poemString">
-                           <div class="phrase" data-bind="text: $data"></div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>

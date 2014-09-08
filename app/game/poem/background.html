@@ -15,7 +15,7 @@
                   <div class="content" data-bind="with: $root.settings.current">
                      <i data-bind="css: name"><s>a</s></i>
                      <i data-bind="css: name"><s>a</s></i>
-                     <div class="teeth" data-bind="foreach: $root.range(min, max)"><div class="tooth"></div></div>
+                     <div class="teeth" data-bind="foreach: $root.range(min, max), css: name"><div class="tooth"></div></div>
                      <div class="range">
                         <input type="range" tabindex="-1" data-bind="attr:{min: min, max: max}, value: value, valueUpdate: 'input'" />
                      </div>

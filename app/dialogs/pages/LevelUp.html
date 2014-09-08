@@ -1,8 +1,14 @@
 ﻿<i class="command close"></i>
 
-<h1>Congratulations!</h1>
-<div>You have reached the next difficulty level.</div>
-<br /><br />
-<h1 style="font-size:2em;" class="curly" data-bind="text: message"></h1>
-<div class="badge" data-bind="style: {backgroundImage: 'url(\'' + imageName + '\')'}"></div>
-<button class="blue" data-bind="click: close, clickBubble: false">OK, GREAT</button>
+<div class="wand-left">
+    <h1>Congratulations!</h1>
+    <div>
+        You have reached level <span data-bind="text: level"></span>.
+    </div>
+    <br /><br />
+    <h1 style="font-size:2em;" class="curly">
+        You gained <span data-bind="text: besoz"></span> besoz.
+    </h1>
+    <div class="badge" data-bind="style: {backgroundImage: 'url(\'' + imageName + '\')'}"></div>
+    <button class="blue" data-bind="click: close, clickBubble: false">OK, GREAT</button>
+</div>

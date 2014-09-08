@@ -33,7 +33,7 @@
 
          cache[name] = copyOf( obj );
 
-         console.log( "%cSave Storage (" + getKey( name ) + ")", "background: lightblue; color: white", cache[name] );
+         //console.log( "%cSave Storage (" + getKey( name ) + ")", "background: lightblue; color: white", cache[name] );
       }
 
       function load( name, noCache ) {
@@ -42,7 +42,7 @@
          var strObj = localStorage.getItem( getKey( name ) );
          cache[name] = strObj ? JSON.parse( strObj ) : names[name];
 
-         console.log( "%cLoad Storage (" + getKey( name ) + ")", "background: lightblue", cache[name] );
+         //console.log( "%cLoad Storage (" + getKey( name ) + ")", "background: lightblue", cache[name] );
 
          return cache[name];
       }

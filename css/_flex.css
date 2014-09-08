@@ -1,11 +1,25 @@
-﻿.slider ul{
+﻿.slider ul {
     display: table;
 }
-.slider ul li{
+
+    .slider ul li {
+        display: table-cell;
+        width: 100%;
+    }
+
+.tile .ctrl .box .content .teeth {
     display: table-cell;
-    width: 100%;
+    top: 1.9em;
 }
 
-.tile .ctrl .box .content .teeth{
-    display: table-cell;    
-}
+    .tile .ctrl .box .content .teeth .tooth:first-child {
+        margin-left: 0 !important;
+    }
+
+    .tile .ctrl .box .content .teeth.shade .tooth {
+        margin-left: 29%;
+    }
+
+    .tile .ctrl .box .content .teeth.size .tooth {
+        margin-left: 4%;
+    }

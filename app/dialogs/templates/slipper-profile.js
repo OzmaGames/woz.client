@@ -73,7 +73,7 @@
             modal: true
          } ).then( function () {
             user.block.add( base.username() ).then( function ( json ) {
-               if ( json.success ) this.isFriend( true );
+               if ( json.success ) base.isFriend( true );
 
                app.dialog.show( "alert", {
                   content: json.success ?

@@ -201,9 +201,6 @@
   width: 150px;
   right: -10px;
   background-image: url(../../../images/app/menu-background.png);
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
   text-align: center;
   line-height: 120%;
@@ -412,16 +409,14 @@
   background-position: center right;
 }
 .dialog .notice .badge {
-  position: absolute;
-  right: 10px;
-  top: 100px;
-  width: 80px;
-  -moz-background-size: 100% auto;
-  -o-background-size: 100% auto;
-  -webkit-background-size: 100% auto;
-  background-size: 100% auto;
-  height: 120px;
+  background-position: 292px 57px;
+  background-size: auto 120px;
   background-repeat: no-repeat;
+}
+.dialog .notice .wand-left {
+  background: url(../../../images/app/wand.png) no-repeat;
+  background-position: -0.9em 0.8em;
+  background-size: 200px auto;
 }
 .dialog .notice .versions {
   margin: .5em 0 1em 0;
@@ -478,7 +473,7 @@
   width: 20em;
   margin: 0 auto;
 }
-.dialog .panel.payment {
+.dialog .panel.wide {
   width: 800px;
 }
 .dialog .panel h1 {

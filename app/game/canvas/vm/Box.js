@@ -109,7 +109,7 @@
    };
 
    Box.prototype.enter = function ( word ) {
-      if ( !this.hasData && word != null && ctx.mode() == '' ) {
+      if ( !this.hasData && word != null && ctx.mode() == '' && ctx.gameOver() == false ) {
          this.wordModel = word;
 
          this.active = true;

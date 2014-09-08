@@ -22,7 +22,6 @@
          }
 
          if ( others.duration && others.duration.type == 'transition' ) {
-            console.log( ko.unwrap( value ), element );
             if ( ko.unwrap( value ) ) {
                $( element ).stop().show().transition( { opacity: 1 }, fadeIn, 'ease', function () { } );
             } else {
