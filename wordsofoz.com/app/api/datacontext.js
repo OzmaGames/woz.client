@@ -1,4 +1,4 @@
-define(['durandal/app', 'jquery', 'knockout'], function (app, $, ko) {
+define(['durandal/app', 'api/server/setup', 'jquery', 'knockout'], function (app, server, $, ko) {
 
     var model = {};
 

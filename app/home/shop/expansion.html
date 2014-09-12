@@ -4,45 +4,45 @@
          <!--ko if: flags--><div class="ribbon" data-bind="text: flags[0].flag, style: {backgroundColor: flags[0].colour}"></div><!-- /ko-->
          <div class="head" data-bind="text: longName"></div>
          <div class="body">
-            <div class="collection" data-bind="css:{ disabled: purchased }">
-               <div class="couple has-currency" data-bind="css: shortName">
-                  <div class="currency" data-bind="text: price"></div>
-               </div>
-               <div class="description">
-                  <div class="upper font-smaller" data-bind="text: type"></div>
-                  <div class="bold italic font-bigger" data-bind="text: longName"></div>
-                  <div class="font-smaller desc" data-bind="text: description"></div>
-                  <i>
-                     Tiles: <span data-bind="text: nImages"></span>,
-                     New Words: <span data-bind="text: nWords"></span>
-                  </i>
-                  <div data-bind="if: !purchased()">
-                     <button class="orange sm" data-bind="click: $root.buy, disable: $root.loading">BUY</button>
-                  </div>
-                  <div data-bind="if: purchased">
-                     <b>You already have this.</b>
-                  </div>
-               </div>
-            </div><!--ko foreach: boosters--><div class="collection" data-bind="css:{ disabled: purchased}">
-               <div class="couple has-currency" data-bind="css: shortName">
-                  <div class="currency" data-bind="text: price"></div>
-               </div>
-               <div class="description">
-                  <div class="upper font-smaller" data-bind="text: type"></div>
-                  <div class="bold italic font-bigger" data-bind="text: longName"></div>
-                  <div class="font-smaller desc" data-bind="text: description"></div>
-                  <i>
-                     Tiles: <span data-bind="text: nImages"></span>,
-                     New Words: <span data-bind="text: nWords"></span>
-                  </i>
-                  <div data-bind="if: !purchased()">
-                     <button class="orange sm" data-bind="click: $root.buy, disable: $root.loading">BUY</button>
-                  </div>
-                  <div data-bind="if: purchased">
-                     <b>You already have this.</b>
-                  </div>
-               </div>
-            </div><!-- /ko -->
+             <div class="collection" data-bind="css:{ disabled: purchased }, click: $root.buy">
+                 <div class="couple has-currency" data-bind="css: shortName">
+                     <div class="currency" data-bind="text: price"></div>
+                 </div>
+                 <div class="description">
+                     <div class="upper font-smaller" data-bind="text: type"></div>
+                     <div class="bold italic font-bigger" data-bind="text: longName"></div>
+                     <div class="font-smaller desc" data-bind="text: description"></div>
+                     <i>
+                         Tiles: <span data-bind="text: nImages"></span>,
+                         New Words: <span data-bind="text: nWords"></span>
+                     </i>
+                     <div data-bind="if: !purchased()">
+                         <button class="orange sm" data-bind="click: $root.buy, disable: $root.loading">BUY</button>
+                     </div>
+                     <div data-bind="if: purchased">
+                         <b>You already have this.</b>
+                     </div>
+                 </div>
+             </div><!--ko foreach: boosters--><div class="collection" data-bind="css:{ disabled: purchased }, click: $root.buy">
+    <div class="couple has-currency" data-bind="css: shortName">
+        <div class="currency" data-bind="text: price"></div>
+    </div>
+    <div class="description">
+        <div class="upper font-smaller" data-bind="text: type"></div>
+        <div class="bold italic font-bigger" data-bind="text: longName"></div>
+        <div class="font-smaller desc" data-bind="text: description"></div>
+        <i>
+            Tiles: <span data-bind="text: nImages"></span>,
+            New Words: <span data-bind="text: nWords"></span>
+        </i>
+        <div data-bind="if: !purchased()">
+            <button class="orange sm" data-bind="click: $root.buy, disable: $root.loading">BUY</button>
+        </div>
+        <div data-bind="if: purchased">
+            <b>You already have this.</b>
+        </div>
+    </div>
+</div><!-- /ko -->
          </div>
       </div>
    </div>

@@ -3,8 +3,10 @@
    <div class="profile" data-bind="click: close">
       <div class="title" data-bind="text: title"></div>
       <div class="username" data-bind="text: username"></div>
-      <div class="xp" data-bind="xp: { value: xp, max: xpMax }"></div>
-      <div class="level"> Level <span data-bind="text: level"></span></div>
+       <div data-bind="visible: owner">
+           <div class="xp" data-bind="xp: { value: xp, max: xpMax }"></div>
+           <div class="level"> Level <span data-bind="text: level"></span></div>
+       </div>
       <div class="pic"></div>
       <div class="cmd" data-bind="visible: !owner">
          <i class="icon addFriend" data-title="Add Friend" data-bind="click: $root.addFriend, css:{disabled: $root.isFriend}"></i>

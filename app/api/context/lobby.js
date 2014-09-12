@@ -1,6 +1,6 @@
 ﻿define( 'api/context/lobby', ['durandal/app', './storage'], function ( app, Storage ) {
 
-   var version = 0.50;
+   var version = 0.52;
 
    Object.beget = ( function ( Function ) {
       return function ( Object ) {
@@ -94,7 +94,8 @@
          base.notifications.removeAll();
 
          if ( _user = user, _user.online ) {
-            storage = new Storage( "lobby[" + _user.username + "]", version, { "games": [], "since": 0 } );
+             storage = new Storage("lobby[" + _user.username + "]", version, { "games": [], "since": 0 });
+             //storage.removeAll();
          }
       }
 

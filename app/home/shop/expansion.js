@@ -32,7 +32,9 @@
       } );
       ctx.shop.collections.load();
       
-      this.buy = function ( type ) {
+      this.buy = function (type) {
+         if (this.purchased()) return;
+          
          base.loading( true );
 
          var model = type;

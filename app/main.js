@@ -52,6 +52,9 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
         } );
      } )
      
+     app.fromSignUp = (localStorage.getItem('login-mode') == 'signup');
+
+
      if (navigator && navigator.splashscreen) navigator.splashscreen.hide();
 
      if (document.body.style.backgroundPositionX === undefined) {

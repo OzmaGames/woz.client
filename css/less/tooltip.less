@@ -39,7 +39,7 @@
         }
     }
 
-    .has-tooltip(@size, @top: 12px, @left: true ) when (@left = false) {
+    .has-tooltip(@size, @top: 12px, @left: false ) when (@left = false) {
         &[data-title]:after {
             right: -@size;
         }

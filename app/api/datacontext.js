@@ -81,7 +81,9 @@
               model.loading(false);
               model.token = null;
               localStorage.removeItem("token");
-              app.navigate('', { replace: true, trigger: true });
+              //app.navigate('', { replace: true, trigger: true });              
+              //history.replaceState({}, '', location.origin);
+              window.location = 'http://' + location.host;
 
           }).promise();
       }
@@ -171,6 +173,8 @@
 
           model.activeWord(null);
           model.activeWords(null);
+
+          var gamestartedDFD = $.Deferred();
 
           app.on("game:start", function (json) {
               if (json.success == false) return;
@@ -304,6 +308,7 @@
               model.loadingStatus("Ready");
               app.dialog.close("loading");
               app.trigger("game:started", json);
+              gamestartedDFD.resolve();
           });
 
           app.on("game:update:ctx", function (json) {
@@ -497,6 +502,8 @@
                   });
               }
           }
+
+          return gamestartedDFD.promise();
       };
 
       model.unload = function () {

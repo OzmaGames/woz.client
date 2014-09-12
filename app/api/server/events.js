@@ -27,7 +27,9 @@
         "account:fb",
         "account:delete",
         "foes",
-        "user:suggest"
+        "user:suggest",
+        "payment:paypal:token",
+        "payment:paypal:confirm"
       ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {

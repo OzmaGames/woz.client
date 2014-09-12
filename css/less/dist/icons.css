@@ -90,6 +90,39 @@ i.action {
   -webkit-transition: -webkit-transform 0.5s ease;
   transition: transform .5s ease;
 }
+.palette.right i:not(.currency):not(.menu)[data-title]:after {
+  content: attr(data-title);
+  position: absolute;
+  text-align: center;
+  color: #986b31;
+  background-color: #f9f8f4;
+  border: 1px solid #d7bea2;
+  height: 1.5em;
+  line-height: 1.5em;
+  top: 10px;
+  width: 80px;
+  border-radius: 5px;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  -moz-transition: 0.3s all ease-in-out;
+  -o-transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  transition: 0.3s all ease-in-out;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:not(.disabled):hover:after {
+  visibility: visible;
+  opacity: 100;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:after {
+  left: -80px;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:hover:after {
+  left: -90px;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:after {
+  font-size: 13px;
+}
 i.action:hover:not(.still),
 i.command:hover:not(.still) {
   background-position-x: -1em;
@@ -284,7 +317,7 @@ i.command.currency {
 i.command.currency:after {
   content: "";
   position: absolute;
-  width: 80px;
+  width: 33px;
   height: 40px;
   bottom: 0;
   left: 22px;
@@ -294,21 +327,21 @@ i.command.currency:after {
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  -moz-transform-origin: -15% 75%;
-  -ms-transform-origin: -15% 75%;
-  -o-transform-origin: -15% 75%;
-  -webkit-transform-origin: -15% 75%;
-  transform-origin: -15% 75%;
+  -moz-transform-origin: 30% 50%;
+  -ms-transform-origin: 30% 50%;
+  -o-transform-origin: 30% 50%;
+  -webkit-transform-origin: 30% 50%;
+  transform-origin: 30% 50%;
   -moz-animation: none;
   -o-animation: none;
   -webkit-animation: none;
   animation: none;
 }
 i.command.currency:hover:after {
-  -moz-animation: currency ease-in-out 1s infinite;
-  -o-animation: currency ease-in-out 1s infinite;
-  -webkit-animation: currency ease-in-out 1s infinite;
-  animation: currency ease-in-out 1s infinite;
+  -moz-animation: currency linear .5s infinite;
+  -o-animation: currency linear .5s infinite;
+  -webkit-animation: currency linear .5s infinite;
+  animation: currency linear .5s infinite;
 }
 @-webkit-keyframes currency {
   from {
@@ -317,13 +350,13 @@ i.command.currency:hover:after {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
-  20% {
-    -ms-transform: rotate(-10deg);
-    -o-transform: rotate(-10deg);
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg);
+  25% {
+    -ms-transform: rotate(-15deg);
+    -o-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
   }
-  50% {
+  75% {
     -ms-transform: rotate(15deg);
     -o-transform: rotate(15deg);
     -webkit-transform: rotate(15deg);
@@ -453,6 +486,12 @@ i.icon.disabled {
 }
 .row button.command[data-title]:hover:after {
   left: -70px;
+}
+.row button.command[data-title]:after {
+  right: -60px;
+}
+.row button.command[data-title]:hover:after {
+  right: -70px;
 }
 .row button.command.sp {
   top: -1px;

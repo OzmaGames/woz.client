@@ -384,7 +384,7 @@ a.big {
 }
 .grid.big {
   max-width: 1024px;
-  padding-right: 80px;
+  padding-right: 65px;
 }
 .grid.noLeft {
   padding-left: 0;
@@ -937,7 +937,7 @@ a.big {
   margin: 1em 0 0 2em;
   min-width: 550px;
   font-size: 15px;
-  padding-right: 15px;
+  /*padding-right: 15px;*/
   border: 1px solid transparent;
 }
 .tab .content .table {
@@ -1285,6 +1285,7 @@ a.big {
   filter: grayscale(100%);
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
   /* Firefox 10+, Firefox on Android */
+  cursor: default !important;
 }
 @media only screen and (max-width: 900px) {
   .table-flex .collection {
@@ -1478,7 +1479,7 @@ progress::-moz-progress-bar {
   filter: grayscale(100%);
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
   /* Firefox 10+, Firefox on Android */
-  cursor: default;
+  cursor: default !important;
 }
 .absolute-center {
   position: absolute;
@@ -1489,11 +1490,20 @@ progress::-moz-progress-bar {
   margin: auto;
 }
 .invite {
+  background: url(../../images/app/invite.png) no-repeat;
   font-size: 12px !important;
   float: right;
   cursor: pointer;
   line-height: 2em;
   margin-right: 1em;
+  background-size: contain;
+  width: 150px;
+  display: inline-block;
+  height: 3em;
+  background-position: center right;
+  position: relative;
+  top: -9px;
+  right: -6px;
 }
 .payment-icon {
   background-image: url(../../images/app/payment.png);
@@ -1502,6 +1512,26 @@ progress::-moz-progress-bar {
   background-repeat: no-repeat;
   margin-left: 1em;
   margin-top: -1em;
+}
+.faq h1 {
+  margin-bottom: .5em;
+}
+.faq ul {
+  list-style: none;
+  font-size: 20px;
+  display: inline-block;
+}
+.faq li {
+  margin: 1em;
+  margin-right: 0;
+  margin-left: 5em;
+}
+.faq .details {
+  display: inline-block;
+  height: 660px;
+  margin: 20px 10px;
+  border: 1px solid #d7bea2;
+  border-radius: 8px;
 }
 .dialog {
   position: fixed;
@@ -2654,7 +2684,7 @@ button.menuItem {
   background-image: none;
   border: 0;
   border-radius: 4px;
-  margin: .5em 0;
+  margin: .3em 0;
   padding: .5em 1em;
   width: 15em;
   text-align: left;
@@ -3338,6 +3368,39 @@ i.action {
   -webkit-transition: -webkit-transform 0.5s ease;
   transition: transform .5s ease;
 }
+.palette.right i:not(.currency):not(.menu)[data-title]:after {
+  content: attr(data-title);
+  position: absolute;
+  text-align: center;
+  color: #986b31;
+  background-color: #f9f8f4;
+  border: 1px solid #d7bea2;
+  height: 1.5em;
+  line-height: 1.5em;
+  top: 10px;
+  width: 80px;
+  border-radius: 5px;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  -moz-transition: 0.3s all ease-in-out;
+  -o-transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  transition: 0.3s all ease-in-out;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:not(.disabled):hover:after {
+  visibility: visible;
+  opacity: 100;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:after {
+  left: -80px;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:hover:after {
+  left: -90px;
+}
+.palette.right i:not(.currency):not(.menu)[data-title]:after {
+  font-size: 13px;
+}
 i.action:hover:not(.still),
 i.command:hover:not(.still) {
   background-position-x: -1em;
@@ -3532,7 +3595,7 @@ i.command.currency {
 i.command.currency:after {
   content: "";
   position: absolute;
-  width: 80px;
+  width: 33px;
   height: 40px;
   bottom: 0;
   left: 22px;
@@ -3542,21 +3605,21 @@ i.command.currency:after {
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  -moz-transform-origin: -15% 75%;
-  -ms-transform-origin: -15% 75%;
-  -o-transform-origin: -15% 75%;
-  -webkit-transform-origin: -15% 75%;
-  transform-origin: -15% 75%;
+  -moz-transform-origin: 30% 50%;
+  -ms-transform-origin: 30% 50%;
+  -o-transform-origin: 30% 50%;
+  -webkit-transform-origin: 30% 50%;
+  transform-origin: 30% 50%;
   -moz-animation: none;
   -o-animation: none;
   -webkit-animation: none;
   animation: none;
 }
 i.command.currency:hover:after {
-  -moz-animation: currency ease-in-out 1s infinite;
-  -o-animation: currency ease-in-out 1s infinite;
-  -webkit-animation: currency ease-in-out 1s infinite;
-  animation: currency ease-in-out 1s infinite;
+  -moz-animation: currency linear .5s infinite;
+  -o-animation: currency linear .5s infinite;
+  -webkit-animation: currency linear .5s infinite;
+  animation: currency linear .5s infinite;
 }
 @-webkit-keyframes currency {
   from {
@@ -3565,13 +3628,13 @@ i.command.currency:hover:after {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
-  20% {
-    -ms-transform: rotate(-10deg);
-    -o-transform: rotate(-10deg);
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg);
+  25% {
+    -ms-transform: rotate(-15deg);
+    -o-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
   }
-  50% {
+  75% {
     -ms-transform: rotate(15deg);
     -o-transform: rotate(15deg);
     -webkit-transform: rotate(15deg);
@@ -3701,6 +3764,12 @@ i.icon.disabled {
 }
 .row button.command[data-title]:hover:after {
   left: -70px;
+}
+.row button.command[data-title]:after {
+  right: -60px;
+}
+.row button.command[data-title]:hover:after {
+  right: -70px;
 }
 .row button.command.sp {
   top: -1px;

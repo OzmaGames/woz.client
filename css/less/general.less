@@ -381,7 +381,7 @@ a.small {
 
 .grid.big {
     max-width: 1024px;
-    padding-right: 80px;
+    padding-right: 65px;
 }
 
 .grid.noLeft {
@@ -990,7 +990,7 @@ a.small {
         margin: 1em 0 0 2em;
         min-width: 550px;
         font-size: 15px;
-        padding-right: 15px;
+        /*padding-right: 15px;*/
         border: 1px solid transparent;
 
         .table {
@@ -1396,6 +1396,7 @@ a.small {
 
 .table-flex .collection.disabled, .table-flex .row.disabled {
     .grayscale;
+    cursor: default !important;
 }
 
 @media only screen and (max-width: 900px) {
@@ -1613,7 +1614,7 @@ progress::-moz-progress-bar {
 
     &.disabled {
         .grayscale;
-        cursor: default;
+        cursor: default !important;
     }
 }
 
@@ -1625,11 +1626,20 @@ progress::-moz-progress-bar {
 
 
 .invite {
+    background: url(../../images/app/invite.png) no-repeat;
     font-size: 12px !important;
     float: right;
     cursor: pointer;
     line-height: 2em;
     margin-right: 1em;
+    background-size: contain;
+    width: 150px;
+    display: inline-block;
+    height: 3em;
+    background-position: center right;
+    position: relative;
+    top: -9px;
+    right: -6px;
 }
 
 .payment-icon {
@@ -1639,4 +1649,30 @@ progress::-moz-progress-bar {
     background-repeat: no-repeat;
     margin-left: 1em;
     margin-top: -1em;
+}
+
+.faq {
+    h1{
+        margin-bottom: .5em; 
+    }
+
+    ul {
+        list-style: none;
+        font-size: 20px;
+        display: inline-block;
+    }
+
+    li {
+        margin: 1em;
+        margin-right: 0;
+        margin-left: 5em;
+    }
+
+    .details{
+        display: inline-block;
+        height: 660px;
+        margin: 20px 10px;
+        border: 1px solid @strokeColor;
+        border-radius: 8px;
+    }
 }

@@ -13,12 +13,16 @@
 
       var localVersion = localStorage.getItem( getKey( 'ver' ) );
       if ( localVersion != version ) {
-         localStorage.removeItem( getKey() );
-         for ( var name in names ) {
-            localStorage.removeItem( getKey( name ) );
-         }
+          removeAll();
       }
       localStorage.setItem( getKey( 'ver' ), version );
+
+      function removeAll() {
+          localStorage.removeItem(getKey());
+          for (var name in names) {
+              localStorage.removeItem(getKey(name));
+          }
+      }
 
       function getKey( name ) {
          return prefixProvider() + ( name ? '.' + name : '' );
@@ -74,6 +78,7 @@
       model.load = function ( noCache ) {
          return load( null, noCache );
       }
+      model.removeAll = removeAll;
 
       return model;
    }

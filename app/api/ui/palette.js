@@ -76,7 +76,7 @@
       this.name = name;
       this.type = type || "command";
       this.place = place || "fixed";
-      this.title = title || "";
+      this.title = ko.observable(title || "");
       this.content = ko.observable( content || "" );
 
       var clickEvent, visible = ko.observable( true ),
@@ -96,6 +96,10 @@
             }
             clickEvent.apply( clickEvent.owner, arguments );
          }
+      };
+
+      this.editTitle = function (title) {
+          base.title(title)
       };
 
       this.visible = ko.computed( {

@@ -55,6 +55,7 @@
             { route: 'shop', moduleId: 'home/shop/index', title: 'Shop', nav: true },
             { route: 'shop/:id', moduleId: 'home/shop/index', title: 'Shop' },
             { route: 'settings', moduleId: 'home/settings', title: 'Settings', nav: true },
+            { route: 'help', moduleId: 'home/help', title: 'Help - FAQ', nav: true },
             { route: 'sound', moduleId: 'home/sound', title: 'Sound Debugger', nav: true },
             { route: 'newGame', moduleId: 'home/newGame', title: 'New Game', nav: true },
             { route: 'singlePlayer', moduleId: 'home/singlePlayer', title: 'Loading the game' },
@@ -77,7 +78,8 @@
                title: 'Account Settings',
                hash: '#account'
             },
-            { route: 'facebook', moduleId: 'account/oAuth/facebook', title: 'Words of Oz' }
+            { route: 'facebook', moduleId: 'account/oAuth/facebook', title: 'Words of Oz' },
+            { route: 'paypalcb', moduleId: 'api/ui/paypalcb', title: 'Paypal confirmation' }
          ] ).buildNavigationModel()
           .mapUnknownRoutes( 'error/not-found', 'not-found' )
           .activate();

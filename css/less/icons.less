@@ -57,6 +57,10 @@ i.action {
     transition: transform .5s ease;
 }
 
+.palette.right i:not(.currency):not(.menu){
+    .has-tooltip(80px, 10px, true, 13px);
+}
+
 i.action:hover:not(.still),
 i.command:hover:not(.still) {
     background-position-x: -1em;
@@ -283,7 +287,7 @@ i.command.currency {
     &:after {
         content: "";
         position: absolute;
-        width: 80px;
+        width: 33px;
         height: 40px;
         bottom: 0;
         left: 22px;
@@ -293,11 +297,11 @@ i.command.currency {
         -o-transition: all .3s ease-in-out;
         -webkit-transition: all .3s ease-in-out;
         transition: all .3s ease-in-out;
-        -moz-transform-origin: -15% 75%;
-        -ms-transform-origin: -15% 75%;
-        -o-transform-origin: -15% 75%;
-        -webkit-transform-origin: -15% 75%;
-        transform-origin: -15% 75%;
+        -moz-transform-origin: 30% 50%;
+        -ms-transform-origin: 30% 50%;
+        -o-transform-origin: 30% 50%;
+        -webkit-transform-origin: 30% 50%;
+        transform-origin: 30% 50%;
         -moz-animation: none;
         -o-animation: none;
         -webkit-animation: none;
@@ -305,10 +309,10 @@ i.command.currency {
     }
 
     &:hover:after {
-        -moz-animation: currency ease-in-out 1s infinite;
-        -o-animation: currency ease-in-out 1s infinite;
-        -webkit-animation: currency ease-in-out 1s infinite;
-        animation: currency ease-in-out 1s infinite;
+        -moz-animation: currency linear .5s infinite;
+        -o-animation: currency linear .5s infinite;
+        -webkit-animation: currency linear .5s infinite;
+        animation: currency linear .5s infinite;
     }
 }
 
@@ -320,14 +324,14 @@ i.command.currency {
         transform: rotate(0);
     }
 
-    20% {
-        -ms-transform: rotate(-10deg);
-        -o-transform: rotate(-10deg);
-        -webkit-transform: rotate(-10deg);
-        transform: rotate(-10deg);
+    25% {
+        -ms-transform: rotate(-15deg);
+        -o-transform: rotate(-15deg);
+        -webkit-transform: rotate(-15deg);
+        transform: rotate(-15deg);
     }
 
-    50% {
+    75% {
         -ms-transform: rotate(15deg);
         -o-transform: rotate(15deg);
         -webkit-transform: rotate(15deg);
