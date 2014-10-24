@@ -28,8 +28,8 @@
         "account:delete",
         "foes",
         "user:suggest",
-        "payment:paypal:token",
-        "payment:paypal:confirm"
+        "payment:paypal-token",
+        "payment:paypal-confirm"
       ],
       init: function ( socket ) {
          socket.on( "game:update", function ( data ) {

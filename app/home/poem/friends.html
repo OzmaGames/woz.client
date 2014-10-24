@@ -1,5 +1,12 @@
 ﻿<div style="font-size: 18px">
    <span class="loader-bar" style="position:absolute; right: 0" data-bind="fadeVisible: loading"><i></i><i></i><i></i></span>
+    <!-- ko if: !loading() && visibleList().length === 0 -->
+    <div class="poem-page">
+        <div class="note pull-right">
+            Your friends have not created any poems yet.
+        </div>
+    </div>
+    <!-- /ko -->
    <div class="poem-page" data-bind="foreach: {data: visibleList, afterRender: afterRender}, loadMore: $root.loadNextPage">
       <div class="cell withTitle">
          <div class="title">

@@ -1,5 +1,12 @@
 ﻿<div>
    <div class="table-flex" data-bind="loadMore: nextPageNotifications">
+       <!-- ko notifications().length === 0 -->
+       <div class="poem-page">
+           <div class="note pull-right">
+               You have no notification yet.
+           </div>
+       </div>
+       <!-- /ko -->
       <!--ko template: {foreach: notifications, afterAdd: notifications.show, afterRender: notifications.render}-->
       <div class="row mild-padding no-shadow rightRibbon" style="max-width:520px"
            data-bind="css:{won: won, newGame: newGame, resigned: resigned, over: over, unseen: !seen }, click: $root.selectGame">

@@ -3,6 +3,7 @@
    function Loading() {
       this.loadingStatus = ctx.loadingStatus;
       this.loading = ctx.loading;
+      this.box = ctx.loadingBox;
 
       this.duration = 400;
    }
@@ -18,6 +19,11 @@
 
       $('.block', this.el).css({ scale: .5, opacity: 0 });
    }
+
+   Loading.prototype.attributes = {
+       fixed: true,
+       singleton: true
+   };
 
    Loading.prototype.compositionComplete = function (el) {
       this.el = $('.loading', el);

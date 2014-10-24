@@ -159,6 +159,7 @@ button {
     }
 
     button.blue {
+        margin: -moz-calc(0.4em);
         border-color: #b7dbe7;
         background-color: #62B6CC;
         background-position-y: -156px;
@@ -462,6 +463,11 @@ p.or {
             transform: rotateZ(-15deg);
         }
 
+        .tile.active button.play {
+            opacity: 0;
+            display: none;
+        }
+
     .tile input {
         width: 270px;
     }
@@ -474,6 +480,10 @@ p.or {
         position: absolute;
         z-index: 4;
         top: 211px;
+        -moz-transition: all .3s, display 0s .3s;
+        -o-transition: all .3s, display 0s .3s;
+        -webkit-transition: all .3s, display 0s .3s;
+        transition: all .3s, display 0s .3s;
     }
 
 

@@ -72,7 +72,7 @@
   z-index: 11;
   margin: 0 auto;
   width: 350px;
-  height: 70px;
+  /*height: 70px;*/
   text-align: center;
   top: 250px;
   color: #713b00;
@@ -82,7 +82,8 @@
   -o-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-  z-index: 1 !important;
+  /*z-index: 1 !important;*/
+  z-index: 12;
 }
 .dialog .alert {
   position: relative;

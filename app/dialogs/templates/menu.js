@@ -7,7 +7,16 @@
       { text: "My Poems", hash: 'poems', icon: 'mi-poems' },
       { text: "settings", hash: 'settings', icon: 'mi-settings' },
       { text: "tutorial", hash: 'tutorial/new', icon: 'mi-tutorial' },
-      { text: "help", hash: 'help', icon: 'mi-help' },
+      {
+          text: "help", click: function () {
+              app.loading(true);
+              app.dialog.show("panel", { module: 'account/l-faq', fixed: true, css: 'wide' }, {
+                  compositionComplete: function () {
+                      app.loading(false);
+                  }
+              });
+          }, icon: 'mi-help'
+      },
       { text: "Logout", hash: 'account/logout', icon: 'mi-logout' }
     ];
 
@@ -44,7 +53,11 @@
 
         this.nav = function (item) {
             app.Sound.play(app.Sound.sounds.click.button);
-            router.navigate(item.hash);
+            if (item.click) {
+                item.click();
+            } else {
+                router.navigate(item.hash);
+            }
         };
     }
 

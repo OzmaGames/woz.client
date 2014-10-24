@@ -276,6 +276,11 @@ a:visited {
   text-align: center;
   margin: 0 auto;
 }
+.loading-content {
+  background: white;
+  padding: 1em;
+  border-radius: 10px;
+}
 .link {
   cursor: pointer;
   font-family: CopseRegular;
@@ -597,8 +602,8 @@ a.big {
 .pic.loc {
   background-image: url(../../../images/tiles/collections/loc.png);
 }
-.pic.vin {
-  background-image: url(../../../images/tiles/collections/vin.png);
+.pic.lim {
+  background-image: url(../../../images/tiles/collections/lim.png);
 }
 .pic.more {
   background-image: url(../../../images/tiles/collections/more.png);
@@ -1220,11 +1225,12 @@ a.big {
 .table-flex .collection .couple.woz-boost1 {
   background-image: url(../../../images/tiles/collections/shop-woz-booster.png);
 }
-.table-flex .collection .couple.vin {
-  background-image: url(../../../images/tiles/collections/shop-vin.png);
+.table-flex .collection .couple.lim {
+  background-image: url(../../../images/tiles/collections/shop-lim.png);
 }
-.table-flex .collection .couple.dream {
-  background-image: url(../../../images/tiles/collections/shop-vin-booster.png);
+.table-flex .collection .couple.lim_boost1,
+.table-flex .collection .couple.lim-boost1 {
+  background-image: url(../../../images/tiles/collections/shop-lim-booster.png);
 }
 .table-flex .collection .couple.nf {
   background-image: url(../../../images/tiles/collections/shop-nf.png);

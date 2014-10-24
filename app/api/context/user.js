@@ -70,7 +70,7 @@
             app.trigger( "server:user:info", { username: base.username, targetUsername: base.username }, function ( data ) {
                if ( data.success ) {
                   ko.utils.arrayForEach( data.collections, function ( collection ) {
-                     collection.desc = "50/50 tiles - 150/150 words";
+                      collection.desc = (collection.boosters && collection.boosters.length) ? ('+ ' + collection.boosters.map(function (b) { return b.longName })): 'No boosters';
                   } );
                   base.collections( data.collections );
                   base.besoz( data.besoz );

@@ -44,8 +44,8 @@
                     var p = $('<div/>', { 'class': 'phrase p' + i++, text: phrase});
                     $('.phrases').append(p);
 
-                    //p.css({ opacity: 0 });
-                    //animateMe(p);
+                    p.css({ opacity: 0 });
+                    animateMe(p);
                 });
             });
         },

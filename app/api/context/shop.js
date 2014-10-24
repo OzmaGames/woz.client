@@ -14,7 +14,10 @@
          base.loading( true );
          app.trigger( "server:shop:collections", {username: ctx.username}, function ( data ) {
             ko.utils.arrayForEach( data, function ( d ) {
-               d.price = +d.price;
+                d.price = +d.price;
+                d.description = d.description || d.shortDescription || '';
+
+                ko.utils.arrayForEach(d.boosters, function (booster) { booster.description = booster.description || booster.shortDescription || ''; });
             } );
             base.collections( data );
             base.loading( false );

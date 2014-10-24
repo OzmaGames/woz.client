@@ -22,6 +22,7 @@
 
           loading: ko.observable(null),
           loadingStatus: ko.observable(''),
+          loadingBox: ko.observable(false),
 
           activeWord: ko.observable(null),
           activeWords: ko.observable(null),
