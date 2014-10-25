@@ -58,11 +58,12 @@
                   dfd.resolve();
               } else {
                   var next = location.hash.substr(1);
-                  if (next != "" && !next.match(/login/ig) && next.indexOf('/') == -1) {
-                      app.navigate('login/' + next);
-                  } else {
-                      app.navigate('login');
-                  }
+                  //if (next != "" && !next.match(/login/ig) && next.indexOf('/') == -1) {
+                  //    app.navigate('login/' + next);
+                  //} else {
+                  //    app.navigate('login');
+                  //}
+                  model.logout();
                   dfd.reject();
               }
 
@@ -84,6 +85,7 @@
               localStorage.removeItem("token");
               //app.navigate('', { replace: true, trigger: true });              
               //history.replaceState({}, '', location.origin);
+              console.log('redirecting to login');
               window.location = 'http://' + location.host;
 
           }).promise();

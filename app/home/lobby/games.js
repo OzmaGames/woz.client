@@ -63,9 +63,9 @@
       notifications().splice( 0, notifications().length );
 
       for ( var i = 0; games[i]; i++ ) {
-         var g = games[i];
-         g.notificationSummary = getNotification( g );
-         if ( g.over || g.newGame ) {
+          var g = games[i];
+          g.notificationSummary = getNotification(g);
+          if (g.notificationSummary && (g.over || g.newGame) ) {
             if ( nVisibleNotifications() > notifications().length ) {
                notifications().push( g );
             } else {
