@@ -1,8 +1,8 @@
 ﻿<div>
    <div class="table-flex" data-bind="loadMore: nextPageNotifications">
-       <!-- ko notifications().length === 0 -->
-       <div class="poem-page">
-           <div class="note pull-right">
+       <!-- ko if: !notifications().length -->
+        <div class="poem-page">
+           <div class="note pull-left">
                You have no notification yet.
            </div>
        </div>
@@ -12,6 +12,6 @@
            data-bind="css:{won: won, newGame: newGame, resigned: resigned, over: over, unseen: !seen }, click: $root.selectGame">
          <span data-bind="html: notificationSummary"></span>         
       </div>
-      <!-- /ko -->      
+      <!-- /ko -->
    </div>
 </div>

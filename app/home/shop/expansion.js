@@ -35,8 +35,9 @@
       this.buy = function (type) {
          if (this.purchased()) return;
           
-         base.loading( true );
-
+         if (base.loading()) return;
+         base.loading(true);
+         
          var model = type;
          model.dependent = model.type == 'starter' ? null :
             model.collection.purchased() ? null : model.collection;

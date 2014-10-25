@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/datacontext'], function ( app, ctx ) {
+﻿define( ['durandal/app', 'api/datacontext', 'api/helper/facebook'], function ( app, ctx, facebook ) {
 
    function validateEmail( email ) {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -21,6 +21,15 @@
             app.dialog.show( 'alert', { content: 'An invitation has been sent to ' + base.email() + '!' } );
          } );
          app.dialog.close( 'notice' );
+      }
+
+      this.facebook = function () {
+          FB.ui({
+              method: 'apprequests',
+              message: 'What should we write in here?'
+          }, function (response) {
+              console.log(response);
+          });
       }
    }
 

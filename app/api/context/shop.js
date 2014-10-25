@@ -15,9 +15,16 @@
          app.trigger( "server:shop:collections", {username: ctx.username}, function ( data ) {
             ko.utils.arrayForEach( data, function ( d ) {
                 d.price = +d.price;
+                d.shortDescription = d.shortDescription || d.description;
+                d.longDescription = d.longDescription || d.description;
+                d.example = d.example || "";
                 d.description = d.description || d.shortDescription || '';
-
-                ko.utils.arrayForEach(d.boosters, function (booster) { booster.description = booster.description || booster.shortDescription || ''; });
+                ko.utils.arrayForEach(d.boosters, function (d) {
+                    d.shortDescription = d.shortDescription || d.description;
+                    d.longDescription = d.longDescription || d.description;
+                    d.description = d.description || d.shortDescription || '';
+                    d.example = d.example || "";
+                });
             } );
             base.collections( data );
             base.loading( false );

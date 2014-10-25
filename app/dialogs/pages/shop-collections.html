@@ -3,6 +3,7 @@
    <div class="row">
       <div class="head" data-bind="text: longName"></div>
       <div class="body">
+         <p data-bind="text: example" style="text-align: center;font-size: 18px;"></p>
          <div class="collection centered full-row">
             <!-- ko if: dependent-->
             <p>
@@ -17,9 +18,9 @@
             </div>
             <p class="font-smaller" style="text-align:left">
                <!-- ko if: dependent-->
-               <span data-bind="text: dependent.description"></span>
+               <span data-bind="text: dependent.longDescription"></span>
                <!-- /ko -->
-               <span data-bind="text: description"></span>
+               <span data-bind="text: longDescription"></span>
             </p>
             <p>
                New Tiles: <span class="" data-bind="text: nImages + (dependent? dependent.nImages: 0)"></span>,

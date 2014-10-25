@@ -42,7 +42,9 @@
    };
 
    Index.prototype.navSwitch = function ( iFrom, iTo ) {
-      if ( iFrom === undefined ) return;
+       if (iFrom === undefined) return;
+
+       ga('send', 'event', 'button', 'click', iTo == 0 ? 'OnGoing' : iTo == 1 ? 'Notification' : 'Archive');
 
       if ( iFrom == 0 ) {
          ctx.lobby.seenAllOngoing();

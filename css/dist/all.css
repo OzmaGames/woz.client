@@ -36,6 +36,10 @@
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 html,
 body,
 ul,
@@ -1508,12 +1512,22 @@ progress::-moz-progress-bar {
   right: -6px;
 }
 .payment-icon {
+  display: inline-block;
   background-image: url(../../images/app/payment.png);
   width: 100%;
   height: 2em;
   background-repeat: no-repeat;
   margin-left: 1em;
   margin-top: -1em;
+  position: relative;
+}
+.payment-icon:after {
+  position: absolute;
+  left: 230px;
+  top: 4px;
+  font-size: 15px;
+  content: 'Prices includes 25% VAT in EU.';
+  line-height: 2em;
 }
 .faq h1 {
   margin-bottom: .5em;
@@ -1535,10 +1549,6 @@ progress::-moz-progress-bar {
   border: 1px solid #d7bea2;
   border-radius: 8px;
 }
-/*.aaa{
-    .has-tooltip(60px);
-
-}*/
 .dialog {
   position: fixed;
   z-index: 100;

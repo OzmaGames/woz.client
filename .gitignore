@@ -1,3 +1,5 @@
 App_Data/**
 build/**
 dist/**
+node_modules
+gulp

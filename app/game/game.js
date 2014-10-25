@@ -411,6 +411,8 @@
                 }
             }
             else if (game.allowSwap()) {
+                ga('send', 'event', 'action', 'click', 'swap-word');
+
                 app.dialog.show("slipper", DIALOGS.SWAP_WORDS);
                 ctx.mode('swapWords');
                 app.scrollDown();
@@ -553,6 +555,8 @@
                 ctx.mode('');
                 module.unload();
             } else {
+                ga('send', 'event', 'action', 'click', 'circle-word');
+
                 ctx.mode('circleWords');
                 module.load();
             }
@@ -565,6 +569,8 @@
             }
             else if (game.allowVersions()) {
                 ctx.mode("versions");
+
+                ga('send', 'event', 'action', 'click', 'word-version');
 
                 app.scrollUp();
 
@@ -588,6 +594,8 @@
             }
             else if (game.allowAddWords()) {
                 ctx.mode("addWords");
+
+                ga('send', 'event', 'action', 'click', 'add-word');
 
                 system.acquire("dialogs/pages/addWords").then(function (module) {
                     var model = new module();
@@ -618,7 +626,7 @@
 
                 if (app.fromSignUp) {
                     setTimeout(function () {
-                        app.dialog.show("notice", { view: "dialogs/pages/welcome", modal: true }).then(function () {
+                        app.dialog.show("notice", { view: "dialogs/pages/welcome", modal: true, fixed: true, centered: true }).then(function () {
                             localStorage.removeItem('login-mode');
                             delete app.fromSignUp;
                             showScroll();

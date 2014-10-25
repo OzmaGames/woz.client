@@ -19,6 +19,15 @@
    //   }, view: 'dialogs/pages/GameOver'
    //} );
 
+   var me = null;
+   $(document).keydown(function (e) {
+       if (me) {
+           if (e.keyCode == 27) {
+               me.close();
+           }
+       }       
+   });
+
    function Notice() {
       this.modal = false;
       this.model = {};
@@ -29,10 +38,10 @@
       this.dfd1 = $.Deferred();
       this.dfd2 = $.Deferred();
 
-      var base = this;
+      var base = me = this;
       this.close = function () {
          app.Sound.play( app.Sound.sounds.dialog.closing );
-
+         
          duration = duration || 500;
          var dfd = base.el
            .transition( { y: 10 }, duration / 2, 'ease' )
@@ -46,6 +55,8 @@
                base.onClose.apply( base, args );
             } )
          }
+
+         me = null;
 
          return dfd;
       }

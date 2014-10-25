@@ -85,7 +85,10 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
 
       app.dialog.showInvite = function () {
          app.dialog.show( "notice", {
-            model: 'dialogs/pages/invite',
+             model: 'dialogs/pages/invite',
+             fixed: true,
+             centered: true,
+             modal: true,
             closeOnClick: false
          } ).then( function () {
             

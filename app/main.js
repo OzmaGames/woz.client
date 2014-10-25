@@ -7,7 +7,7 @@ requirejs.config({
       'crypto.sha3': '../lib/crypto.sha3',
       'facebook': '//connect.facebook.net/en_US/all',
       //'firebase': '//cdn.firebase.com/js/client/1.0.11/firebase',
-      'firebase': '../lib/firebase',
+      //'firebase': '../lib/firebase',
       'sounds': '../sounds'
    },
    urlArgs: 't' + (new Date).getTime(),
@@ -18,6 +18,7 @@ requirejs.config({
    }
 });
 
+define('firebase', function () { return { } });
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 define('socket', io);
@@ -26,7 +27,7 @@ define('paper', paper );
 define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocator', 'api/Sound', 'common'],
   function (system, app, router, viewLocator, Sound) {
      //>>excludeStart("build", true);
-     system.debug(true);
+     //system.debug(true);
      //>>excludeEnd("build");    
      
      app.title = 'Words of Oz';

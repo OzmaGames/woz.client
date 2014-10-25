@@ -46,7 +46,13 @@
          } );
       },
 
-      activate: function () {
+      activate: function () {       
+         ga('create', 'UA-39481639-3', 'auto');
+
+         router.on('router:navigation:complete', function (instance, instruction) {
+             ga('set', 'page', instruction.fragment);
+             ga('send', 'pageview');                          
+         });
          return router.map( [
             { route: ['', 'login', 'login/:route'], moduleId: 'home/index', title: '' },            
             { route: 'test', moduleId: 'home/test', title: 'Test' },
