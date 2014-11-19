@@ -70,6 +70,9 @@
                     if (data.success) {
                         if (data.besoz != undefined) {
                             ctx.user.besoz(data.besoz);
+                            if (data.besoz == 0) {
+                                app.trigger('game:bubble', 'zeroBesoz');
+                            }
                         }
                     } else {
                         app.dialog.showNoBesoz(4);

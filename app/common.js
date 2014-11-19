@@ -45,7 +45,31 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
             fixed: true,
             centered: true,
             modal: true
-         } );
+         });
+         app.trigger('game:bubble', 'zeroBesoz');
+      };
+
+      app.dialog.showAlertNote = function (obj) {
+          obj.btnText = obj.btnText || 'Ok!';
+          obj.content = obj.content || '';
+          obj.title = obj.title || '';
+          
+          app.dialog.show("notice", {
+              model: obj,
+              view: 'dialogs/pages/alert-note',
+              closeOnClick: false,
+              fixed: true,
+              centered: true,
+              modal: true
+          });
+      };
+    
+      app.dialog.showBesozCancel = function () {
+          app.dialog.show("notice", {
+              view: 'dialogs/pages/paypalcancel',
+              fixed: true,
+              centered: true
+          });
       };
       app.dialog.showBesozBought = function ( besoz ) {
          app.dialog.show( "notice", {
@@ -84,15 +108,25 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
       };
 
       app.dialog.showInvite = function () {
-         app.dialog.show( "notice", {
-             model: 'dialogs/pages/invite',
-             fixed: true,
-             centered: true,
-             modal: true,
-            closeOnClick: false
-         } ).then( function () {
-            
-         } );
+          app.dialog.show("notice", {
+              model: 'dialogs/pages/invite',
+              fixed: true,
+              centered: true,
+              modal: true,
+              closeOnClick: false
+          }).then(function () {
+
+          });
+      }
+
+      app.dialog.showEmail = function () {
+          return app.dialog.show("notice", {
+              model: 'dialogs/pages/email',
+              fixed: true,
+              centered: true,
+              modal: true,
+              closeOnClick: false
+          });
       }
 
       app.palette = palette;

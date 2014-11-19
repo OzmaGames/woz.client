@@ -60,7 +60,7 @@ define('sounds/manifest', [], function () {
             		'Level Up Small/level_up_small-01.ogg'
             ],
             levelUpTitle: [
-            		'Level Up Small/level_up_small-01.ogg'
+            		'Level Up Big/level_up_big-01.ogg'
             ],
             loading: [
                'Loading a game/Loading_a_game-01.ogg',

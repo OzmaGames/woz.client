@@ -13,13 +13,16 @@
                 }
             }, function (res) {
                 if (res.success) {
-                    ctx.user.referesh();
-                    app.navigate(hash);
+                    ctx.user.refresh();
+                    app.navigate((localStorage.getItem('returnedHash') || ''));
                     Task.run(function () {
                         app.dialog.showBesozBought();
                     }, 1000);
                 } else {
                     app.navigate('#newGame');
+                    Task.run(function () {
+                        app.dialog.showBesozCancel();
+                    }, 1000);
                 }
             });
         },

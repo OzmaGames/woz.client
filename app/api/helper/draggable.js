@@ -1,5 +1,5 @@
 ﻿define( 'api/helper/draggable', [], function () {
-
+    
    $.fn.draggable = function ( opt ) {
       opt = $.extend( {}, $.fn.draggable.defaults, opt );
 
@@ -22,11 +22,14 @@
                //wake the hell up paperjs 
                //var el = document.elementFromPoint(e.clientX, e.clientY);
                var el = $( 'canvas' )[0];
-               var evt = document.createEvent( 'TouchEvent' );
-               evt.initTouchEvent( 'touchstart', true, true,
-                  window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, e.originalEvent.touches, e.originalEvent.targetTouches, e.originalEvent.changedTouches, 1, 0 );
+               var evt = document.createEvent('TouchEvent');
 
-               el.dispatchEvent( evt );
+               if (el && el.dispatchEvent) {
+                   evt.initTouchEvent('touchstart', true, true,
+                      window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, e.originalEvent.touches, e.originalEvent.targetTouches, e.originalEvent.changedTouches, 1, 0);
+
+                   el.dispatchEvent(evt);
+               }
             }
 
          }
@@ -119,19 +122,24 @@
                var evt = document.createEvent( 'TouchEvent' ),
                   el = document.elementFromPoint( e.clientX, e.clientY );
                $el.show();
-               evt.initTouchEvent( 'touchend', true, true,
-                  window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, e.originalEvent.touches, e.originalEvent.targetTouches, e.originalEvent.changedTouches, 1, 0 );
 
-               el.dispatchEvent( evt );
+               if (el && el.dispatchEvent) {
+                   evt.initTouchEvent('touchend', true, true,
+                        window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, e.originalEvent.touches, e.originalEvent.targetTouches, e.originalEvent.changedTouches, 1, 0);
+
+                   el.dispatchEvent(evt);
+               }               
             } else {
                $el.hide();
                var evt = document.createEvent( 'MouseEvents' ),
                   el = document.elementFromPoint( e.clientX, e.clientY );
                $el.show();
-               evt.initMouseEvent( 'mouseup', true, true,
-                  window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, 0, null );
+               if (el && el.dispatchEvent) {
+                   evt.initMouseEvent('mouseup', true, true,
+                        window, 1, e.clientX, e.clientY, e.clientX, e.clientY, false, false, false, false, 0, null);
 
-               el.dispatchEvent( evt );
+                   el.dispatchEvent(evt);
+               }
             }
 
             $( document ).unbind( "mousemove touchmove", events.mousemove )
@@ -210,7 +218,7 @@
       };
 
       var pointerDown = $.support.touch ? "touchstart" : "mousedown";
-      $el.bind( pointerDown, events.mousedown );
+      $el.bind(pointerDown, events.mousedown);      
 
       $el.data( 'draggable', this );
 

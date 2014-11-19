@@ -2,7 +2,7 @@
     var fb = null;
     //fb = new Firebase( "https://flickering-fire-3516.firebaseio.com/ozma/woz/sounds" );
 
-    var soundSystem = false;
+    var soundSystem = true;
 
     function Sound(collection) {
         var manifest = [];
@@ -45,7 +45,7 @@
 
                 if (fb) {
                     fb.on("value", function (sounds) {
-                        //console.log( JSON.stringify( sounds.val() ) );
+                        console.log( JSON.stringify( sounds.val() ) );
                         if (sounds.val()) {
                             foo(sounds.val());
                         }

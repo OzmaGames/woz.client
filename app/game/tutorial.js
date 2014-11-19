@@ -5,7 +5,7 @@
 
    function Tutorial() {
 
-      this.storage = new Storage( function () { return "tutorial[" + app.ctx.username + "].bubble" }, .1, { "menu": null, "dynamic": null } );
+      this.storage = new Storage( function () { return "tutorial[" + app.ctx.username + "].bubble" }, .1, { "menu": null, "dynamic": null, 'poem': null } );
 
       this.swapWords = function () {
          var item = $( '.palette.left .btn:first' );
@@ -36,7 +36,7 @@
 
          var data = TUT.ARCHIVE_GAMES;
          data.css = "right";
-         data.top = item.offset().top + APP.scrollTop - 10;
+         data.top = item.offset().top - 10;
          data.left = item.offset().left - 190;
          data.fixed = true;
 
@@ -97,6 +97,45 @@
          } );
 
          return data;
+      }
+
+      this.zeroBesoz = function () {
+          var maxLeft = window.innerWidth - 300;
+          var item = $('.command.currency');
+
+          if (!item) return;
+
+          var data = {
+              heading: "No besoz!",
+              content: "Press the wand <br> when you want to <br> get besoz to use <br> in the game."
+          };
+
+        data.css = "right";
+        data.top = item.offset().top + 15;
+        data.left = item.offset().left - 140;
+        data.fixed = true;
+
+          item.click(function () {
+              app.dialog.close('tutorial');
+          });
+
+          return data;
+      }
+
+      this.poemMenu = function () {
+          var item = $('.palette.right .menu');
+
+          var data = {
+              heading: "Poems",
+              content: "Go to My Poems <br> in the menu to <br> find all your <br> saved poems."
+          };
+
+          data.css = "right";
+          data.top = item.offset().top - 10;
+          data.left = item.offset().left - 140;
+          data.fixed = true;
+
+          return data;
       }
 
       this.bonusFor = function ( tile, content ) {
@@ -252,12 +291,20 @@
    } );
 
    app.on( "game:bubble" ).then( function ( eventName, data1, data2 ) {
-      ctx = app.ctx;
-      var storageName = app.ctx.username + ".bubble.dynamicPath";
-      if ( !t.storage.dynamic.load() ) {
-         t.storage.dynamic.save( true )
-         t.showOne( t[eventName].call( t, data1, data2 ) );
-      }
+       ctx = app.ctx;
+       if (eventName === 'dynamicPath') {
+           if (!t.storage.dynamic.load()) {
+               t.storage.dynamic.save(true)
+               t.showOne(t[eventName].call(t, data1, data2));
+           }
+       } else if (eventName === 'poemMenu') {
+           if (!t.storage.poem.load()) {
+               t.storage.poem.save(true)
+               t.showOne(t[eventName].call(t, data1, data2));
+           }
+       }  else{
+           t.showOne(t[eventName].call(t, data1, data2));
+       }      
    } );
 
    return t;

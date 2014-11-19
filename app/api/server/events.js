@@ -21,6 +21,7 @@
         "user:collections",
         "shop:collections",
         "user:info",
+        "user:email",
         "user:poem",
         "shop:besoz",
         "shop:storage",

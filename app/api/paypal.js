@@ -1,4 +1,4 @@
-﻿define('api/paypal', [], function () {    
+﻿define('api/paypal', [], function () {
 
     var model = {
         getToken: function (obj) {

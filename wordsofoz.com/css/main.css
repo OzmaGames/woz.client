@@ -276,6 +276,10 @@ button {
 
     .card .front {
         z-index: 2;
+        -moz-transition: visibility 0s .75s;
+        -o-transition: visibility 0s .75s;
+        -webkit-transition: visibility 0s .75s;
+        transition: visibility 0s .75s;
     }
 
     .card .front, .card .back {
@@ -463,6 +467,10 @@ p.or {
             transform: rotateZ(-15deg);
         }
 
+        .tile.active .card .front {
+            visibility: hidden;
+        }
+
         .tile.active button.play {
             opacity: 0;
             display: none;
@@ -509,6 +517,7 @@ p.or {
     .tile.girl .front {
         background: url('../images/girl.jpg') no-repeat center center;
         background-size: contain;
+
     }
 
 i.goback {

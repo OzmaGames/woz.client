@@ -80,7 +80,10 @@
                base.loading( false );
                if ( data.success ) {
                   if ( data.besoz != undefined ) {
-                     ctx.user.besoz( data.besoz );
+                      ctx.user.besoz(data.besoz);
+                      if (data.besoz == 0) {
+                        app.trigger('game:bubble', 'zeroBesoz');                        
+                      }
                   }
                   base.word.isPlayed = false;
                   base.word.isRelated = data.isRelated;

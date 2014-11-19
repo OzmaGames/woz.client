@@ -1,46 +1,46 @@
 ﻿<i class="command close" data-bind="click: $parent.close"></i>
 <div class="table-flex">
-   <div class="row">
-      <div class="head" data-bind="text: longName"></div>
-      <div class="body">
-         <p data-bind="text: example" style="text-align: center;font-size: 18px;"></p>
-         <div class="collection centered full-row">
-            <!-- ko if: dependent-->
-            <p>
-               In order to unlock this booster, you need to buy the starter first.
-            </p>
-            <div class="couple has-currency" data-bind="css: dependent.shortName">
-               <div class="currency" data-bind="text: dependent.price"></div>
+    <div class="row">
+        <div class="head" data-bind="text: longName"></div>
+        <div class="body">
+            <p data-bind="text: example" style="text-align: center; font-style:italic; font-size: 18px;"></p>
+            <div class="collection centered full-row">
+                <!-- ko if: dependent-->
+                <p>
+                    In order to unlock this booster, you need to buy the starter first.
+                </p>
+                <div class="couple has-currency" data-bind="css: dependent.shortName">
+                    <div class="currency" data-bind="text: dependent.price"></div>
+                </div>
+                <!-- /ko -->
+                <div class="couple has-currency" data-bind="css: shortName ">
+                    <div class="currency" data-bind="text: price"></div>
+                </div>
+                <p class="font-smaller" style="text-align:left">
+                    <!-- ko if: dependent-->
+                    <span data-bind="text: dependent.longDescription"></span>
+                    <!-- /ko -->
+                    <span data-bind="text: longDescription"></span>
+                </p>
+                <p>
+                    New Tiles: <span class="" data-bind="text: nImages + (dependent? dependent.nImages: 0)"></span>,
+                    New Words: <span class="" data-bind="text: nWords + (dependent? dependent.nWords: 0)"></span>
+                </p>
+                <br />
+                <p class="bold">
+                    Buy
+                    <span data-bind="if: dependent">both starter and booster</span>
+                    <span data-bind="if: dependent == null">
+                        <span data-bind="text: 'this ' + type"></span>
+                    </span>
+                    for <span data-bind="text: totalPrice"></span> besoz.
+                </p>
             </div>
-            <!-- /ko -->
-            <div class="couple has-currency" data-bind="css: shortName ">
-               <div class="currency" data-bind="text: price"></div>
-            </div>
-            <p class="font-smaller" style="text-align:left">
-               <!-- ko if: dependent-->
-               <span data-bind="text: dependent.longDescription"></span>
-               <!-- /ko -->
-               <span data-bind="text: longDescription"></span>
-            </p>
-            <p>
-               New Tiles: <span class="" data-bind="text: nImages + (dependent? dependent.nImages: 0)"></span>,
-               New Words: <span class="" data-bind="text: nWords + (dependent? dependent.nWords: 0)"></span>
-            </p>
-            <br />
-            <p class="bold">
-               Buy
-               <span data-bind="if: dependent">both starter and booster</span>
-               <span data-bind="if: dependent == null">
-                  <span data-bind="text: 'this ' + type"></span>
-               </span>
-               for <span data-bind="text: totalPrice"></span> besoz.
-            </p>
-         </div>
-      </div>
-   </div>
-   <button class="orange centered normal" data-bind="click: $parent.close.bind(null, {confirm: true})">
-      <span class="currency" data-bind="text: totalPrice"></span>
-      Buy
-   </button>
+        </div>
+    </div>
+    <button class="orange centered normal" data-bind="click: $parent.close.bind(null, {confirm: true})">
+        <span class="currency" data-bind="text: totalPrice"></span>
+        Buy
+    </button>
 </div>
 

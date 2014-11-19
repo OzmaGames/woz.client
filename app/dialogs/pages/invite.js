@@ -24,12 +24,19 @@
       }
 
       this.facebook = function () {
+          //FB.ui({
+          //    method: 'apprequests',
+          //    message: "Let's make a poem together!"
+          //}, function (response) {
+          //    console.log(response);
+          //});
+
           FB.ui({
-              method: 'apprequests',
-              message: 'What should we write in here?'
-          }, function (response) {
-              console.log(response);
+              method: 'send',
+              message: "Let's make a poem together!",
+              link: 'http://wordsofoz.com/'
           });
+            
       }
    }
 

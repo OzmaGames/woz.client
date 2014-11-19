@@ -59,7 +59,10 @@
             model.shadow = ctx.poem.settings.shade.value();
             model.light = ctx.poem.settings.lightColor();
             model.command = "set";
-            app.trigger( "server:user:poem", model, function ( json ) {
+            app.trigger("server:user:poem", model, function (json) {
+                if (json.success) {
+                    app.trigger('game:bubble', 'poemMenu');
+                }
                app.dialog.show( "alert", {
                   content: json.success ? 'Your poem has been saved!' : 'Oh, Something went wrong!'
                } );

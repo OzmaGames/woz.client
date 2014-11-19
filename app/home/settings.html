@@ -1,55 +1,72 @@
 ﻿<div>
    <div class="grid">
-      <article>
-         <h1>Profile:</h1>
-         <div class="container group">
-            <p>Please proceed with caution. <br /> this will delete <b data-bind="text: username"></b>.</p>
-            <button class="orange" data-bind="click: deleteUsername">Delete Account</button>
-         </div>
-         <h1>change password:</h1>
-         <div class="container group">
+       <article>
+           <!--<h1>Profile:</h1>
+        <div class="container group">
+           <p>Please proceed with caution. <br /> this will delete <b data-bind="text: username"></b>.</p>
+           <button class="orange" data-bind1="click: deleteUsername">Delete Account</button>
+        </div>
+        <h1>change password:</h1>
+        <div class="container group">
 
-         </div>
-         <h1>Blocked Players:</h1>
-         <div class="container y scroll compact friends" style="margin-left: .5em; width: auto;">
-            <ul class="list">
-               <!-- ko if: $root.block().length == 0 -->
-               <li class="inst">
-                  No blocked players yet!
-               </li>
-               <!-- /ko -->
+        </div>-->
+           <h1>your email address:</h1>
+           <div class="container group">
+               <label class="radio" data-bind1="click: $root.clicked">
+                   <span class="title" data-bind="text: email">email@domain.com</span>
+                   <span class="description" data-bind="click: change">Click to change your email address.</span>
+               </label>
+           </div>
 
-               <!-- ko if: $root.block().length != 0 -->
-               <li class="header">players</li>
-               <!-- ko foreach: $root.block -->
-               <li>
-                  <span data-bind="text: username"></span>
-                  <div class="btn" data-bind="click: $root.removeBlocked" data-title="unblock">
-                     <i class="command delete xxsm"></i>
-                  </div>
-               </li>
-               <!-- /ko -->
-               <!-- /ko -->               
-            </ul>
-         </div>
-      </article><article>
-         <h1>Misc:</h1>
-         <div class="container">
-            <label>connect to facebook<input type="checkbox" checked /><span></span></label>
-            <label>push notification<input type="checkbox" /><span></span></label>
-            <label>email notification<input type="checkbox" checked /><span></span></label>
-         </div>
-         <br />
+           <h1>EMAIL NOTIFICATIONS:</h1>
+           <div class="container group">
+               <label>
+                   Game invitations
+                   <input type="checkbox" data-bind="checked: emailNew" /><span></span>
+               </label>
+               <label>
+                   When it's your turn
+                   <input type="checkbox" data-bind="checked: emailPhrase" /><span></span>
+               </label>
+               <label>
+                   Announcing the winner
+                   <input type="checkbox" data-bind="checked: emailEnd" /><span></span>
+               </label>
+           </div>
+
+       </article><article>
+            <h1>Blocked Players:</h1>
+            <div class="container y scroll compact friends" style="margin-left: .5em; width: auto; margin-top: .4em">
+                <ul class="list">
+                    <!-- ko if: $root.block().length == 0 -->
+                    <li class="inst">
+                        No blocked players yet
+                    </li>
+                    <!-- /ko -->
+                    <!-- ko if: $root.block().length != 0 -->
+                    <li class="header">players</li>
+                    <!-- ko foreach: $root.block -->
+                    <li>
+                        <span data-bind="text: username"></span>
+                        <div class="btn" data-bind="click: $root.removeBlocked" data-title="unblock">
+                            <i class="command delete xxsm"></i>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                </ul>
+            </div>
+         <!--<br />
          <h1>set language</h1>
          <div class="container">
-            <select class="woz" data-bind="dropdown: { inst: 'Change Language', options: null, selected: null }">
+            <select class="woz" data-bind1="dropdown: { inst: 'Change Language', options: null, selected: null }">
                <option selected>English</option>
-               <option>German</option>
+               <option>Persian</option>
                <option>Portuguese</option>
                <option>Spanish</option>
                <option>Swedish</option>
             </select>
-         </div>
+         </div>-->
       </article>
    </div>
 </div>

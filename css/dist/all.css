@@ -1958,7 +1958,8 @@ progress::-moz-progress-bar {
 }
 .dialog .notice .versions {
   margin: .5em 0 1em 0;
-  min-height: 5em;
+  max-height: 10em;
+  overflow-y: auto;
   font-size: 1.1em;
 }
 .dialog .notice .version {

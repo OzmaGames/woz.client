@@ -1,7 +1,42 @@
-﻿var gulp = require('gulp');
-var durandal = require('gulp-durandal');
+﻿
+var gulp = require('gulp'),
+    rename = require('gulp-rename'),
+    htmlReplace = require('gulp-html-replace'),
+    durandal = require('gulp-durandal');
+
+var dest = '../buildgulp', destAlmond = '../buildgulpalmond';
+
+gulp.task('statics', function () {
+    return gulp.src(['**/*.png', '**/*.jpg', '**/*.css', '**/*.ttf', '**/*.woff', 'index.html', '**/require.js'])
+        .pipe(gulp.dest(dest));
+});
 
 gulp.task('durandal', function () {
-    durandal()
-       .pipe(gulp.dest('/buildgulp'));
+    durandal({ minify: true })
+       .pipe(gulp.dest(dest));
 });
+
+gulp.task('durandal-almond', function () {
+    return durandal({
+        almond: true, minify: true
+    })
+    .on('error', function (err) {
+        console.error('error. ' + err);
+    })
+    .pipe(gulp.dest(destAlmond));
+});
+
+gulp.task('index-almond', function () {
+    return gulp.src('index.html')
+        //.pipe(htmlReplace('js', 'main.js'))
+        .pipe(gulp.dest(destAlmond));
+});
+
+gulp.task('statics-almond', function () {
+    return gulp.src(['**/*.png', '**/*.jpg', '**/*.css', '**/*.ttf', '**/*.woff', '**/*.mp3', '**/*.ogg'])
+        .pipe(gulp.dest(destAlmond));
+});
+
+gulp.task('build', ['statics', 'durandal']);
+
+gulp.task('almond', ['durandal-almond']);

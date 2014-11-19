@@ -11,7 +11,7 @@
     <form data-bind="verifiableSubmit: signup">
         <input type="text" placeholder="Username" data-bind="verifiableValue: username, disable: loading" autofocus autocorrect="off" autocapitalize="off" />
         <span class="error" data-bind="text: username.validationMessage"></span>
-        <input type="text" placeholder="Email (optional)" data-bind="verifiableValue: email, disable: loading" />
+        <input type="text" placeholder="Email" data-bind="verifiableValue: email, disable: loading" required />
         <span class="error" data-bind="text: email.validationMessage"></span>
 
         <p class="error" data-bind="text: errorMessage"></p>

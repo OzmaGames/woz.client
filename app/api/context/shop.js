@@ -17,13 +17,15 @@
                 d.price = +d.price;
                 d.shortDescription = d.shortDescription || d.description;
                 d.longDescription = d.longDescription || d.description;
-                d.example = d.example || "";
+                d.example = ('"' + (d.example || "") + '"');
+                d.example = d.example == '""' ? '' : d.example;
                 d.description = d.description || d.shortDescription || '';
                 ko.utils.arrayForEach(d.boosters, function (d) {
                     d.shortDescription = d.shortDescription || d.description;
                     d.longDescription = d.longDescription || d.description;
                     d.description = d.description || d.shortDescription || '';
-                    d.example = d.example || "";
+                    d.example = ('"' + (d.example || "") + '"');
+                    d.example = d.example == '""' ? '' : d.example;
                 });
             } );
             base.collections( data );

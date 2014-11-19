@@ -10,8 +10,11 @@
 
       this.storage = ctx.user.storage;
       this.buy = function (item) {
-         ctx.user.buyStorageSpace( item ).then( function () {
-            //app.dialog.showBesozBought();
+          ctx.user.buyStorageSpace(item).then(function () {
+              app.dialog.showAlertNote({
+                  title: 'Thank you!',
+                  content: 'You have successfully received more storage space for your archived games.'
+              });
          } );         
       }
    }

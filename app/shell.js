@@ -85,6 +85,7 @@
                hash: '#account'
             },
             { route: 'facebook', moduleId: 'account/oAuth/facebook', title: 'Words of Oz' },
+            { route: 'paypalcancel', moduleId: 'api/ui/paypalcancel', title: 'Paypal cancel' },
             { route: 'paypalcb', moduleId: 'api/ui/paypalcb', title: 'Paypal confirmation' }
          ] ).buildNavigationModel()
           .mapUnknownRoutes( 'error/not-found', 'not-found' )

@@ -20,7 +20,7 @@
               if (json.success) {
                   app.palette.dispose();
 
-                  ctx.loadingStatus("Redirecting to Paypal website...");
+                  ctx.loadingStatus("Waiting for Paypal...");
                   localStorage.setItem('returnedHash', location.hash);
                   window.location = json.link;
               } else {
