@@ -1,4 +1,5 @@
 play/app_data/**
+app_data/**
 play/build/**
 play/dist/**
 dist/**
