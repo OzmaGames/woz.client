@@ -1,0 +1,25 @@
+﻿<h1>Join The Game!</h1>
+
+<i class="command close" data-bind="click:login"></i>
+
+<form data-bind="verifiableSubmit: signUp">
+    <input type="text" placeholder="Username" data-bind="verifiableValue: username" autofocus autocorrect="off" autocapitalize="off" />
+    <span class="error" data-bind="text: username.validationMessage"></span>
+    <input type="email" placeholder="E-mail" data-bind="verifiableValue: email" autocorrect="off" autocapitalize="off" />
+    <span class="error" data-bind="text: email.validationMessage"></span>
+    <input type="password" placeholder="Password" data-bind="verifiableValue: password">
+    <span class="error" data-bind="text: password.validationMessage"></span>
+
+    <p class="error" data-bind="text: errorMessage"></p>
+
+    <button type="submit" class="blue" data-bind="disable: loading()">
+        <span>SIGN UP</span>
+        <!--<i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>-->
+    </button>
+</form>
+
+<p class="agreement">
+    By clicking <i>sign up</i> you agree to our <br />
+    <a class="clickable" data-bind="click: terms"><b>Terms of Use</b></a> and
+    <a class="clickable" data-bind="click: privacy"><b>Privacy Policy</b></a>.
+</p>

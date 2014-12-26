@@ -1,29 +1,5 @@
-﻿<div id="shell">
-   <div id="fixed">
-      <!--ko compose: "api/ui/palette"--><!--/ko-->
-      <div class="loader page" data-bind="css: { active: loading }">
-         <i class="icon-spinner icon-2x icon-spin"></i>
-      </div>
-      <div class="status-box">
-         <div class="switch">
-            <span></span>
-         </div>
-         <div class="switch" data-bind="css: { b: status.cnn }">
-            <span class="bad">Offline</span>
-            <span class="good">Online</span>
-         </div>
-         <div class="switch" data-bind="css: { b: status.devMode }">
-            <span class="bad"></span>
-            <span class="good" style="color:darkslateblue;opacity:1">Developement Mode</span>
-         </div>
-         <div class="switch" data-bind="css: { b: errors().length }">
-            <span class="good"></span>
-            <span class="bad" data-bind="attr:{title: $root.summary}, click: $root.showSummary">
-               Errors on the page: <span data-bind="text: errors().length"></span>
-            </span>
-         </div>
-      </div>
-   </div>
-   <div id="console" style="position:fixed; top:300px; left: 100px; display:block;z-index:10000"></div>
-   <!--ko router: { transition: 'entrance', cacheViews: true }--><!--/ko-->
+﻿<div>
+    <div data-bind="compose: page">
+        <div class="loader-bar center"><i></i><i></i><i></i></div>
+    </div>    
 </div>

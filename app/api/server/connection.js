@@ -1,4 +1,4 @@
-﻿define( ['durandal/app', 'api/helper/history', 'api/helper/Log'], function ( app, history, LOG ) {
+﻿define( ['durandal/app', 'api/helper/history', 'api/helper/Log', 'socket'], function ( app, history, LOG, io ) {
 
    var url = "http://wordsdevel.herokuapp.com:80";
    //var url = "http://wordstesting.herokuapp.com:80";
@@ -89,7 +89,7 @@
    }
 
    function addToken( event, json ) {
-      //if ( event.match( /account/i ) ) return;
+      return true;
       if ( app.ctx ) {
          if ( !( 'username' in json ) ) {
             json.username = app.ctx.username;

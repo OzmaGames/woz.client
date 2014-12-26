@@ -1,4 +1,4 @@
-﻿define(['durandal/app'], function (app) {
+﻿define(['durandal/app', 'knockout', 'jquery'], function (app, ko, $) {
 
    var dialog, sub;
 
@@ -44,8 +44,6 @@
          dialog.css({ y: top - 100, opacity: 0 })
             .transition({ y: top + 10, opacity: 1 })
             .transition( { y: top } );
-
-         app.Sound.play( app.Sound.sounds.dialog.login );
       },
 
       canDeactivate: function () {

@@ -7,7 +7,7 @@
         loading: app.loading,
 
         close: function () {
-            app.trigger('account:view:change', 'account/sign-up');
+            app.dialog.close('panel');
         }
     };
 });

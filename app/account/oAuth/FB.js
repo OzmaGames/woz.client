@@ -5,7 +5,7 @@
       getProfile: function () {
          return $.Deferred(function (dfd) {
             FB.api('/me', function (response) {
-               //console.log(response);
+               console.log(response);
                dfd.resolve( response );
                app.facebook.profile = response;
             });
@@ -14,7 +14,7 @@
       getFriends: function () {
          return $.Deferred(function (dfd) {
             FB.api('/me/friends', function (response) {
-               //console.log(response);
+               console.log(response);
                dfd.resolve(response);
             });
          });
@@ -45,10 +45,10 @@
       },
       login: function () {
          return $.Deferred(function (dfd) {
-            FB.login(function (response) {
+             FB.login(function (response) {                
                check(response);
                dfd.resolve(app.facebook);
-            });
+            }, {scope: 'email'});
          });
       }
    }

@@ -1,5 +1,8 @@
-App_Data/**
-build/**
+play/app_data/**
+play/build/**
+play/dist/**
 dist/**
 node_modules
 gulp
+web.config
+website.publishproj

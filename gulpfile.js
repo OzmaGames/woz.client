@@ -1,10 +1,9 @@
-﻿
-var gulp = require('gulp'),
+﻿var gulp = require('gulp'),
     rename = require('gulp-rename'),
     htmlReplace = require('gulp-html-replace'),
     durandal = require('gulp-durandal');
 
-var dest = '../buildgulp', destAlmond = '../buildgulpalmond';
+var dest = '/dist', destAlmond = '../dist';
 
 gulp.task('statics', function () {
     return gulp.src(['**/*.png', '**/*.jpg', '**/*.css', '**/*.ttf', '**/*.woff', 'index.html', '**/require.js'])
@@ -18,13 +17,26 @@ gulp.task('durandal', function () {
 
 gulp.task('durandal-almond', function () {
     return durandal({
+        main: 'config.js',
         almond: true, minify: true
     })
     .on('error', function (err) {
         console.error('error. ' + err);
     })
-    .pipe(gulp.dest(destAlmond));
+    .pipe(gulp.dest('./dist'));
 });
+
+gulp.task('durandal-almond-play', function () {
+    return durandal({
+        baseDir: 'play/app',
+        almond: true, minify: true
+    })
+    .on('error', function (err) {
+        console.error('error. ' + err);
+    })
+    .pipe(gulp.dest('./dist/play'));
+});
+
 
 gulp.task('index-almond', function () {
     return gulp.src('index.html')
@@ -39,4 +51,8 @@ gulp.task('statics-almond', function () {
 
 gulp.task('build', ['statics', 'durandal']);
 
-gulp.task('almond', ['durandal-almond']);
+gulp.task('almond', ['durandal-almond', 'durandal-almond-play']);
+
+gulp.task('almond-play', ['durandal-almond-play']);
+
+gulp.task('almond-main', ['durandal-almond']);

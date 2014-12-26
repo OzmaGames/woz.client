@@ -1,103 +1,63 @@
-﻿define( ['plugins/router', 'durandal/app'], function ( router, app ) {
+﻿define('shell', ['durandal/app', 'durandal/activator', 'knockout'], function (app, activator, ko) {
 
-   var connected = ko.observable( false );
-   var online = ko.observable( false );
-   var errors = ko.observableArray();
-   var devMode = ko.observable( false );
+    var page = ko.observable('account/login');
 
-   app.on( "socket:status" ).then( function ( status ) {
-      connected( status == "connect" );
-   } );
+    app.on('account:login', function (json) {
+        if (json.success) {
+            console.log(json);
+            localStorage.setItem('token', json.token);
+            localStorage.setItem('username', json.username);
 
-   app.on( "socket:server" ).then( function ( mode ) { devMode( mode ) } )
+            if (json.signedup) {
+                localStorage.setItem('login-mode', 'signup');
+                window.location = location.origin + '/play/#tutorial';
+            } else {
+                localStorage.setItem('login-mode', 'login');
+                window.location = location.origin + '/play/#lobby';
+            }
+        }
+    });
 
-   window.addEventListener( "online", function () { online( true ); } );
-   window.addEventListener( "offline", function () { online( false ); } );
+    function animateMe(p) {
+        setTimeout(function () {
+            p.animate({ opacity: 1 }, 4000, function () {
+                setTimeout(function () {
+                    p.animate({ opacity: 0 }, 4000, function () {
+                        animateMe(p);
+                    });
+                }, 0 + Math.random() * 1000);
+            });
+        }, Math.random() * 10000);
+    }
 
-   window.addEventListener( "error", function ( e ) {
-      errors.push( e );
-   } );
+    return {
+        activate: function (route) {
+            this.trigViewChange = app.on('account:view:change').then(function (module) {
+                page(module);
+            });
 
-   return {
-      router: router,
-      loading: ko.computed( function () {
-         return ( router.isNavigating() || app.loading() ) && !app.inlineLoading();
-      } ),
-      status: {
-         cnn: connected,
-         online: online,
-         devMode: devMode
-      },
-      errors: errors,
-      summary: ko.computed( function () {
-         var str = "";
-         ko.utils.arrayForEach( errors(), function ( e ) {
-            str += e.message;
-            str += '\n';
-            str += e.lineno + ' ' + e.filename.match( /\/(.*?\.js)/ig )[0]
-            str += '\n';
-         } );
-         return str;
-      } ),
-      showSummary: function () {
-         app.dialog.show( "alert", {
-            content: $( '<div/>' ).css( { fontSize: '12px' } ).html( this.summary() )[0].outerHTML,
-            delay: 5000
-         } );
-      },
+            app.trigger('server:top-phrases', {}, function (phrases) {
+                $('.phrases').empty();
+                var i = 0;
+                phrases.topPhrases.forEach(function (phrase) {
+                    if (i == 10) return;
+                    var p = $('<div/>', { 'class': 'phrase p' + i++, text: phrase});
+                    $('.phrases').append(p);
 
-      activate: function () {       
-         ga('create', 'UA-39481639-3', 'auto');
+                    p.css({ opacity: 0 });
+                    animateMe(p);
+                });
+            });
+        },
 
-         router.on('router:navigation:complete', function (instance, instruction) {
-             var index = instruction.fragment.indexOf('/');
-             if (index > 0) {
-                 ga('set', 'page', instruction.fragment.substr(0, index));
-             } else {
-                 ga('set', 'page', instruction.fragment);
-             }             
-             ga('send', 'pageview');                          
-         });
-         return router.map( [
-            { route: ['', 'login', 'login/:route'], moduleId: 'home/index', title: '' },            
-            { route: 'test', moduleId: 'home/test', title: 'Test' },
-            { route: 'lobby', moduleId: 'home/lobby/index', title: 'My Games', nav: true },
-            { route: 'poems', moduleId: 'home/poem/index', title: 'My Poems', nav: true },
-            { route: 'shop', moduleId: 'home/shop/index', title: 'Shop', nav: true },
-            { route: 'shop/:id', moduleId: 'home/shop/index', title: 'Shop' },
-            { route: 'settings', moduleId: 'home/settings', title: 'Settings', nav: true },
-            { route: 'help', moduleId: 'home/help', title: 'Help - FAQ', nav: true },
-            { route: 'sound', moduleId: 'home/sound', title: 'Sound Debugger', nav: true },
-            { route: 'newGame', moduleId: 'home/newGame', title: 'New Game', nav: true },
-            { route: 'singlePlayer', moduleId: 'home/singlePlayer', title: 'Loading the game' },
-            { route: 'nextTutorial', moduleId: 'home/nextTutorial', title: 'Loading the game' },
-            { route: 'account/logout', moduleId: 'account/logout', title: 'Loging out..' },
-            { route: 'not-found', moduleId: 'error/not-found', title: 'Not Found' },
-            { route: 'game', moduleId: 'game/game', title: 'Play' },
-            { route: 'game/:id', moduleId: 'game/game', title: 'Play' },
-            { route: 'tutorial', moduleId: 'game/game', title: 'Tutorial', nav: true },
-            { route: 'tutorial/:id', moduleId: 'game/game', title: 'Tutorial' },
-            { route: 'game-editor', moduleId: 'game-editor/menu', title: 'Game Editor' },
-            {
-               title: 'Game Editor - Edit',
-               route: 'game-editor/edit/:id',
-               moduleId: 'game-editor/edit'
-            },
-            {
-               route: 'account*details',
-               moduleId: 'account/index',
-               title: 'Account Settings',
-               hash: '#account'
-            },
-            { route: 'facebook', moduleId: 'account/oAuth/facebook', title: 'Words of Oz' },
-            { route: 'paypalcancel', moduleId: 'api/ui/paypalcancel', title: 'Paypal cancel' },
-            { route: 'paypalcb', moduleId: 'api/ui/paypalcb', title: 'Paypal confirmation' }
-         ] ).buildNavigationModel()
-          .mapUnknownRoutes( 'error/not-found', 'not-found' )
-          .activate();
-      },
-      compositionComplete: function () {
-         $( '#fixed' ).prependTo( 'body' );
-      }
-   };
-} );
+        page: page,
+
+        compositionComplete: function () {
+
+        },
+
+        detached: function (view) {
+            this.trigViewChange.off();
+        }
+    }
+});

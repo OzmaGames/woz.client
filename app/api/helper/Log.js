@@ -14,7 +14,7 @@
       this.log = function ( title, data, _theme ) {         
          if ( _theme == undefined ) _theme = theme;         
          
-         //console.log( '%c' + title, _theme, data );
+         console.log( '%c' + title, _theme, data );
       }
    }
    
