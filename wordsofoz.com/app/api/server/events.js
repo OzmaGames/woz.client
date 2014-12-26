@@ -6,7 +6,7 @@
         "account:sign-up",
         "account:recover-password",        
         "account:fb",
-        "top-phrases"
+        "top-phrases"        
       ],
       init: function ( socket ) {
       },

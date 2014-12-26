@@ -43,6 +43,8 @@
                model.collection.purchased() ? null : model.collection;
             model.totalPrice = +model.price + (model.dependent ? +model.dependent.price : 0);
 
+            ga('send', 'event', 'shop', 'buy', (model || { longName: '' }).longName);
+
             app.dialog.show("notice", {
                 model: model,
                 view: 'dialogs/pages/shop-collections',
@@ -53,6 +55,8 @@
                 modal: true
             }).then(function (data) {
                 if (data && data.confirm) {
+                    ga('send', 'event', 'shop', 'bought', (model || { longName: '' }).longName);
+
                     if (model.dependent) {
                         ctx.user.buyCollection(model.collection.type, model.collection.shortName);
                     }

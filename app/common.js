@@ -129,6 +129,16 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
           });
       }
 
+      app.dialog.showPassword = function () {
+          return app.dialog.show("notice", {
+              model: 'dialogs/pages/password',
+              fixed: true,
+              centered: true,
+              modal: true,
+              closeOnClick: false
+          });
+      }
+
       app.palette = palette;
       app.palette.get( "menu" ).click( function () { app.dialog.show( "menu" ); } );
       app.palette.get( "currency" ).click( app.dialog.showCurrency ).content = ctx.user.besoz;

@@ -54,11 +54,11 @@
             if (ctx.gameOver()) {
 
             } else if (selection.length < 3) {
-                console.log("Too few words!");
+                //console.log("Too few words!");
                 app.Sound.play(app.Sound.sounds.action.functionFailed);
                 //dfd.reject(selection);
             } else if (selection.length > 9) {
-                console.log("Too many words!");
+                //console.log("Too many words!");
                 app.Sound.play(app.Sound.sounds.action.functionFailed);
                 app.dialog.show("alert", { content: "Too many words!" });
                 //dfd.reject(selection);

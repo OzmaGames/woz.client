@@ -28,6 +28,8 @@
     }
 
     ctor.prototype.facebook = function () {
+        ga('send', 'event', 'poem', 'share', 'facebook');
+
         facebook.PublishImage.login();
         CanvasCapture.capture($('.slider'), ctx.poem.tile().imageName, ctx.poem.settings.size.value()).then(function (canvas) {
             facebook.PublishImage.publishImageUI(canvas);

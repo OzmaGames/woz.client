@@ -13,12 +13,16 @@
                 }
             }, function (res) {
                 if (res.success) {
+                    ga('send', 'event', 'paypal', 'bought');
+
                     ctx.user.refresh();
                     app.navigate((localStorage.getItem('returnedHash') || ''));
                     Task.run(function () {
                         app.dialog.showBesozBought();
                     }, 1000);
                 } else {
+                    ga('send', 'event', 'paypal', 'error');
+
                     app.navigate('#newGame');
                     Task.run(function () {
                         app.dialog.showBesozCancel();

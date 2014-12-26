@@ -12,9 +12,17 @@
         </div>-->
            <h1>your email address:</h1>
            <div class="container group">
-               <label class="radio" data-bind1="click: $root.clicked">
+               <label class="radio" data-bind="click: change">
                    <span class="title" data-bind="text: email">email@domain.com</span>
                    <span class="description" data-bind="click: change">Click to change your email address.</span>
+               </label>             
+           </div>
+
+           <h1>your password:</h1>
+           <div class="container group">
+               <label class="radio" data-bind="click: changePassword">
+                   <span class="title">Change Your Password</span>
+                   <span class="description">Click to change your password.</span>
                </label>
            </div>
 

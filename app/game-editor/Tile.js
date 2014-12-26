@@ -33,7 +33,7 @@
     var p;
     cw = (cw !== undefined) ? (cw ? 1 : 0) :
       (p = ko.utils.arrayFirst(ctx.paths(), function (p) {
-        console.log(p, this.id, t.id);
+        //console.log(p, this.id, t.id);
         return (p.startTile.id == this.id && p.endTile.id == t.id) ||
                (p.startTile.id == t.id && p.endTile.id == this.id);
       }, this)) != null ? (p.cw ? 0 : 1) : 1,

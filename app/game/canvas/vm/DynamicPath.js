@@ -79,7 +79,7 @@
    DynamicPath.prototype.constructor = DynamicPath;
 
    DynamicPath.prototype.show = function () {
-      console.log('%cDynamic Path', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
+      //console.log('%cDynamic Path', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
 
       var pm = this.pathModel, nWords = 6;
       

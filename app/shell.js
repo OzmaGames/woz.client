@@ -50,7 +50,12 @@
          ga('create', 'UA-39481639-3', 'auto');
 
          router.on('router:navigation:complete', function (instance, instruction) {
-             ga('set', 'page', instruction.fragment);
+             var index = instruction.fragment.indexOf('/');
+             if (index > 0) {
+                 ga('set', 'page', instruction.fragment.substr(0, index));
+             } else {
+                 ga('set', 'page', instruction.fragment);
+             }             
              ga('send', 'pageview');                          
          });
          return router.map( [

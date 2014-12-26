@@ -73,7 +73,8 @@
    };
 
    Index.prototype.start = function () {      
-      app.Sound.play( app.Sound.sounds.click.button );
+       app.Sound.play(app.Sound.sounds.click.button);
+      
       app.navigate( "newGame" );
    };
 

@@ -23,7 +23,8 @@
 
         activate: function () {
             app.loading(false);
-            this.username(app.facebook.profile.username.replace('.', ''));
+            this.username((app.facebook.profile.username || '').replace('.', ''));
+            this.email(app.facebook.profile.email || '');
         },
 
         back: function () {

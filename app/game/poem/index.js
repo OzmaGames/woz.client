@@ -48,6 +48,9 @@
             }
          },
          save: function () {
+
+            ga('send', 'event', 'poem', 'save');
+
             var model = {};
             model.phraseIDs = ctx.poem.chosenPhrases().map( function ( p ) { return p.id } );
             model.gameID = ctx.poem.gameID;

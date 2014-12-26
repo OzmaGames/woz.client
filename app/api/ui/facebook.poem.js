@@ -15,7 +15,10 @@
          this.uploading( true );         
          facebook.PublishImage.publishImage( this.message() ).then( function () {            
             app.loading( false );
-            app.dialog.close( "panel" );            
+            app.dialog.close("panel");
+
+            ga('send', 'event', 'poem', 'shared', 'facebook');
+
          } );
       },
       close: function () {

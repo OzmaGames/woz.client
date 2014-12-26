@@ -32,7 +32,8 @@
       }, 150 * PoemPerPage );
    }
 
-   ctor.prototype.like = function ( poem ) {
+   ctor.prototype.like = function (poem) {
+      ga('send', 'event', 'poem', poem.liked() ? 'unlike' : 'like');
       ( poem.liked() ? ctx.user.poems.unlike( poem.id ) : ctx.user.poems.like( poem.id ) ).then( function ( json ) {         
          //var index = ctx.user.poems.friends.indexOf( poem );
          //ctx.user.poems.friends.splice( index, 1 );
@@ -53,7 +54,9 @@
       }, 1 );
    }
 
-   ctor.prototype.facebook = function ( item ) {
+   ctor.prototype.facebook = function (item) {
+      ga('send', 'event', 'poem', 'share');
+
       CanvasCapture.capture( item.$slider, item.imageName, item.size ).then( function ( canvas ) {
          facebook.PublishImage.publishImageUI( canvas );
       } );

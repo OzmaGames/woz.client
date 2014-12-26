@@ -65,12 +65,14 @@
             }
         }
 
-        button {
+
+        a.poem-button, button {
             border: 1px solid @strokeColor;
             background: @backColor;
             color: @textColor;
             position: absolute;
             z-index: 12;
+            cursor: pointer;
 
             &.share {
                 text-transform: uppercase;
@@ -85,6 +87,10 @@
                 -o-transition: background .3s;
                 -webkit-transition: background .3s;
                 transition: background .3s;
+
+                & > span {
+                    position: relative;
+                }
             }
 
             &.right {
@@ -138,6 +144,10 @@
                 -o-transition: opacity .3s;
                 -webkit-transition: opacity .3s;
                 transition: opacity .3s;
+                width: 145px;   
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
             }
 
             &:hover {

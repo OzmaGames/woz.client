@@ -27,7 +27,7 @@
      
      function updateModel(tiles) {
         paper.dfd.promise().then(function () {
-           console.log("UpdateModel")
+           //console.log("UpdateModel")
            var tilesDOM = $('#tiles'), container = tilesDOM.parent();
 
            Path.options.container = {
@@ -82,7 +82,7 @@
               pathModel.canvasSub = pathModel.phrase.words.subscribe(redrawThisPath, pathModel);
 
               pathModel.dispose = function () {
-                 console.log('%cPath Disposed', 'background: orange; color: white', pathModel.id);
+                 //console.log('%cPath Disposed', 'background: orange; color: white', pathModel.id);
                  if (pathModel.canvasSub) {
                     pathModel.canvasSub.dispose();
                     delete pathModel.canvasSub;
@@ -106,7 +106,7 @@
      }
 
      function setup(canvas) {
-        console.log("paths setup")
+        //console.log("paths setup")
 
         paper.setup(canvas);
 
@@ -142,15 +142,15 @@
            paper.pathsCSize = cSize;
            paper.setup(canvasDOM);
            redraw();
-           console.log('resized occurred');
+           //console.log('resized occurred');
         }
         else {
-           console.log('resized ignored');
+           //console.log('resized ignored');
         }
      }
 
      function dispose() {
-        console.log("paths disposed")
+        //console.log("paths disposed")
         paper.dfd = $.Deferred();
      }
 

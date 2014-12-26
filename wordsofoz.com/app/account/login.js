@@ -37,7 +37,9 @@
             } else {
                 page.facebookLogin(false);
                 facebook.getProfile().then(function (profile) {
-                    page.username(profile.username + '@facebook.com');
+                    page.username(profile.email ? profile.email : (profile.username ? (profile.username + '@facebook.com') : ''));
+                    //page.username(profile.email ? profile.email : (profile.username ? (profile.username + '@facebook.com') : ''));
+                    //page.username(profile.username + '@facebook.com');
                     page.password(facebook.authResponse.signedRequest);
 
                     app.trigger("server:account:fb", {

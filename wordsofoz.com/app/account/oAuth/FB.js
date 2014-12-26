@@ -24,7 +24,8 @@
    
    if ( FB ) {
       FB.init( {
-         appId: '447561982032834',
+          appId: '447561982032834',
+          version: 'v2.0',
          status: false, // check login status
          cookie: true,  // enable cookies to allow the server to access the session
          xfbml: false   // parse XFBML
@@ -44,10 +45,10 @@
       },
       login: function () {
          return $.Deferred(function (dfd) {
-            FB.login(function (response) {
+             FB.login(function (response) {                
                check(response);
                dfd.resolve(app.facebook);
-            });
+            }, {scope: 'email'});
          });
       }
    }

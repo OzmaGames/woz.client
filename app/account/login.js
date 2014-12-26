@@ -42,7 +42,7 @@
          } else {
             facebook.getProfile().then( function ( profile ) {
                page.facebookProfile( profile );
-               page.username( profile.username + '@facebook.com' );
+               page.username( profile.email? profile.email: (profile.username? (profile.username + '@facebook.com'): '') );
                page.password( facebook.authResponse.signedRequest );
                updateProfile();
 

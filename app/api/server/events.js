@@ -5,6 +5,7 @@
         "account:login",
         "account:sign-up",
         "account:recover-password",
+        "account:change-password",
         "account:logout",
         "game:move-word",
         "game:place-phrase",

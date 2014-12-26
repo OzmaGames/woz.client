@@ -242,7 +242,7 @@
 
          if ( base.hasWordAt( index ) ) {
             base.removeWordAt( index );
-            console.log( '%cWhen?', 'background: red; color: white' );
+            //console.log( '%cWhen?', 'background: red; color: white' );
          }
 
          if ( word.isPlayed ) {

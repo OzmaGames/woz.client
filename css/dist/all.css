@@ -630,6 +630,9 @@ a.big {
 .pic.loc {
   background-image: url(../../images/tiles/collections/loc.png);
 }
+.pic.win {
+  background-image: url(../../images/tiles/collections/win.png);
+}
 .pic.lim {
   background-image: url(../../images/tiles/collections/lim.png);
 }
@@ -1269,9 +1272,16 @@ a.big {
 .table-flex .collection .couple.loc {
   background-image: url(../../images/tiles/collections/shop-loc.png);
 }
+.table-flex .collection .couple.win {
+  background-image: url(../../images/tiles/collections/shop-win.png);
+}
 .table-flex .collection .couple.loc_boost1,
 .table-flex .collection .couple.loc-boost1 {
   background-image: url(../../images/tiles/collections/shop-loc-booster.png);
+}
+.table-flex .collection .couple.win_boost1,
+.table-flex .collection .couple.win-boost1 {
+  background-image: url(../../images/tiles/collections/shop-win-booster.png);
 }
 .table-flex .collection.full-row {
   width: 100%;
@@ -4228,6 +4238,9 @@ body > .cloud.fixed .rule {
 #tiles.loc .mask {
   background-image: url(../../images/tiles/loc.jpg);
 }
+#tiles.win .mask {
+  background-image: url(../../images/tiles/win.jpg);
+}
 @media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
   #tiles.woz .mask {
     background-image: url(../../images/tiles/woz-b.jpg);
@@ -4240,6 +4253,9 @@ body > .cloud.fixed .rule {
   }
   #tiles.loc .mask {
     background-image: url(../../images/tiles/loc-b.jpg);
+  }
+  #tiles.win .mask {
+    background-image: url(../../images/tiles/win-b.jpg);
   }
 }
 .notice-board {
@@ -4641,13 +4657,16 @@ body > .cloud.fixed .rule {
   position: absolute;
   right: 0;
 }
+.poem-page .cell a.poem-button,
 .poem-page .cell button {
   border: 1px solid #d7bea2;
   background: #f1e8d5;
   color: #986b31;
   position: absolute;
   z-index: 12;
+  cursor: pointer;
 }
+.poem-page .cell a.poem-button.share,
 .poem-page .cell button.share {
   text-transform: uppercase;
   font-weight: bold;
@@ -4662,6 +4681,11 @@ body > .cloud.fixed .rule {
   -webkit-transition: background .3s;
   transition: background .3s;
 }
+.poem-page .cell a.poem-button.share > span,
+.poem-page .cell button.share > span {
+  position: relative;
+}
+.poem-page .cell a.poem-button.right,
 .poem-page .cell button.right {
   background-color: inherit;
   border: none;
@@ -4680,6 +4704,7 @@ body > .cloud.fixed .rule {
   -webkit-transform: scale3d(0.9, 0.9, 0.9);
   transform: scale3d(0.9, 0.9, 0.9);
 }
+.poem-page .cell a.poem-button.right:hover,
 .poem-page .cell button.right:hover {
   box-shadow: none;
   /*background-color: inherit !important;
@@ -4689,6 +4714,7 @@ body > .cloud.fixed .rule {
                     -webkit-transform: scale3d(1.1,1.1,1);
                     transform: scale3d(1.1,1.1,1);*/
 }
+.poem-page .cell a.poem-button.right:active,
 .poem-page .cell button.right:active {
   -moz-transform: none;
   -ms-transform: none;
@@ -4696,6 +4722,7 @@ body > .cloud.fixed .rule {
   -webkit-transform: none;
   transform: none;
 }
+.poem-page .cell a.poem-button .tooltip,
 .poem-page .cell button .tooltip {
   position: absolute;
   top: 1.3em;
@@ -4710,10 +4737,16 @@ body > .cloud.fixed .rule {
   -o-transition: opacity .3s;
   -webkit-transition: opacity .3s;
   transition: opacity .3s;
+  width: 145px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
+.poem-page .cell a.poem-button:hover,
 .poem-page .cell button:hover {
   background: #f9f8f4;
 }
+.poem-page .cell a.poem-button:hover .tooltip,
 .poem-page .cell button:hover .tooltip {
   visibility: visible;
   opacity: 100;

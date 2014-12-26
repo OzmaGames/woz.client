@@ -30,7 +30,7 @@
         var base = this;
 
         this.close = function (duration) {
-            console.log(duration);
+            //console.log(duration);
 
             if (base.el.is(":visible")) {
                 duration = duration || 500;

@@ -4,6 +4,8 @@
             return $('<div/>').get(0);
         },
         activate: function () {
+            ga('send', 'event', 'paypal', 'canceled');
+
             app.navigate('#newGame');
             Task.run(function () {
                 app.dialog.showBesozCancel();

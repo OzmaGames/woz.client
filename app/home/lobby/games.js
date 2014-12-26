@@ -21,7 +21,7 @@
       //debugger;
       forGames.queue.runAfter( function () {
          if ( this.timer == 1 ) {
-            console.log( 'loading lobby' );
+            //console.log( 'loading lobby' );
             app.Sound.play( app.Sound.sounds.lobbyLoading );
          }
       }, 1 );
@@ -33,7 +33,7 @@
       //debugger;
       forGames.queue.runAfter( function () {
          if ( this.timer == 1 ) {
-            console.log( 'loading lobby' );
+            //console.log( 'loading lobby' );
             app.Sound.play( app.Sound.sounds.lobbyLoading );
          }
       }, 1 );
@@ -256,7 +256,7 @@
       }
 
       this.detached = function () {
-         console.log( 'detached' );
+         //console.log( 'detached' );
       }
 
       this.loadNotification = function () {
@@ -345,6 +345,8 @@
          if ( game.resigned || ( game.newGame && game.over ) ) return;
          app.Sound.play( app.Sound.sounds.click.button );
 
+         ga('send', 'event', 'lobby', 'select');
+
          base.activeGame( game );
          app.navigate( "game/" + game.gameID );
       }
@@ -354,7 +356,9 @@
          app.dialog.show( "confirm", {
             content: "Are you sure you want to delete this game?", modal: true,
             doneText: 'Delete', cancelText: 'No'
-         } ).then( function ( res ) {
+         }).then(function (res) {
+            ga('send', 'event', 'lobby', 'resigned');
+
             if ( res == "done" ) {
                app.Sound.play( app.Sound.sounds.game.del );
                app.trigger( "server:game:resign", {

@@ -9,7 +9,7 @@ requirejs.config({
         'jquery.trans': '../shared/lib/jquery.transit.min',
         'knockout': '../shared/lib/knockout',
         'text': '../shared/lib/text.min',
-        'facebook': '//connect.facebook.net/en_US/all',
+        'facebook': '//connect.facebook.net/en_US/sdk',
     },
     urlArgs: (new Date).getTime(),
     shim: {

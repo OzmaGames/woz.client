@@ -2,7 +2,7 @@
 
     var auth = { accessToken: "", expiresIn: 0, signedRequest: "", userID: "" };
     var permissions = {
-        uploadImages: 'publish_stream'
+        uploadImages: 'publish_actions'
     }
     window.facebook = window.facebook || {};
 
@@ -11,6 +11,7 @@
     if (FB) {
         FB.init({
             appId: '447561982032834',
+            version: 'v2.0',
             status: false, // check login status
             cookie: true,  // enable cookies to allow the server to access the session
             xfbml: false   // parse XFBML

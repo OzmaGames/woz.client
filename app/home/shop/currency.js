@@ -16,11 +16,13 @@
             ctx.loadingStatus("Waiting for the server...");
             ctx.loadingBox(true);
 
+            ga('send', 'event', 'paypal', 'buy', (item || {besoz: 0}).besoz);
+
             paypal.getToken(item).then(function (json) {
                 if (json.success) {
                     app.palette.dispose();
                     
-                    ctx.loadingStatus("Redirecting to Paypal website...");
+                    ctx.loadingStatus("Redirecting to Paypal's website...");
                     localStorage.setItem('returnedHash', location.hash);
                     window.location = json.link;
                 } else {

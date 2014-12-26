@@ -79,7 +79,7 @@
       }
 
       app.scrollUp = function (opt) {
-         console.log("Scrolling UP");
+         //console.log("Scrolling UP");
          opt = opt || {};
 
          if (opt.noAnimate) {
@@ -102,7 +102,7 @@
       };
 
       app.scrollDown = function (proportion, showScroll) {
-         console.log("Scrolling Down");
+         //console.log("Scrolling Down");
 
          var SHELL = document.getElementById("shell");
 

@@ -19,7 +19,7 @@
          if ( base.$ul ) {
             var left = $( $( 'li', base.$ul )[index] ).position().left + base.$ul.scrollLeft();
             base.$ul.animate( { scrollLeft: left }, 300 );
-            console.log( index, left );
+            //console.log( index, left );
          }
 
          var item = ko.unwrap( base.settings.items )[index];

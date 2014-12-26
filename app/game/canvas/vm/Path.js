@@ -127,7 +127,7 @@
     }
 
     Path.prototype.setup = function () {
-        console.log('%cPath Setup', 'background: orange; color: white', this.pathModel.id);
+        //console.log('%cPath Setup', 'background: orange; color: white', this.pathModel.id);
         var pm = this.pathModel, nWords = pm.nWords;
 
         if (pm.nWords == 0) {
@@ -163,7 +163,7 @@
     }
 
     Path.prototype.show = function () {
-        console.log('%cPath', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
+        //console.log('%cPath', 'background: orange; color: white', this.pathModel.id + ' is being drawn');
         var pm = this.pathModel, nWords = pm.nWords;
 
         if (pm.guiBoxes == null) return;

@@ -38,6 +38,8 @@
             cancelText: 'NO',
             modal: true
         }).then(function () {
+            ga('send', 'event', 'poem', 'delete');
+
             ctx.user.poems.del(poem.id).then(function (json) {
                 if (json.success) {
                     poem.$el.hide(400, function () { $(this).remove() });
@@ -59,6 +61,8 @@
     }
 
     ctor.prototype.facebook = function (item) {
+        ga('send', 'event', 'poem', 'share');
+
         facebook.PublishImage.login();
         CanvasCapture.capture(item.$slider, item.imageName, item.size).then(function (canvas) {
             facebook.PublishImage.publishImageUI(canvas);

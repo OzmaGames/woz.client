@@ -45,7 +45,7 @@
 
                 if (fb) {
                     fb.on("value", function (sounds) {
-                        console.log( JSON.stringify( sounds.val() ) );
+                        //console.log( JSON.stringify( sounds.val() ) );
                         if (sounds.val()) {
                             foo(sounds.val());
                         }

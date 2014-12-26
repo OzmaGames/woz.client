@@ -9,14 +9,14 @@
     <!-- /ko -->
     <div class="poem-page" data-bind="foreach: {data: visibleList, afterRender: afterRender}, loadMore: $root.loadNextPage">
         <div class="cell">
-            <button class="share">
-                share
+            <a class="poem-button share">
+                <span>share</span>                
                 <div class="tooltip">
                     <i class="social fb" data-bind="click: $root.facebook"></i>
                     <i class="social pn disabled"></i>
                     <i class="social tw disabled"></i>
                 </div>
-            </button>
+            </a>
             <button class="right" data-bind="click: $root.remove"><i class="command delete xsm"></i></button>
             <div class="footer">
                 <div class="likes">

@@ -120,7 +120,7 @@
          move: function ( e, position ) {            
 
             if ( position.top > carrier.HiBound && !$li.is( ':last-of-type' ) ) {
-               console.log( 'n' );
+               //console.log( 'n' );
                swap( $li, $li.next() );
                $li.insertAfter( $li.next() );
                updateCarrier( $li, carrier );
@@ -128,7 +128,7 @@
             } else if ( position.top < carrier.LoBound && !$li.is( ':first-of-type' ) ) {
                var prev = $li.prev();
                if ( !prev.hasClass( 'fixed' ) ) {
-                  console.log( 'p' );
+                  //console.log( 'p' );
                   swap( $li, prev );
                   $li.insertBefore( prev );
                   updateCarrier( $li, carrier );

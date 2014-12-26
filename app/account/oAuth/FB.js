@@ -5,7 +5,7 @@
       getProfile: function () {
          return $.Deferred(function (dfd) {
             FB.api('/me', function (response) {
-               console.log(response);
+               //console.log(response);
                dfd.resolve( response );
                app.facebook.profile = response;
             });
@@ -14,7 +14,7 @@
       getFriends: function () {
          return $.Deferred(function (dfd) {
             FB.api('/me/friends', function (response) {
-               console.log(response);
+               //console.log(response);
                dfd.resolve(response);
             });
          });
@@ -24,7 +24,8 @@
    
    if ( FB ) {
       FB.init( {
-         appId: '447561982032834',
+          appId: '447561982032834',
+          version: 'v2.0',
          status: false, // check login status
          cookie: true,  // enable cookies to allow the server to access the session
          xfbml: false   // parse XFBML

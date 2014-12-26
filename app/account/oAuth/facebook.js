@@ -1,13 +1,13 @@
 ﻿define(["durandal/app", "./FB"], function (app, FB) {
    
    FB.getStatus(true).then(function (facebook) {
-      console.log(facebook);
+      //console.log(facebook);
    });
 
    function ctor() {
       this.login = function () {
          FB.login().then(function (facebook) {
-            console.log(facebook);
+            //console.log(facebook);
          });
       }    
    }

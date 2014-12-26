@@ -166,7 +166,7 @@
 							if ( top < 0 ) top = 0;
 
 							e.data.scrollTopTarget = top;
-							console.log( "scrolled", top );
+							//console.log( "scrolled", top );
 							opt.parent.animate( { scrollTop: top }, 'fast', function () {
 
 							} );

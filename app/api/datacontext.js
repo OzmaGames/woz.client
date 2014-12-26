@@ -68,7 +68,7 @@
               }
 
               app.on('access:forbidden', function (eventName) {
-                  console.log('access forbidden called');
+                  //console.log('access forbidden called');
                   model.auth = $.Deferred(function (dfd) { dfd.reject() }).promise();
                   app.navigate('account/logout');
               });
@@ -85,7 +85,7 @@
               localStorage.removeItem("token");
               //app.navigate('', { replace: true, trigger: true });              
               //history.replaceState({}, '', location.origin);
-              console.log('redirecting to login');
+              //console.log('redirecting to login');
               window.location = 'http://' + location.host;
 
           }).promise();
@@ -146,7 +146,7 @@
 
       model.load = function (id) {
           var loadingSound = app.Sound.play(app.Sound.sounds.game.loading);
-          console.log("loading game..");
+          //console.log("loading game..");
           app.off("game:start game:update:ctx game:swap-words");
           model.loading(true);
           app.dialog.show("loading");

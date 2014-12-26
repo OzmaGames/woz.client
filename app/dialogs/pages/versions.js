@@ -18,10 +18,10 @@
       }
       
       this.enter = function () {
-         console.log( "enter" )
+         //console.log( "enter" )
       }
       this.leave = function () {
-         console.log( "leave" )
+         //console.log( "leave" )
       }
       this.drop = function () {         
          var word = this.lastWord = ctx.activeWord();

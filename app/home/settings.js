@@ -46,6 +46,9 @@
         change: function () {
             app.dialog.showEmail();
         },
+        changePassword: function () {
+            app.dialog.showPassword();
+        },
         removeBlocked: function (player) {
             ctx.user.block.del(player.username);
         },
