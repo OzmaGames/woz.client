@@ -118,7 +118,7 @@
             var fd = new FormData();
             fd.append("access_token", auth.accessToken);
             fd.append("source", Canvas.toBlob(this.canvas));
-            fd.append("message", message || "");
+            fd.append("message", message + ' #woz' || "#woz");
 
             return $.ajax({
                 url: "https://graph.facebook.com/me/photos?access_token=" + auth.accessToken,

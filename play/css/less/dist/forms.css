@@ -53,7 +53,7 @@ input[type="checkbox"] + span:before {
   border: 1px solid rgba(152, 107, 49, 0.9);
   border-radius: inherit;
   background: white;
-  box-shadow: -1px -1px 5px 0.02px #ffffff inset, -0.1em -0.2em 0.7em 0.4em #cfa972 inset, 1px 1px 0.5em rgba(0, 0, 0, 0.9);
+  box-shadow: -1px -1px 5px 0.02px white inset, -0.1em -0.2em 0.7em 0.4em #cfa972 inset, 1px 1px 0.5em rgba(0, 0, 0, 0.9);
   color: #986B31;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   text-indent: -2.5em;
@@ -266,9 +266,9 @@ input[type="search"] {
   top: 0;
   bottom: 0;
   text-align: center;
-  background-image: linear-gradient(bottom, #f1ebe2 0, #ffffff 100%);
-  background-image: -moz-linear-gradient(bottom, #f1ebe2 0, #ffffff 100%);
-  background-image: -webkit-linear-gradient(bottom, #f1ebe2 0, #ffffff 100%);
+  background-image: linear-gradient(bottom, #f1ebe2 0, white 100%);
+  background-image: -moz-linear-gradient(bottom, #f1ebe2 0, white 100%);
+  background-image: -webkit-linear-gradient(bottom, #f1ebe2 0, white 100%);
   border: 0;
   box-shadow: none;
   border-left: 1px solid #f1ebe2;
@@ -778,6 +778,7 @@ ul.custom-list.draggable li.hole::before {
   overflow: hidden;
   padding: .4em;
   text-transform: none !important;
+  line-height: 1.1em;
 }
 .slider .tile .poem-container.dark {
   color: #39270d;
@@ -876,7 +877,7 @@ ul.custom-list.draggable li.hole::before {
   position: absolute;
   background-size: 1em 1em;
   border-radius: 50% 50% 50% 50%;
-  box-shadow: 2px 2px 6px -2px #986b31, 1px 1px 5px #f5f5f5 inset, -1px -1px 3px #57462f inset;
+  box-shadow: 2px 2px 6px -2px #986b31, 1px 1px 5px whitesmoke inset, -1px -1px 3px #57462f inset;
   background-color: rgba(222, 184, 135, 0.5);
   z-index: 999;
 }

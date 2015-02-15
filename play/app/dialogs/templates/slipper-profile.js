@@ -117,6 +117,7 @@
          this.username = user.username;
          this.title = user.title;
       }
+      this.noOverlay = ko.observable(data.noOverlay === undefined ? false : data.noOverlay);
    }
 
    Slipper.prototype.bindingComplete = function ( el ) {

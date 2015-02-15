@@ -103,8 +103,18 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
             modal: true
          } );
       }
-      app.dialog.showProfile = function ( username ) {
-         app.dialog.show( "slipper-profile", { username: username } );
+      app.dialog.showProfile = function (username, noOverlay) {
+          app.dialog.show("slipper-profile", {
+              username: username
+          });
+      };
+
+      app.dialog.showProfileNoOverlay = function (username) {
+          app.dialog.show("slipper-profile", {
+              username: username,
+              noOverlay: true,
+              fixed: false
+          });
       };
 
       app.dialog.showInvite = function () {

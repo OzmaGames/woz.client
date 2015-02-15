@@ -61,6 +61,20 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
                     valueAccessor().call(viewModel, element);
                 }
             });
+
+            setTimeout(function () {
+                if (viewModel.getFormModels) {
+                    var models = viewModel.getFormModels();
+                    var index = 0;
+                    $('input', element).each(function () {
+                        if (!models[index]() && $(this).val()) {
+                            models[index]($(this).val());
+                        }
+                        index++;
+                    });
+                }
+                //$('input', element).first().focus().select();
+            }, 10);
         }
     };
     ko.extenders["required"] = function (target, data) {

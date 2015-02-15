@@ -13,6 +13,13 @@
             required: "You need to enter your password",
         });
         this.errorMessage = ko.observable();
+
+        this.getFormModels = function () {
+            return [
+                this.username,
+                this.password
+            ];
+        }
     }
 
     ctor.prototype.signUp = function () {
@@ -59,7 +66,7 @@
 
     ctor.prototype.login = function (el) {
         app.loading(true);
-
+        
         var data = {
             username: this.username(),
             password: CryptoJS.SHA3(constants.salt + this.password()).toString()

@@ -96,7 +96,7 @@ hr {
   position: absolute;
   top: 0;
   left: 4.5em;
-  font-size: 0.1em;
+  font-size: .1em;
   width: 1em;
   height: 5em;
   -moz-transform-origin: bottom center;
@@ -107,7 +107,7 @@ hr {
   /*-webkit-transform: rotate(13.84deg);*/
 }
 .xp-circle .sector .circle {
-  font-size: 0.66666667em;
+  font-size: .6em;
   background-color: #f1e8d5;
   border: 1px solid rgba(207, 169, 114, 0.3);
   width: 1em;

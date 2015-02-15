@@ -360,7 +360,7 @@
                               }
 
                               dfd.resolve(data);
-                          })
+                          });
                       });
 
                       var sub;
@@ -376,6 +376,7 @@
 
                               data.xp = json.stats.xp;
                               
+                              app.dialog.showProfileNoOverlay(ctx.player.username);
                               app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver', closeOnClick: false }).then(function (nextStepFunc) {
                                   if (json.stats.levelUp) {
                                       if (json.stats.title) {
@@ -388,10 +389,18 @@
                                       app.dialog.show("notice", {
                                           model: json.stats, view: json.stats.title ? 'dialogs/pages/LevelUpTitle' : 'dialogs/pages/LevelUp'
                                       }).then(function () {
-                                          if (typeof nextStepFunc == 'function') nextStepFunc();                                          
+                                          if (typeof nextStepFunc == 'function') {
+                                              nextStepFunc();
+                                          } else {
+                                              app.dialog.show("menu");
+                                          }
                                       });
                                   } else {
-                                      if (typeof nextStepFunc == 'function') nextStepFunc();
+                                      if (typeof nextStepFunc == 'function') {
+                                          nextStepFunc();
+                                      } else {
+                                          app.dialog.show("menu");
+                                      }
                                   }
                               });
                               sub.off();
@@ -425,7 +434,7 @@
                           (function (scored) {
                               var sub;
                               sub = app.on("game:stars:done").then(function () {
-                                  app.Sound.play(app.Sound.sounds.scoring.message)
+                                  app.Sound.play(app.Sound.sounds.scoring.message);
                                   app.dialog.show("alert", {
                                       content: "You scored <b>" + scored + "</b> points!",
                                       delay: 3000

@@ -8,13 +8,12 @@
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
-/*.aaa{
-    .has-tooltip(60px);
-
-}*/
 .dialog {
   position: fixed;
   z-index: 100;
+}
+.dialog[notice] {
+  z-index: 101;
 }
 .dialog.absolute {
   position: absolute;
