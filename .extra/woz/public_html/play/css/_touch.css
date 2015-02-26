@@ -1,0 +1,49 @@
+﻿html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+html, body, .scroll {
+    -webkit-overflow-scrolling: touch;
+}
+
+.enableGPU {
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+#app {
+    min-height: 768px;
+}
+
+    #app::-webkit-scrollbar, #app::-webkit-scrollbar-thumb {
+        background-color: transparent !important;
+        width: 0;
+    }
+
+    #app::-webkit-scrollbar-thumb {        
+        box-shadow: none !important;
+        width: 0;
+    }
+
+#workspace {
+    -moz-transition: none;
+    -o-transition: none;
+    -webkit-transition: none;
+    transition: none;
+}
+
+.loading #workspace {
+    height: auto;
+}
+
+button {
+    -moz-transform: translateZ(1);
+    -ms-transform: translateZ(1);
+    -o-transform: translateZ(1);
+    -webkit-transform: translateZ(1);
+    transform: translateZ(1);
+}

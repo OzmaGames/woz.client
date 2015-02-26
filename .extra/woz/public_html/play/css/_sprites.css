@@ -1,0 +1,243 @@
+﻿button.blue {
+    background-position: 0 -156px;
+}
+
+    button.blue:hover {
+        background-position: -470px -156px;
+    }
+
+    button.blue:active {
+        background-position: -940px -156px;
+    }
+
+    button.blue:disabled {
+        background-position: -1410px -156px;
+    }
+
+button.orange {
+    background-position: 0 0;
+}
+
+    button.orange:hover {
+        background-position: -470px 0;
+    }
+
+    button.orange:active {
+        background-position: -940px 0;
+    }
+
+    button.orange:disabled {
+        background-position: -1410px 0;
+    }
+
+i.action.swapWords {
+    background-position: 0 0;
+}
+
+    i.action.swapWords:hover {
+        background-position: -1em 0;
+    }
+
+    i.action.swapWords:active {
+        background-position: -2em 0;
+    }
+
+    i.action.swapWords.disabled {
+        background-position: -3em 0;
+    }
+
+    i.action.swapWords.cancel {
+        background-position: -4em 0;
+    }
+
+i.action.circleWords {
+    background-position: 0 -1em;
+}
+
+    i.action.circleWords:hover {
+        background-position: -1em -1em;
+    }
+
+    i.action.circleWords:active {
+        background-position: -2em -1em;
+    }
+
+    i.action.circleWords.disabled {
+        background-position: -3em -1em;
+    }
+
+    i.action.circleWords.cancel {
+        background-position: -4em -1em;
+    }
+
+i.action.addWords {
+    background-position: 0 -2em;
+}
+
+    i.action.addWords:hover {
+        background-position: -1em -2em;
+    }
+
+    i.action.addWords:active {
+        background-position: -2em -2em;
+    }
+
+    i.action.addWords.disabled {
+        background-position: -3em -2em;
+    }
+
+    i.action.addWords.cancel {
+        background-position: -4em -2em;
+    }
+
+i.action.versions {
+    background-position: 0 -3em;
+}
+
+    i.action.versions:hover {
+        background-position: -1em -3em;
+    }
+
+    i.action.versions:active {
+        background-position: -2em -3em;
+    }
+
+    i.action.versions.disabled {
+        background-position: -3em -3em;
+    }
+
+    i.action.versions.cancel {
+        background-position: -4em -3em;
+    }
+
+i.command.accept {
+    background-position: 0 -4em;
+}
+
+    i.command.accept:hover {
+        background-position: -1em -4em;
+    }
+
+    i.command.accept:active {
+        background-position: -2em -4em;
+    }
+
+    i.command.accept.disabled {
+        background-position: -3em -4em;
+    }
+
+i.command.menu {
+    background-position: 0 -5em;
+}
+
+    i.command.menu:hover {
+        background-position: -1em -5em;
+    }
+
+    i.command.menu:active {
+        background-position: -2em -5em;
+    }
+
+    i.command.menu.disabled {
+        background-position: -3em -5em;
+    }
+
+i.command.connection {
+    background-position: 0 -6em;
+}
+
+    i.command.connection:hover {
+        background-position: -1em -6em;
+    }
+
+    i.command.connection:active {
+        background-position: -2em -6em;
+    }
+
+    i.command.connection.disabled {
+        background-position: -3em -6em;
+    }
+
+i.command.chat {
+    background-position: 0 -7em;
+}
+
+    i.command.chat:hover {
+        background-position: -1em -7em;
+    }
+
+    i.command.chat:active {
+        background-position: -2em -7em;
+    }
+
+    i.command.chat.disabled {
+        background-position: -3em -7em;
+    }
+
+i.command.help {
+    background-position: 0 -8em;
+}
+
+    i.command.help:hover {
+        background-position: -1em -8em;
+    }
+
+    i.command.help:active {
+        background-position: -2em -8em;
+    }
+
+    i.command.help.disabled {
+        background-position: -3em -8em;
+    }
+
+i.command.quit {
+    background-position: 0 -9em;
+}
+
+    i.command.quit:hover {
+        background-position: -1em -9em;
+    }
+
+    i.command.quit:active {
+        background-position: -2em -9em;
+    }
+
+    i.command.quit.disabled {
+        background-position: -3em -9em;
+    }
+
+i.command.poem {
+    background-position: 0 -10em;
+}
+
+    i.command.poem:hover {
+        background-position: -1em -10em;
+    }
+
+    i.command.poem:active {
+        background-position: -2em -10em;
+    }
+
+    i.command.poem.disabled {
+        background-position: -3em -10em;
+    }
+
+
+.item-icon.item-icon-index-0 {
+  background-position: 0 0;
+}
+.item-icon.item-icon-index-1 {
+  background-position: -1em 0;
+}
+.item-icon.item-icon-index-2 {
+  background-position: -2em 0;
+}
+.item-icon.storage.item-icon-index-0 {
+  background-position: 0 -60px;
+}
+.item-icon.storage.item-icon-index-1 {
+  background-position: -1em -60px;
+}
+.item-icon.storage.item-icon-index-2 {
+  background-position: -2em -60px;
+}

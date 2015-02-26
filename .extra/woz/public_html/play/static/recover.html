@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Words of Oz</title>
+   <meta charset="utf-8" />
+   <style>
+      .button {
+         cursor: pointer;
+         font-size: 1em;
+         color: white;
+         border: 2px solid #b7dbe7;
+         border-radius: 0.2em;
+         text-align: center;
+         background-position-y: -156px;
+         background-image: url('http://alpha.wordsofoz.arafati.com/images/app/buttons.png');
+         box-shadow: 0 -.9em 1em .01em rgba(183, 219, 231, .5) inset, 0 .2em .5em .2em #54A8C0 inset, 0 .8em .5em .1em rgba(255, 255, 255, .5) inset;
+         outline: none;
+         padding: .3em 1em;
+         -webkit-text-shadow: 0 0 2px white;
+         text-shadow: 0 0 2px white;
+         text-transform: uppercase;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         -webkit-user-select: none;
+         user-select: none;
+      }
+
+         .button:hover {
+            background-position-x: -470px;
+         }
+
+         .button:active {
+            background-position-x: -940px;
+            box-shadow: 0 .1em .5em .4em #5da8c0 inset,0 -.9em 1em .01em rgba(183, 219, 231, .5) inset, 0 .7em .3em .1em rgba(255, 255, 255, .5) inset;
+         }
+
+      .logo {
+         background: url('http://alpha.wordsofoz.arafati.com/images/app/logo.png') no-repeat;
+         -moz-background-size: 100% auto;
+         -o-background-size: 100% auto;
+         -webkit-background-size: 100% auto;
+         background-size: 100% auto;
+         width: 300px;
+         height: 100px;
+         margin: 0 auto;
+      }
+
+      .panel {
+         position:relative;
+         background-color: white;
+         width: 80%;
+         border-radius: .4em;
+         margin: 0 auto;
+         color: black;
+         padding: 1em 1em;
+         text-align: left;
+      }
+
+      body {
+         background-color: #F1E8D3;
+         color: #976C26;
+         font-family: Cambria;
+      }
+      footer{
+         font-size:.8em;
+      }
+
+   </style>
+
+</head>
+<body>
+   <div style="width:100%; text-align:center;">
+      <div class="logo"></div>
+      <h1>Dear {{name}}!</h1>
+      <div class="panel">
+         <b>Click here</b> to reset your Words of Oz password. <br />
+         The link will expire in 24 hours.
+         <a class="button" style="position:absolute; right:1em;top:1.25em">reset password</a>         
+      </div>
+      <h3>Hope to see you soon!</h3>
+      <br />
+      <footer>
+         <p>
+            Link is not working? Use this link: <br />
+            http://wordsofoz.com/#resetPassword/{{id}}           
+         </p>
+         <p>
+            &copy;2013 Ozma Games &nbsp;&nbsp;&nbsp;&nbsp; All rights reserved <br />
+            <b>Privay policy</b> and <b>Terms and Conditions</b>
+         </p>
+      </footer>
+   </div>
+</body>
+</html>

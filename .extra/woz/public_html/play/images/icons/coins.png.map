@@ -1,0 +1,25 @@
+{
+  "images": [
+    {
+      "name": "/images/icons/Coin_1.png",
+      "width": 80,
+      "height": 70,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "name": "/images/icons/Coin_2.png",
+      "width": 80,
+      "height": 70,
+      "offsetX": 80,
+      "offsetY": 0
+    },
+    {
+      "name": "/images/icons/Coin_3.png",
+      "width": 80,
+      "height": 70,
+      "offsetX": 160,
+      "offsetY": 0
+    }
+  ]
+}

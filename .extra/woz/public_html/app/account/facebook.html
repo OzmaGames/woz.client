@@ -1,0 +1,23 @@
+﻿
+<div style="margin-top:4em">
+    <div style="position:relative; overflow:hidden; margin-left:2em">
+        <div class="facebook profile">
+            <div class="avatar btn"></div>
+            <div class="avatar" data-bind="style: {backgroundImage: 'url(\'https://graph.facebook.com/'+ facebookProfile.id +'/picture?width=100&height=100\')'}"></div>
+            <div class="name" data-bind="text: facebookProfile.name">Ali Arafati</div>
+        </div>
+    </div>
+    <p></p>
+    <form data-bind="verifiableSubmit: signup">
+        <input type="text" placeholder="Username" data-bind="verifiableValue: username, disable: loading" autofocus autocorrect="off" autocapitalize="off" />
+        <span class="error" data-bind="text: username.validationMessage"></span>
+        <input type="text" placeholder="Email" data-bind="verifiableValue: email, disable: loading" required />
+        <span class="error" data-bind="text: email.validationMessage"></span>
+
+        <p class="error" data-bind="text: errorMessage"></p>
+
+        <button class="blue" type="submit" data-bind="disable: loading">SIGN UP</button>        
+    </form>
+</div>
+
+<i data-bind="click: back" class="goback" title="Go Back"></i>

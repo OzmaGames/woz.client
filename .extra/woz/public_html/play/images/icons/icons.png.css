@@ -1,0 +1,15 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.images-icons-coins {
+/* You may have to set 'display: block' */
+	width: 240px;
+	height: 70px;
+	background: url('icons.png') 0 0;
+}
+.images-icons-storage {
+/* You may have to set 'display: block' */
+	width: 240px;
+	height: 70px;
+	background: url('icons.png') 0 -70px;
+}

@@ -1,0 +1,23 @@
+﻿<div style="margin-top:2.5em;">
+    <div style="position:relative;">
+        <button class="facebook" data-bind="enable: facebookLogin && !loading(), click:facebook">
+            login with facebook
+            <div class="tooltip">We'll <b>never</b> post anything without your permission.</div>
+        </button>
+    </div>
+    <p class="or">or</p>
+
+    <form data-bind="verifiableSubmit: login">
+        <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username, disable: loading, attr: { autofocus: !hasUsername }" autocorrect="off" autocapitalize="off" />
+        <span class="error" data-bind="text: username.validationMessage"></span>
+        <input type="password" placeholder="Password" data-bind="verifiableValue: password, disable: loading, attr: { autofocus: hasUsername }" />
+        <span class="error" data-bind="text: password.validationMessage"></span>
+
+        <p class="error sum" data-bind="text: errorMessage"></p>
+
+        <button class="blue" type="submit" data-bind="disable: loading">LOG IN</button>
+    </form>
+    <hr />
+    <a class="block link big space" data-bind="click: signUp">SIGN UP!</a>
+    <!--<a class="block link small" data-bind="click: recover">recover password</a>-->
+</div>

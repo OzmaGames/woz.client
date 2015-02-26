@@ -1,0 +1,67 @@
+﻿    /*background: url('../images/app/background.jpg') no-repeat fixed #f1e8d5 center center;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;*/
+    /*
+    overflow: hidden;*/
+
+.shiny {
+    position: absolute;
+    display: block;
+    z-index: 11;
+    width: 100px;
+    height: 2px;
+    background-color: rgba(255,255,255,.8);
+    box-shadow: 0 0 1px rgb(255, 255, 255);
+    -moz-animation: spin 3s infinite linear;
+    -o-animation: spin 3s infinite linear;
+    -webkit-animation: spin 3s infinite linear;
+    animation: spin 3s infinite linear;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+    .shiny.typeB, .shiny.typeC {
+        -moz-animation-direction: reverse;
+        -o-animation-direction: reverse;
+        -webkit-animation-direction: reverse;
+        animation-direction: reverse;
+    }
+
+    .shiny.typeD, .shiny.typeE {
+        -moz-animation-direction: alternate-reverse;
+        -o-animation-direction: alternate-reverse;
+        -webkit-animation-direction: alternate-reverse;
+        animation-direction: alternate-reverse;
+    }
+
+    .shiny.typeB {
+        -moz-animation-duration: 2s;
+        -o-animation-duration: 2s;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+    }
+
+    .shiny.typeC {
+        -moz-animation-duration: 2.5s;
+        -o-animation-duration: 2.5s;
+        -webkit-animation-duration: 2.5s;
+        animation-duration: 2.5s;
+    }
+
+    .shiny.typeD {
+        -moz-animation-duration: 2.7s;
+        -o-animation-duration: 2.7s;
+        -webkit-animation-duration: 2.7s;
+        animation-duration: 2.7s;
+    }
+
+    .shiny.typeE {
+        -moz-animation-duration: 2.9s;
+        -o-animation-duration: 2.9s;
+        -webkit-animation-duration: 2.9s;
+        animation-duration: 2.9s;
+    }

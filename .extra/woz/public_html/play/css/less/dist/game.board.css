@@ -1,0 +1,375 @@
+﻿.curly {
+  font-family: GreatVibesRegular !important;
+}
+.enableGPU {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+#gameboard {
+  position: relative;
+  width: 100%;
+}
+#gameboard .ui-overlay {
+  background: #666;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 98;
+  box-shadow: 5px 5px 10px 0 #976b2c;
+  display: none;
+}
+#tiles-max {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 60px 0 60px;
+  /*in portrait mode the tiles wont get stuck on the edges*/
+  -moz-transition: padding-top 1s;
+  -o-transition: padding-top 1s;
+  -webkit-transition: padding-top 1s;
+  transition: padding-top 1s;
+  height: 600px;
+}
+#tiles-aspect {
+  min-width: 400px;
+  position: relative;
+  /*padding-bottom: 75%;*/
+  height: 600px;
+  width: 100%;
+}
+@media screen and (max-width: 900px) {
+  #tiles-max {
+    height: 600px;
+  }
+  #tiles-aspect {
+    height: 600px;
+    padding-bottom: 0;
+  }
+  #tiles {
+    padding-bottom: 40px;
+  }
+  #gameboard {
+    padding-top: 40px;
+  }
+}
+#tiles {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.carry .rule:hover,
+.carry .rule:active {
+  opacity: .2;
+}
+#tiles .container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.tile {
+  position: absolute;
+  z-index: 5;
+  font-size: 160px;
+  width: 1em;
+  height: 1em;
+  cursor: pointer !important;
+  left: 50%;
+  top: 50%;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
+  -moz-transition: -moz-transform 0.5s ease-in-out, z-index 0s 0.5s;
+  -o-transition: -o-transform 0.5s ease-in-out, z-index 0s 0.5s;
+  -webkit-transition: -webkit-transform 0.5s ease-in-out, z-index 0s 0.5s;
+  transition: transform 0.5s ease-in-out, z-index 0s 0.5s;
+}
+.tile.active {
+  z-index: 11;
+  -moz-transition: -moz-transform 0.5s ease-in-out, z-index 0s 0s;
+  -o-transition: -o-transform 0.5s ease-in-out, z-index 0s 0s;
+  -webkit-transition: -webkit-transform 0.5s ease-in-out, z-index 0s 0s;
+  transition: transform 0.5s ease-in-out, z-index 0s 0s;
+}
+.tile.active .cloud {
+  opacity: 0;
+  -moz-transition: all 0.5s ease-in-out, opacity 0s 0s ease-in-out;
+  -o-transition: all 0.5s ease-in-out, opacity 0s 0s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out, opacity 0s 0s ease-in-out;
+  transition: all 0.5s ease-in-out, opacity 0s 0s ease-in-out;
+}
+.tile.active .mask,
+.tile .mask.norm {
+  box-shadow: 5px 5px 10px 0 #333;
+}
+.tile .tile-circle {
+  position: relative;
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px 0 #333;
+  width: 1em;
+  height: 1em;
+  -moz-transition: 1s box-shadow ease-in-out;
+  -o-transition: 1s box-shadow ease-in-out;
+  -webkit-transition: 1s box-shadow ease-in-out;
+  transition: 1s box-shadow ease-in-out;
+}
+.tile.active .tile-circle {
+  box-shadow: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -webkit-transition: none;
+  transition: none;
+}
+.tile .mask {
+  position: absolute;
+  border-radius: 50%;
+  border: .03em solid #fff;
+  width: 1em;
+  height: 1em;
+  background-position: left center;
+  background-repeat: no-repeat;
+  -moz-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  -webkit-background-size: auto 100%;
+  background-size: auto 100%;
+  -moz-transition: -moz-transform 0.5s ease-in-out;
+  -o-transition: -o-transform 0.5s ease-in-out;
+  -webkit-transition: -webkit-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-transform: scale(0) translateZ(2);
+  -ms-transform: scale(0) translateZ(2);
+  -o-transform: scale(0) translateZ(2);
+  -webkit-transform: scale(0) translateZ(2);
+  transform: scale(0) translateZ(2);
+  -moz-transform-origin: center center;
+  -ms-transform-origin: center center;
+  -o-transform-origin: center center;
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  left: -0.5em;
+  top: -0.5em;
+  margin-left: 50%;
+  margin-top: 50%;
+  z-index: -1;
+}
+.tile .mask.noTransition {
+  -moz-transition: none;
+  -o-transition: none;
+  -webkit-transition: none;
+  transition: none;
+}
+.tile .mask .big {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 100%;
+}
+.tile .mask,
+.tile-circle {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+body > .cloud.fixed {
+  width: 120px;
+  height: 60px;
+  -moz-transform-origin: center center;
+  -ms-transform-origin: center center;
+  -o-transform-origin: center center;
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  z-index: 6;
+  position: absolute;
+}
+body > .cloud.fixed .rule {
+  top: 0;
+  right: 0;
+  left: auto;
+}
+.cloud {
+  width: 100%;
+  height: 100%;
+  -moz-transition: -moz-transform 0.5s ease-in-out;
+  -o-transition: -o-transform 0.5s ease-in-out;
+  -webkit-transition: -webkit-transform 0.5s ease-in-out, opacity 0.5s 0.4s;
+  transition: transform 0.5s ease-in-out;
+}
+.cloud .rule {
+  z-index: 3;
+  -moz-transform-origin: center center;
+  -ms-transform-origin: center center;
+  -o-transform-origin: center center;
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  position: absolute;
+  top: -30px;
+  left: 20px;
+  width: 80px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px 0 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 5px #ffffff;
+  text-align: center;
+  line-height: 100%;
+  font-family: CopseRegular;
+  font-size: medium;
+  color: #296e8b;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-text-shadow: 0px 0px 1px #bad7e4;
+  text-shadow: 0px 0px 1px #bad7e4;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+.cloud .rule.glow {
+  box-shadow: 0 0 4px 10px rgba(255, 255, 255, 0.5);
+}
+.cloud .help {
+  position: absolute;
+  top: 12px;
+  right: 0px;
+}
+.cloud .info {
+  margin-top: 5px;
+  font-family: 'GreatVibesRegular' !important;
+  font-weight: bold;
+  font-size: large;
+}
+.tile .rest {
+  position: absolute;
+  z-index: 2;
+  right: -30px;
+  top: 0;
+  visibility: hidden;
+}
+.tile:hover .rest {
+  visibility: visible;
+}
+.tile .rest .thumbnail {
+  margin-bottom: 3px;
+  border: 3px solid white;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.tile .rest .thumbnail:hover {
+  border-color: orange;
+}
+.tile .rest .thumbnail:last-child {
+  margin-bottom: 0;
+}
+.tile .control {
+  font-size: 13px;
+  visibility: hidden;
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  width: 60px;
+  height: 70px;
+  z-index: 6;
+  background-color: white;
+  border-radius: 100%;
+  color: #976b2c;
+}
+.tile:hover .control {
+  visibility: visible;
+}
+#tiles.woz .mask {
+  background-image: url(../../../images/tiles/woz.jpg);
+}
+#tiles.lim .mask {
+  background-image: url(../../../images/tiles/lim.jpg);
+}
+#tiles.nf .mask {
+  background-image: url(../../../images/tiles/nf.jpg);
+}
+#tiles.loc .mask {
+  background-image: url(../../../images/tiles/loc.jpg);
+}
+@media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
+  #tiles.woz .mask {
+    background-image: url(../../../images/tiles/woz-b.jpg);
+  }
+  #tiles.lim .mask {
+    background-image: url(../../../images/tiles/lim-b.jpg);
+  }
+  #tiles.nf .mask {
+    background-image: url(../../../images/tiles/nf-b.jpg);
+  }
+  #tiles.loc .mask {
+    background-image: url(../../../images/tiles/loc-b.jpg);
+  }
+}
+.notice-board {
+  color: #986b31;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 150px;
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.notice-board h1 {
+  margin-bottom: 1em;
+  font-size: 25px;
+}
+.notice-board p {
+  font-size: 18px;
+  line-height: 1.5em;
+}
+#tiles .footer {
+  color: #986b31;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+#tiles .footer .page {
+  display: inline-block;
+  font-size: 18px;
+}
+#tiles .footer .skip-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-transform: uppercase;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  z-index: 1;
+}
+/*# sourceMappingURL=game.board.css.map */
