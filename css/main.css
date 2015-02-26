@@ -159,7 +159,7 @@ button {
     }
 
     button.blue {
-        margin: -moz-calc(0.4em);
+        margin-top: -moz-calc(0.4em);
         border-color: #b7dbe7;
         background-color: #62B6CC;
         background-position-y: -156px;
@@ -1190,3 +1190,33 @@ footer {
         transform: translateX(15em);
     }
 }
+
+
+@-moz-document url-prefix() { 
+  .link.small {
+     font-weight:normal!important;
+
+  }
+}
+
+.prison {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    overflow:hidden;
+    border-radius: 50%;
+}
+
+    .prison .label {
+        color: #986b31;
+        font-family: CopseRegular;
+        background-color: white;
+        -moz-transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
+        -ms-transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
+        -o-transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
+        -webkit-transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
+        transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
+        text-align: center;
+    }

@@ -24,7 +24,9 @@
 
         this.showPoem = function () {
             base.close(function () {
-                app.dialog.showPoem();
+                app.dialog.showPoem().then(function () {
+                    app.dialog.show("menu");
+                });
             });
         }
     }

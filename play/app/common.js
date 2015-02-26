@@ -94,7 +94,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
          } ).promise();
       }
       app.dialog.showPoem = function () {
-         app.dialog.show( "notice", {
+         return app.dialog.show( "notice", {
             model: 'game/poem/index',
             css: 'long top up',
             closeOnClick: false,
@@ -112,8 +112,7 @@ define( ['durandal/system', 'durandal/app', 'plugins/router',
       app.dialog.showProfileNoOverlay = function (username) {
           app.dialog.show("slipper-profile", {
               username: username,
-              noOverlay: true,
-              fixed: false
+              noOverlay: true //, fixed: false
           });
       };
 

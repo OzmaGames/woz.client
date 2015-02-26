@@ -389,6 +389,7 @@
                                       app.dialog.show("notice", {
                                           model: json.stats, view: json.stats.title ? 'dialogs/pages/LevelUpTitle' : 'dialogs/pages/LevelUp'
                                       }).then(function () {
+                                          app.dialog.close('slipper-profile');
                                           if (typeof nextStepFunc == 'function') {
                                               nextStepFunc();
                                           } else {
@@ -396,6 +397,7 @@
                                           }
                                       });
                                   } else {
+                                      app.dialog.close('slipper-profile');
                                       if (typeof nextStepFunc == 'function') {
                                           nextStepFunc();
                                       } else {

@@ -39,6 +39,21 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
     ko.bindingHandlers["verifiableValue"] = {
         init: function (element, valueAccessor, allBindingsAccessor) {
             ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor);
+            setTimeout(function () {
+                var model = valueAccessor();
+
+                if (model() != $(element).val() && $(element).val()) {
+                    model($(element).val());
+                }
+
+                if (!model()) {
+                    setTimeout(function () {
+                        if (model() != $(element).val() && $(element).val()) {
+                            model($(element).val());
+                        }
+                    }, 500);
+                }
+            }, 200);
         },
         update: function (element, valueAccessor) {
             ko.bindingHandlers.value.update(element, valueAccessor);
@@ -62,19 +77,19 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'durandal/viewLocat
                 }
             });
 
-            setTimeout(function () {
-                if (viewModel.getFormModels) {
-                    var models = viewModel.getFormModels();
-                    var index = 0;
-                    $('input', element).each(function () {
-                        if (!models[index]() && $(this).val()) {
-                            models[index]($(this).val());
-                        }
-                        index++;
-                    });
-                }
-                //$('input', element).first().focus().select();
-            }, 10);
+            //setTimeout(function () {
+            //    if (viewModel.getFormModels) {
+            //        var models = viewModel.getFormModels();
+            //        var index = 0;
+            //        $('input', element).each(function () {
+            //            if (!models[index]() && $(this).val()) {
+            //                models[index]($(this).val());
+            //            }
+            //            index++;
+            //        });
+            //    }
+            //    //$('input', element).first().focus().select();
+            //}, 10);
         }
     };
     ko.extenders["required"] = function (target, data) {
