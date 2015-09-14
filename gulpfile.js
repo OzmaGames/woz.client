@@ -4,6 +4,36 @@
     durandal = require('gulp-durandal');
 
 var dest = '/dist', destAlmond = '../dist';
+var less = require('gulp-less');
+var path = require('path');
+
+var browserSync = require('browser-sync').create();
+
+gulp.task('less', function () {
+  return gulp.src('./play/css/all.less')
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest('./play/css/dist/'))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('default', ['less'], function() {
+  gulp.watch('./play/**/*.less', ['less']);
+});
+
+gulp.task('serve', ['less'], function() {
+
+    browserSync.init({
+        server: "./play"
+    });
+
+    gulp.watch("./play/**/*.less", ['less']);
+    gulp.watch("./play/**/*.html").on('change', browserSync.reload);
+    gulp.watch("./play/**/*.js").on('change', browserSync.reload);
+});
+
+
 
 gulp.task('statics', function () {
     return gulp.src(['**/*.png', '**/*.jpg', '**/*.css', '**/*.ttf', '**/*.woff', 'index.html', '**/require.js'])

@@ -1,29 +1,26 @@
-﻿@font-face {
+@font-face {
   font-family: 'CopseRegular';
   font-weight: normal;
   font-style: normal;
-  src: url(../../fonts/Copse-Regular-webfont.eot);
-  src: local('Copse'), local('CopseRegular'), /* Local */ url(../../fonts/Copse-Regular-webfont.woff) format('woff'), /* Modern */ url(../../fonts/Copse-Regular-webfont.ttf) format('truetype'), /* Safari, Android, IOS */ url(../../fonts/Copse-Regular-webfont.svg#CopseRegular) format('svg');
-  
+  src: url('../../fonts/Copse-Regular-webfont.eot');
+  src: local('Copse'), local('CopseRegular'), /* Local */ url('../../fonts/Copse-Regular-webfont.woff') format('woff'), /* Modern */ url('../../fonts/Copse-Regular-webfont.ttf') format('truetype'), /* Safari, Android, IOS */ url('../../fonts/Copse-Regular-webfont.svg#CopseRegular') format('svg');
   /* Legacy IOS */
 }
 @font-face {
   font-family: 'GreatVibesRegular';
   font-weight: normal;
   font-style: normal;
-  src: url(../../fonts/GreatVibes-Regular-webfont.eot);
-  src: local('GreatVibes'), /* Local */ url(../../fonts/GreatVibes-Regular-webfont.woff) format('woff'), /* Modern */ url(../../fonts/GreatVibes-Regular-webfont.ttf) format('truetype'), /* Safari, Android, IOS */ url(../../fonts/GreatVibes-Regular-webfont.svg#GreatVibesRegular) format('svg');
-  
+  src: url('../../fonts/GreatVibes-Regular-webfont.eot');
+  src: local('GreatVibes'), /* Local */ url('../../fonts/GreatVibes-Regular-webfont.woff') format('woff'), /* Modern */ url('../../fonts/GreatVibes-Regular-webfont.ttf') format('truetype'), /* Safari, Android, IOS */ url('../../fonts/GreatVibes-Regular-webfont.svg#GreatVibesRegular') format('svg');
   /* Legacy IOS */
 }
 @font-face {
   font-family: 'Cambria';
   font-weight: normal;
   font-style: normal;
-  src: url(../../fonts/cambria/cambria.eot);
-  src: local('Cambria'), /* Local */ url(../../fonts/cambria/cambria.woff) format('woff'), /* Modern */ url(../../fonts/cambria/cambria.ttf) format('truetype'), /* Safari, Android, IOS */ url(../../fonts/cambria/cambria.svg#Cambria) format('svg');
-  
+  src: url('../../fonts/cambria/cambria.eot');
   /* IE9 */
+  src: local('Cambria'), /* Local */ url('../../fonts/cambria/cambria.woff') format('woff'), /* Modern */ url('../../fonts/cambria/cambria.ttf') format('truetype'), /* Safari, Android, IOS */ url('../../fonts/cambria/cambria.svg#Cambria') format('svg');
   /* Legacy IOS */
 }
 .curly {
@@ -116,7 +113,7 @@ a:visited {
 #app {
   overflow-x: hidden;
   overflow-y: auto;
-  background: url(../../images/app/background.jpg) no-repeat #f1e8d5;
+  background: url('../../images/app/background.jpg') no-repeat #f1e8d5;
   position: absolute;
   top: 0;
   left: 0;
@@ -171,7 +168,7 @@ a:visited {
   left: 0;
 }
 .logo {
-  background: url(../../images/app/logo.png) no-repeat;
+  background: url('../../images/app/logo.png') no-repeat;
   -moz-background-size: 100% auto;
   -o-background-size: 100% auto;
   -webkit-background-size: 100% auto;
@@ -184,7 +181,7 @@ a:visited {
   height: 80px;
   margin-top: 10px;
   z-index: 1;
-  background: url(../../images/app/logo-small.png) no-repeat center center;
+  background: url('../../images/app/logo-small.png') no-repeat center center;
   -moz-background-size: auto 100%;
   -o-background-size: auto 100%;
   -webkit-background-size: auto 100%;
@@ -193,7 +190,7 @@ a:visited {
 @media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
   /*(min-resolution: 120dpi),*/
   .logo.page {
-    background-image: url(../../images/app/logo.png);
+    background-image: url('../../images/app/logo.png');
   }
 }
 #login-page .top,
@@ -223,7 +220,7 @@ a:visited {
 }
 #login-page .background.footer {
   padding-bottom: 40%;
-  background: url(../../images/app/footer.png) no-repeat;
+  background: url('../../images/app/footer.png') no-repeat;
   background-position: bottom center;
   -moz-background-size: contain;
   -o-background-size: contain;
@@ -293,7 +290,7 @@ a:visited {
 }
 .loading-image {
   overflow: visible;
-  background: url(../../images/app/loading.png) no-repeat center center;
+  background: url('../../images/app/loading.png') no-repeat center center;
   background-size: contain;
   width: 100%;
   height: 192px;
@@ -618,22 +615,22 @@ a.big {
 }
 .pic.woz,
 .pic.starter {
-  background-image: url(../../images/tiles/collections/woz.png);
+  background-image: url('../../images/tiles/collections/woz.png');
 }
 .pic.nf {
-  background-image: url(../../images/tiles/collections/nf.png);
+  background-image: url('../../images/tiles/collections/nf.png');
 }
 .pic.loc {
-  background-image: url(../../images/tiles/collections/loc.png);
+  background-image: url('../../images/tiles/collections/loc.png');
 }
 .pic.win {
-  background-image: url(../../images/tiles/collections/win.png);
+  background-image: url('../../images/tiles/collections/win.png');
 }
 .pic.lim {
-  background-image: url(../../images/tiles/collections/lim.png);
+  background-image: url('../../images/tiles/collections/lim.png');
 }
 .pic.more {
-  background-image: url(../../images/tiles/collections/more.png);
+  background-image: url('../../images/tiles/collections/more.png');
 }
 .grid .table {
   display: table;
@@ -931,7 +928,7 @@ a.big {
   min-height: 18em;
   max-width: 900px;
   font-family: Cambria, CopseRegular;
-  background-image: url(../../images/app/tabs/main.png);
+  background-image: url('../../images/app/tabs/main.png');
   background-repeat: no-repeat;
   background-position: 0 1.7em;
   background-size: 2em auto;
@@ -1001,7 +998,7 @@ a.big {
   /*collaps spaces*/
   line-height: 2.5em;
   cursor: pointer;
-  background: url(../../images/app/tabs/passive.png) no-repeat;
+  background: url('../../images/app/tabs/passive.png') no-repeat;
   -moz-background-size: 100% .5em;
   -o-background-size: 100% .5em;
   -webkit-background-size: 100% .5em;
@@ -1048,7 +1045,7 @@ a.big {
 .tab nav li.active {
   -webkit-text-shadow: 0 2px 3px white;
   text-shadow: 0 2px 3px white;
-  background-image: url(../../images/app/tabs/active.png);
+  background-image: url('../../images/app/tabs/active.png');
   padding: 0 .5em;
   margin: 0 1.4em 0 1.2em;
 }
@@ -1063,7 +1060,7 @@ a.big {
   top: 0;
 }
 .tab nav li.active::before {
-  background: url(../../images/app/tabs/active-left.png) no-repeat;
+  background: url('../../images/app/tabs/active-left.png') no-repeat;
   -moz-background-size: contain;
   -o-background-size: contain;
   -webkit-background-size: contain;
@@ -1073,7 +1070,7 @@ a.big {
   left: -1.35em;
 }
 .tab nav li.active::after {
-  background: url(../../images/app/tabs/active-right.png) no-repeat;
+  background: url('../../images/app/tabs/active-right.png') no-repeat;
   -moz-background-size: contain;
   -o-background-size: contain;
   -webkit-background-size: contain;
@@ -1083,7 +1080,7 @@ a.big {
   right: -1.35em;
 }
 .tab nav li.ending {
-  background: url(../../images/app/tabs/right.png) no-repeat;
+  background: url('../../images/app/tabs/right.png') no-repeat;
   background-position: bottom center;
   -moz-background-size: 100% .5em;
   -o-background-size: 100% .5em;
@@ -1247,37 +1244,37 @@ a.big {
   font-size: 1.5em;
 }
 .table-flex .collection .couple.woz {
-  background-image: url(../../images/tiles/collections/shop-woz.png);
+  background-image: url('../../images/tiles/collections/shop-woz.png');
 }
 .table-flex .collection .couple.woz-boost1 {
-  background-image: url(../../images/tiles/collections/shop-woz-booster.png);
+  background-image: url('../../images/tiles/collections/shop-woz-booster.png');
 }
 .table-flex .collection .couple.lim {
-  background-image: url(../../images/tiles/collections/shop-lim.png);
+  background-image: url('../../images/tiles/collections/shop-lim.png');
 }
 .table-flex .collection .couple.lim_boost1,
 .table-flex .collection .couple.lim-boost1 {
-  background-image: url(../../images/tiles/collections/shop-lim-booster.png);
+  background-image: url('../../images/tiles/collections/shop-lim-booster.png');
 }
 .table-flex .collection .couple.nf {
-  background-image: url(../../images/tiles/collections/shop-nf.png);
+  background-image: url('../../images/tiles/collections/shop-nf.png');
 }
 .table-flex .collection .couple.nf-boost1 {
-  background-image: url(../../images/tiles/collections/shop-nf-booster.png);
+  background-image: url('../../images/tiles/collections/shop-nf-booster.png');
 }
 .table-flex .collection .couple.loc {
-  background-image: url(../../images/tiles/collections/shop-loc.png);
+  background-image: url('../../images/tiles/collections/shop-loc.png');
 }
 .table-flex .collection .couple.win {
-  background-image: url(../../images/tiles/collections/shop-win.png);
+  background-image: url('../../images/tiles/collections/shop-win.png');
 }
 .table-flex .collection .couple.loc_boost1,
 .table-flex .collection .couple.loc-boost1 {
-  background-image: url(../../images/tiles/collections/shop-loc-booster.png);
+  background-image: url('../../images/tiles/collections/shop-loc-booster.png');
 }
 .table-flex .collection .couple.win_boost1,
 .table-flex .collection .couple.win-boost1 {
-  background-image: url(../../images/tiles/collections/shop-win-booster.png);
+  background-image: url('../../images/tiles/collections/shop-win-booster.png');
 }
 .table-flex .collection.full-row {
   width: 100%;
@@ -1326,7 +1323,7 @@ button .currency {
   left: -1em;
   height: 2em;
   width: 10em;
-  background: url(../../images/app/price-tag.png) no-repeat;
+  background: url('../../images/app/price-tag.png') no-repeat;
   -moz-background-size: contain;
   -o-background-size: contain;
   -webkit-background-size: contain;
@@ -1374,7 +1371,7 @@ button .currency {
 .wand {
   height: 100px;
   width: 100%;
-  background: url(../../images/app/wand.png) no-repeat center center;
+  background: url('../../images/app/wand.png') no-repeat center center;
   -moz-background-size: contain;
   -o-background-size: contain;
   -webkit-background-size: contain;
@@ -1466,7 +1463,7 @@ progress::-moz-progress-bar {
 }
 .social {
   font-size: 44px;
-  background: url(../../images/app/social.png) no-repeat;
+  background: url('../../images/app/social.png') no-repeat;
   background-size: auto 3em;
   width: 1em;
   height: 1em;
@@ -1519,7 +1516,7 @@ progress::-moz-progress-bar {
 }
 .payment-icon {
   display: inline-block;
-  background-image: url(../../images/app/payment.png);
+  background-image: url('../../images/app/payment.png');
   width: 100%;
   height: 2em;
   background-repeat: no-repeat;
@@ -1649,7 +1646,7 @@ progress::-moz-progress-bar {
   z-index: 11;
   margin: 0 auto;
   width: 300px;
-  background-image: url(../../images/app/confirm-background.png);
+  background-image: url('../../images/app/confirm-background.png');
   background-position: center bottom;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
@@ -1680,7 +1677,7 @@ progress::-moz-progress-bar {
   margin: 0 auto;
   width: 555px;
   top: -30px;
-  background-image: url(../../images/app/slipper-background.png);
+  background-image: url('../../images/app/slipper-background.png');
   background-position: center bottom;
   background-size: 100% 100%;
   text-align: center;
@@ -1698,7 +1695,7 @@ progress::-moz-progress-bar {
   right: 20px;
   width: 30px;
   height: 18px;
-  background-image: url(../../images/game/ArrowMinimize_Btn.png);
+  background-image: url('../../images/game/ArrowMinimize_Btn.png');
   background-size: 100% 100%;
   -moz-transition: all 0.5s 0.1s ease-in-out;
   -o-transition: all 0.5s 0.1s ease-in-out;
@@ -1747,7 +1744,7 @@ progress::-moz-progress-bar {
   margin: 0 auto;
   width: 150px;
   right: -10px;
-  background-image: url(../../images/app/menu-background.png);
+  background-image: url('../../images/app/menu-background.png');
   background-size: cover;
   text-align: center;
   line-height: 120%;
@@ -1793,7 +1790,7 @@ progress::-moz-progress-bar {
   float: left;
   width: 30px;
   height: 9px;
-  background-image: url(../../images/game/ArrowMinimize_Btn.png);
+  background-image: url('../../images/game/ArrowMinimize_Btn.png');
   background-position: center center;
   background-repeat: no-repeat;
   -moz-background-size: 15px 9px;
@@ -1845,7 +1842,7 @@ progress::-moz-progress-bar {
   margin: 0 auto;
   width: 379px;
   /*min-height: 177px;*/
-  background-image: url(../../images/app/notice-background.png);
+  background-image: url('../../images/app/notice-background.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   text-align: center;
@@ -1868,7 +1865,7 @@ progress::-moz-progress-bar {
 .dialog .notice.long {
   padding-left: 1em;
   width: 500px;
-  background-image: url(../../images/app/notice-long-background.png);
+  background-image: url('../../images/app/notice-long-background.png');
 }
 .dialog .notice.long .close {
   right: 30px !important;
@@ -1931,7 +1928,7 @@ progress::-moz-progress-bar {
   font-size: 1.2em;
 }
 .dialog .notice .wand-stars {
-  background: url(../../images/game/wand-stars.png) no-repeat;
+  background: url('../../images/game/wand-stars.png') no-repeat;
   position: absolute;
   top: 0;
   left: 0;
@@ -1981,7 +1978,7 @@ progress::-moz-progress-bar {
   border: 1px dashed transparent;
 }
 .dialog .notice .version.active {
-  background: url(../../images/game/Checkmark_Btn_Test2.png) left center no-repeat;
+  background: url('../../images/game/Checkmark_Btn_Test2.png') left center no-repeat;
   -moz-background-size: contain;
   -o-background-size: contain;
   -webkit-background-size: contain;
@@ -2146,7 +2143,7 @@ progress::-moz-progress-bar {
   /*box-shadow:inset 0 0 1px 1px black;*/
 }
 .select-pic {
-  background: url(../../images/game/select.png) center center no-repeat;
+  background: url('../../images/game/select.png') center center no-repeat;
   background-size: auto 100%;
   width: 100%;
   height: 100px;
@@ -2169,7 +2166,7 @@ progress::-moz-progress-bar {
   height: 170px;
   z-index: 11;
   margin: 0 auto;
-  background-image: url(../../images/game/profile-infobox.png);
+  background-image: url('../../images/game/profile-infobox.png');
   background-size: 100% 100%;
   text-align: center;
   line-height: 120%;
@@ -2586,7 +2583,7 @@ button {
   font-family: CopseRegular;
   border: 2px solid #fff;
   text-align: center;
-  background-image: url(../../images/app/buttons.png);
+  background-image: url('../../images/app/buttons.png');
   color: white;
   outline: none;
   white-space: nowrap;
@@ -2755,7 +2752,7 @@ button.menuItem i.mi-logout {
   background-position: -175px 0;
 }
 button.facebook {
-  background-image: url(../../images/app/facebook-button.png);
+  background-image: url('../../images/app/facebook-button.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -2802,7 +2799,7 @@ button.facebook,
   float: right;
 }
 .facebook .avatar.btn {
-  background-image: url(../../images/app/facebook-button-small.png);
+  background-image: url('../../images/app/facebook-button-small.png');
   float: left;
 }
 .facebook .name {
@@ -3102,7 +3099,7 @@ ul.custom-list.draggable li.hole::before {
 }
 .slider-container .controls .left {
   left: 10px;
-  background: url(../../images/game/arrow-up.png) no-repeat;
+  background: url('../../images/game/arrow-up.png') no-repeat;
   background-size: contain;
   -moz-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
@@ -3112,7 +3109,7 @@ ul.custom-list.draggable li.hole::before {
 }
 .slider-container .controls .right {
   right: 10px;
-  background: url(../../images/game/arrow-up.png) no-repeat;
+  background: url('../../images/game/arrow-up.png') no-repeat;
   background-size: contain;
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -3141,17 +3138,17 @@ ul.custom-list.draggable li.hole::before {
 .tile .ctrl .shade {
   top: 0;
   right: 1.1em;
-  background-image: url(../../images/app/icon-shadow.png);
+  background-image: url('../../images/app/icon-shadow.png');
 }
 .tile .ctrl .size {
   top: .8em;
   right: .2em;
-  background-image: url(../../images/app/icon-size.png);
+  background-image: url('../../images/app/icon-size.png');
 }
 .tile .ctrl .color {
   top: 1.8em;
   right: -0.5em;
-  background-image: url(../../images/app/icon-color.png);
+  background-image: url('../../images/app/icon-color.png');
 }
 .tile .ctrl .box {
   background-color: white;
@@ -3383,7 +3380,7 @@ i.command {
   font-size: 40px;
   width: 1em;
   height: 1em;
-  background-image: url(../../images/app/icons.png);
+  background-image: url('../../images/app/icons.png');
   cursor: pointer;
   background-size: 5em auto;
   /*firefox shit! need 200px*/
@@ -3539,7 +3536,7 @@ i.command.green {
   background-color: lightgreen;
 }
 i.command.fullscreen {
-  background-image: url(../../images/game/fullscreen.png);
+  background-image: url('../../images/game/fullscreen.png');
   background-position: 0 0 !important;
   background-size: cover;
 }
@@ -3552,7 +3549,7 @@ i.command.close {
   font-size: 16px;
   top: 10px;
   right: 10px;
-  background-image: url(../../images/game/Close_Btn.png);
+  background-image: url('../../images/game/Close_Btn.png');
   background-size: cover;
 }
 i.command.close:hover,
@@ -3568,7 +3565,7 @@ i.command.close.compact {
   right: 15px;
 }
 i.command.delete {
-  background-image: url(../../images/game/Close_Btn.png);
+  background-image: url('../../images/game/Close_Btn.png');
   background-position: 0 0 !important;
   background-size: cover;
 }
@@ -3586,7 +3583,7 @@ i.xxsm {
   font-size: 12px;
 }
 i.command.addFriend {
-  background-image: url(../../images/game/add-friend.png);
+  background-image: url('../../images/game/add-friend.png');
   background-position: 0 0 !important;
   background-size: 2em auto;
 }
@@ -3595,7 +3592,7 @@ i.command.addFriend:hover {
   background-position: -1em 0 !important;
 }
 i.command.find {
-  background-image: url(../../images/game/find.png);
+  background-image: url('../../images/game/find.png');
   background-position: 0 0 !important;
   background-size: 2em auto !important;
 }
@@ -3604,7 +3601,7 @@ i.command.find:hover {
   background-position: -1em 0 !important;
 }
 i.command.currency {
-  background-image: url(../../images/game/currency-bg.png);
+  background-image: url('../../images/game/currency-bg.png');
   background-size: contain;
   background-position: 9px 4px !important;
   background-repeat: no-repeat;
@@ -3733,11 +3730,11 @@ i.icon {
   display: inline-block;
 }
 i.icon.block {
-  background-image: url(../../images/app/block.png);
+  background-image: url('../../images/app/block.png');
   font-size: 40px;
 }
 i.icon.addFriend {
-  background-image: url(../../images/app/add-player.png);
+  background-image: url('../../images/app/add-player.png');
   font-size: 40px;
 }
 i.icon.disabled {
@@ -3816,7 +3813,7 @@ i.icon.disabled {
   vertical-align: middle;
 }
 #game-main {
-  background-image: url(../../images/app/background.jpg);
+  background-image: url('../../images/app/background.jpg');
   background-repeat: no-repeat;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
@@ -3873,7 +3870,7 @@ hr {
 .player .decoration {
   position: relative;
   height: 48px;
-  background-image: url(../../images/game/score-background.png);
+  background-image: url('../../images/game/score-background.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: auto 100%;
@@ -3894,7 +3891,7 @@ hr {
   font-size: 70px;
   width: 1em;
   height: 1em;
-  background: url(../../images/game/profile-star.png) no-repeat center center;
+  background: url('../../images/game/profile-star.png') no-repeat center center;
   background-size: 75%;
   margin: 0 auto;
   position: relative;
@@ -4227,35 +4224,35 @@ body > .cloud.fixed .rule {
   visibility: visible;
 }
 #tiles.woz .mask {
-  background-image: url(../../images/tiles/woz.jpg);
+  background-image: url('../../images/tiles/woz.jpg');
 }
 #tiles.lim .mask {
-  background-image: url(../../images/tiles/lim.jpg);
+  background-image: url('../../images/tiles/lim.jpg');
 }
 #tiles.nf .mask {
-  background-image: url(../../images/tiles/nf.jpg);
+  background-image: url('../../images/tiles/nf.jpg');
 }
 #tiles.loc .mask {
-  background-image: url(../../images/tiles/loc.jpg);
+  background-image: url('../../images/tiles/loc.jpg');
 }
 #tiles.win .mask {
-  background-image: url(../../images/tiles/win.jpg);
+  background-image: url('../../images/tiles/win.jpg');
 }
 @media (-webkit-min-device-pixel-ratio: 1.1), (min-resolution: 1.1dppx) {
   #tiles.woz .mask {
-    background-image: url(../../images/tiles/woz-b.jpg);
+    background-image: url('../../images/tiles/woz-b.jpg');
   }
   #tiles.lim .mask {
-    background-image: url(../../images/tiles/lim-b.jpg);
+    background-image: url('../../images/tiles/lim-b.jpg');
   }
   #tiles.nf .mask {
-    background-image: url(../../images/tiles/nf-b.jpg);
+    background-image: url('../../images/tiles/nf-b.jpg');
   }
   #tiles.loc .mask {
-    background-image: url(../../images/tiles/loc-b.jpg);
+    background-image: url('../../images/tiles/loc-b.jpg');
   }
   #tiles.win .mask {
-    background-image: url(../../images/tiles/win-b.jpg);
+    background-image: url('../../images/tiles/win-b.jpg');
   }
 }
 .notice-board {
@@ -4526,7 +4523,7 @@ body > .cloud.fixed .rule {
 .confirm-box .button {
   position: absolute;
   text-align: center;
-  background-image: url(../../images/game/Checkmark_Btn_Test2.png);
+  background-image: url('../../images/game/Checkmark_Btn_Test2.png');
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
   -webkit-background-size: 100% 100%;
@@ -4563,7 +4560,7 @@ body > .cloud.fixed .rule {
   width: 1em;
   height: 1em;
   font-size: 38px;
-  background-image: url(../../images/game/start-red.png);
+  background-image: url('../../images/game/start-red.png');
   position: absolute;
   top: 0;
   left: 0;
@@ -4584,8 +4581,8 @@ body > .cloud.fixed .rule {
   height: 1em;
   font-size: 38px;
   /*background-image: url('../../images/game/start-red.png');*/
-  -webkit-mask-image: url(../../images/game/start-red.png);
-  -moz-mask-image: url(../../images/game/start-red.png);
+  -webkit-mask-image: url('../../images/game/start-red.png');
+  -moz-mask-image: url('../../images/game/start-red.png');
   position: absolute;
   top: 0;
   left: 0;
@@ -4774,6 +4771,10 @@ body > .cloud.fixed .rule {
 .poem-page .cell .slider .tile {
   cursor: default !important;
 }
+/*.aaa{
+    .has-tooltip(60px);
+
+}*/
 @-webkit-keyframes blink-shadow {
   from {
     box-shadow: 0 0 15px #f5cf76, 1px 1px 2px #333333, inset -1px -1px 4px #f1a460;
@@ -4931,8 +4932,8 @@ body > .cloud.fixed .rule {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url(../../lib/font-awesome/font/fontawesome-webfont.eot?v=3.2.1);
-  src: url(../../lib/font-awesome/font/fontawesome-webfont.eot?#iefix&v=3.2.1) format('embedded-opentype'), url(../../lib/font-awesome/font/fontawesome-webfont.woff?v=3.2.1) format('woff'), url(../../lib/font-awesome/font/fontawesome-webfont.ttf?v=3.2.1) format('truetype'), url(../../lib/font-awesome/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1) format('svg');
+  src: url('../font/fontawesome-webfont.eot?v=3.2.1');
+  src: url('../font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('../font/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('../font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'), url('../font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -6567,7 +6568,7 @@ button.toast-close-button {
   position: absolute;
   top: 5px;
   left: 5px;
-  background-image: url(../../images/icons/icons.png);
+  background-image: url('icons.png');
   background-repeat: no-repeat;
   font-size: 68.57142857px;
   display: block;
@@ -6586,4 +6587,3 @@ button.toast-close-button {
 .item-icon.storage {
   background-position-y: -60px;
 }
-/*# sourceMappingURL=all.css.map */
