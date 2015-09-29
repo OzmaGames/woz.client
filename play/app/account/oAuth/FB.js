@@ -1,5 +1,7 @@
 ﻿define('account/oAuth/FB', ["durandal/app", "facebook"], function (app) {
 
+      //TODO: implement for IOS and phonegap
+
    app.facebook = app.facebook || {
       authResponse: undefined,
       getProfile: function () {

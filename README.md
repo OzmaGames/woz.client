@@ -18,6 +18,10 @@ gulp serve
 
 every time you change a less/html/js file, the page will be refreshed.
 
+## DEBUG
+
+to change the server url change the following file:
+`play/app/api/server/connection.js`
 
 ## Production more efficient
 

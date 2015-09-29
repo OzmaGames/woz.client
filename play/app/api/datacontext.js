@@ -86,7 +86,9 @@
               //app.navigate('', { replace: true, trigger: true });              
               //history.replaceState({}, '', location.origin);
               //console.log('redirecting to login');
-              window.location = 'http://' + location.host;
+              
+              //TODO: remove the following if you want to deply to web
+              //window.location = 'http://' + location.host;
 
           }).promise();
       }
