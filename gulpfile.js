@@ -3,7 +3,7 @@
     htmlReplace = require('gulp-html-replace'),
     durandal = require('gulp-durandal');
 
-var dest = '/dist', destAlmond = '../dist';
+var dest = '/dist', destAlmond = './dist';
 var less = require('gulp-less');
 var path = require('path');
 
@@ -76,7 +76,24 @@ gulp.task('index-almond', function () {
 
 gulp.task('statics-almond', function () {
     return gulp.src(['**/*.png', '**/*.jpg', '**/*.css', '**/*.ttf', '**/*.woff', '**/*.mp3', '**/*.ogg'])
-        .pipe(gulp.dest(destAlmond));
+        .pipe(gulp.dest(destAlmond + '/static'));
+});
+
+gulp.task('phonegap', ['statics-almond', 'almond-play'], function(){
+    gulp.src('./dist/play/main.js')
+        .pipe(gulp.dest(destAlmond + '/static/play'))
+    
+    gulp.src('./play/lib.min.js')
+        .pipe(gulp.dest(destAlmond + '/static/play'))
+    
+    return gulp.src('./.extra/dev/play/index.html')
+        .pipe(gulp.dest(destAlmond + '/static/play'));
+});
+
+gulp.task('phonegap:serve', ['phonegap'], function() {
+    browserSync.init({
+        server: destAlmond + '/static/play'
+    });
 });
 
 gulp.task('build', ['statics', 'durandal']);
