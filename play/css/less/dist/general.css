@@ -213,11 +213,12 @@ a:visited {
   -o-transition: -o-transform 0.3s ease-in-out;
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
-  -moz-transform: translateY(100px) translateZ(0);
-  -ms-transform: translateY(100px) translateZ(0);
-  -o-transform: translateY(100px) translateZ(0);
-  -webkit-transform: translateY(100px) translateZ(0);
-  transform: translateY(100px) translateZ(0);
+
+  -moz-transform: translateY(5px) translateZ(0);
+  -ms-transform: translateY(5px) translateZ(0);
+  -o-transform: translateY(5px) translateZ(0);
+  -webkit-transform: translateY(5px) translateZ(0);
+  transform: translateY(5px) translateZ(0);
 }
 .palette.fixed {
   right: 0 !important;

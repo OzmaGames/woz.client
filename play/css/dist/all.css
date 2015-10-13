@@ -234,11 +234,11 @@ a:visited {
   -o-transition: -o-transform 0.3s ease-in-out;
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
-  -moz-transform: translateY(100px) translateZ(0);
-  -ms-transform: translateY(100px) translateZ(0);
-  -o-transform: translateY(100px) translateZ(0);
-  -webkit-transform: translateY(100px) translateZ(0);
-  transform: translateY(100px) translateZ(0);
+  -moz-transform: translateY(15px) translateZ(0);
+  -ms-transform: translateY(15px) translateZ(0);
+  -o-transform: translateY(15px) translateZ(0);
+  -webkit-transform: translateY(15px) translateZ(0);
+  transform: translateY(15px) translateZ(0);
 }
 .palette.fixed {
   right: 0 !important;
@@ -249,14 +249,18 @@ a:visited {
 .palette.right {
   right: 20px;
 }
+.main-page-button {
+  /* hide buttons in the main pages*/
+  display: none;
+}
 @media (max-height: 500px) {
-  .palette.fixed {
-    -moz-transform: translateY(5px) translateZ(0);
-    -ms-transform: translateY(5px) translateZ(0);
-    -o-transform: translateY(5px) translateZ(0);
-    -webkit-transform: translateY(5px) translateZ(0);
-    transform: translateY(5px) translateZ(0);
-  }
+  /* .palette.fixed {
+        -moz-transform: translateY(5px) translateZ(0);
+        -ms-transform: translateY(5px) translateZ(0);
+        -o-transform: translateY(5px) translateZ(0);
+        -webkit-transform: translateY(5px) translateZ(0);
+        transform: translateY(5px) translateZ(0);
+    }*/
   #players {
     -moz-transform: translateX(-70px) translateZ(0) !important;
     -ms-transform: translateX(-70px) translateZ(0) !important;
@@ -1656,6 +1660,12 @@ progress::-moz-progress-bar {
   line-height: 120%;
   padding: 10px;
 }
+.dialog .confirm button {
+  padding: .5em 2em;
+}
+.dialog .confirm button.blue {
+  margin-left: 20px;
+}
 .dialog .confirm p {
   padding: 5px 0;
 }
@@ -2021,6 +2031,11 @@ progress::-moz-progress-bar {
 .dialog .panel.wide {
   width: 800px;
 }
+@media screen and (max-width: 900px) {
+  .dialog .panel.wide {
+    width: 700px;
+  }
+}
 .dialog .panel h1 {
   font-weight: normal;
   font-size: 1.5em;
@@ -2261,6 +2276,11 @@ progress::-moz-progress-bar {
   height: 140px;
   background-size: contain;
   background-repeat: no-repeat;
+}
+.longDescription-text {
+  display: block;
+  max-height: 150px;
+  overflow-y: auto;
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -3464,7 +3484,7 @@ i.command.accept {
 }
 i.command.menu {
   background-position: 0 -5em;
-  top: 30px;
+  top: 0;
   position: relative;
   /*font-style: normal;
     .has-tooltip(50px, 12px, true, 12px );
@@ -3616,13 +3636,14 @@ i.command.currency {
   font-style: normal;
   position: relative;
   display: block;
+  top: 60px;
 }
 i.command.currency:after {
   content: "";
   position: absolute;
-  width: 33px;
-  height: 40px;
-  bottom: 0;
+  width: 41px;
+  height: 50px;
+  bottom: -10px;
   left: 22px;
   background: url(../../images/game/currency-wand.png) no-repeat;
   background-size: contain;
@@ -3850,7 +3871,7 @@ hr {
 #players {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 70px;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;

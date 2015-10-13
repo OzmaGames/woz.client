@@ -1,9 +1,13 @@
 ﻿@import '_variables.less';
 @import "tooltip.less";
 
+@action-size: 40px;
+@action-margin: 3px;
+@action-padding: 5px;
+
 .actions {
     background: #faf5ef;
-    padding: 5px;
+    padding: @action-padding;
     border-radius: 8px;
 }
 
@@ -24,11 +28,11 @@
     position: relative;
     display: block;
     border-radius: 3px;
-    width: 40px;
-    height: 40px;
+    width: @action-size;
+    height: @action-size;
     cursor: pointer;
     text-align: center;
-    margin-bottom: 3px;
+    margin-bottom: @action-margin;
 
     &:last-child {
         margin-bottom: 0px;
@@ -40,7 +44,7 @@
 i.action, i.command {
     display: block;
     border-radius: 3px;
-    font-size: 40px;
+    font-size: @action-size;
     width: 1em;
     height: 1em;
     background-image: url('../../images/app/icons.png');
@@ -58,7 +62,7 @@ i.action {
 }
 
 .palette.right i:not(.currency):not(.menu){
-    .has-tooltip(80px, 10px, true, 13px);
+    .has-tooltip(2 * @action-size, (@action-size - 20px) / 2, true, 13px);
 }
 
 i.action:hover:not(.still),
@@ -108,7 +112,7 @@ i.command.accept {
 
 i.command.menu {
     background-position: 0 -5em;
-    top: 30px;
+    top: 0;
     position: relative;
     /*font-style: normal;
     .has-tooltip(50px, 12px, true, 12px );
@@ -149,15 +153,15 @@ i.command:not(:empty):not(.currency) {
     background-image: none;
     border-radius: 3px;
     font-size: 12px;
-    height: 40px;
-    width: 40px;
+    height: @action-size;
+    width: @action-size;
 }
 
 i.action:not(:empty) span,
 i.command:not(:empty):not(.currency) span {
     display: table-cell;
-    height: 40px;
-    width: 40px;
+    height: @action-size;
+    width: @action-size;
     vertical-align: middle;
     text-align: center;
 }
@@ -283,13 +287,15 @@ i.command.currency {
     font-style: normal;
     position: relative;
     display: block;
+    
+    top: 60px;
 
     &:after {
         content: "";
         position: absolute;
-        width: 33px;
-        height: 40px;
-        bottom: 0;
+        width: 41px;
+        height: 50px;
+        bottom: -10px;
         left: 22px;
         background: url(../../images/game/currency-wand.png) no-repeat;
         background-size: contain;

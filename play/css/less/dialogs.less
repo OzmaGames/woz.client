@@ -121,6 +121,14 @@
     text-align: center;
     line-height: 120%;
     padding: 10px;
+    
+    button {
+        padding: .5em 2em;
+    }
+    
+    button.blue {
+        margin-left: 20px;
+    }
 }
 
 .dialog .confirm p {
@@ -535,6 +543,12 @@
     }
 }
 
+@media screen and (max-width: 900px) {
+    .dialog .panel.wide {
+        width: 700px;
+    }
+}
+
 .dialog .panel h1 {
     font-weight: normal;
     font-size: 1.5em;
@@ -774,4 +788,10 @@
         background-size: contain;
         background-repeat: no-repeat;
     }
+}
+
+.longDescription-text {
+    display: block;
+    max-height: 150px;
+    overflow-y: auto;
 }

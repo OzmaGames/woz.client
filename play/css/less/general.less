@@ -207,11 +207,11 @@ a:visited {
     -o-transition: -o-transform .3s ease-in-out;
     -webkit-transition: -webkit-transform .3s ease-in-out;
     transition: transform .3s ease-in-out;
-    -moz-transform: translateY(100px) translateZ(0);
-    -ms-transform: translateY(100px) translateZ(0);
-    -o-transform: translateY(100px) translateZ(0);
-    -webkit-transform: translateY(100px) translateZ(0);
-    transform: translateY(100px) translateZ(0);
+    -moz-transform: translateY(15px) translateZ(0);
+    -ms-transform: translateY(15px) translateZ(0);
+    -o-transform: translateY(15px) translateZ(0);
+    -webkit-transform: translateY(15px) translateZ(0);
+    transform: translateY(15px) translateZ(0);
 }
 
 .palette.fixed {
@@ -226,14 +226,19 @@ a:visited {
     right: 20px;
 }
 
+.main-page-button {
+    /* hide buttons in the main pages*/
+    display: none;
+}
+
 @media (max-height: 500px) {
-    .palette.fixed {
+    /* .palette.fixed {
         -moz-transform: translateY(5px) translateZ(0);
         -ms-transform: translateY(5px) translateZ(0);
         -o-transform: translateY(5px) translateZ(0);
         -webkit-transform: translateY(5px) translateZ(0);
         transform: translateY(5px) translateZ(0);
-    }
+    }*/
 
     #players {
         -moz-transform: translateX(-70px) translateZ(0) !important;
