@@ -110,18 +110,31 @@ a:visited {
     color: @loadingColor;
     margin: 6px 8px 4px 8px;
     opacity: 0;
-    display: none;
     position: relative;
     z-index: 2;
-    -moz-transition: opacity .2s;
-    -o-transition: opacity .2s;
-    -webkit-transition: opacity .2s;
-    transition: opacity .2s;
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    
+    i {
+        display: none;
+        transition: all 0;
+        transition-delay: 1s;
+    }
 }
 
 .loader.active {
     display: block;
+    -webkit-transform: translateY(35px);
+    transform: translateY(35px);
     opacity: 1;
+    
+    i {
+        display: block;
+    }
 }
 
 .loader.page {
@@ -214,16 +227,21 @@ a:visited {
     transform: translateY(15px) translateZ(0);
 }
 
-.palette.fixed {
-    right: 0 !important;
-}
-
 .palette.left {
     left: 20px;
+    
+    &.fixed {
+        top: -15px;
+        left: 0px;
+    }
 }
 
 .palette.right {
     right: 20px;
+    
+    &.fixed {
+        right: 0;
+    }
 }
 
 .main-page-button {
@@ -410,6 +428,8 @@ a.small {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    
+    padding-left: 20px;
 }
 
 .grid article {
@@ -423,7 +443,7 @@ a.small {
     vertical-align: top;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 785px) {
     .grid article {
         width: 100%;
     }

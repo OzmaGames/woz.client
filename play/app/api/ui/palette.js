@@ -4,12 +4,16 @@
       var base = this;
 
       this.items = ko.observableArray( [
-         new Palette.Icon( "menu", "command", "fixed", null, "menu" ),
+         new Palette.Icon( "menu", "command", "left-fixed", null, "menu" ),
          new Palette.Icon( "currency", "command", "fixed", 0 ),
          new Palette.Icon( "fullscreen", "command", "fixed" )
       ] );
 
       this.fixedItemsCount = 3;
+
+      this.leftFixedItems = ko.computed(function() {
+         return ko.utils.arrayFilter( base.items(), function ( item ) { return item.place === 'left-fixed'; } );
+      });
 
       this.fixedItems = ko.computed( function () {
          return ko.utils.arrayFilter( base.items(), function ( item ) { return item.place == "fixed"; } );

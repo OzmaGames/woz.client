@@ -150,17 +150,28 @@ a:visited {
   color: #713b00;
   margin: 6px 8px 4px 8px;
   opacity: 0;
-  display: none;
   position: relative;
   z-index: 2;
-  -moz-transition: opacity .2s;
-  -o-transition: opacity .2s;
-  -webkit-transition: opacity .2s;
-  transition: opacity .2s;
+  -webkit-transform: translateY(50px);
+  transform: translateY(50px);
+  -moz-transition: all .2s;
+  -o-transition: all .2s;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+.loader i {
+  display: none;
+  transition: all 0;
+  transition-delay: 1s;
 }
 .loader.active {
   display: block;
+  -webkit-transform: translateY(35px);
+  transform: translateY(35px);
   opacity: 1;
+}
+.loader.active i {
+  display: block;
 }
 .loader.page {
   position: fixed;
@@ -240,14 +251,18 @@ a:visited {
   -webkit-transform: translateY(15px) translateZ(0);
   transform: translateY(15px) translateZ(0);
 }
-.palette.fixed {
-  right: 0 !important;
-}
 .palette.left {
   left: 20px;
 }
+.palette.left.fixed {
+  top: -15px;
+  left: 0px;
+}
 .palette.right {
   right: 20px;
+}
+.palette.right.fixed {
+  right: 0;
 }
 .main-page-button {
   /* hide buttons in the main pages*/
@@ -401,6 +416,7 @@ a.big {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  padding-left: 20px;
 }
 .grid article {
   display: inline-block;
@@ -412,7 +428,7 @@ a.big {
   padding: 10px;
   vertical-align: top;
 }
-@media (max-width: 768px) {
+@media (max-width: 785px) {
   .grid article {
     width: 100%;
   }
@@ -1752,14 +1768,14 @@ progress::-moz-progress-bar {
   position: relative;
   z-index: 11;
   margin: 0 auto;
-  width: 150px;
-  right: -10px;
-  background-image: url('../../images/app/menu-background.png');
-  background-size: cover;
+  width: 200px;
+  left: -40px;
   text-align: center;
   line-height: 120%;
   padding: 2em 0 2em 1.5em;
   cursor: pointer;
+  background-image: url('../../images/app/menu-background.png');
+  background-size: cover;
 }
 .dialog .control {
   position: absolute;
@@ -2730,10 +2746,12 @@ button.menuItem {
   border-radius: 4px;
   margin: .3em 0;
   padding: .5em 1em;
+  margin-left: -4em;
+  padding-left: 8.2em;
   width: 15em;
   text-align: left;
   position: relative;
-  padding-left: 2.2em;
+  padding-right: 2.2em;
 }
 button.menuItem i {
   background: url(../../images/app/menu.png) no-repeat;
@@ -2744,7 +2762,7 @@ button.menuItem i {
   overflow: hidden;
   display: block;
   position: absolute;
-  left: 5px;
+  right: 115px;
   top: 4px;
 }
 button.menuItem i.mi-new {
@@ -3485,7 +3503,8 @@ i.command.accept {
 i.command.menu {
   background-position: 0 -5em;
   top: 0;
-  position: relative;
+  left: 0;
+  position: absolute;
   /*font-style: normal;
     .has-tooltip(50px, 12px, true, 12px );
 
