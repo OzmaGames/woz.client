@@ -7,6 +7,7 @@ requirejs.config({
       'crypto.sha3': '../lib/crypto.sha3',
       //'facebook': '//connect.facebook.net/en_US/all',
       'facebook': '../lib/facebook',
+      'woz.transit': '../lib/jquery.transit',
        //'firebase': '//cdn.firebase.com/js/client/1.0.11/firebase',
       //'firebase': '../lib/firebase',
       'sounds': '../sounds'

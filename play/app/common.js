@@ -1,7 +1,7 @@
 ﻿"use strict";
 define( ['durandal/system', 'durandal/app', 'plugins/router',
     'dialogs/_builder', 'api/server/setup', 'api/datacontext', 'api/ui/palette',
-    '../lib/jquery.transit', '../lib/jquery.touch-punch', '../lib/crypto.sha3', 'api/knockout',
+    'woz.transit', 'common.touch', 'crypto.sha3', 'api/knockout',
     'common.screen', 'api/helper/Task', 'api/helper/issueTracker'],
    function ( system, app, router, Dialog, server, ctx, palette ) {
 
