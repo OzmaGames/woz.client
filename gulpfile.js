@@ -22,6 +22,16 @@ gulp.task('default', ['less'], function() {
   gulp.watch('./play/**/*.less', ['less']);
 });
 
+gulp.task('serve:app', [], function() {
+
+    browserSync.init({
+        server: "./"
+    });
+
+    gulp.watch("./**/*.html").on('change', browserSync.reload);
+    gulp.watch("./**/*.js").on('change', browserSync.reload);
+});
+
 gulp.task('serve', ['less'], function() {
 
     browserSync.init({
@@ -32,7 +42,6 @@ gulp.task('serve', ['less'], function() {
     gulp.watch("./play/**/*.html").on('change', browserSync.reload);
     gulp.watch("./play/**/*.js").on('change', browserSync.reload);
 });
-
 
 
 gulp.task('statics', function () {

@@ -1220,3 +1220,20 @@ footer {
         transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
         text-align: center;
     }
+
+.notice-board {
+    display: block;
+    background-color: white;
+    color: #986b31;
+    
+    position: absolute;
+    z-index: 5;
+    top: 211px;
+    
+    text-align: center;
+    
+    padding: 20px;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    padding-top: 10px;
+}

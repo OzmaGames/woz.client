@@ -2,7 +2,7 @@
 define( ['durandal/system', 'durandal/app', 'plugins/router',
     'dialogs/_builder', 'api/server/setup', 'api/datacontext', 'api/ui/palette',
     'woz.transit', 'common.touch', 'crypto.sha3', 'api/knockout',
-    'common.screen', 'api/helper/Task', 'api/helper/issueTracker'],
+    'common.screen', 'api/helper/Task', 'api/helper/issueTracker', 'common.modules'],
    function ( system, app, router, Dialog, server, ctx, palette ) {
 
       var loading = ko.observable( false );

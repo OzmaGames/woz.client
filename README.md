@@ -71,3 +71,14 @@ after your changes to any js/html files, just do the [GAME main.js section](game
 copy config.xml (perhaps take a look at the recent changes of phoneGap) to the same directory
 
 zip everything in dist/static/play folder
+
+
+# Want to add a new 3rd party lib to the game
+If it is a lib that you will need during the build phase, just include it in the package.json
+
+If you need to use the lib during the runtime of the game do as follows:
+
+1. Download the script.
+2. Paste the content of the file inside the ./play/common.modules.js where the comment is.
+
+if there is already some code there, just prepend to the top of that script
