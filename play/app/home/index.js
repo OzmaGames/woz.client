@@ -3,7 +3,7 @@
 
      function viewChange( viewModel ) {
         app.loading( true );
-        app.dialog.show( "panel", viewModel, {
+        app.dialog.show( "panel-empty", viewModel, {
            compositionComplete: function () {
               $( 'input[autofocus]' ).focus();
               app.loading( false );

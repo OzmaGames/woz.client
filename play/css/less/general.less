@@ -118,7 +118,7 @@ a:visited {
     -o-transition: all .2s;
     -webkit-transition: all .2s;
     transition: all .2s;
-    
+
     i {
         display: none;
         transition: all 0;
@@ -131,7 +131,7 @@ a:visited {
     -webkit-transform: translateY(35px);
     transform: translateY(35px);
     opacity: 1;
-    
+
     i {
         display: block;
     }
@@ -181,7 +181,7 @@ a:visited {
 }
 
 #login-page .bottom {
-    bottom: 20px;
+    bottom: 0;
 }
 
 #login-page .top {
@@ -213,6 +213,33 @@ a:visited {
     background-size: contain;
 }
 
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px)
+  and (orientation: portrait)  {
+  #login-page .bottom {
+    bottom: 100px;
+  }
+
+  #login-page .top {
+    top: 60px;
+  }
+}
+
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px)
+  and (orientation: landscape) {
+  #login-page {
+    .background.logo {
+      background-size: 70%;
+    }
+  }
+  #login-page .top {
+    top: 10px;
+  }
+}
+
 .palette {
     position: fixed;
     z-index: 99;
@@ -229,7 +256,7 @@ a:visited {
 
 .palette.left {
     left: 20px;
-    
+
     &.fixed {
         top: -15px;
         left: 0px;
@@ -238,7 +265,7 @@ a:visited {
 
 .palette.right {
     right: 20px;
-    
+
     &.fixed {
         right: 0;
     }
@@ -428,7 +455,7 @@ a.small {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    
+
     padding-left: 20px;
 }
 
@@ -1393,11 +1420,11 @@ a.small {
         &.lim {
             background-image: url('../../images/tiles/collections/shop-lim.png');
         }
-        
+
         &.lim_boost1, &.lim-boost1 {
             background-image: url('../../images/tiles/collections/shop-lim-booster.png');
         }
-        
+
         &.nf {
             background-image: url('../../images/tiles/collections/shop-nf.png');
         }
@@ -1701,13 +1728,13 @@ progress::-moz-progress-bar {
         top: 4px;
         font-size: 15px;
         content: 'Prices includes 25% VAT in EU.';
-        line-height: 2em;        
+        line-height: 2em;
     }
 }
 
 .faq {
     h1{
-        margin-bottom: .5em; 
+        margin-bottom: .5em;
     }
 
     ul {

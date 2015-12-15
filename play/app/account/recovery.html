@@ -1,17 +1,41 @@
-﻿<h1>Recover password</h1>
+﻿<div class="login-page">
+  <div class="login-tile girl active">
+    <div class="card">
+      <div class="front">
+        <div class="no-prison">
+          <!--<div class="label">BETA VERSION</div>-->
 
-<i class="command close" data-bind="click:login"></i>
+        </div>
+      </div>
+      <div class="back">
 
-<form data-bind="verifiableSubmit: recover">   
-   <p>Enter your email address bellow and you will receive an e-mail shortly giving you instruction to change your password.</p>
+<h1>Recover password</h1>
+
+<br />
+<br />
+
+<form data-bind="verifiableSubmit: recover">
+    <p data-bind="if: !success()">Enter your email address bellow and you will receive an e-mail shortly giving you instruction to change your password.</p>
+    <p data-bind="if: success()" style="color: green">
+        We have sent you the instruction to change your password. Please check your email.
+    </p>
    <br />
-   <input type="email" placeholder="email" data-bind="verifiableValue: email" autofocus />
-   <span class="error" data-bind="text: email.errorMessage"></span>
+    <input type="email" placeholder="E-mail" data-bind="verifiableValue: email, disable: loading() || success()" autocorrect="off" autocapitalize="off" />
+    <span class="error" data-bind="text: email.validationMessage"></span>
+
 
    <p class="error" data-bind="text: errorMessage"></p>
 
-   <button class="blue" type="submit" data-bind="disable: loading()">
+   <button class="blue" type="submit" data-bind="disable: loading() || success()" style="font-size: 16px;">
       <span>Send Request</span>
       <!--<i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>-->
    </button>
+   <i data-bind="click: back" class="goback" title="Go Back"></i>
 </form>
+
+
+      </div>
+    </div>
+    <div class="phrases"></div>
+  </div>
+</div>

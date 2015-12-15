@@ -1,27 +1,42 @@
-﻿<!--<h1>Join The Game!</h1>-->
-<div style="position:relative; overflow:hidden;">
-   <button class="facebook" data-bind="enable: facebookLogin && !loading(), click:facebook">login with facebook</button>
-   <div class="facebook profile" data-bind="if: facebookProfile">
-      <div class="avatar btn"></div>
-      <div class="avatar" data-bind="style: {backgroundImage: 'url(\'https://graph.facebook.com/'+ facebookProfile().id +'/picture?width=100&height=100\')'}"></div>
-      <div class="name" data-bind="text: facebookProfile().name">Ali Arafati</div>
-   </div>
+﻿<div class="login-page">
+  <div class="login-tile girl active">
+    <div class="card">
+      <div class="front">
+        <div class="no-prison">
+          <!--<div class="label">BETA VERSION</div>-->
+
+        </div>
+      </div>
+      <div class="back">
+
+          <div style="margin-top:1em;">
+            <div style="position:relative; margin-bottom: 1em;">
+              <button class="facebook" data-bind="enable: facebookLogin && !loading(), click:facebook">
+                login with facebook
+                <div class="tooltip-footnote">We'll <b>never</b> post anything without your permission.</div>
+              </button>
+            </div>
+            <p class="or">or</p>
+
+            <form data-bind="verifiableSubmit: login">
+              <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username, disable: loading, attr: { autofocus: !hasUsername }"
+              autocorrect="off" autocapitalize="off" />
+              <span class="error" data-bind="text: username.validationMessage"></span>
+              <input type="password" placeholder="Password" data-bind="verifiableValue: password, disable: loading, attr: { autofocus: hasUsername }"
+              />
+              <span class="error" data-bind="text: password.validationMessage"></span>
+
+              <p class="error sum" data-bind="text: errorMessage"></p>
+
+              <button class="blue" type="submit" data-bind="disable: loading">LOG IN</button>
+            </form>
+            <hr />
+            <a class="block link big space" data-bind="click: signUp">SIGN UP!</a>
+            <a style="font-size: 12px; font-family: Cambria" class="block link small" data-bind="click: recover">Forgot password?</a>
+          </div>
+
+      </div>
+    </div>
+    <div class="phrases"></div>
+  </div>
 </div>
-<p>or</p>
-
-<form data-bind="verifiableSubmit: login">
-   <input type="text" placeholder="Username or e-mail" data-bind="verifiableValue: username, disable: loading, attr: { autofocus: !hasUsername }" autocorrect="off" autocapitalize="off" />
-   <span class="error" data-bind="text: username.validationMessage"></span>
-   <input type="password" placeholder="Password" data-bind="verifiableValue: password, disable: loading, attr: { autofocus: hasUsername }" />
-   <span class="error" data-bind="text: password.validationMessage"></span>
-
-   <p class="error" data-bind="text: errorMessage"></p>
-
-   <button class="blue" type="submit" data-bind="disable: loading">
-      <span>LOG IN</span>
-      <!--<i data-bind="visible: loading()" class="icon-spinner icon-spin"></i>-->
-   </button>
-</form>
-
-<a class="block link big space" data-bind="click: signUp">SIGN UP</a>
-<!--<a class="block link small" data-bind="click: recover">recover password</a>-->
