@@ -65,6 +65,7 @@
     };
 
     ctor.prototype.login = function (el) {
+        app.Sound.play( app.Sound.sounds.click.button );
         app.loading(true);
 
         var data = {
@@ -74,10 +75,22 @@
 
         var base = this;
         app.trigger("server:account:login", data, function (res) {
+           app.loading(false);
             if (res.success) {
-                app.trigger('account:login', res);
+                app.dialog.close( "panel" );
+                app.trigger( 'toContext:account:login', res );
+                app.trigger( 'account:login', res );
+
+               if ( app.ctx.needTutorial ) {
+                 app.navigate( "tutorial" );
+               } else {
+                if ( ctx.nextRoute ) {
+                    app.navigate( ctx.nextRoute );
+                } else {
+                    app.navigate( "lobby" );
+                }
+               }
             } else {
-                app.loading(false);
                 base.errorMessage(res.message);
             }
         });

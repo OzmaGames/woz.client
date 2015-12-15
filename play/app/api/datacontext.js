@@ -76,6 +76,8 @@
       }).promise();
 
       model.logout = function () {
+        app.dialog.closeAll();
+              
           model.auth = $.Deferred(function (dfd) {
               dfd.reject();
 
@@ -83,10 +85,10 @@
               model.loading(false);
               model.token = null;
               localStorage.removeItem("token");
-              //app.navigate('', { replace: true, trigger: true });              
-              //history.replaceState({}, '', location.origin);
+              app.navigate('', { replace: true, trigger: true });
+              history.replaceState({}, '', location.origin);
               //console.log('redirecting to login');
-              
+
               //TODO: remove the following if you want to deply to web
               //window.location = 'http://' + location.host;
 
@@ -377,7 +379,7 @@
                               };
 
                               data.xp = json.stats.xp;
-                              
+
                               app.dialog.showProfileNoOverlay(ctx.player.username);
                               app.dialog.show("notice", { model: data, view: 'dialogs/pages/GameOver', closeOnClick: false }).then(function (nextStepFunc) {
                                   if (json.stats.levelUp) {
@@ -387,7 +389,7 @@
                                       } else {
                                           app.Sound.play(app.Sound.sounds.game.levelUp);
                                       }
-                                      
+
                                       app.dialog.show("notice", {
                                           model: json.stats, view: json.stats.title ? 'dialogs/pages/LevelUpTitle' : 'dialogs/pages/LevelUp'
                                       }).then(function () {

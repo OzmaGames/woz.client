@@ -27,6 +27,7 @@
         errorMessage: ko.observable(),
 
         signUp: function () {
+          app.Sound.play( app.Sound.sounds.click.button );
             app.loading(true);
 
             var data = {
@@ -37,19 +38,26 @@
 
             var base = this;
             app.trigger("server:account:sign-up", data, function (res) {
-
+                app.loading(false);
                 if (res.success) {
                     app.trigger("server:account:login", data, function (res) {
-                        if (res.success) {
-                            res.signedup = true;
-                            app.trigger('account:login', res);
-                        } else {
-                            app.loading(false);
-                            base.errorMessage(res.message);
-                        }
+                      if (res.success) {
+                        res.username = data.username;
+                        localStorage.removeItem( "tutorial" );
+                        app.dialog.close( "panel-empty" );
+
+                        app.trigger( 'toContext:account:login', res );
+                        app.trigger( 'account:login', res );
+
+                        res.signedup = true;
+                        app.fromSignUp = true;
+                        app.navigate( "tutorial" );
+                      } else {
+                          base.errorMessage(res.message);
+                      }
                     });
                 } else {
-                    app.loading(false);
+
                     base.errorMessage(res.message);
                 }
             });
