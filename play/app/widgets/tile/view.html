@@ -1,6 +1,7 @@
-﻿<div class="tile active">
+﻿<div class="tile" data-bind="css: settings.notActive? '': 'active'">
    <div class="tile-circle" data-bind="css: settings.tile.imageName? '': 'empty'">
       <div data-part="text"></div>
+      <div data-part="cloud"></div>
       <div data-bind="if: 'imageName' in settings.tile, css: settings.tile.imageName? 'mask': ''">
          <div class="big" data-bind="style: { backgroundImage: 'url(\'' + settings.tile.imageName + '\')' }"></div>
       </div>

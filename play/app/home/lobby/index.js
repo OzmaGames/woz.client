@@ -23,7 +23,7 @@
       } else if ( tabIndex == 2 ) {
          parser.loadArchive();
       }
-   
+
       this.compose().view =
          tabIndex == 1 ? 'home/lobby/notifications' : 'home/lobby/games';
 
@@ -33,7 +33,7 @@
 
       var base = this;
       base.loading( false );
-      
+
       return $.Deferred( function ( dfd ) { Task.run( function () { dfd.resolve(); }, 100 ); } );
    }
 
@@ -72,9 +72,9 @@
       });
    };
 
-   Index.prototype.start = function () {      
+   Index.prototype.start = function () {
        app.Sound.play(app.Sound.sounds.click.button);
-      
+
       app.navigate( "newGame" );
    };
 

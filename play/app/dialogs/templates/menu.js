@@ -1,10 +1,11 @@
 ﻿define(['durandal/app', 'plugins/router'], function (app, router) {
 
     var items = [
-      { text: "New Game", hash: 'newGame', icon: 'mi-new' },
-      { text: "Shop", hash: 'shop', icon: 'mi-shop' },
-      { text: "My Games", hash: 'lobby', icon: 'mi-lobby' },
-      { text: "My Poems", hash: 'poems', icon: 'mi-poems' },
+      // { text: "New Game", hash: 'newGame', icon: 'mi-new' },
+      // { text: "Shop", hash: 'shop', icon: 'mi-shop' },
+      // { text: "My Games", hash: 'lobby', icon: 'mi-lobby' },
+      // { text: "My Poems", hash: 'poems', icon: 'mi-poems' },
+      { text: "home", hash: 'start', icon: 'mi-shop' },
       { text: "settings", hash: 'settings', icon: 'mi-settings' },
       { text: "tutorial", hash: 'tutorial/new', icon: 'mi-tutorial' },
       {
@@ -68,7 +69,7 @@
     };
 
     Menu.prototype.activate = function (data) {
- 
+
     };
 
     Menu.prototype.bindingComplete = function (el) {

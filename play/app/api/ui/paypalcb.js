@@ -23,7 +23,7 @@
                 } else {
                     ga('send', 'event', 'paypal', 'error');
 
-                    app.navigate('#newGame');
+                    app.navigate('start');
                     Task.run(function () {
                         app.dialog.showBesozCancel();
                     }, 1000);

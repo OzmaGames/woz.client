@@ -87,7 +87,7 @@
                 if ( ctx.nextRoute ) {
                     app.navigate( ctx.nextRoute );
                 } else {
-                    app.navigate( "lobby" );
+                    app.navigate( "start" );
                 }
                }
             } else {

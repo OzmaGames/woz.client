@@ -164,7 +164,7 @@
                               if ( ctx.tutorialObject().id >= ctx.tutorialObject().total - 1 ) {
                                  app.trigger( "server:tutorial:skip", { username: model.username } );
                                  app.dialog.show( "notice", { view: 'dialogs/pages/TutorialEnd' } ).then( function () {
-                                    app.navigate( 'newGame' );
+                                    app.navigate( 'start' );
                                  } );
                               } else {
                                  app.dialog.show( "notice", { view: 'dialogs/pages/TutorialNext' } ).then( function () {

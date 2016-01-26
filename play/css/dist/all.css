@@ -1791,7 +1791,7 @@ progress::-moz-progress-bar {
   padding: 2em 0 2em 1.5em;
   cursor: pointer;
   background-image: url('../../images/app/menu-background.png');
-  background-size: cover;
+  background-size: 230px 296px;
 }
 .dialog .control {
   position: absolute;
@@ -6967,4 +6967,75 @@ button.toast-close-button {
 }
 .item-icon.storage {
   background-position-y: -60px;
+}
+.woz-start-page {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+}
+.woz-start-page .woz-start-page-tile-sm .tile {
+  font-size: 150px;
+}
+.woz-start-page .woz-start-page-tile-sm .tile .cloud .rule {
+  padding: 5px 10px 0 5px;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.7);
+  color: #986b31;
+  line-height: 2em;
+  font-size: 35px;
+  text-shadow: -1px -1px 0px white;
+  white-space: nowrap;
+  font-family: GreatVibesRegular !important;
+}
+.woz-start-page .woz-start-page-tile-sm .tile .cloud .rule span {
+  position: relative;
+  top: -10px;
+}
+.woz-start-page .woz-start-page-tile-lg .tile {
+  font-size: 320px;
+}
+.woz-start-page:not(.page-init) :not(.woz-start-page-tile-lg) .tile {
+  transition-timing-function: cubic-bezier(0.17, 0.5, 0.21, 1.36);
+}
+.woz-start-page:not(.page-init) .tile-new-game .tile {
+  transition-duration: 0.5s;
+  transform: translate3d(-218.23529412px, -148.23529412px, 0);
+}
+.woz-start-page:not(.page-init) .tile-new-game .tile .cloud {
+  transform: translate3d(90px, 20px, 0);
+}
+.woz-start-page:not(.page-init) .tile-new-game .tile .cloud .rule span {
+  left: -25px;
+}
+.woz-start-page:not(.page-init) .tile-my-poems .tile {
+  transition-duration: 0.65s;
+  transform: translate3d(208.23529412px, -158.23529412px, 0);
+}
+.woz-start-page:not(.page-init) .tile-my-poems .tile .cloud {
+  transform: translate3d(-90px, 40px, 0);
+}
+.woz-start-page:not(.page-init) .tile-my-poems .tile .cloud .rule span {
+  left: -25px;
+}
+.woz-start-page:not(.page-init) .tile-my-games .tile {
+  transition-duration: 0.8s;
+  transform: translate3d(-228.23529412px, 188.23529412px, 0);
+}
+.woz-start-page:not(.page-init) .tile-my-games .tile .cloud {
+  transform: translate3d(90px, 110px, 0);
+}
+.woz-start-page:not(.page-init) .tile-my-games .tile .cloud .rule span {
+  left: -25px;
+}
+.woz-start-page:not(.page-init) .tile-shop .tile {
+  transition-duration: 0.95s;
+  transform: translate3d(248.23529412px, 138.23529412px, 0);
+}
+.woz-start-page:not(.page-init) .tile-shop .tile .cloud {
+  transform: translate3d(-90px, 110px, 0);
+}
+.woz-start-page:not(.page-init) .tile-shop .tile .cloud .rule span {
+  left: 0px;
 }

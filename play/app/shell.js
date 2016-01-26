@@ -46,7 +46,7 @@
          } );
       },
 
-      activate: function () {       
+      activate: function () {
          ga('create', 'UA-39481639-3', 'auto');
 
          router.on('router:navigation:complete', function (instance, instruction) {
@@ -55,19 +55,20 @@
                  ga('set', 'page', instruction.fragment.substr(0, index));
              } else {
                  ga('set', 'page', instruction.fragment);
-             }             
-             ga('send', 'pageview');                          
+             }
+             ga('send', 'pageview');
          });
          return router.map( [
-            { route: ['', 'login', 'login/:route'], moduleId: 'home/index', title: '' },            
-            { route: 'test', moduleId: 'home/test', title: 'Test' },
+            { route: ['', 'login', 'login/:route'], moduleId: 'home/index', title: '' },
+            { route: 'start', moduleId: 'home/start', title: 'Start' },
+            // { route: 'test', moduleId: 'home/test', title: 'Test' },
             { route: 'lobby', moduleId: 'home/lobby/index', title: 'My Games', nav: true },
             { route: 'poems', moduleId: 'home/poem/index', title: 'My Poems', nav: true },
             { route: 'shop', moduleId: 'home/shop/index', title: 'Shop', nav: true },
             { route: 'shop/:id', moduleId: 'home/shop/index', title: 'Shop' },
             { route: 'settings', moduleId: 'home/settings', title: 'Settings', nav: true },
             { route: 'help', moduleId: 'home/help', title: 'Help - FAQ', nav: true },
-            { route: 'sound', moduleId: 'home/sound', title: 'Sound Debugger', nav: true },
+            // { route: 'sound', moduleId: 'home/sound', title: 'Sound Debugger', nav: true },
             { route: 'newGame', moduleId: 'home/newGame', title: 'New Game', nav: true },
             { route: 'singlePlayer', moduleId: 'home/singlePlayer', title: 'Loading the game' },
             { route: 'nextTutorial', moduleId: 'home/nextTutorial', title: 'Loading the game' },
@@ -77,12 +78,12 @@
             { route: 'game/:id', moduleId: 'game/game', title: 'Play' },
             { route: 'tutorial', moduleId: 'game/game', title: 'Tutorial', nav: true },
             { route: 'tutorial/:id', moduleId: 'game/game', title: 'Tutorial' },
-            { route: 'game-editor', moduleId: 'game-editor/menu', title: 'Game Editor' },
-            {
-               title: 'Game Editor - Edit',
-               route: 'game-editor/edit/:id',
-               moduleId: 'game-editor/edit'
-            },
+            // { route: 'game-editor', moduleId: 'game-editor/menu', title: 'Game Editor' },
+            // {
+            //    title: 'Game Editor - Edit',
+            //    route: 'game-editor/edit/:id',
+            //    moduleId: 'game-editor/edit'
+            // },
             {
                route: 'account*details',
                moduleId: 'account/index',

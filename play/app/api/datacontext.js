@@ -77,7 +77,7 @@
 
       model.logout = function () {
         app.dialog.closeAll();
-              
+
           model.auth = $.Deferred(function (dfd) {
               dfd.reject();
 
@@ -357,7 +357,7 @@
                                   data = module.LOST();
                               }
                               if (model.player.resigned()) {
-                                  app.navigate("lobby");
+                                  app.navigate("start");
                                   return;
                               } else if (model.players()[0].resigned() || (model.playerCount == 2 && model.players()[1].resigned())) {
                                   data = module.RESIGNED();

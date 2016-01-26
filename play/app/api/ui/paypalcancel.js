@@ -6,10 +6,10 @@
         activate: function () {
             ga('send', 'event', 'paypal', 'canceled');
 
-            app.navigate('#newGame');
+            app.navigate('start');
             Task.run(function () {
                 app.dialog.showBesozCancel();
-            }, 1000);            
+            }, 1000);
         },
         loading: app.loading
     };

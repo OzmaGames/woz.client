@@ -1,0 +1,101 @@
+.woz-start-page {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  position: absolute;
+
+  overflow: hidden;
+
+  @tile-size-sm: 150px;
+  @tile-size-lg: 320px;
+  @distance-ratio: 1.7;
+
+  .woz-start-page-tile-sm {
+    .tile {
+      font-size: @tile-size-sm;
+
+      .cloud {
+        .rule {
+          padding: 5px 10px 0 5px;
+          background-color: rgba(255,255,255,.7);
+          box-shadow: 0 0 5px 5px rgba(255,255,255, .7);
+          color: #986b31;
+          line-height: 2em;
+          font-size: 35px;
+          text-shadow: -1px -1px 0px white;
+          white-space: nowrap;
+
+          .curly();
+
+          span {
+            position: relative;
+            top: -10px;
+          }
+        }
+      }
+    }
+  }
+
+  .woz-start-page-tile-lg {
+    .tile {
+      font-size: @tile-size-lg;
+    }
+  }
+
+  @anim-time-duration: .5s;
+  @anim-time-step: .15s;
+
+  &:not(.page-init) {
+    :not(.woz-start-page-tile-lg) .tile {
+      transition-timing-function: cubic-bezier(0.17, 0.5, 0.21, 1.36);
+    }
+
+    .tile-new-game .tile {
+      transition-duration: @anim-time-duration;
+      transform: translate3d(-@tile-size-lg / @distance-ratio - 30px, -@tile-size-lg / @distance-ratio + 40px, 0);
+      .cloud {
+        transform: translate3d(90px, 20px, 0);
+        .rule span {
+            left: -25px;
+        }
+      }
+    }
+
+    .tile-my-poems .tile {
+      transition-duration: @anim-time-duration + @anim-time-step;
+      transform: translate3d(@tile-size-lg / @distance-ratio + 20px, -@tile-size-lg / @distance-ratio + 30px, 0);
+
+      .cloud {
+        transform: translate3d(-90px, 40px, 0);
+        .rule span {
+            left: -25px;
+        }
+      }
+    }
+
+    .tile-my-games .tile {
+      transition-duration: @anim-time-duration + 2 * @anim-time-step;
+      transform: translate3d(-@tile-size-lg / @distance-ratio - 40px, @tile-size-lg / @distance-ratio, 0);
+
+      .cloud {
+        transform: translate3d(90px, 110px, 0);
+        .rule span {
+            left: -25px;
+        }
+      }
+    }
+
+    .tile-shop .tile {
+      transition-duration: @anim-time-duration + 3 * @anim-time-step;
+      transform: translate3d(@tile-size-lg / @distance-ratio + 60px, @tile-size-lg / @distance-ratio - 50px, 0);
+
+      .cloud {
+        transform: translate3d(-90px, 110px, 0);
+        .rule span {
+            left: 0px;
+        }
+      }
+    }
+  }
+}

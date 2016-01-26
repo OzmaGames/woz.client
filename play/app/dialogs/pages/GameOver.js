@@ -35,13 +35,13 @@
         WON: {
             heading: "Congratulations!",
             content: "You won the game, scoring {{scored}} points.",
-            btnText: "Great!",            
+            btnText: "Great!",
             stats: 'won'
         },
         LOST: {
             heading: "Good luck next time!",
             content: "You lost the game, scoring {{scored}} points.",
-            btnText: "Dismiss!",            
+            btnText: "Dismiss!",
             stats: 'lost'
         },
         SOLO: {
