@@ -114,7 +114,7 @@
       phrasePlaced: '{{lastPlayer}} placed: {{lastPhrase}} for {{lastScore}} points',
       noPhrase: 'has not been played yet',
       playerScored: '{{winner}} scored {{winnerScore}} points.',
-      playerWon: '{{winner}} won the game with {{winnerScore}} over {{loserScore}} points.'
+      playerWon: '{{player}} scored {{playerScore}} and {{opponent}} scored {{opponentScore}} points.'
    }
 
    var augments = {
@@ -159,6 +159,16 @@
          var loser = getLoser( g );
          return $( "<span/>", { 'class': 'point', text: loser.score } ).get( 0 ).outerHTML;
       },
+
+      playerScore: function ( g, style ) {
+         var player = getPlayer( g );
+         return $( "<span/>", { 'class': 'point', text: player.score } ).get( 0 ).outerHTML;
+      },
+      opponentScore: function ( g, style ) {
+         var opponent = getOpponent( g );
+         return $( "<span/>", { 'class': 'point', text: opponent.score } ).get( 0 ).outerHTML;
+      },
+
       player: function () {
          return $( "<span/>", { 'class': 'bold', text: 'You' } ).get( 0 ).outerHTML;
       },
@@ -183,9 +193,9 @@
          } else {
             if ( g.over ) {
                if ( getWinner( g ).username == ctx.username ) {
-                  return str + resolveRes( 'You won a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g );
+                  return str + resolveRes( 'Poem completed with {{opponent}}! Score: {{playerScore}} over {{opponentScore}} points.', g );
                } else {
-                  return str + resolveRes( 'You lost a game against {{opponent}}. Score: {{winnerScore}} over {{loserScore}} points.', g );
+                  return str + resolveRes( 'Poem completed with {{opponent}}! Score: {{playerScore}} over {{opponentScore}} points.', g );
                }
             }
          }
@@ -288,7 +298,7 @@
               } )
            }, {
               title: 'Their Turn',
-              empty: 'You have no ongoing games where it\'s your opponents turn.',
+              empty: 'You have no ongoing games where it\'s your co-player\'s turn.',
               games: ko.computed( function () {
                  return ko.utils.arrayFilter( onGoings(), function ( g ) {
                     return !getPlayer( g ).active;

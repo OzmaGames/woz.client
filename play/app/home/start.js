@@ -34,10 +34,10 @@
               app.navigate('newGame');
               break;
             case 2:
-              router.navigate('poems');
+              router.navigate('lobby');
               break;
             case 3:
-              app.navigate('lobby');
+              app.navigate('poems');
               break;
             case 4:
               app.navigate('shop');

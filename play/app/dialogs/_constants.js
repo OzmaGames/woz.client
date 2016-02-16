@@ -12,8 +12,8 @@
       },
 
       THEIR_TURN: {
-         heading: "IT'S YOUR OPPONENT'S TURN!",
-         content: "Work on your masterpiece while you wait for your opponent to place a phrase."
+         heading: "IT'S YOUR CO-PLAYER'S TURN!",
+         content: "Work on your masterpiece while you wait for your co-player to place a phrase."
       },
 
       CIRCLE_WORDS: {

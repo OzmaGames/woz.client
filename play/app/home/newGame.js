@@ -9,8 +9,8 @@
            className: 'icon-group'
        }, {
            id: 1,
-           title: 'random opponent',
-           description: 'Find an opponent automatically',
+           title: 'random co-player',
+           description: 'Find a co-player automatically',
            playerCount: 2,
            className: 'icon-random'
        }, {
@@ -34,7 +34,7 @@
 
     var ctor = function () {
         this.gameOptions = gameOptions;
-        this.gameOptionId = ko.observable(0);
+        this.gameOptionId = ko.observable(2);
         this.collections = ctx.user.collections;
         this.collection = ko.observable('woz');
         this.friends = ko.observableArray([]);

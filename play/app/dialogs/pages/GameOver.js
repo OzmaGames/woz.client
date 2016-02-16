@@ -2,7 +2,20 @@
 
     function Gameover(data) {
         this.heading = data.heading;
-        this.content = data.content.replace('{{scored}}', '<span class="score">' + ctx.player.score() + '</span>');
+
+        var opponent = ctx.players().length > 1?
+          ctx.players().filter(function(player) {
+            return ctx.player.username !== player.username;
+          })[0] : null;
+
+        var opponentName = opponent? opponent.username: '';
+        var opponentScore = opponent? opponent.score(): 0;
+
+        this.content = data.content
+          .replace('{{scored}}', '<span class="score">' + ctx.player.score() + '</span>')
+          .replace('{{collaborativeScored}}', '<span class="score">' + (ctx.player.score() + opponentScore) + '</span>')
+          .replace('{{opponent}}', '<span class="bold">' + opponentName + '</span>')
+          .replace('{{opponentScored}}', '<span class="score">' + opponentScore + '</span>');
         this.btnText = data.btnText;
         this.xp = data.xp || 0;
         this.noXP = data.noXP === undefined ? false : data.noXP;
@@ -33,14 +46,14 @@
 
     var messages = {
         WON: {
-            heading: "Congratulations!",
-            content: "You won the game, scoring {{scored}} points.",
+            heading: "Your poem is complete!",
+            content: "Your collaborative score was {{collaborativeScored}} <br> You got {{scored}} points and {{opponent}} got {{opponentScored}} points!",
             btnText: "Great!",
             stats: 'won'
         },
         LOST: {
-            heading: "Good luck next time!",
-            content: "You lost the game, scoring {{scored}} points.",
+            heading: "Your poem is complete!",
+            content: "Your collaborative score was {{collaborativeScored}} <br> You got {{scored}} points and {{opponent}} got {{opponentScored}} points!",
             btnText: "Dismiss!",
             stats: 'lost'
         },
@@ -53,7 +66,7 @@
         },
         RESIGNED: {
             heading: "The game has ended!",
-            content: "Your opponent has resigned from the game. Too bad, but this means you win!",
+            content: "Your co-player has resigned from the game. Too bad, but this means you win!",
             btnText: "OK!",
             target: 'lobby',
             btnSizeAuto: true,

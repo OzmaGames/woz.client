@@ -1791,7 +1791,7 @@ progress::-moz-progress-bar {
   padding: 2em 0 2em 1.5em;
   cursor: pointer;
   background-image: url('../../images/app/menu-background.png');
-  background-size: 230px 296px;
+  background-size: 230px 340px;
 }
 .dialog .control {
   position: absolute;

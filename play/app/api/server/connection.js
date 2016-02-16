@@ -1,9 +1,9 @@
 ﻿define( ['durandal/app', 'api/helper/history', 'api/helper/Log'], function ( app, history, LOG ) {
 
-   //var url = "http://wordsdevel.herokuapp.com:80";
+   var url = "http://wordsdevel.herokuapp.com:80";
    //var url = "http://wordstesting.herokuapp.com:80";
    //var url = "http://localhost:8080";
-   var url = "http://wozbeta.herokuapp.com:80";
+   //var url = "http://wozbeta.herokuapp.com:80";
 
    //var url = "http://wordsprod.herokuapp.com:80";
 
@@ -74,7 +74,7 @@
                   if ( sdata.code == 403 ) {
                      LOG.instance.log( event, '403 forbidden', LOG.themes.red );
                      app.trigger( 'access:forbidden', event );
-                     history.pushHistory( { forbidden: true, event: event, request: data, response: sdata } );                     
+                     history.pushHistory( { forbidden: true, event: event, request: data, response: sdata } );
                   }
                }
 
