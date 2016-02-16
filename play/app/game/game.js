@@ -9,7 +9,7 @@
             app.loading(false);
         } else if (loading === false) {
             app.palette.show();
-            app.palette.get("quit").visible(!ctx.tutorialMode());
+            // app.palette.get("quit").visible(!ctx.tutorialMode());
         }
     });
 
@@ -46,7 +46,7 @@
                 //s
                 //showScroll();
             } else if (e.keyCode == 85) {
-                //u  
+                //u
                 //if (ctx.player.scored)
                 //   showStars(ctx.player, ctx.lastPath);
                 //else {
@@ -643,13 +643,13 @@
                          return ctx.gameOver() && !ctx.tutorialMode();
                      }));
 
-                app.palette.add("quit", "command", "right", undefined, "Exit")
-                    .click(game.resign)
-                    .css({
-                        disabled: ko.computed(function () { return !game.allowResign() })
-                    }).visible(ko.computed(function () {
-                        return !ctx.tutorialMode() && !ctx.gameOver();
-                    }));
+                // app.palette.add("quit", "command", "right", undefined, "Exit")
+                //     .click(game.resign)
+                //     .css({
+                //         disabled: ko.computed(function () { return !game.allowResign() })
+                //     }).visible(ko.computed(function () {
+                //         return !ctx.tutorialMode() && !ctx.gameOver();
+                //     }));
 
                 app.palette.add("swapWords", "action", "left", undefined, "Swap Words")
                    .click(game.swapWords)
@@ -680,17 +680,17 @@
                    });
 
                 ctx.unload();
-                var lDFD = ctx.load(id);
+                // var lDFD = ctx.load(id);
 
-                var quitTooltip = "Exit";
-                if (!ctx.tutorialMode()) {
-                    if (lDFD.then) {
-                        quitTooltip = (ctx.playerCount == 1) ? 'Delete' : 'Resign';
-                        lDFD.then(function () {
-                            app.palette.get("quit").editTitle(quitTooltip);
-                        });
-                    }
-                }
+                // var quitTooltip = "Exit";
+                // if (!ctx.tutorialMode()) {
+                //     if (lDFD.then) {
+                //         quitTooltip = (ctx.playerCount == 1) ? 'Delete' : 'Resign';
+                //         lDFD.then(function () {
+                //             app.palette.get("quit").editTitle(quitTooltip);
+                //         });
+                //     }
+                // }
 
 
 
