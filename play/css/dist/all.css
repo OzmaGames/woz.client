@@ -7040,3 +7040,17 @@ button.toast-close-button {
 .woz-start-page:not(.page-init) .tile-shop .tile .cloud .rule span {
   left: 0px;
 }
+.shop-info-logo {
+  background: url('../../images/app/shop-info.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+.shop-welcome-dialog p {
+  margin: 0 50px;
+  margin-bottom: 10px;
+  font-size: 18px !important;
+}

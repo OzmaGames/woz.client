@@ -19,7 +19,7 @@
 
          return dfd.then(function () {
             base.module(null);
-            base.module(tabIndex === 0 ? 'home/shop/expansion' : 
+            base.module(tabIndex === 0 ? 'home/shop/expansion' :
                         tabIndex === 2 ? 'home/shop/currency' : 'home/shop/storage' );
 
             base.mode(tabIndex);
@@ -52,6 +52,20 @@
       },
       attached: function () {
          app.Sound.play( app.Sound.sounds.pageTransition );
+
+         app.dialog.show("notice", {
+            model: {
+	             close: function () {
+                 app.dialog.close("notice");
+               }
+            },
+            view: 'dialogs/pages/shop',
+            css: 'long',
+            closeOnClick: false,
+            fixed: true,
+            centered: true,
+            modal: true
+        })
       }
    }
 });
