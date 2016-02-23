@@ -27,15 +27,18 @@
 
       return API( 'getAll' ).then( function (data) {
          if ( data.success ) {
-            data.friends.sort( function ( a, b ) { return a.username > b.username; } )
+            data.friends.sort( function ( a, b ) {
+              // return a.username > b.username;
+              return a.username.localeCompare(b.username, 'en', {'sensitivity': 'base'});
+            } )
             data.friends.forEach( function ( f ) {
                f.isFriend = true;
             } )
-            model( data.friends );            
+            model( data.friends );
          }
          model.loading( false );
          return data.friends || [];
-      } );      
+      } );
    }
 
    function search( query ) {

@@ -7053,4 +7053,5 @@ button.toast-close-button {
   margin: 0 50px;
   margin-bottom: 10px;
   font-size: 18px !important;
+  text-align: left;
 }

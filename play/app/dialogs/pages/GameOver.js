@@ -48,13 +48,13 @@
         WON: {
             heading: "Your poem is complete!",
             content: "Your collaborative score was {{collaborativeScored}} <br> You got {{scored}} points and {{opponent}} got {{opponentScored}} points!",
-            btnText: "Great!",
+            btnText: "OK!",
             stats: 'won'
         },
         LOST: {
             heading: "Your poem is complete!",
             content: "Your collaborative score was {{collaborativeScored}} <br> You got {{scored}} points and {{opponent}} got {{opponentScored}} points!",
-            btnText: "Dismiss!",
+            btnText: "OK!",
             stats: 'lost'
         },
         SOLO: {

@@ -651,6 +651,13 @@
                 //         return !ctx.tutorialMode() && !ctx.gameOver();
                 //     }));
 
+                app.palette.add("circleWords", "action", "left", undefined, "Select Tool")
+                   .click(game.circleWords)
+                   .css({
+                       cancel: ko.computed(function () { return game.mode() == 'circleWords' || ctx.activeWords() }),
+                       disabled: ko.computed(function () { return !game.allowCircle() })
+                   });
+
                 app.palette.add("swapWords", "action", "left", undefined, "Swap Words")
                    .click(game.swapWords)
                    .css({
@@ -658,12 +665,6 @@
                        disabled: ko.computed(function () { return !game.allowSwap() })
                    });
 
-                app.palette.add("circleWords", "action", "left", undefined, "Select Tool")
-                   .click(game.circleWords)
-                   .css({
-                       cancel: ko.computed(function () { return game.mode() == 'circleWords' || ctx.activeWords() }),
-                       disabled: ko.computed(function () { return !game.allowCircle() })
-                   });
 
                 app.palette.add("addWords", "action", "left", undefined, "Add Word")
                    .click(game.addWords)
@@ -680,7 +681,8 @@
                    });
 
                 ctx.unload();
-                // var lDFD = ctx.load(id);
+
+                ctx.load(id);
 
                 // var quitTooltip = "Exit";
                 // if (!ctx.tutorialMode()) {
@@ -691,9 +693,6 @@
                 //         });
                 //     }
                 // }
-
-
-
             });
         },
 

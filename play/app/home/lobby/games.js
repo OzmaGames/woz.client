@@ -195,7 +195,7 @@
                if ( getWinner( g ).username == ctx.username ) {
                   return str + resolveRes( 'Poem completed with {{opponent}}! Score: {{playerScore}} over {{opponentScore}} points.', g );
                } else {
-                  return str + resolveRes( 'Poem completed with {{opponent}}! Score: {{playerScore}} over {{opponentScore}} points.', g );
+                  return str + resolveRes( 'Poem completed with {{opponent}}! Score: {{opponentScore}} over {{playerScore}} points.', g );
                }
             }
          }
