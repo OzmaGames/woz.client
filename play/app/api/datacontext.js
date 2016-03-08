@@ -397,7 +397,7 @@
                                           if (typeof nextStepFunc == 'function') {
                                               nextStepFunc();
                                           } else {
-                                              app.dialog.show("menu");
+                                              // app.dialog.show("menu");
                                           }
                                       });
                                   } else {
@@ -405,7 +405,7 @@
                                       if (typeof nextStepFunc == 'function') {
                                           nextStepFunc();
                                       } else {
-                                          app.dialog.show("menu");
+                                          // app.dialog.show("menu");
                                       }
                                   }
                               });
