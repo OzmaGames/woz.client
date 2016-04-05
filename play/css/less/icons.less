@@ -1,9 +1,9 @@
 ﻿@import '_variables.less';
 @import "tooltip.less";
 
-@action-size: 40px;
-@action-margin: 3px;
-@action-padding: 5px;
+@action-size: 55px;
+@action-margin: 6px;
+@action-padding: 8px;
 
 .actions {
     background: #faf5ef;
@@ -111,7 +111,7 @@ i.command.accept {
 }
 
 i.command.menu {
-    background-position: 0 -5em;
+    background-position: 0 -4em;
     top: 0;
     left: 0;
     position: absolute;
@@ -119,7 +119,7 @@ i.command.menu {
     .has-tooltip(50px, 12px, true, 12px );
 
     &[data-title]:after {
-        
+
         left: -40px;
     }
 
@@ -137,15 +137,15 @@ i.command.chat {
 }
 
 i.command.help {
-    background-position: 0 -8em;
+    background-position: 0 -5em;
 }
 
 i.command.quit {
-    background-position: 0 -9em;
+    background-position: 0 -6em;
 }
 
 i.command.poem {
-    background-position: 0 -10em;
+    background-position: 0 -7em;
 }
 
 i.action:not(:empty),
@@ -288,7 +288,7 @@ i.command.currency {
     font-style: normal;
     position: relative;
     display: block;
-    
+
     top: 60px;
 
     &:after {
@@ -354,25 +354,25 @@ i.command.currency {
 }
 
 @-moz-keyframes currency {
-    from {        
-        -moz-transform: rotate(0);        
+    from {
+        -moz-transform: rotate(0);
     }
 
     20%{
-        -moz-transform: rotate(-10deg);        
+        -moz-transform: rotate(-10deg);
     }
 
     50% {
-        -moz-transform: rotate(15deg);        
+        -moz-transform: rotate(15deg);
     }
 
     to {
-        -moz-transform: rotate(0);        
+        -moz-transform: rotate(0);
     }
 }
 
 @keyframes currency {
-    from {        
+    from {
         -ms-transform: rotate(0);
         -o-transform: rotate(0);
         transform: rotate(0);

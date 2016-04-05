@@ -3371,7 +3371,7 @@ ul.custom-list.draggable li.hole::before {
 }
 .actions {
   background: #faf5ef;
-  padding: 5px;
+  padding: 8px;
   border-radius: 8px;
 }
 .actions:empty {
@@ -3388,11 +3388,11 @@ ul.custom-list.draggable li.hole::before {
   position: relative;
   display: block;
   border-radius: 3px;
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
   cursor: pointer;
   text-align: center;
-  margin-bottom: 3px;
+  margin-bottom: 6px;
 }
 .actions .btn:last-child {
   margin-bottom: 0px;
@@ -3431,7 +3431,7 @@ i.action,
 i.command {
   display: block;
   border-radius: 3px;
-  font-size: 40px;
+  font-size: 55px;
   width: 1em;
   height: 1em;
   background-image: url('../../images/app/icons.png');
@@ -3456,8 +3456,8 @@ i.action {
   border: 1px solid #d7bea2;
   height: 1.5em;
   line-height: 1.5em;
-  top: 10px;
-  width: 80px;
+  top: 17.5px;
+  width: 110px;
   border-radius: 5px;
   display: block;
   visibility: hidden;
@@ -3472,10 +3472,10 @@ i.action {
   opacity: 100;
 }
 .palette.right i:not(.currency):not(.menu)[data-title]:after {
-  left: -80px;
+  left: -110px;
 }
 .palette.right i:not(.currency):not(.menu)[data-title]:hover:after {
-  left: -90px;
+  left: -120px;
 }
 .palette.right i:not(.currency):not(.menu)[data-title]:after {
   font-size: 13px;
@@ -3517,7 +3517,7 @@ i.command.accept {
   background-position: 0 -4em;
 }
 i.command.menu {
-  background-position: 0 -5em;
+  background-position: 0 -4em;
   top: 0;
   left: 0;
   position: absolute;
@@ -3525,7 +3525,7 @@ i.command.menu {
     .has-tooltip(50px, 12px, true, 12px );
 
     &[data-title]:after {
-        
+
         left: -40px;
     }
 
@@ -3541,13 +3541,13 @@ i.command.chat {
   background-position: 0 -7em;
 }
 i.command.help {
-  background-position: 0 -8em;
+  background-position: 0 -5em;
 }
 i.command.quit {
-  background-position: 0 -9em;
+  background-position: 0 -6em;
 }
 i.command.poem {
-  background-position: 0 -10em;
+  background-position: 0 -7em;
 }
 i.action:not(:empty),
 i.command:not(:empty):not(.currency) {
@@ -3555,14 +3555,14 @@ i.command:not(:empty):not(.currency) {
   background-image: none;
   border-radius: 3px;
   font-size: 12px;
-  height: 40px;
-  width: 40px;
+  height: 55px;
+  width: 55px;
 }
 i.action:not(:empty) span,
 i.command:not(:empty):not(.currency) span {
   display: table-cell;
-  height: 40px;
-  width: 40px;
+  height: 55px;
+  width: 55px;
   vertical-align: middle;
   text-align: center;
 }
