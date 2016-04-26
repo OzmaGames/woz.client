@@ -201,10 +201,25 @@
     transition: all .5s ease;
 }
 
+.dialog .slipper .no-connection-image {
+    width: 50px;
+    position: absolute;
+    left: 40px;
+    top: 38px;
+
+    transition: all .5s;
+}
+
 .dialog .slipper.minimized {
     width: 300px;
     padding-top: 35px;
     padding-bottom: 10px;
+
+    .no-connection-image {
+        width: 25px;
+        left: 20px;
+        top: 32px;
+    }
 }
 
 .dialog .slipper.minimized .btnCommand {

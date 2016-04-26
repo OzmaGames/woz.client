@@ -1760,10 +1760,22 @@ progress::-moz-progress-bar {
   -webkit-transition: all .5s ease;
   transition: all .5s ease;
 }
+.dialog .slipper .no-connection-image {
+  width: 50px;
+  position: absolute;
+  left: 40px;
+  top: 38px;
+  transition: all .5s;
+}
 .dialog .slipper.minimized {
   width: 300px;
   padding-top: 35px;
   padding-bottom: 10px;
+}
+.dialog .slipper.minimized .no-connection-image {
+  width: 25px;
+  left: 20px;
+  top: 32px;
 }
 .dialog .slipper.minimized .btnCommand {
   -moz-transform: rotate(180deg);
@@ -3517,7 +3529,7 @@ i.command.accept {
   background-position: 0 -4em;
 }
 i.command.menu {
-  background-position: 0 -4em;
+  background-position: 0 -5em;
   top: 0;
   left: 0;
   position: absolute;
@@ -3541,13 +3553,13 @@ i.command.chat {
   background-position: 0 -7em;
 }
 i.command.help {
-  background-position: 0 -5em;
+  background-position: 0 -8em;
 }
 i.command.quit {
-  background-position: 0 -6em;
+  background-position: 0 -9em;
 }
 i.command.poem {
-  background-position: 0 -7em;
+  background-position: 0 -10em;
 }
 i.action:not(:empty),
 i.command:not(:empty):not(.currency) {
@@ -5151,6 +5163,14 @@ body > .cloud.fixed .rule {
   -webkit-transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
   transform: rotateZ(-15deg) translateY(1em) translateX(-3em);
   text-align: center;
+}
+.image-pool {
+  position: absolute;
+  z-index: -100;
+  left: 10000px;
+}
+.image-pool img {
+  width: 1px;
 }
 /*.aaa{
     .has-tooltip(60px);
@@ -6949,7 +6969,7 @@ button.toast-close-button {
   position: absolute;
   top: 5px;
   left: 5px;
-  background-image: url('icons.png');
+  background-image: url('/images/icons/icons.png');
   background-repeat: no-repeat;
   font-size: 68.57142857px;
   display: block;

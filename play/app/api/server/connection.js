@@ -20,6 +20,8 @@
       app.trigger( "socket:server", url.match( /devel/gi ) );
       state = true;
 
+      app.dialog.show("slipper-alert", { connected: true });
+
       history.pushHistory( { event: 'connected' } );
    } );
 
@@ -28,6 +30,8 @@
 
       app.trigger( "socket:status", "disconnect" );
       state = false;
+
+      app.dialog.show("slipper-alert", { connected: false });
 
       history.pushHistory( { event: 'disconnected' } );
    } );

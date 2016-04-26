@@ -1,6 +1,17 @@
 ﻿define( 'api/context/lobby', ['durandal/app', './storage'], function ( app, Storage ) {
 
-   var version = 0.61;
+
+
+   var daysTillExpiration = 7;
+   var version = (function() {
+      var now = new Date();
+      var start = new Date(now.getFullYear(), 0, 0);
+      var diff = now - start;
+      var oneDay = 1000 * 60 * 60 * 24;
+      var day = Math.floor(diff / oneDay);
+
+      return day - day % daysTillExpiration;
+   })();
 
    Object.beget = ( function ( Function ) {
       return function ( Object ) {
@@ -68,22 +79,22 @@
       function pullGames() {
          if ( !storage ) return;
          //if ( base.loading() ) return;
-         
+
          var since = storage.since.load();
 
          if ( since && !base.games().length ) {
-            //if list is empty, fill it with local stored games while waiting            
+            //if list is empty, fill it with local stored games while waiting
             base.games( polish( storage.games.loadCopy() ) );
          }
 
          base.loading( true );
          app.trigger( "server:lobby", { username: _user.username, modDate: since }, function ( data ) {
-            
+
             if ( data.success ) {
                removeGames( data.deletedIDs );
                if ( data.games.length ) {
                   publishGames( data.games );
-               }                          
+               }
             }
             base.loading( false );
          } );
@@ -186,7 +197,7 @@
 
          storage.games.save( localGames );
 
-         if ( refreshNeeded ) {            
+         if ( refreshNeeded ) {
             base.games.removeAll();
             base.notifications.removeAll();
             base.games( polish( storage.games.loadCopy() ) );
