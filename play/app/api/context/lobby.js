@@ -2,8 +2,8 @@
 
 
 
-   var daysTillExpiration = 7;
    var version = (function() {
+      var daysTillExpiration = 7;
       var now = new Date();
       var start = new Date(now.getFullYear(), 0, 0);
       var diff = now - start;
